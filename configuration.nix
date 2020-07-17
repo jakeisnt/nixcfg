@@ -3,7 +3,7 @@
   # NixOS wants to enable GRUB by default
   boot.loader.grub.enable = false;
 
-  # if you have a Raspberry Pi 2 or 3, pick this:
+  # fix for boot bug in 5.x kernel
   boot.kernelPackages = pkgs.linuxPackages_4_19;
 
   # A bunch of boot parameters needed for optimal runtime on RPi 3b+
@@ -17,12 +17,11 @@
 
   environment.systemPackages = with pkgs; [
     raspberrypi-tools
-    vim
+    nvim
     git
     tmux
     networkmanager
   ];
-  
 
   # File systems configuration for using the installer's partition layout
   fileSystems = {
@@ -47,14 +46,8 @@
   swapDevices = [ { device = "/swapfile"; size = 1024; } ];
  
   hardware.enableRedistributableFirmware = true;
-  # networking.wireless.enable = true;
   networking.networkmanager.enable = true;
   
-  networking.wireless.extraConfig = ''
-  ctrl_interface=/run/wpa_supplicant
-  ctrl_interface_group=wheel
-  '';
-
   users.extraUsers.jake = {
     isNormalUser = true;
     home = "/home/jake";
