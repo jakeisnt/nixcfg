@@ -1,0 +1,25 @@
+#+TITLE: Todo
+* [0/3] create separate installation frameworks
+** TODO emacs:
+   - exwm
+   - firefox
+   ... that's about it
+** TODO headless:
+   - vim
+   - tmux
+   - ranger
+   - newsboat
+   - mutt
+   other cli utilities as used
+** TODO 'normal' desktop
+   - fun wm (currently: bsp)
+   - some of the cli things
+   - else
+* TODO input mapping
+ensure capslock -> mod/esc works
+allow tap-to-click on trackpad
+* TODO bluetooth
+ensure bluetoothctl is configured
+definitely still have to manually pair everything though : (
+* TODO networking
+ensure the device can properly connect to local network
