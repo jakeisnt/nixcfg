@@ -1,0 +1,14 @@
+#+TITLE: Nixos Install
+
+these are nixos install notes
+
+i had to:
+- login as root
+ passwd {username}
+ set password for username
+ then i could log in as normal user
+ chown -hR jake /etc/nixos
+ then git clone into it from my nix-cfg repo
+
+* TODO reproducible git configuration
+* TODO make sure everything is backed up on this computer before i install elsewhere
