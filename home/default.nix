@@ -3,6 +3,7 @@
 {
   imports = [
     ./nvim
+    ./emacs
     ./git.nix
     ./tmux.nix
   ];

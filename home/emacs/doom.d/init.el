@@ -130,7 +130,7 @@
        ;; markdown          ; writing docs for people to ignore
        ;;nim               ; python + lisp at the speed of c
        nix               ; I hereby declare "nix geht mehr!"
-       ocaml             ; an objective camel
+       ;; ocaml             ; an objective camel
        (org              ; organize your plain life in plain text
         +dragndrop       ; drag & drop files/images into org buffers
         +noter           ; take notes on everything!
@@ -164,7 +164,7 @@
 
        :email
        (mu4e +gmail)
-       notmuch
+       ;; notmuch
        (wanderlust +gmail)
 
        :app
