@@ -31,6 +31,8 @@
     networkmanager
   ];
 
+
+
   # File systems configuration for using the installer's partition layout
   fileSystems = {
     "/" = {
