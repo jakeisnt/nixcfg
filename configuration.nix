@@ -3,25 +3,13 @@
 {
   imports = [
     <home-manager/nixos>
-    ./arch/pi
+    ./hosts/pi
   ];
-
-
-
-  # Preserve space by sacrificing documentation and history
-  documentation.nixos.enable = false;
 
   nixpkgs.config.allowUnfree = true;
 
   home-manager.useUserPackages = true;
   home-manager.users.jake = import ./home.nix;
-
-  environment.systemPackages = with pkgs; [
-    ranger
-    networkmanager
-    raspberrypi-tools
-  ];
-
   
   nix.gc.automatic = true;
   nix.gc.options = "--delete-older-than 30d";
