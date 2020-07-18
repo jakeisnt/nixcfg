@@ -1,5 +1,9 @@
 { config, pkgs, lib, ... }:
+
 {
+  imports = [
+    (import "${builtins.fetchTarball https://github.com/rycee/home-manager/archive/master.tar.gz}/nixos")
+  ];
   # NixOS wants to enable GRUB by default
   boot.loader.grub.enable = false;
 
@@ -17,9 +21,9 @@
 
   environment.systemPackages = with pkgs; [
     raspberrypi-tools
-    nvim
     git
     tmux
+    neovim
     networkmanager
   ];
 
@@ -54,4 +58,17 @@
     hashedPassword = "";
     extraGroups = [ "wheel" "networkmanager" ];
   };
+
+  programs.home-manager.enable = true;
+
+  programs.neovim = {
+    package = pkgs.neovim;
+    enable = true;
+
+    viAlias = true;
+    vimAlias = true;
+    withNodeJs = true;
+  };
+
+  # nvim.sessionVariables.EDITOR = "nvim";
 }
