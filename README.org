@@ -1,0 +1,3 @@
+#+title: NixOS Configuration
+
+This is the current configuration for my operating system, NixOS.

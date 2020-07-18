@@ -27,8 +27,6 @@
 
   environment.systemPackages = with pkgs; [
     raspberrypi-tools
-    git
-    tmux
     ranger
     networkmanager
   ];
