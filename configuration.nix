@@ -3,7 +3,7 @@
 {
   imports = [
     <home-manager/nixos>
-    ./hosts/pi
+    ./hosts/xps
   ];
 
   nixpkgs.config.allowUnfree = true;

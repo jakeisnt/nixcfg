@@ -1,3 +1,9 @@
 #+title: NixOS Configuration
 
 This is the current configuration for my operating system, NixOS.
+
+remember to add home-manager channel
+and update channels
+chown /etc/nixos
+
+then install things
