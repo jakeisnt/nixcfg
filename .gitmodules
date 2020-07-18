@@ -1,0 +1,3 @@
+[submodule "home/emacs/nix-doom-emacs"]
+	path = home/emacs/nix-doom-emacs
+	url = https://github.com/vlaci/nix-doom-emacs.git

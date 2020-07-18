@@ -2,8 +2,9 @@
 
 {
   imports = [
-    (import "${builtins.fetchTarball https://github.com/rycee/home-manager/archive/master.tar.gz}/nixos")
+    <home-manager/nixos>
   ];
+  
   # NixOS wants to enable GRUB by default
   boot.loader.grub.enable = false;
 
@@ -19,11 +20,16 @@
     gpu_mem=256
   '';
 
+  nixpkgs.config.allowUnfree = true;
+
+  home-manager.useUserPackages = true;
+  home-manager.users.jake = import ./home.nix;
+
   environment.systemPackages = with pkgs; [
     raspberrypi-tools
     git
     tmux
-    neovim
+    ranger
     networkmanager
   ];
 
@@ -59,16 +65,8 @@
     extraGroups = [ "wheel" "networkmanager" ];
   };
 
-  programs.home-manager.enable = true;
-
-  programs.neovim = {
-    package = pkgs.neovim;
+  hardware.pulseaudio = {
     enable = true;
-
-    viAlias = true;
-    vimAlias = true;
-    withNodeJs = true;
+    support32Bit = true;
   };
-
-  # nvim.sessionVariables.EDITOR = "nvim";
 }
