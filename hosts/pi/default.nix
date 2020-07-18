@@ -1,4 +1,4 @@
-{ ...}:
+{ config, pkgs, lib, ... }:
 
 {
   imports = [
@@ -10,7 +10,7 @@
     raspberrypi-tools
   ];
 
-  networking.hostname = "pi";
+  networking.hostName = "pi";
 
   # Preserve space by sacrificing documentation and history
   documentation.nixos.enable = false;
