@@ -12,13 +12,17 @@
 
   services.xserver = {
     enable = true;
-    autorun = false;
+    autorun = true;
     layout = "us";
     desktopManager = {
       xterm.enable = false;
     };
     displayManager.defaultSession = "none+i3";
     windowManager.i3.enable = true;
+
+    monitorSection = ''
+      DisplaySize 406 228
+    '';
   };
 
   # Use the systemd-boot EFI boot loader.
@@ -55,7 +59,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    wget vim networkmanager git
+    wget vim networkmanager git terminator
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
