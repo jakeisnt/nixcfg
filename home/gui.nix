@@ -5,6 +5,7 @@ in
 {
   imports = [
     ./nvim
+    ./emacs
     ./git.nix
     ./tmux.nix
     ./shells.nix

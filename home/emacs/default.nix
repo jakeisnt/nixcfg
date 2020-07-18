@@ -1,5 +1,7 @@
 { config, pkgs, lib, ... }:
 let
+  inherit (pkgs) stdenv;
+  inherit (stdenv) lib;
   inherit (import ../helpers.nix) justLinuxAttrs;
   doom-emacs = pkgs.callPackage ./nix-doom-emacs {
     doomPrivateDir = ./doom.d;
@@ -8,12 +10,7 @@ let
     ]);
   };
 in
-{
-  home.packages = with pkgs; [
-    emacs-all-the-icons-fonts
-    fira-code-symbols
-  ];
-
+  {
   programs.emacs = {
     enable = true;
     package = doom-emacs;

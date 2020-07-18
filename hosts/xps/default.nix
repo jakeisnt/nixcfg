@@ -7,6 +7,20 @@
       ./hardware-configuration.nix
     ];
 
+
+  home-manager.users.jake = import ../../home/gui.nix;
+
+  services.xserver = {
+    enable = true;
+    autorun = false;
+    layout = "us";
+    desktopManager = {
+      xterm.enable = false;
+    };
+    displayManager.defaultSession = "none+i3";
+    windowManager.i3.enable = true;
+  };
+
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;

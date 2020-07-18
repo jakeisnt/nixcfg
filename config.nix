@@ -8,7 +8,6 @@
   nixpkgs.config.allowUnfree = true;
 
   home-manager.useUserPackages = true;
-  home-manager.users.jake = import ./home.nix;
   
   nix.gc.automatic = true;
   nix.gc.options = "--delete-older-than 30d";
