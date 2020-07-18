@@ -24,6 +24,9 @@
       set -sg repeat-time 600 # increase repeat timeout
       set -s focus-events on
 
+      bind c split-window -h
+      bind v split-window -v
+
       bind \\ split-window -h -c '#{pane_current_path}'  # Split panes horizontal
       bind - split-window -v -c '#{pane_current_path}'  # Split panes vertically
       bind > swap-pane -D       # swap current pane with the next one
@@ -40,6 +43,11 @@
       bind -r J resize-pane -D 5
       bind -r K resize-pane -U 5
       bind -r L resize-pane -R 5
+
+      unbind Pagedown
+      unbind Pageup
+      bind-key Pagedown next-window
+      bind-key Pageup previous-window
     '';
   };
 }

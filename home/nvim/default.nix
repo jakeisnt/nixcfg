@@ -1,6 +1,10 @@
 { config, pkgs, lib, ...}:
 
 {
+  imports = [
+    ./plugins
+  ];
+
   programs.neovim = {
     package = pkgs.neovim;
     enable = true;
