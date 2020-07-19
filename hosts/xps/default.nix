@@ -2,7 +2,7 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
       <nixos-hardware/dell/xps/13-9370>
       ./hardware-configuration.nix
     ];
@@ -14,11 +14,21 @@
     enable = true;
     autorun = true;
     layout = "us";
+    xkbOptions = "caps:swapescape";
+
     desktopManager = {
       xterm.enable = false;
     };
-    displayManager.defaultSession = "none+i3";
-    windowManager.i3.enable = true;
+    # windowManager.i3.enable = true;
+    # windowManager.exwm.enable = true; 
+    windowManager.session = lib.singleton {
+      # ${pkgs.emacs}/bin/
+      name = "exwm";
+      start = ''
+        emacs --daemon -f exwm-enable
+        emacsclient -c
+      '';
+    };
 
     monitorSection = ''
       DisplaySize 406 228
