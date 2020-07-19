@@ -12,6 +12,13 @@ in
     ./shells.nix
   ];
 
+  services.xcape = {
+    enable = true;
+    mapExpression = {
+      Hyper_L = "Escape";
+    };
+  };
+
   home.packages = with pkgs; [
     ranger
     ripgrep

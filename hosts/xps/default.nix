@@ -14,7 +14,7 @@
     enable = true;
     autorun = true;
     layout = "us";
-    xkbOptions = "caps:swapescape";
+    xkbOptions = "caps:swapescape, ";
 
     desktopManager = {
       xterm.enable = false;
@@ -36,7 +36,26 @@
     '';
   };
 
-  services.syncthing.enable = true;
+
+  # services.mopidy = {
+  #   enable = true;
+  #   extensionPackages = [ pkgs.mopidy-spotify pkgs.mopidy-mopify pkgs.mopidy-soundcloud ];
+  #   configuration = ''
+  #   [spotify]
+  #   username =
+  #   password =
+  #   '';
+  # };
+
+  services.syncthing = {
+    enable = true;
+    openDefaultPorts = true;
+    systemService = true;
+    user = "jake";
+    group = "wheel";
+    dataDir = "/home/jake";
+  };
+
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
