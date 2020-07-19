@@ -29,7 +29,6 @@
       ".venv"
       ".idea"
       ".DS_Store"
-      ".envrc"
     ];
     extraConfig = {
       credential = {

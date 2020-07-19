@@ -26,10 +26,13 @@ in
     wget
     coreutils
     sqlite
+    direnv
   ] ++ justLinux [
     fzf
     syncthing
   ];
+
+  services.lorri.enable = true;
 
   programs.home-manager.enable = true;
 }

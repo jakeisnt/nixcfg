@@ -316,7 +316,8 @@
     (ansi-term "/usr/bin/env bash" "htop")
     (comint-send-string "*htop*" "htop\n")))
 
-(defun connect-vultr () ;; connect to vps
+(defun connect-vultr ()
+  " Connect to my Vultr VPS."
   (interactive)
   (dired "/ssh:jake@107.191.42.68:"))
 
