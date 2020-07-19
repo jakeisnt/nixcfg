@@ -19,10 +19,10 @@
     desktopManager = {
       xterm.enable = false;
     };
-    # windowManager.i3.enable = true;
-    # windowManager.exwm.enable = true; 
+
+    displayManager.startx.enable = false;
+
     windowManager.session = lib.singleton {
-      # ${pkgs.emacs}/bin/
       name = "exwm";
       start = ''
         emacs --daemon -f exwm-enable
@@ -66,10 +66,8 @@
   # Set your time zone.
   # time.timeZone = "Europe/Amsterdam";
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
   environment.systemPackages = with pkgs; [
-    wget vim networkmanager git terminator
+    wget git pulseaudio-ctl
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
