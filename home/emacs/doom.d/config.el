@@ -33,7 +33,7 @@
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type t)
+(setq display-line-numbers-type 'relative)
 
 
 ;; Here are some additional functions/macros that could help you configure Doom:
@@ -46,11 +46,9 @@
 ;;   `require' or `use-package'.
 ;; - `map!' for binding new keys
 ;;
-;; To get information about any of these functions/macros, move the cursor over
-;; the highlighted symbol at press 'K' (non-evil users must press 'C-c c k').
-;; This will open documentation for it, including demos of how they are used.
-;;
+
+;; K :: open documentation for a symbol
 ;; gd :: go to definition
 
 (map! :leader
-    "h r r" (shell-command "sudo nixos-rebuild switch"))
+    "h r n" (lambda () (interactive) (shell-command "sudo -S nixos-rebuild switch")))

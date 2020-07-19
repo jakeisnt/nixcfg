@@ -110,3 +110,10 @@
 (exwm-input-set-key
  (kbd "<XF86AudioMute>")
  (lambda () (interactive) (shell-command "pulseaudio-ctl mute")))
+
+(exwm-input-set-key
+ (kbd "<XF86MonBrightnessUp>")
+ (lambda () (interactive) (shell-command "light -A 10")))
+(exwm-input-set-key
+ (kbd "<XF86MonBrightnessDown>")
+ (lambda () (interactive) (shell-command "light -U 10")))

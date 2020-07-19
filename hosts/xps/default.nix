@@ -30,10 +30,13 @@
       '';
     };
 
+    # 406 228 work at 250%
     monitorSection = ''
-      DisplaySize 406 228
+      DisplaySize 325 182
     '';
   };
+
+  services.syncthing.enable = true;
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -69,6 +72,8 @@
   environment.systemPackages = with pkgs; [
     wget git pulseaudio-ctl
   ];
+
+  programs.light.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -113,7 +118,7 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.jake = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "networkmanager" "video" ]; # Enable ‘sudo’ for the user.
   };
 
   # This value determines the NixOS release from which the default
