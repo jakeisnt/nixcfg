@@ -154,7 +154,7 @@
         ;;+present         ; org-mode for presentations
         +journal           ; journal
         +roam              ; world's best wiki
-        ; +tanglesync      ; sync dotfiles!
+        ; +tanglesync      ; maintain dotfiles as org-mode files
         +chef              ; manage recipes
         ; +ref               ; manage references
         )

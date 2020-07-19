@@ -10,7 +10,12 @@ let
     ]);
   };
 in
-  {
+{
+  home.packages = with pkgs; [
+    emacs-all-the-icons-fonts
+    fira-code-symbols
+  ];
+
   programs.emacs = {
     enable = true;
     package = doom-emacs;

@@ -25,6 +25,7 @@ in
     valgrind
     wget
     coreutils
+    sqlite
   ] ++ justLinux [
     fzf
     syncthing
