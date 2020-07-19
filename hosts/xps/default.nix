@@ -14,7 +14,7 @@
     enable = true;
     autorun = true;
     layout = "us";
-    xkbOptions = "caps:swapescape, ";
+    xkbOptions = "caps:swapescape";
 
     desktopManager = {
       xterm.enable = false;
@@ -32,7 +32,7 @@
 
     # 406 228 work at 250%
     monitorSection = ''
-      DisplaySize 325 182
+      DisplaySize 406 228
     '';
   };
 
