@@ -48,3 +48,12 @@
 ;(unpin! pinned-package another-pinned-package)
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;(unpin! t)
+
+;;;; Code:
+(package! org-projectile)
+(package! org-roam-server)
+(package! org-roam-bibtex)
+(package! org-noter)
+(package! company-org-roam)
+;; (package! proof-general)
+(package! latex-preview-pane)

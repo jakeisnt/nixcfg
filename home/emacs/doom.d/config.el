@@ -18,7 +18,7 @@
 
 (setq undo-limit 80000000                         ; Raise undo-limit to 80Mb
       evil-want-fine-undo t                       ; By default while in insert all changes are one big blob. Be more granular
-      auto-save-default t                         ; Nobody likes to lose work
+      ;; auto-save-default t                         ; Nobody likes to lose work
       inhibit-compacting-font-caches t            ; When there are lots of glyphs, keep them in memory
       truncate-string-ellipsis "…")               ; Unicode ellispis are nicer than "...", and also save /precious/ space
 
@@ -47,7 +47,6 @@
 
 
 (add-hook 'after-change-major-mode-hook #'doom-modeline-conditional-buffer-encoding)
-
 
 ;; -------------------------------------------------------------------------- RSS
 ;; (use-package! elfeed) TODO
@@ -92,10 +91,34 @@
 
 (setq j/org-calendar-dir "~/org/calendar/")
 
+(use-package! org-projectile
+  :init
+  (map! :leader
+        :prefix "p"
+        :desc "Add a TODO to a project" "n" #'org-projectile-project-todo-completing-read)
+  :config
+  (progn
+    (org-projectile-per-project)
+    (setq org-projectile-projects-file
+          "TODO.org")
+    (setq org-agenda-files (append org-agenda-files (org-projectile-todo-files)))
+    (push (org-projectile-project-todo-entry) org-capture-templates))
+  :ensure t)
 (setq org-log-done 'time
       org-log-into-drawer t
       org-log-state-notes-insert-after-drawers nil)
 
+(use-package! deft ;; use deft to index org wiki files
+      :after org
+      :bind
+      ("C-c n d" . deft)
+      :custom
+      (deft-recursive t)
+      (deft-ignore-file-regexp "hugo_setup")
+      (deft-use-filename-as-title t)
+      (deft-use-filter-string-for-filename t)
+      (deft-default-extension "org")
+      (deft-directory "~/org/wiki/org/"))
 
 (use-package! org
   :mode ("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode)
@@ -126,9 +149,6 @@
                                        ("t" . "theorem")))
   (with-eval-after-load 'flycheck
     (flycheck-add-mode 'proselint 'org-mode)))
-
-(use-package! org-chef
-  :ensure t)
 
 
 (setq org-capture-templates
@@ -202,19 +222,6 @@
         (org-hugo-auto-export-mode -1))))
   (add-hook 'org-mode-hook #'j/conditional-hugo-enable))
 
-(use-package! org-projectile
-  :init
-  (map! :leader
-        :prefix "p"
-        :desc "Add a TODO to a project" "n" #'org-projectile-project-todo-completing-read)
-  :config
-  (progn
-    (org-projectile-per-project)
-    (setq org-projectile-projects-file
-          "TODO.org")
-    (setq org-agenda-files (append org-agenda-files (org-projectile-todo-files)))
-    (push (org-projectile-project-todo-entry) org-capture-templates))
-  :ensure t)
 
 
 (use-package! company-org-roam
@@ -222,18 +229,6 @@
   :after org-roam
   :config
   (set-company-backend! 'org-mode '(company-org-roam company-yasnippet company-dabbrev)))
-
-(use-package! deft ;; use deft to index org wiki files
-      :after org
-      :bind
-      ("C-c n d" . deft)
-      :custom
-      (deft-recursive t)
-      (deft-ignore-file-regexp "hugo_setup")
-      (deft-use-filename-as-title t)
-      (deft-use-filter-string-for-filename t)
-      (deft-default-extension "org")
-      (deft-directory "~/org/wiki/org/"))
 
 
 (use-package! org-journal ;; org-journal configuration
@@ -299,7 +294,9 @@
 ;; gd :: go to definition
 
 (map! :leader
-      "h r n" (lambda () (interactive) (shell-command "sudo -S nixos-rebuild switch")))
+      "h r n" (lambda () (interactive)
+    (let ((default-directory "/sudo::"))
+     (shell-command "nixos-rebuild switch"))))
 
 
 (defun gotop ()
@@ -307,7 +304,7 @@
   (interactive)
   (if (get-buffer "*gotop*")
       (switch-to-buffer "*gotop*")
-    (ansi-term "/bin/bash" "gotop")
+    (ansi-term "/usr/bin/env bash" "gotop")
     (comint-send-string "*gotop*" "gotop\n")))
 
 
@@ -316,7 +313,7 @@
   (interactive)
   (if (get-buffer "*htop*")
       (switch-to-buffer "*htop*")
-    (ansi-term "/bin/bash" "htop")
+    (ansi-term "/usr/bin/env bash" "htop")
     (comint-send-string "*htop*" "htop\n")))
 
 (defun connect-vultr () ;; connect to vps
