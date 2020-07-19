@@ -1,16 +1,23 @@
 { pkgs, ...}:
-
 {
     programs.firefox = {
         enable = true;
-        # extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+        # extensions = with pkgs.NUR.repos.rycee.firefox-addons; [
         #     https-everywhere
         #     privacy-badger
+        #     lastpass
         # ];
-
 
         profiles = {
             jake = {
+                settings = {
+                    "browser.search.isUS" = true;
+                    "browser.search.region" = "US";
+                    "browser.bookmarks.showMobileBookmarks" = true;
+                    "widget.content.allow-gtk-dark-theme" = true;
+                    "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+                };
+
                 isDefault = true;
 
                 userContent = ''
@@ -28,7 +35,6 @@
                     }
 
                     @-moz-document url(about:privatebrowsing) {
-
                         :root{
                             scrollbar-width: none !important;
                         }
@@ -91,13 +97,13 @@
 
                 /* Custom back and forward buttons */
                 #back-button {
-                    list-style-image: url("left-arrow.svg") !important;
+                    /* list-style-image: url("left-arrow.svg") !important; */
                     border: none !important;
                     color: var(--color-bg) !important;
                 }
 
                 #forward-button {
-                    list-style-image: url("right-arrow.svg") !important;
+                    /* list-style-image: url("right-arrow.svg") !important; */
                 }
 
                 #navigator-toolbox {
@@ -109,10 +115,7 @@
                     min-height: var(		--tabs-container-height	) !important;
                 }
 
-                /* *******************************************************************
-                    Urlbar
-
-                */
+                /* Urlbar */
 
                 ::-moz-selection {
                 background-color: #21242b !important;
@@ -193,10 +196,7 @@
                     border: none !important;
                 }
 
-                /* *******************************************************************
-                    Browser tabs
-                */
-
+                /* Browser tabs */
                 /* Hide some bloat */
                 .tab-close-button,
                 .tab-line,
@@ -275,9 +275,7 @@
                     margin-inline-end: var(--margin-after-tab-list) !important;
                 }
 
-                /* *******************************************************************
-                    Settings menu pop-up
-                */
+                /* Settings menu pop-up */
                 menupopup {
                 -moz-appearance: none !important;
                 background-color: #4a4a4f !important;
