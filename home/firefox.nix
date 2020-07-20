@@ -21,9 +21,7 @@
             jake = {
 
                 isDefault = true;
-
-                settings = {
-                    "browser.search.isUS" = true;
+settings = {"browser.search.isUS" = true;
                     "browser.startup.firstrunSkipsHomepage" = true;
                     "browser.startup.homepage" = "about:blank";
                     "browser.search.region" = "US";
@@ -73,6 +71,29 @@
                 '';
 
                 userChrome = ''
+                :root{ --uc-toolbar-height: 32px; }
+
+                :root:not([uidensity="compact"]){--uc-toolbar-height: 38px}
+
+                #TabsToolbar{ visibility: collapse !important; display: none; }
+
+                /* moves tab bar below toolbar */
+                :root:not([inFullscreen]) #nav-bar{
+                    margin-top: calc(0px - var(--uc-toolbar-height));
+                }
+
+                #toolbar-menubar{
+                    min-height:unset !important;
+                    height:var(--uc-toolbar-height) !important;
+                    position: relative;
+                }
+
+                #toolbar-menubar:not([inactive]){ z-index: 2 }
+                #toolbar-menubar[inactive] > #menubar-items {
+                    opacity: 0;
+                    pointer-events: none;
+                    margin-left: var(--uc-window-drag-space-width,0px)
+                }
 
                 html#main-window {
                     --color-bg: #21242b;
@@ -83,8 +104,8 @@
                     --margin-before-tab-list: 3px;
                     --tab-font: "Cantarell", sans-serif;
                     --tab-font-weight: 700;
-                    --tab-height: 20px;
-                    --tabs-container-height: 70px;
+                    --tab-height: 0 !important;
+                    --tabs-container-height: 0 !important;
 
                     --urlbar-container-margin: 5px;
                     --urlbar-list-width: 60%;
@@ -100,11 +121,6 @@
                     --arrowpanel-background: #21242b !important;
                     --arrowpanel-color: #bbc2cf !important;
                     --arrowpanel-border-color: transparent !important;
-                }
-
-                /* This positions the tabs under the navaigator container */
-                #titlebar {
-                    -moz-box-ordinal-group: 3 !important;
                 }
 
                 /* Toolbar Elements */
@@ -126,13 +142,11 @@
 
                 /* Custom back and forward buttons */
                 #back-button {
-                    /* list-style-image: url("left-arrow.svg") !important; */
                     border: none !important;
                     color: var(--color-bg) !important;
                 }
 
                 #forward-button {
-                    /* list-style-image: url("right-arrow.svg") !important; */
                     border: none !important;
                     color: var(--color-bg) !important;
                 }
@@ -142,8 +156,8 @@
                     background-color: var(--color-bg) !important;
                     border: none !important;
                     box-shadow: none !important;
-                    max-height: var(		--tabs-container-height	) !important;
-                    min-height: var(		--tabs-container-height	) !important;
+                    max-height: 70px  !important;
+                    min-height: 70px !important;
                 }
 
                 /* Urlbar */
@@ -233,77 +247,15 @@
                 .tab-line,
                 .tabbrowser-tab::before,
                 .tabbrowser-tab::after,
+                .tabbrowser-tab:hover, 
+                .tabbrowser-tab,
+                .tab-content,
+                .tab-stack,
+                .tabbrowser-arrowscrollbox,
                 .tabbrowser-tab .tab-icon-image {
                     display: none !important;
-                }
-
-                /* Regular browser tabs */
-                .tabbrowser-tab {
-                    background-color: #1d2026 !important;
-                    background-image: linear-gradient(to left, var(--color-tab-normal-start), var(--color-tab-normal-end)) !important;
-                    border-radius: var(--tab-height) !important;
-                    margin-inline-end: var(--gap-between-tabs) !important;
                     max-height: var(--tab-height) !important;
                     min-height: var(--tab-height) !important;
-                    font-size: 12px !important;
-                    color: white !important;
-                }
-
-                .tabbrowser-tab:hover {
-                    background-color: none !important;
-                    background-image: linear-gradient(to left, #c97dff, #ff8989) !important;
-                    color: black !important;
-                }
-
-                .tabbrowser-tab[selected="true"] {
-                    background-color: #51afef !important;
-                    background-image: none !important;
-                    color: black !important;
-                    font-weight: var(--tab-font-weight) !important;
-                }
-
-                .tab-content {
-                    background-color: none !important;
-                    background-image: none !important;
-                    font-family: var(--tab-font) !important;
-                }
-
-                /* pinned browser tabs */
-                .tabbrowser-tab:hover[pinned="true"] {
-                    background-image: linear-gradient(to left, #ff8989, #ff8989) !important;
-                }
-
-                .tabbrowser-tab[pinned="true"][selected="true"] {
-                    background-image: linear-gradient(to left, #a1ffb6, #a1ffb6) !important;
-                }
-
-                .tabbrowser-tab[pinned="true"] {
-                    background-image: linear-gradient(to left, #ffc386, #ffc386) !important;
-                    color: #1d1d1d !important;
-                    max-width: var(--tab-height) !important;
-                    min-width: var(--tab-height) !important;
-                }
-
-                .tabbrowser-tab[pinned="true"] .tab-icon-image {
-                    align-items: center !important;
-                    display: inline-block !important;
-                    min-height: var(--pinned-tab-favicon-dim) !important;
-                    min-width: var(--pinned-tab-favicon-dim) !important;
-                }
-
-                .tabbrowser-tab[pinned="true"] .tab-label-container {
-                    display: none !important;
-                }
-
-                .tab-stack {
-                    display: flex !important;
-                    justify-content: center !important;
-                }
-
-                /* Modify these values to tweak the start point of the tab list */
-                .tabbrowser-arrowscrollbox {
-                    margin-inline-start: var(--margin-before-tab-list) !important;
-                    margin-inline-end: var(--margin-after-tab-list) !important;
                 }
 
                 /* Settings menu pop-up */
@@ -361,49 +313,103 @@
                     margin: 0 !important;
                 }
 
-                /* Hide tabs toolbar Fx65+ */
+                tab:only-of-type, tab:only-of-type + #tabs-newtab-button {
+                    display: none !important;
+                }
+
+                #tabbrowser-tabs, #tabbrowser-arrowscrollbox {
+                    min-height: 0 !important;
+                }
+
+                /* Modify to change window drag space width */
+                root[tabsintitlebar="true"] #nav-bar{ --window-drag-space-width: 24px } 
+
+                .titlebar-buttonbox-container{
+                    position: fixed;
+                    display:block !important;
+                    top:0;
+                    right:0;
+                    height: 40px;
+                }
+
+                toolbar-menubar[inactive] > .titlebar-buttonbox-container{ opacity: 0 } 
+                root[sidemode="maximized"] > #navigator-toolbox{ padding-top: 8px !important; } 
+                root[sizemode="maximized"] .titlebar-buttonbox-container{ top: 8px } 
+                root[uidensity="compact"] .titlebar-buttonbox-container{ height: 32px } 
+
+                .titlebar-buttonbox-container > .titlebar-buttonbox{ height: 100%; }
+
+                titlebar{
+                    -moz-box-ordinal-group: 2;
+                    -moz-appearance: none !important;
+                }
+
+                root[tabsintitlebar="true"] #nav-bar{ 
+                    padding-right: calc(138px + var(--window-drag-space-width,0px));
+                    padding-left: var(--window-drag-space-width,0px)
+                }
+
+                .titlebar-placeholder,
+                TabsToolbar .titlebar-spacer{ display: none; } 
+
+                /* Also hide the toolbox bottom border which isn't at bottom with this setup */
+                navigator-toolbox::after{ display: none !important; } 
+
+                toolbar-menubar .titlebar-buttonbox-container{ height: 22px; }
+                toolbar-menubar .titlebar-button{ padding: 2px 17px !important; } 
+
+                /* This will allow you to MAYBE put some items to the menubar */
+
+                toolbar-menubar > *{ float: left }
+                toolbar-menubar .toolbarbutton-1 { --toolbarbutton-inner-padding: 3px } 
+
+                /* Makes tabs toolbar items zero-height initially and sets enlarge them to fill up space equal to tab-min-height set on tabs */ /* Firefox 65+ only */ /* !!USER!! - REMOVE ALL BUTTONS you can from the tabs toolbar */
+
+                /* Configurable window drag space */
+
+                root[sizemode="normal"] #nav-bar{ --window-drag-space-width: 20px }
+                titlebar{ -moz-appearance: none !important; }
+                tabbrowser-tabs, #tabbrowser-tabs > .tabbrowser-arrowscrollbox{ min-height: 0 !important; } 
+
+                root:not([customizing]) #tabbrowser-tabs .tabs-newtab-button, 
+                root:not([customizing]) #TabsToolbar .titlebar-button{ 
+                    -moz-appearance: none !important;
+                    height: 0px;
+                    padding-top: 0px !important;
+                    padding-bottom: 0px !important;
+                    -moz-box-align: stretch;
+                    margin: 0 !important;
+                }
+
+                var(--tab-min-height, 0)
+
+                tabbrowser-tabs .tabbrowser-tab{ height: var(--tab-min-height) }
+                tabbrowser-tabs .tabbrowser-tab[first-visible-tab="true"][last-visible-tab="true"]{ 
+                    visibility: collapse !important;
+                }
+
+                /* Extra top padding in maximized window */
+                root[sizemode="maximized"] > #navigator-toolbox{ padding-top:7px !important; } 
+
+                /* Fix window controls not being clickable */
+                toolbar-menubar:hover{ 
+                    min-height: calc(var(--tab-min-height) + var(--space-above-tabbar) - 1px) !important;
+                    height: calc(var(--tab-min-height) + var(--space-above-tabbar) - 1px) !important;
+                    -moz-appearance: initial !important;
+                }
+
+                nav-bar{ padding: 0 var(--window-drag-space-width,0px) } 
+
+                #toolbar-menubar, #menubar-items, #main-menubar {
+                    background-image: none !important;
+                }
+
+                #TabsToolbar, #menubar-items, #main-menubar {
+                    background-image: none !important;
+                }
 
             '';
             };
         };
     };
 }
-
-# This CSS claims to disable the tab bar; with the current config it makes it invisible.
-# Eventually, figure out how to disable the tab bar while keeping teh current configuration.
-# /* IMPORTANT */
-# /*
-# Get window_control_placeholder_support.css
-# Window controls will be all wrong without it
-# */
-
-# :root{ --uc-toolbar-height: 32px; }
-
-# :root:not([uidensity="compact"]){--uc-toolbar-height: 38px}
-
-# #TabsToolbar{ visibility: collapse !important }
-
-# :root:not([inFullscreen]) #nav-bar{
-#     margin-top: calc(0px - var(--uc-toolbar-height));
-# }
-
-# #toolbar-menubar{
-#     min-height:unset !important;
-#     height:var(--uc-toolbar-height) !important;
-#     position: relative;
-# }
-
-# #main-menubar{
-#     -moz-box-flex: 1;
-#     background-color: var(--toolbar-bgcolor,--toolbar-non-lwt-bgcolor);
-#     background-clip: padding-box;
-#     border-right: 30px solid transparent;
-#     border-image: linear-gradient(to left, transparent, var(--toolbar-bgcolor,--toolbar-non-lwt-bgcolor) 30px) 20 / 30px
-# }
-
-# #toolbar-menubar:not([inactive]){ z-index: 2 }
-# #toolbar-menubar[inactive] > #menubar-items {
-#     opacity: 0;
-#     pointer-events: none;
-#     margin-left: var(--uc-window-drag-space-width,0px)
-# }
