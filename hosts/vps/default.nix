@@ -1,5 +1,6 @@
 { config, lib, pkgs, ... }:
 
+# https://www.foxypossibilities.com/2018/02/04/running-matrix-synapse-on-nixos/
 {
   imports =
     let nur-no-pkgs =
