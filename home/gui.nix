@@ -11,6 +11,7 @@ in
     ./tmux.nix
     ./shells.nix
     ./x.nix
+    ./gtk.nix
   ];
 
   services.xcape = {
