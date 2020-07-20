@@ -3,6 +3,7 @@
 {
   imports = [
     <home-manager/nixos>
+    ./nix-private
   ];
 
   nixpkgs.config.allowUnfree = true;

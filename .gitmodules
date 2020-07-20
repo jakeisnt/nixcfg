@@ -1,3 +1,6 @@
 [submodule "home/emacs/nix-doom-emacs"]
 	path = home/emacs/nix-doom-emacs
 	url = https://github.com/vlaci/nix-doom-emacs.git
+[submodule "nix-private"]
+	path = nix-private
+	url = https://github.com/jakechv/nix-private
