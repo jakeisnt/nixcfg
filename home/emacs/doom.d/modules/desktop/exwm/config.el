@@ -22,7 +22,7 @@
 (add-hook 'exwm-randr-screen-change-hook
           (lambda ()
             (start-process-shell-command
-             "xrandr" nil "xrandr --output eDP-1")))
+             "xrandr" nil "xrandr --output eDP-1 --scale 1x1")))
 (exwm-randr-enable)
 
 ;; system tray

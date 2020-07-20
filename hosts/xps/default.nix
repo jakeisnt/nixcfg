@@ -31,9 +31,12 @@
     };
 
     # 406 228 work at 250%
+    # 508 285 for 200%
+    # 1016 571 for 100%
     monitorSection = ''
-      DisplaySize 406 228
+      DisplaySize 508 285
     '';
+
   };
 
 

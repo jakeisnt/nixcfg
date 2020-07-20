@@ -150,6 +150,8 @@
   (with-eval-after-load 'flycheck
     (flycheck-add-mode 'proselint 'org-mode)))
 
+;; add org-protocol as an org-mode module
+(setq org-modules `org-protocol)
 
 (setq org-capture-templates
       `(("i" "inbox" entry (file ,(concat j/org-agenda-directory "inbox.org"))
