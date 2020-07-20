@@ -2,9 +2,8 @@
 {
     programs.firefox = {
         enable = true;
-        # extensions = with pkgs.NUR.repos.rycee.firefox-addons; [
-        #     https-everywhere
-        #     privacy-badger
+        # extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+        #     org-capture
         #     lastpass
         # ];
 
