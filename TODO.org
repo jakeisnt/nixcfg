@@ -30,3 +30,6 @@ vim should have a subset of the emacs commands and features
 but it should have the same keybindings for the same operations, generally
 * TODO incorporate more advanced exwm config
 https://github.com/jethrokuan/dots/blob/master/.doom.d/modules/desktop/exwm/config.el
+* TODO enforce firefox one window per tab
+this probably has to be handled in counsel-search and browse-url-firefox
+is it worth it? it definitely makes things more consisten... borrow from jethro's configuration
