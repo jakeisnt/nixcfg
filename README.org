@@ -4,7 +4,7 @@ This is my current NixOS configuration.
 It heavily borrows ideas from [[https://github.com/kylesferrazza/nix][Kyle's configuration]] and [[https://github.com/jethrokuan/nix-config][Jethro's configuration]]. 
 
 * Installation
-#+begin-src sh
+#+begin_src sh
 chown jake:users /etc/nixos
 git clone --recurse-submodules https://github.com/jakechv/nix-cfg /etc/nixos
 sudo nix-channel --add https://github.com/rycee/home-manager/archive/master.tar.gz home-manager
