@@ -153,15 +153,12 @@
 ;; add org-protocol as an org-mode module
 (setq org-modules `org-protocol)
 
-(setq org-capture-templates
-      `(("i" "inbox" entry (file ,(concat j/org-agenda-directory "inbox.org"))
+
+(setq org-capture-templates `(
+        ("i" "inbox" entry (file ,(concat j/org-agenda-directory "inbox.org"))
          "* TODO %?")
         ("m" "media" entry (file+headline ,(concat j/org-agenda-directory "media.org") "Media")
          "* TODO [#A] Reply: %a :@home:@school:" :immediate-finish t)
-        ("p" "Protocol" entry)
-
-
-(setq org-capture-templates `(
         ("p" "Protocol" entry (file+headline ,(concat org-directory "inbox.org") "Inbox")
             "* TODO %^{Title}\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?")
         ("L" "Protocol Link" entry (file+headline ,(concat org-directory "inbox.org") "Inbox")
