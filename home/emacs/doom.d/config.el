@@ -296,6 +296,9 @@
 ;;   `require' or `use-package'.
 ;; - `map!' for binding new keys
 ;;
+;;
+(map! :leader
+      "/" (lambda () (interactive) (counsel-search)))
 
 ;; K :: open documentation for a symbol
 ;; gd :: go to definition

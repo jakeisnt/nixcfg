@@ -136,3 +136,6 @@
 (exwm-input-set-key
  (kbd "<XF86MonBrightnessDown>")
  (lambda () (interactive) (shell-command "light -U 10")))
+
+;; remappings for firefox
+(evil-define-key 'normal exwm-firefox-evil-mode-map (kbd "t") 'exwm-firefox-core-window-new)
