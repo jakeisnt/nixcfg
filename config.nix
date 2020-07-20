@@ -24,7 +24,7 @@
     isNormalUser = true;
     home = "/home/jake";
     hashedPassword = "";
-    extraGroups = [ "wheel" "networkmanager" ];
+    extraGroups = [ "wheel" "networkmanager" "mopidy" "audio" ];
   };
 
   hardware.pulseaudio = {
