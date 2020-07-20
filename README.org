@@ -2,8 +2,17 @@
 
 This is the current configuration for my operating system, NixOS.
 
-remember to add home-manager channel
-and update channels
-chown /etc/nixos
+The goal of this repository is to preserve a reproducible
+system configuration that I can easily move from computer
+to computer without having to spend time reconfiguring my system
+the way I like it.
 
-then install things
+* Installation
+#+begin-src sh
+chown jake:users /etc/nixos
+git clone --recurse-submodules https://github.com/jakechv/nix-cfg /etc/nixos
+sudo nix-channel --add https://github.com/rycee/home-manager/archive/master.tar.gz home-manager
+sudo nix-channel --add https://github.com/NixOS/nixos-hardware/archive/master.tar.gz nixos-hardware
+sudo nix-channel --update
+sudo nixos-rebuild switch
+#+end_src
