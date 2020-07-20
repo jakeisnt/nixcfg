@@ -6,6 +6,7 @@
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
+;;; Code:
 (setq user-full-name "Jacob Chvatal"
       user-mail-address "jakechvatal@gmail.com")
 
@@ -151,7 +152,7 @@
     (flycheck-add-mode 'proselint 'org-mode)))
 
 ;; add org-protocol as an org-mode module
-(setq org-modules `org-protocol)
+(setq org-modules '(org-protocol))
 
 
 (setq org-capture-templates `(
@@ -324,7 +325,7 @@
     (comint-send-string "*htop*" "htop\n")))
 
 (defun connect-vultr ()
-  " Connect to my Vultr VPS."
+  "Connect to my Vultr VPS."
   (interactive)
   (dired "/ssh:jake@107.191.42.68:"))
 
