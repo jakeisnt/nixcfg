@@ -14,6 +14,7 @@
             # ublock-origin
             # violentmonkey
             # torswitch
+            # org-capture
         ];
 
         profiles = {
