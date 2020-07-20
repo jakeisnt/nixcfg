@@ -99,11 +99,7 @@ settings = {"browser.search.isUS" = true;
                     --color-bg: #21242b;
                     --toolbar-bgcolor: var(--color-bg) !important;
 
-                    --gap-between-tabs: 5px;
-                    --margin-after-tab-list: 3x;
-                    --margin-before-tab-list: 3px;
                     --tab-font: "Cantarell", sans-serif;
-                    --tab-font-weight: 700;
                     --tab-height: 0 !important;
                     --tabs-container-height: 0 !important;
 
@@ -321,9 +317,6 @@ settings = {"browser.search.isUS" = true;
                     min-height: 0 !important;
                 }
 
-                /* Modify to change window drag space width */
-                root[tabsintitlebar="true"] #nav-bar{ --window-drag-space-width: 24px } 
-
                 .titlebar-buttonbox-container{
                     position: fixed;
                     display:block !important;
@@ -344,13 +337,10 @@ settings = {"browser.search.isUS" = true;
                     -moz-appearance: none !important;
                 }
 
-                root[tabsintitlebar="true"] #nav-bar{ 
-                    padding-right: calc(138px + var(--window-drag-space-width,0px));
-                    padding-left: var(--window-drag-space-width,0px)
-                }
-
                 .titlebar-placeholder,
-                TabsToolbar .titlebar-spacer{ display: none; } 
+                TabsToolbar .titlebar-spacer{
+                    display: none;
+                } 
 
                 /* Also hide the toolbox bottom border which isn't at bottom with this setup */
                 navigator-toolbox::after{ display: none !important; } 
@@ -369,7 +359,10 @@ settings = {"browser.search.isUS" = true;
 
                 root[sizemode="normal"] #nav-bar{ --window-drag-space-width: 20px }
                 titlebar{ -moz-appearance: none !important; }
-                tabbrowser-tabs, #tabbrowser-tabs > .tabbrowser-arrowscrollbox{ min-height: 0 !important; } 
+                tabbrowser-tabs, #tabbrowser-tabs > .tabbrowser-arrowscrollbox{
+                    min-height: 0 !important;
+                    max-height: 0 !important;
+                } 
 
                 root:not([customizing]) #tabbrowser-tabs .tabs-newtab-button, 
                 root:not([customizing]) #TabsToolbar .titlebar-button{ 

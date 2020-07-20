@@ -10,6 +10,7 @@ in
     ./git.nix
     ./tmux.nix
     ./shells.nix
+    ./x.nix
   ];
 
   services.xcape = {

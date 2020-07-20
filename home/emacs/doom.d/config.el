@@ -282,7 +282,7 @@
 ;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
 
-(setq doom-theme 'doom-one)
+(setq doom-theme 'doom-nord)
 
 (setq display-line-numbers-type 'relative) ;; relative line numbers
 
