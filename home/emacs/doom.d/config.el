@@ -50,33 +50,33 @@
 (add-hook 'after-change-major-mode-hook #'doom-modeline-conditional-buffer-encoding)
 
 ;; -------------------------------------------------------------------------- RSS
-(use-package! elfeed) TODO
-(use-package! elfeed-protocol
-  :config
-  (elfeed-protocol-enable)
-  (setq elfeed-protocol-ttrss-maxsize 200
-        elfeed-set-timeout 36000
-        elfeed-show-entry-switch 'display-buffer
-        elfeed-search-remain-on-entry t
-        elfeed-feeds
-        '(("ttrss+https://jake@rss.chvatal.com"
-           :password (read-passwd "Provide your tt-rss password:")))))
+;; (use-package! elfeed)
+;; (use-package! elfeed-protocol
+;;   :config
+;;   (elfeed-protocol-enable)
+;;   (setq elfeed-protocol-ttrss-maxsize 200
+;;         elfeed-set-timeout 36000
+;;         elfeed-show-entry-switch 'display-buffer
+;;         elfeed-search-remain-on-entry t
+;;         elfeed-feeds
+;;         '(("ttrss+https://jake@rss.chvatal.com"
+;;            :password (read-passwd "Provide your tt-rss password:")))))
 
-(after! elfeed
-  :init
-  ;; (map! :map elfeed-search-mode-map
-	;; 	 "n" (lambda () (interactive) (next-line) (call-interactively 'elfeed-search-show-entry))
-	;; 	 "p" (lambda () (interactive) (previous-line) (call-interactively 'elfeed-search-show-entry))
-	;; 	 "m" (lambda () (interactive) (apply 'elfeed-search-toggle-all '(star))))
-  (map!
-   :leader
-   :prefix "o"
-   :desc "elfeed" "e" #'elfeed)
-  (map! :leader
-        :prefix "e"
-        :desc "elfeed" "e" #'elfeed
-        :desc "elfeed-protocol-ttrss-update" "u" #'elfeed-protocol-ttrss-update
-        :desc "elfeed-protocol-ttrss-update-star" "s" #'elfeed-protocol-ttrss-update-star))
+;; (after! elfeed
+;;   :init
+;;   ;; (map! :map elfeed-search-mode-map
+;; 	;; 	 "n" (lambda () (interactive) (next-line) (call-interactively 'elfeed-search-show-entry))
+;; 	;; 	 "p" (lambda () (interactive) (previous-line) (call-interactively 'elfeed-search-show-entry))
+;; 	;; 	 "m" (lambda () (interactive) (apply 'elfeed-search-toggle-all '(star))))
+;;   (map!
+;;    :leader
+;;    :prefix "o"
+;;    :desc "elfeed" "e" #'elfeed)
+;;   (map! :leader
+;;         :prefix "e"
+;;         :desc "elfeed" "e" #'elfeed
+;;         :desc "elfeed-protocol-ttrss-update" "u" #'elfeed-protocol-ttrss-update
+;;         :desc "elfeed-protocol-ttrss-update-star" "s" #'elfeed-protocol-ttrss-update-star))
 
 ;; ------------------------------------------------------------------------ Org
 

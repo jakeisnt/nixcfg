@@ -57,3 +57,5 @@
 (package! company-org-roam)
 ;; (package! proof-general)
 (package! latex-preview-pane)
+;; (package! elfeed)
+;; (package! elfeed-protocol)
