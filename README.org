@@ -1,11 +1,7 @@
 #+title: NixOS Configuration
 
-This is the current configuration for my operating system, NixOS.
-
-The goal of this repository is to preserve a reproducible
-system configuration that I can easily move from computer
-to computer without having to spend time reconfiguring my system
-the way I like it.
+This is my current NixOS configuration. 
+It heavily borrows ideas from [[https://github.com/kylesferrazza/nix][Kyle's configuration]] and [[https://github.com/jethrokuan/nix-config][Jethro's configuration]]. 
 
 * Installation
 #+begin-src sh
