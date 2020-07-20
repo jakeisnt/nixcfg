@@ -1,5 +1,6 @@
 { config, lib, pkgs, ... }:
-
+# TODO: secrets.nix
+# TODO: myhost.nix with targeted hostname for nixops
 # https://www.foxypossibilities.com/2018/02/04/running-matrix-synapse-on-nixos/
 {
   imports =
@@ -23,6 +24,20 @@
     enable = true;
     hostName = "jacob.chvatal.com";
     videobridge.openFirewall = true;
+  };
+
+  services.tt-rss = {
+    enable = true;
+    database = {
+      type = "pgsql";
+      passwordFile = "/run/keys/tt-rss/dbpass";
+    };
+    # email = {
+    #   fromAddress = "jakechvatal@gmail.com";
+    #   fromName = "News at Chvatal";
+    # };
+    selfUrlPath = "https://rss.chvatal.com/";
+    virtualHost = "rss.chvatal";
   };
 
   services.grocy = { # sets up SSL 
@@ -113,9 +128,16 @@
     enable = true;
     recommendedGzipSettings = true;
     recommendedOptimisation = true;
+    recommendedProxySettings = true;
     recommendedTlsSettings = true;
 
     virtualHosts = {
+
+      "rss.chvatal.com" = {
+        enableACME = true;
+        forceSSL = true;
+      };
+
       "matrix.chvatal.com" = {
         forceSSL = true;
         enableACME = true;
@@ -172,6 +194,13 @@
 
   services.postgresql = {
     enable = true;
+    authentication = ''
+      local tt_rss all ident map=tt_rss-users
+    '';
+    identMap =
+      ''
+      tt_rss-users tt_rss tt_rss
+      '';
     initialScript= pkgs.writeText "synapse-init.sql" ''
 CREATE ROLE "matrix-synapse" with lOGIN PASSWORD 'synapse';
 CREATE DATABASE "matrix-synapse" WITH OWNER "matrix-synapse"
