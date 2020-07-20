@@ -11,10 +11,10 @@
         enable = true;
         extensions = with pkgs.nur.repos.rycee.firefox-addons; [
             # lastpass-password-manag
-            # ublock-origin
             # violentmonkey
             # torswitch
-            # org-capture
+            # ublock-origin
+            org-capture
         ];
 
         profiles = {
@@ -47,6 +47,10 @@
                     "browser.newtabpage.activity-stream.feeds.snippets" = false;
                     "browser.newtabpage.activity-stream.feeds.telemetry" = false;
                     "browser.newtabpage.activity-stream.feeds.topsites" = false;
+
+                    "browser.link.open_newwindow" = 0; # always open tab in new window
+                    "browser.link.open_newwindow.restriction" = 2;
+                    "browser.link.open_newwindow.override.external" = 2;
                 };
 
                 userContent = ''
@@ -69,6 +73,7 @@
                 '';
 
                 userChrome = ''
+
                 html#main-window {
                     --color-bg: #21242b;
                     --toolbar-bgcolor: var(--color-bg) !important;
@@ -355,8 +360,50 @@
                     opacity: 1 !important;
                     margin: 0 !important;
                 }
+
+                /* Hide tabs toolbar Fx65+ */
+
             '';
             };
         };
     };
 }
+
+# This CSS claims to disable the tab bar; with the current config it makes it invisible.
+# Eventually, figure out how to disable the tab bar while keeping teh current configuration.
+# /* IMPORTANT */
+# /*
+# Get window_control_placeholder_support.css
+# Window controls will be all wrong without it
+# */
+
+# :root{ --uc-toolbar-height: 32px; }
+
+# :root:not([uidensity="compact"]){--uc-toolbar-height: 38px}
+
+# #TabsToolbar{ visibility: collapse !important }
+
+# :root:not([inFullscreen]) #nav-bar{
+#     margin-top: calc(0px - var(--uc-toolbar-height));
+# }
+
+# #toolbar-menubar{
+#     min-height:unset !important;
+#     height:var(--uc-toolbar-height) !important;
+#     position: relative;
+# }
+
+# #main-menubar{
+#     -moz-box-flex: 1;
+#     background-color: var(--toolbar-bgcolor,--toolbar-non-lwt-bgcolor);
+#     background-clip: padding-box;
+#     border-right: 30px solid transparent;
+#     border-image: linear-gradient(to left, transparent, var(--toolbar-bgcolor,--toolbar-non-lwt-bgcolor) 30px) 20 / 30px
+# }
+
+# #toolbar-menubar:not([inactive]){ z-index: 2 }
+# #toolbar-menubar[inactive] > #menubar-items {
+#     opacity: 0;
+#     pointer-events: none;
+#     margin-left: var(--uc-window-drag-space-width,0px)
+# }
