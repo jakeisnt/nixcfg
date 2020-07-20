@@ -1,11 +1,20 @@
 { pkgs, ...}:
 {
+    nixpkgs.config.packageOverrides = pkgs: {
+        nur = import
+            (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
+                inherit pkgs;
+            };
+    };
+
     programs.firefox = {
         enable = true;
-        # extensions = with pkgs.nur.repos.rycee.firefox-addons; [
-        #     org-capture
-        #     lastpass
-        # ];
+        extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+            # lastpass-password-manag
+            # ublock-origin
+            # violentmonkey
+            # torswitch
+        ];
 
         profiles = {
             jake = {

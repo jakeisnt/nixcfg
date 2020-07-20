@@ -25,6 +25,25 @@
              "xrandr" nil "xrandr --output eDP-1 --scale 1x1")))
 (exwm-randr-enable)
 
+(defun jethro/exwm-rename-buffer-to-title () (exwm-workspace-rename-buffer (format "%s - %s" exwm-class-name exwm-title)))
+(add-hook 'exwm-update-title-hook 'jethro/exwm-rename-buffer-to-title)
+(add-hook 'exwm-update-class-hook
+          (defun my-exwm-update-class-hook ()
+            (unless (or (string-prefix-p "sun-awt-X11-" exwm-instance-name)
+                        (string= "gimp" exwm-instance-name)
+                        (string= "Firefox" exwm-class-name))
+              (exwm-workspace-rename-buffer exwm-class-name))))
+(add-hook 'exwm-update-title-hook
+          (defun my-exwm-update-title-hook ()
+            (cond ((or (not exwm-instance-name)
+                       (string-prefix-p "sun-awt-X11-" exwm-instance-name)
+                       (string= "gimp" exwm-instance-name)
+                       (string= "Firefox" exwm-class-name))
+                   (exwm-workspace-rename-buffer exwm-title)))))
+
+(setq exwm-workspace-show-all-buffers t
+      exwm-layout-show-all-buffers t)
+
 ;; system tray
 (use-package! exwm-systemtray)
 (exwm-systemtray-enable)

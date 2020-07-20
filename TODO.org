@@ -28,3 +28,5 @@ ensure the device can properly connect to local network
 * TODO Make vim config identical to emacs config
 vim should have a subset of the emacs commands and features
 but it should have the same keybindings for the same operations, generally
+* TODO incorporate more advanced exwm config
+https://github.com/jethrokuan/dots/blob/master/.doom.d/modules/desktop/exwm/config.el
