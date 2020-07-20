@@ -24,6 +24,11 @@
     videobridge.openFirewall = true;
   };
 
+  services.grocy = { # sets up SSL 
+    enable = true;
+    hostName = "grocy.chvatal.com";
+  };
+
   services.coturn = {
     enable = true;
     use-auth-secret = true;
@@ -122,7 +127,7 @@
 
   networking.firewall = {
     allowedUDPPorts = [ 5349 5350 ];
-    allowedTCPPorts = [ 80 443 3478 3479 ];
+    allowedTCPPorts = [ 80 443 3478 3479 9283 ];
   };
 
   services.nginx = {
