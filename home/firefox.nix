@@ -10,19 +10,38 @@
 
         profiles = {
             jake = {
-                settings = {
-                    "browser.search.isUS" = true;
-                    "browser.search.region" = "US";
-                    "browser.bookmarks.showMobileBookmarks" = true;
-                    "widget.content.allow-gtk-dark-theme" = true;
-                    "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
-                };
 
                 isDefault = true;
 
+                settings = {
+                    "browser.search.isUS" = true;
+                    "browser.startup.firstrunSkipsHomepage" = true;
+                    "browser.startup.homepage" = "about:blank";
+                    "browser.search.region" = "US";
+                    "services.sync.prefs.sync.browser.startup.homepage" = false;
+                    "startup.homepage_welcome_url" = "about:blank";
+                    "browser.bookmarks.showMobileBookmarks" = true;
+                    "widget.content.allow-gtk-dark-theme" = true;
+                    "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+                    "browser.newtabpage.activity-stream.discoverystream.enabled" = false;
+                    "browser.newtabpage.activity-stream.feeds.aboutpreferences" = false;
+                    "browser.newtabpage.activity-stream.feeds.asrouterfeed" = false;
+                    "browser.newtabpage.activity-stream.feeds.discoverystreamfeed" = false;
+                    "browser.newtabpage.activity-stream.feeds.favicon" = false;
+                    "browser.newtabpage.activity-stream.feeds.newtabinit" = false;
+                    "browser.newtabpage.activity-stream.feeds.places" = false;
+                    "browser.newtabpage.activity-stream.feeds.prefs" = false;
+                    "browser.newtabpage.activity-stream.feeds.recommendationproviderswitcher" = false;
+                    "browser.newtabpage.activity-stream.feeds.section.highlights" = false;
+                    "browser.newtabpage.activity-stream.feeds.section.topstories" = false;
+                    "browser.newtabpage.activity-stream.feeds.sections" = false;
+                    "browser.newtabpage.activity-stream.feeds.snippets" = false;
+                    "browser.newtabpage.activity-stream.feeds.telemetry" = false;
+                    "browser.newtabpage.activity-stream.feeds.topsites" = false;
+                };
+
                 userContent = ''
                     /* Removes white loading page */
-
                     @-moz-document url(about:blank), url(about:newtab), url(about:home) {
                         html:not(#ublock0-epicker), html:not(#ublock0-epicker) body, #newtab-customize-overlay {
                             background: #282c34 !important;
@@ -33,7 +52,6 @@
                     :root{
                         scrollbar-width: none !important;
                     }
-
                     @-moz-document url(about:privatebrowsing) {
                         :root{
                             scrollbar-width: none !important;
@@ -75,15 +93,12 @@
                     -moz-box-ordinal-group: 3 !important;
                 }
 
-                /* *******************************************************************
-                    Toolbar Elements
-                */
+                /* Toolbar Elements */
                 .browser-toolbar {
                     padding-left: 10px !important;
                     padding-top: 2px !important;
                     padding-right: 10px !important;
                 }
-
 
                 /* Bookmarks bar tweaks */
                 #PlacesToolbar {
@@ -104,6 +119,8 @@
 
                 #forward-button {
                     /* list-style-image: url("right-arrow.svg") !important; */
+                    border: none !important;
+                    color: var(--color-bg) !important;
                 }
 
                 #navigator-toolbox {
@@ -116,9 +133,8 @@
                 }
 
                 /* Urlbar */
-
                 ::-moz-selection {
-                background-color: #21242b !important;
+                  background-color: #21242b !important;
                 }
 
                 /* Url bar suggestions list container */
@@ -135,20 +151,20 @@
                 .urlbarView:not(.megabar) .urlbarView-row:not([type="tip"])[selected],
                 .urlbarView.megabar .urlbarView-row:not([type="tip"])[selected] > .urlbarView-row-inner {
                     background: #f9ff99 !important;
-                    color: black !important;
+                    color: white !important;
                     fill-opacity: 1;
                 }
 
                 /* The text that says 'Search with ...' */
                 .urlbarView-action {
-                    color: black !important;
+                    color: white !important;
                 }
 
                 /* Url bar suggestions' row that is being hovered over */
                 .urlbarView-row:hover {
                     background-color: none !important;
                     background-image: linear-gradient(77deg, #ffc386, #ff8989) !important;
-                    color: black !important;
+                    color: white !important;
                 }
 
                 /* Text that says: This time, search with: */
@@ -156,6 +172,7 @@
                     font-family: "Cantarell", sans-serif !important;
                     font-size: 14pt !important;
                     font-weight: 700 !important;
+                    color: white !important;
                 }
 
                 #urlbar-background,
@@ -215,6 +232,7 @@
                     max-height: var(--tab-height) !important;
                     min-height: var(--tab-height) !important;
                     font-size: 12px !important;
+                    color: white !important;
                 }
 
                 .tabbrowser-tab:hover {
@@ -237,7 +255,6 @@
                 }
 
                 /* pinned browser tabs */
-                /* TODO: Find a way to add spacing between the pinned tabs when tab list scrolling is triggered. Adding a margin just screws everything up */
                 .tabbrowser-tab:hover[pinned="true"] {
                     background-image: linear-gradient(to left, #ff8989, #ff8989) !important;
                 }
@@ -277,47 +294,47 @@
 
                 /* Settings menu pop-up */
                 menupopup {
-                -moz-appearance: none !important;
-                background-color: #4a4a4f !important;
-                border: 1px solid #333 !important;
-                margin: -1px 0 0 0 !important;
-                border-radius: 4px !important;
-                transform: scale(.9, .9) !important;
+                    -moz-appearance: none !important;
+                    background-color: #4a4a4f !important;
+                    border: 1px solid #333 !important;
+                    margin: -1px 0 0 0 !important;
+                    border-radius: 4px !important;
+                    transform: scale(.9, .9) !important;
                 }
 
                 menuitem:hover, menugroup:hover, menu:hover {
-                -moz-appearance: none !important;
-                background: #5c5c61 !important;
+                    -moz-appearance: none !important;
+                    background: #5c5c61 !important;
                 }
 
                 menuseparator {
-                -moz-appearance: none !important;
-                max-height: 1px !important;
-                border: none !important;
-                padding: 0.5px 0 !important;
-                background-color: #5c5c61 !important;
+                    -moz-appearance: none !important;
+                    max-height: 1px !important;
+                    border: none !important;
+                    padding: 0.5px 0 !important;
+                    background-color: #5c5c61 !important;
                 }
 
                 menuitem, menu {
-                -moz-appearance: none !important;
-                color: white !important;
-                padding: 1px 1px 2px 11px !important;
-                min-height: 25px !important;
+                    -moz-appearance: none !important;
+                    color: white !important;
+                    padding: 1px 1px 2px 11px !important;
+                    min-height: 25px !important;
                 }
 
                 menugroup {
-                padding: 2px !important;
-                background-color: transparent !important;
+                    padding: 2px !important;
+                    background-color: transparent !important;
                 }
 
                 .menu-right {
-                -moz-appearance: none !important;
-                padding: 7px !important;
-                margin-right: 6px !important;
-                color: white !important;
-                border: solid white;
-                border-width: 0 2px 2px 0;
-                transform: rotate(-45deg) scale(.35);
+                    -moz-appearance: none !important;
+                    padding: 7px !important;
+                    margin-right: 6px !important;
+                    color: white !important;
+                    border: solid white;
+                    border-width: 0 2px 2px 0;
+                    transform: rotate(-45deg) scale(.35);
                 }
 
                 .panel-arrowbox {
