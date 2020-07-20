@@ -7,7 +7,6 @@
       ./hardware-configuration.nix
     ];
 
-
   home-manager.users.jake = import ../../home/gui.nix;
 
   services.xserver = {
@@ -39,17 +38,6 @@
 
   };
 
-
-  # services.mopidy = {
-  #   enable = true;
-  #   extensionPackages = [ pkgs.mopidy-spotify pkgs.mopidy-mopify pkgs.mopidy-soundcloud ];
-  #   configuration = ''
-  #   [spotify]
-  #   username =
-  #   password =
-  #   '';
-  # };
-
   services.syncthing = {
     enable = true;
     openDefaultPorts = true;
@@ -63,6 +51,8 @@
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+
+  # GRUB boot loader configuration can be found here
   # boot.loader.grub.enable = true;
   # boot.loader.grub.version = 2;
   # boot.loader.grub.device = "/dev/nvme0n1p1";
@@ -84,12 +74,13 @@
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
   console = {
-    font = "latarcyrheb-sun32";
+    # font = "latarcyrheb-sun32";
     keyMap = "us";
   };
 
   # Set your time zone.
-  # time.timeZone = "Europe/Amsterdam";
+  # time.timeZone = "America/Amsterdam";
+  services.localtime.enable = true;
 
   environment.systemPackages = with pkgs; [
     wget git pulseaudio-ctl
@@ -125,17 +116,9 @@
   hardware.pulseaudio.enable = true;
 
   networking.networkmanager.enable = true;
-  # Enable the X11 windowing system.
-  # services.xserver.enable = true;
-  # services.xserver.layout = "us";
-  # services.xserver.xkbOptions = "eurosign:e";
 
-  # Enable touchpad support.
+  # enable touchpad
   services.xserver.libinput.enable = true;
-
-  # Enable the KDE Desktop Environment.
-  # services.xserver.displayManager.sddm.enable = true;
-  # services.xserver.desktopManager.plasma5.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.jake = {
