@@ -33,3 +33,44 @@ https://github.com/jethrokuan/dots/blob/master/.doom.d/modules/desktop/exwm/conf
 * TODO enforce firefox one window per tab
 this probably has to be handled in counsel-search and browse-url-firefox
 is it worth it? it definitely makes things more consisten... borrow from jethro's configuration
+* TODO add Nord GTK theme
+* TODO update firefox theme to match Nord
+//roles
+{ pkgs, ... }:
+{
+  environment.systemPackages = with pkgs; [
+    gnome3.dconf # some GTK apps break without this package
+  ];
+
+  services.gnome3.at-spi2-core.enable = true; # many apps complain when this isn't running
+}
+//home/gtk
+{ pkgs, ... }:
+{
+  gtk = {
+    enable = true;
+    iconTheme = pkgs.mine.lib.gtk.icons;
+    theme = pkgs.mine.lib.gtk.theme;
+  };
+
+  xdg.configFile."gtk-3.0/bookmarks".text = ''
+    file:///home/kyle/Documents Documents
+    file:///home/kyle/Downloads Downloads
+  '';
+}
+
+overlay/lib/gtk.nix
+{ numix-solarized-gtk-theme, paper-icon-theme }:
+{
+  theme = {
+    package = numix-solarized-gtk-theme;
+    name = "NumixSolarizedDarkCyan";
+  };
+
+  icons = {
+    package = paper-icon-theme;
+    name = "Paper";
+  };
+}
+
+TODO figure this out
