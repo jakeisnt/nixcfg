@@ -12,6 +12,7 @@ in
     ./shells.nix
     ./x.nix
     ./gtk.nix
+    ./redshift.nix
   ];
 
   services.xcape = {
