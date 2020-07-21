@@ -10,8 +10,6 @@ in
     ./git.nix
     ./tmux.nix
     ./shells.nix
-    ./x.nix
-    # ./gtk.nix
     ./redshift.nix
   ];
 
@@ -38,4 +36,8 @@ in
   services.lorri.enable = true;
 
   programs.home-manager.enable = true;
+
+  nixpkgs = {
+    overlays = import ../overlay;
+  };
 }
