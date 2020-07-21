@@ -36,8 +36,4 @@ in
   services.lorri.enable = true;
 
   programs.home-manager.enable = true;
-
-  nixpkgs = {
-    overlays = import ../overlay;
-  };
 }
