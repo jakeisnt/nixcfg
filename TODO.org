@@ -1,24 +1,28 @@
 #+TITLE: Todo
-* [1/3] create separate installation frameworks
+* [1/12] create separate installation frameworks
 ** DONE emacs:
 CLOSED: [2020-07-19 Sun 06:19]
    - exwm
    - firefox
    ... that's about it
-** TODO headless:
-   - vim
-   - tmux
-   - ranger
-   - newsboat
-   - mutt
-   other cli utilities as used
-** TODO 'normal' desktop
-   - fun wm (currently: bsp)
-   - some of the cli things
-   - else
+** [0/6] headless:
+*** TODO vim
+*** TODO tmux
+*** TODO ranger
+*** TODO newsboat
+*** TODO mutt
+*** TODO shell aliases and config
+** [0/5] 'normal' desktop:
+*** TODO bspwm
+*** TODO thunar
+*** TODO firefox
+*** TODO other gui apps
+*** TODO consistent color scheme
+
 * TODO input mapping
 ensure capslock -> mod/esc works
 allow tap-to-click on trackpad
+consider some of kyles fancy file input things
 * TODO bluetooth
 ensure bluetoothctl is configured
 pair existing devices
@@ -28,50 +32,29 @@ ensure the device can properly connect to local network
 * TODO Make vim config identical to emacs config
 vim should have a subset of the emacs commands and features
 but it should have the same keybindings for the same operations, generally
+any trans-window navigation should be bridged with tmux as well
 * TODO incorporate more advanced exwm config
 https://github.com/jethrokuan/dots/blob/master/.doom.d/modules/desktop/exwm/config.el
-* TODO enforce firefox one window per tab
+* DONE enforce firefox one window per tab
+CLOSED: [2020-07-20 Mon 17:53]
 this probably has to be handled in counsel-search and browse-url-firefox
 is it worth it? it definitely makes things more consisten... borrow from jethro's configuration
 * TODO add Nord GTK theme
-* TODO update firefox theme to match Nord
-//roles
-{ pkgs, ... }:
-{
-  environment.systemPackages = with pkgs; [
-    gnome3.dconf # some GTK apps break without this package
-  ];
-
-  services.gnome3.at-spi2-core.enable = true; # many apps complain when this isn't running
-}
-//home/gtk
-{ pkgs, ... }:
-{
-  gtk = {
-    enable = true;
-    iconTheme = pkgs.mine.lib.gtk.icons;
-    theme = pkgs.mine.lib.gtk.theme;
-  };
-
-  xdg.configFile."gtk-3.0/bookmarks".text = ''
-    file:///home/kyle/Documents Documents
-    file:///home/kyle/Downloads Downloads
-  '';
-}
-
-overlay/lib/gtk.nix
-{ numix-solarized-gtk-theme, paper-icon-theme }:
-{
-  theme = {
-    package = numix-solarized-gtk-theme;
-    name = "NumixSolarizedDarkCyan";
-  };
-
-  icons = {
-    package = paper-icon-theme;
-    name = "Paper";
-  };
-}
-
-TODO figure this out
-
+* TODO let s-* keyboard shortcuts through in the firefox mode
+org-capture should work independent of mode
+* DONE emacs :: make a org capture template to save a link and add a note to it
+CLOSED: [2020-07-20 Mon 17:51]
+* DONE emacs :: block audio ctrl and f-keys from firefox
+CLOSED: [2020-07-20 Mon 17:51]
+* TODO emacs :: hopefully make config literate at some point!
+this is good for documentation and for ensuring the code is good quality
+* TODO add the server component
+its mostly here,
+just have to learn to use nixops to deploy
+* TODO refine organization
+this repo isn't very well organized now, it should be refactored
+to make use of better abstraction and reusability.
+it should also have a more clearly defined structure
+* TODO cachix
+configure builds to run after commits to ensure that the
+configuration is still okay, making use of CI.
