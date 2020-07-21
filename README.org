@@ -10,5 +10,7 @@ git clone --recurse-submodules https://github.com/jakechv/nix-cfg /etc/nixos
 sudo nix-channel --add https://github.com/rycee/home-manager/archive/master.tar.gz home-manager
 sudo nix-channel --add https://github.com/NixOS/nixos-hardware/archive/master.tar.gz nixos-hardware
 sudo nix-channel --update
+
+ln -s /etc/nixos ~/.config/nixpkgs
 sudo nixos-rebuild switch
 #+end_src

@@ -10,7 +10,7 @@
     programs.firefox = {
         enable = true;
         extensions = with pkgs.nur.repos.rycee.firefox-addons; [
-            # lastpass-password-manag
+            # lastpass-password-manager
             # violentmonkey
             # torswitch
             # ublock-origin
