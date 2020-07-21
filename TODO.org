@@ -58,3 +58,16 @@ it should also have a more clearly defined structure
 * TODO cachix
 configure builds to run after commits to ensure that the
 configuration is still okay, making use of CI.
+* TODO add a new flow for creating a new package
+1. create git repo in home dir
+2. assoc. with public github repo
+3. lorri init
+4. niv init
+5. direnv allow
+6. (ensure lorri or nix-shell is hooked up with editor)
+7. open shell.nix file for editing
+8. (hot reload based on changes in shell.nix?)
+* TODO figure out how to install emacs packages in shell.nix
+not sure if this is a good idea because people have different editor opinions
+but if everyone uses emacs it seems super nice to auto install
+the correct emacs packages for interfacing with the code when codin

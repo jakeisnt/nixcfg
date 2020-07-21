@@ -28,6 +28,7 @@ in
     coreutils
     sqlite
     direnv
+    niv
   ] ++ justLinux [
     fzf
     syncthing
