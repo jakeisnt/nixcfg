@@ -29,6 +29,7 @@ in
     sqlite
     direnv
     niv
+    nixfmt
   ] ++ justLinux [
     fzf
     syncthing

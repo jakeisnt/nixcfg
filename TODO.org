@@ -71,3 +71,26 @@ configuration is still okay, making use of CI.
 not sure if this is a good idea because people have different editor opinions
 but if everyone uses emacs it seems super nice to auto install
 the correct emacs packages for interfacing with the code when codin
+* integrate parts of this setup
+https://christine.website/blog/how-i-start-nix-2020-03-08
+* TODO swap to zfs
+i can add autoshapshots pretty easily!!
+#+begin_src nix
+services.zfs = {
+    autoSnapshot = {
+      enable = true;
+      monthly = 1; # keep only one monthly instead of 12
+    };
+    autoScrub = {
+      enable = true;
+      interval = "monthly";
+    };
+  };
+#+end_src
+* TODO add ssh keys
+adding public authorized keys seems good, at least for the pi
+#+begin_src nix
+users.extraUsers.jake.openssh.authorizedKeys.keys = [
+    "ssh-rsa ....."
+  ];
+#+end_src

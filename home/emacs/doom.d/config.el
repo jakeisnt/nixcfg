@@ -370,3 +370,10 @@
 ;; shared-clipboard
 (setq select-enable-clipboard t
       interprogram-paste-function 'x-cut-buffer-or-selection-value)
+
+;; Let's have pretty source code blocks
+(setq org-edit-src-content-indentation 0
+      org-src-tab-acts-natively t
+      org-src-fontify-natively t
+      org-confirm-babel-evaluate nil)
+

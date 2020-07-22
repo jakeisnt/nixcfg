@@ -29,6 +29,7 @@
 ;; You can override the recipe of a built in package without having to specify
 ;; all the properties for `:recipe'. These will inherit the rest of its recipe
 ;; from Doom or MELPA/ELPA/Emacsmirror:
+;;
 ;(package! builtin-package :recipe (:nonrecursive t))
 ;(package! builtin-package-2 :recipe (:repo "myfork/package"))
 
@@ -60,3 +61,4 @@
 ;; (package! elfeed)
 ;; (package! elfeed-protocol)
 (package! tidal)
+(package! sclang-extensions)
