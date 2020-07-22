@@ -60,4 +60,5 @@
 (package! latex-preview-pane)
 ;; (package! elfeed)
 ;; (package! elfeed-protocol)
-(package! sclang-extensions)
+;(package! sclang-extensions)
+;(package! tidal)
