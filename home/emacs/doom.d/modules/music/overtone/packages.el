@@ -20,5 +20,6 @@
 ;;; Code:
 
 
+(package! sclang-extensions)
 (provide 'packages)
 ;;; packages.el ends here
