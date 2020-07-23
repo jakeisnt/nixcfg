@@ -11,7 +11,7 @@
   boot.cleanTmpDir = true;
 
   # Configure basic SSH access
-  services.openssh.enable = true;
+  # services.openssh.enable = true;
 
   hardware.enableRedistributableFirmware = true;
   networking.networkmanager.enable = true;
