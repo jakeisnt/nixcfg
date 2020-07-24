@@ -58,10 +58,11 @@
 
         userContent = ''
           /* Removes white loading page */
+
           @-moz-document url(about:blank), url(about:newtab), url(about:home) {
               html:not(#ublock0-epicker), html:not(#ublock0-epicker) body, #newtab-customize-overlay {
-                  background: #191c25 !important;
-                  body{background-color: #191c25 !important;}
+                  background: #2E3440 !important;
+                  body{background-color: #2E3440 !important;}
               }
           }
 
@@ -79,9 +80,8 @@
         userChrome = ''
 
            html#main-window {
-
                --urlbar-text-font: "mononoki Nerd Font", sans-serif;
-               --color-bg: #2e3440;
+               --color-bg: #2E3440;
                --toolbar-bgcolor: var(--color-bg) !important;
                /* Firefox variables */
                --lwt-toolbar-field-focus-color: var(--color-bg) !important;
@@ -94,6 +94,7 @@
            }
 
 
+            .urlbarView-body-inner{ border-top-color: transparent !important }
             :root {--in-content-page-background: var(--color-bg); /*tab flash on new tab*/}
 
             /*changes "flash" on tab open color*/
@@ -160,19 +161,18 @@
                width: var(--urlbar-list-width) !important;
            }
 
-
-
            /* Url bar suggestions' selected row */
            .urlbarView:not(.megabar) .urlbarView-row:not([type="tip"])[selected],
            .urlbarView.megabar .urlbarView-row:not([type="tip"])[selected] > .urlbarView-row-inner {
-               background: #f9ff99 !important;
+               background: #3B4252 !important;
                color: white !important;
                fill-opacity: 1;
            }
 
            /* Urlbar
            ::-moz-selection {
-             background-color: #21242b !important;
+             color: #2E3440 !important;
+             background-color: #434C5E !important;
            }
            */
 
