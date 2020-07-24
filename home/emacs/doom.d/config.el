@@ -301,7 +301,7 @@
       "'" (lambda () (interactive) (counsel-search)))
 ;; Find a URL
 (map! :leader
-      "\"" (lambda () (interactive) (browse-url))
+      "/" (lambda () (interactive) (browse-url))
 
 ;; K :: open documentation for a symbol
 ;; gd :: go to definition
