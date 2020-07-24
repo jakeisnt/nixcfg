@@ -78,7 +78,6 @@
         '';
 
         userChrome = ''
-
            html#main-window {
                --urlbar-text-font: "mononoki Nerd Font", sans-serif;
                --color-bg: #2E3440;

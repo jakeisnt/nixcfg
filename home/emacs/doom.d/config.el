@@ -295,10 +295,13 @@
 ;;   this file. Emacs searches the `load-path' when you load packages with
 ;;   `require' or `use-package'.
 ;; - `map!' for binding new keys
-;;
-;;
+
+;; Search for something on the internet
 (map! :leader
-      "/" (lambda () (interactive) (counsel-search)))
+      "'" (lambda () (interactive) (counsel-search)))
+;; Find a URL
+(map! :leader
+      "\"" (lambda () (interactive) (browse-url))
 
 ;; K :: open documentation for a symbol
 ;; gd :: go to definition
