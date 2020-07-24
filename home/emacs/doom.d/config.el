@@ -1,9 +1,5 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
-;; Place your private configuration here! Remember, you do not need to run 'doom
-;; sync' after modifying this file!
-
-
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
 ;;; Code:
@@ -301,16 +297,17 @@
       "'" (lambda () (interactive) (counsel-search)))
 ;; Find a URL
 (map! :leader
-      "/" (lambda () (interactive) (browse-url))
+      "\"" (lambda ()
+             (interactive)
+             (browse-url (read-string "URL:"))))
 
 ;; K :: open documentation for a symbol
 ;; gd :: go to definition
-
 (map! :leader
       "h r n" (lambda () (interactive)
-    (let ((default-directory "/sudo::"))
-     (shell-command "nixos-rebuild switch"))))
-
+                (async-shell-command
+                 (concat "echo " (shell-quote-argument (read-passwd "Rebuilding NixOS. Password: "))
+                       " | sudo -S nixos-rebuild switch"))))
 
 (defun gotop ()
   "Run the GOTOP process monitor."
