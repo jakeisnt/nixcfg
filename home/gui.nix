@@ -11,6 +11,7 @@ in {
     ./redshift.nix
     ./udiskie.nix
     ./picom.nix
+    ./lorri.nix
   ];
 
   services.xcape = {
@@ -32,7 +33,6 @@ in {
       pulseaudio-ctl
     ] ++ justLinux [ fzf syncthing ];
 
-  services.lorri.enable = true;
   programs.home-manager.enable = true;
   home.sessionVariables.EDITOR = "emacs";
 }
