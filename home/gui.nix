@@ -9,6 +9,7 @@ in {
     ./tmux.nix
     ./shells.nix
     ./redshift.nix
+    ./udiskie.nix
   ];
 
   services.xcape = {
