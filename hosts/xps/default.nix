@@ -1,11 +1,7 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports =
-    [
-      <nixos-hardware/dell/xps/13-9370>
-      ./hardware-configuration.nix
-    ];
+  imports = [ <nixos-hardware/dell/xps/13-9370> ./hardware-configuration.nix ];
 
   home-manager.users.jake = import ../../home/gui.nix;
 
@@ -15,9 +11,7 @@
     layout = "us";
     xkbOptions = "caps:swapescape";
 
-    desktopManager = {
-      xterm.enable = false;
-    };
+    desktopManager = { xterm.enable = false; };
 
     displayManager.startx.enable = false;
 
@@ -35,8 +29,12 @@
     monitorSection = ''
       DisplaySize 508 285
     '';
-
   };
+
+  # console uses x-server keyboard settings
+  # console.useXkbConfig = true;
+
+  boot.plymouth.enable = true; # trying out alt boot screen
 
   services.syncthing = {
     enable = true;
@@ -46,7 +44,6 @@
     group = "wheel";
     dataDir = "/home/jake";
   };
-
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -60,7 +57,7 @@
   # boot.loader.grub.efiSupport = true;
 
   networking.hostName = "xps"; # Define your hostname.
-  
+
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
   # replicates the default behaviour.
@@ -83,8 +80,10 @@
   services.localtime.enable = true;
 
   environment.systemPackages = with pkgs; [
-    wget git pulseaudio-ctl
-    (mumble.override {pulseSupport = true; })
+    wget
+    git
+    pulseaudio-ctl
+    (mumble.override { pulseSupport = true; })
   ];
 
   programs.light.enable = true;
@@ -124,7 +123,8 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.jake = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "video" ]; # Enable ‘sudo’ for the user.
+    extraGroups =
+      [ "wheel" "networkmanager" "video" ]; # Enable ‘sudo’ for the user.
   };
 
   # This value determines the NixOS release from which the default
