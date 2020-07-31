@@ -12,12 +12,33 @@ CLOSED: [2020-07-19 Sun 06:19]
 *** TODO newsboat
 *** TODO mutt
 *** TODO shell aliases and config
-** [0/5] 'normal' desktop:
-*** TODO bspwm
-*** TODO thunar
-*** TODO firefox
-*** TODO other gui apps
-*** TODO consistent color scheme
+** [5/5] 'normal' desktop:
+*** CANCELLED bspwm
+CLOSED: [2020-07-31 Fri 02:09]
+:LOGBOOK:
+- State "CANCELLED"  from "TODO"       [2020-07-31 Fri 02:09] \\
+  if im not going to use this, why bother?
+:END:
+*** CANCELLED thunar
+CLOSED: [2020-07-31 Fri 02:09]
+:LOGBOOK:
+- State "CANCELLED"  from "TODO"       [2020-07-31 Fri 02:09]
+:END:
+*** CANCELLED firefox
+CLOSED: [2020-07-31 Fri 02:10]
+:LOGBOOK:
+- State "CANCELLED"  from "TODO"       [2020-07-31 Fri 02:10]
+:END:
+*** CANCELLED other gui apps
+CLOSED: [2020-07-31 Fri 02:10]
+:LOGBOOK:
+- State "CANCELLED"  from "TODO"       [2020-07-31 Fri 02:10]
+:END:
+*** CANCELLED consistent color scheme
+CLOSED: [2020-07-31 Fri 02:10]
+:LOGBOOK:
+- State "CANCELLED"  from "TODO"       [2020-07-31 Fri 02:10]
+:END:
 
 * TODO input mapping
 ensure capslock -> mod/esc works
@@ -67,7 +88,12 @@ configuration is still okay, making use of CI.
 6. (ensure lorri or nix-shell is hooked up with editor)
 7. open shell.nix file for editing
 8. (hot reload based on changes in shell.nix?)
-* TODO figure out how to install emacs packages in shell.nix
+* CANCELLED figure out how to install emacs packages in shell.nix
+CLOSED: [2020-07-31 Fri 02:11]
+:LOGBOOK:
+- State "CANCELLED"  from "TODO"       [2020-07-31 Fri 02:11] \\
+  not a good idea, not everyone uses emacs lol
+:END:
 not sure if this is a good idea because people have different editor opinions
 but if everyone uses emacs it seems super nice to auto install
 the correct emacs packages for interfacing with the code when codin

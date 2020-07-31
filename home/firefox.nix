@@ -22,7 +22,6 @@
 
         isDefault = true;
         settings = {
-
           "devtools.theme" = "dark";
           "browser.search.isUS" = true;
           "browser.startup.firstrunSkipsHomepage" = true;
@@ -58,7 +57,6 @@
 
         userContent = ''
           /* Removes white loading page */
-
           @-moz-document url(about:blank), url(about:newtab), url(about:home) {
               html:not(#ublock0-epicker), html:not(#ublock0-epicker) body, #newtab-customize-overlay {
                   background: #2E3440 !important;
@@ -78,37 +76,38 @@
         '';
 
         userChrome = ''
-           html#main-window {
-               --urlbar-text-font: "mononoki Nerd Font", sans-serif;
-               --color-bg: #2E3440;
-               --toolbar-bgcolor: var(--color-bg) !important;
-               /* Firefox variables */
-               --lwt-toolbar-field-focus-color: var(--color-bg) !important;
-               --lwt-toolbar-field-color: #fefefa !important;
-               --lwt-toolbar-field-background-color: var(--color-bg) !important;
+          html#main-window {
+              --urlbar-text-font: "mononoki Nerd Font", sans-serif;
+              --color-bg: #2E3440;
+              --toolbar-bgcolor: var(--color-bg) !important;
+              /* Firefox variables */
+              --lwt-toolbar-field-focus-color: var(--color-bg) !important;
+              --lwt-toolbar-field-color: #fefefa !important;
+              --lwt-toolbar-field-background-color: var(--color-bg) !important;
 
-               --arrowpanel-background: var(--color-bg) !important;
-               --arrowpanel-color: var(--color-bg) !important;
-               --arrowpanel-border-color: transparent !important;
+              --arrowpanel-background: var(--color-bg) !important;
+              --arrowpanel-color: var(--color-bg) !important;
+              --arrowpanel-border-color: transparent !important;
+          }
+
+           /* attempts to make the top border transparent */
+           .urlbarView-body-inner{ border-top-color: transparent !important }
+           :root {--in-content-page-background: var(--color-bg); /*tab flash on new tab*/}
+
+           /*changes "flash" on tab open color*/
+           #browser vbox#appcontent tabbrowser, #content, #tabbrowser-tabpanels,
+           browser[type=content-primary], browser[type=content] > html {
+               background: var(--color-bg) !important;
            }
 
-
-            .urlbarView-body-inner{ border-top-color: transparent !important }
-            :root {--in-content-page-background: var(--color-bg); /*tab flash on new tab*/}
-
-            /*changes "flash" on tab open color*/
-            #browser vbox#appcontent tabbrowser, #content, #tabbrowser-tabpanels,
-            browser[type=content-primary], browser[type=content] > html {
-                background: var(--color-bg) !important;
-            }
-              body {
-                  background-color: var(--color-bg);
-              }
+           body {
+               background-color: var(--color-bg);
+           }
 
            /* Remove border under navbar */
            #navigator-toolbox::after {
              border-bottom: 0px !important;
-             }
+           }
 
            /* Remove border above navbar */
            #navigator-toolbox::after {
@@ -133,6 +132,7 @@
            #back-button {
                border: none !important;
                color: var(--color-bg) !important;
+               background-color: var(--color-bg) !important;
            }
 
            #forward-button {
@@ -160,26 +160,11 @@
                width: var(--urlbar-list-width) !important;
            }
 
-           /* Url bar suggestions' selected row */
-           .urlbarView:not(.megabar) .urlbarView-row:not([type="tip"])[selected],
-           .urlbarView.megabar .urlbarView-row:not([type="tip"])[selected] > .urlbarView-row-inner {
-               background: #3B4252 !important;
-               color: white !important;
-               fill-opacity: 1;
-           }
-
-           /* Urlbar
-           ::-moz-selection {
-             color: #2E3440 !important;
-             background-color: #434C5E !important;
-           }
-           */
-
            #TabsToolbar{
              visibility: collapse !important;
              display: none;
              background-color: var(--color-bg) !important;
-          }
+           }
 
            #main-window:not([customizing]) #navigator-toolbox:not(:focus-within):not(:hover) {
              margin-top: -40px;

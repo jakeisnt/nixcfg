@@ -5,12 +5,9 @@ let
   inherit (import ../helpers.nix) justLinuxAttrs;
   doom-emacs = pkgs.callPackage ./nix-doom-emacs {
     doomPrivateDir = ./doom.d;
-    extraPackages = epkgs: (with epkgs.melpaPackages; [
-      request
-    ]);
+    extraPackages = epkgs: (with epkgs.melpaPackages; [ request ]);
   };
-in
-{
+in {
   home.packages = with pkgs; [
     emacs-all-the-icons-fonts
     fira-code-symbols
@@ -30,10 +27,4 @@ in
     package = doom-emacs;
   };
 
-
-
-
-
-} // justLinuxAttrs {
-  services.emacs.enable = true;
-}
+} // justLinuxAttrs { services.emacs.enable = true; }

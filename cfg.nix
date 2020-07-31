@@ -10,17 +10,12 @@
   nix.gc.options = "--delete-older-than 30d";
   boot.cleanTmpDir = true;
 
-  # Configure basic SSH access
-  # services.openssh.enable = true;
-
   hardware.enableRedistributableFirmware = true;
-  networking.networkmanager.enable = true;
 
-  users.extraUsers.jake = {
+  users.users.jake = {
     isNormalUser = true;
     home = "/home/jake";
-    hashedPassword = "";
-    extraGroups = [ "wheel" "networkmanager" "audio" ];
+    extraGroups = [ "wheel" "networkmanager" "audio" "video" ];
   };
 
   hardware.pulseaudio = {

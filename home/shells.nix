@@ -1,10 +1,5 @@
-{ pkgs, ...}:
+{ pkgs, ... }:
 
 {
-  programs.bash = {
-    enable = true;
-  };
-  programs.zsh = {
-    enable = true;
-  };
+  programs.bash = { enable = true; };
 }

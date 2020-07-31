@@ -10,6 +10,7 @@ in {
     ./shells.nix
     ./redshift.nix
     ./udiskie.nix
+    ./picom.nix
   ];
 
   services.xcape = {
@@ -18,9 +19,20 @@ in {
   };
 
   home.packages = with pkgs;
-    [ ranger ripgrep valgrind wget coreutils sqlite direnv niv nixfmt ]
-    ++ justLinux [ fzf syncthing ];
+    [
+      ranger
+      ripgrep
+      valgrind
+      wget
+      coreutils
+      sqlite
+      direnv
+      niv
+      nixfmt
+      pulseaudio-ctl
+    ] ++ justLinux [ fzf syncthing ];
 
   services.lorri.enable = true;
   programs.home-manager.enable = true;
+  home.sessionVariables.EDITOR = "emacs";
 }
