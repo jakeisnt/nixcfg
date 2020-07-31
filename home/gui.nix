@@ -12,6 +12,7 @@ in {
     ./udiskie.nix
     ./picom.nix
     ./lorri.nix
+    ./xdg.nix
   ];
 
   services.xcape = {

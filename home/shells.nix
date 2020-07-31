@@ -4,6 +4,7 @@
   programs.bash = { enable = true; };
   programs.zsh = {
     enable = false;
+    shellAliases = { weather = "curl wttr.in"; };
     initExtra = ''
       # Enable powerlevel10k instant prompt
       # determines whether a command exists
@@ -74,15 +75,7 @@
       setopt EXTENDED_GLOB                 # glob for more!
 
       # --- Aliases ---
-      # always ensure that the right editor is used
-      alias vi=$EDITOR
-      alias vim=$EDITOR
-      alias nvim=$EDITOR
       alias ec="emacs"
-      alias sudo="sudo " # fix sudo for some commands
-      alias spotify="/usr/bin/spotify --force-device-scale-factor = 2.5"
-      alias distro='cat /etc/*-release'
-      alias reload='source ~/.zshrc'
       alias weather='curl wttr.in'
 
       # sane shell commands
@@ -146,6 +139,5 @@
       autoload -Uz compinit
       compinit
     '';
-
   };
 }
