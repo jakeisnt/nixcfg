@@ -6,6 +6,7 @@
       };
   };
 
+  home.sessionVariables.BROWSER = "firefox";
   programs.firefox = {
     enable = true;
     extensions = with pkgs.nur.repos.rycee.firefox-addons;
@@ -19,7 +20,6 @@
 
     profiles = {
       jake = {
-
         isDefault = true;
         settings = {
           "devtools.theme" = "dark";

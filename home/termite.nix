@@ -84,4 +84,5 @@
     hintsBorderWidth = 5;
   };
 
+  home.sessionVariables.TERMINAL = "termite";
 }
