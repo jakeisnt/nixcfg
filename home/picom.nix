@@ -7,7 +7,7 @@
     vSync = true;
     fade = true;
     fadeDelta = 2;
-    shadow = true;
+    shadow = false;
     shadowExclude = [ ];
     extraOptions = ''
       glx-no-stencil = true;
