@@ -377,4 +377,8 @@
       org-src-fontify-natively t
       org-confirm-babel-evaluate nil)
 
+(use-package! link-hint
+  :ensure t
+  :defer t)
 
+(define-key evil-normal-state-map (kbd "SPC a") 'link-hint-open-link)

@@ -53,6 +53,7 @@
 ;;;; Code:
 (package! org-projectile)
 (package! org-roam-server)
+(package! org-roam)
 (package! org-roam-bibtex)
 (package! org-noter)
 (package! company-org-roam)
@@ -60,3 +61,6 @@
 (package! latex-preview-pane)
 ;; (package! elfeed)
 ;; (package! elfeed-protocol)
+;; (package! anki-editor) -- make anki cards from org-mode files
+;; (package! evil-colemak-basics) -- rebinds keys for colemak
+(package! link-hint) ;; works just like 'f' and 'F' in Vimium
