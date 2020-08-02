@@ -15,7 +15,7 @@
   users.users.jake = {
     isNormalUser = true;
     home = "/home/jake";
-    extraGroups = [ "wheel" "networkmanager" "audio" "video" ];
+    extraGroups = [ "wheel" "networkmanager" "audio" "video" "docker" ];
   };
 
   hardware.pulseaudio = {
@@ -24,4 +24,5 @@
   };
 
   sound.enable = true;
+  security.sudo.wheelNeedsPassword = true;
 }
