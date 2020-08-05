@@ -1,5 +1,8 @@
 #+title: NixOS Configuration
-
+* Description
+:PROPERTIES:
+:PROJECT_DESCRIPTION:
+:END:
 This is my current NixOS configuration. 
 It heavily borrows ideas from [[https://github.com/kylesferrazza/nix][Kyle's configuration]] and [[https://github.com/jethrokuan/nix-config][Jethro's configuration]]. 
 
