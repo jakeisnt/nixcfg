@@ -59,11 +59,11 @@
 (package! company-org-roam)
 ;; (package! proof-general)
 (package! latex-preview-pane)
-(package! org-chef) ;; save and parse recipes in org
+;; (package! org-chef) ;; save and parse recipes in org
 ;; (package! elfeed)
 ;; (package! elfeed-protocol)
 ;; (package! anki-editor) -- make anki cards from org-mode files
 ;; (package! evil-colemak-basics) -- rebinds keys for colemak
-(package! link-hint) ;; works just like 'f' and 'F' in Vimium
+;; (package! link-hint) ;; works just like 'f' and 'F' in Vimium
 ;; (package! org-alert) ;; provides system notification at org agenda times
 ;; (package! org-fc) spaced repitition for emacs

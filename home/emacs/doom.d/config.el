@@ -382,3 +382,11 @@
   :defer t)
 
 (define-key evil-normal-state-map (kbd "SPC a") 'link-hint-open-link)
+
+
+(defun j/find-file-nixos
+    (ido-find-file-in-dir "/etc/nixos"))
+
+  (map! :leader
+        :prefix "f"
+        :desc "Find file in system config" "n" #'j/find-file-nixos)
