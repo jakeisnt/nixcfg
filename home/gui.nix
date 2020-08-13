@@ -35,5 +35,6 @@ in {
     ] ++ justLinux [ fzf syncthing ];
 
   programs.home-manager.enable = true;
-  home.sessionVariables.EDITOR = "emacsclient";
+  home.sessionVariables.EDITOR = "emacsclient %u";
+  home.sessionVariables.ALTERNATE_EDITOR = "nvim";
 }

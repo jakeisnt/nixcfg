@@ -4,7 +4,10 @@
 :PROJECT_DESCRIPTION:
 :END:
 This is my current NixOS configuration. 
-It heavily borrows ideas from [[https://github.com/kylesferrazza/nix][Kyle's configuration]] and [[https://github.com/jethrokuan/nix-config][Jethro's configuration]]. 
+
+* References
+This configuration heavily borrows ideas from [[https://github.com/kylesferrazza/nix][Kyle's configuration]] and [[https://github.com/jethrokuan/nix-config][Jethro's configuration]].
+It's also worth mentioning [[https://ejpcmac.net/blog/about-using-nix-in-my-development-workflow/][Jean]]'s helpful article on NixOS development environments.
 
 * Installation
 #+begin_src sh
