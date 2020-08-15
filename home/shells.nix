@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 {
-  programs.bash = { enable = false; };
+  programs.bash = { enable = true; };
   programs.zsh = {
     enable = true;
     autocd = true;
@@ -21,9 +21,27 @@
     # env variables for zsh sessions
     sessionVariables = { };
 
-    plugins = [
+    plugins = [{
+      name = "zsh-nix-shell";
+      src = pkgs.fetchFromGitHub {
+        owner = "chisui";
+        repo = "zsh-nix-shell";
+        rev = "v0.1.0";
+        sha256 = "0snhch9hfy83d4amkyxx3izvkhbwmindy0zjjk28hih1a912jmx";
+      };
+    }
+    # TODO
+    # {
+    #   name = "nix-zsh-completions";
+    #   src = pkgs.fetchFromGitHub {
+    #     owner = "spwhitt";
+    #     repo = "nix-zsh-completions";
+    #     rev = "v0.1.0";
+    #     sha256 = "0snhch9hfy83d4amkyxx3izvkhbwmindy0zjjk28hih1a912jmx";
+    #   };
+    # }
 
-    ];
+      ];
 
     oh-my-zsh = {
       enable = true;

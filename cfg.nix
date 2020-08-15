@@ -15,6 +15,7 @@
   users.users.jake = {
     isNormalUser = true;
     home = "/home/jake";
+    shell = pkgs.zsh;
     extraGroups = [ "wheel" "networkmanager" "audio" "video" "docker" ];
   };
 
