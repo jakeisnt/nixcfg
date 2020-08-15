@@ -51,6 +51,7 @@
       extraConfig = ''
         MAGIC_ENTER_GIT_COMMAND='git status -u .'
         MAGIC_ENTER_OTHER_COMMAND='ls -lh .'
+        eval "$(direnv hook zsh)"
       '';
     };
   };
