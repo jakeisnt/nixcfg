@@ -120,3 +120,16 @@ users.extraUsers.jake.openssh.authorizedKeys.keys = [
     "ssh-rsa ....."
   ];
 #+end_src
+* TODO wifi connection flow
+1. poll wifi networks
+2. allow for the selection of a wifi network (via networkmanager)
+3. determine whether wi fi is sending u to default landing page for all websites (ping google, ddg, etc)
+4. if so, open the site in firefox. else, do nothing -- good to go
+* TODO zsh in nix-shell
+- prompt should change color to indicate we are living in a shell
+- should have autocomplete for things available to us in the shell
+- fzf should work (aaahhh)
+- --pure flag should still leave us with a usable shell.
+  it may be a good idea to create a default shell.nix with devtools and preferences for them
+  that can be added to the projects i'm working on.
+  others could import their own personal shell file to have their preferred dev tools accessible
