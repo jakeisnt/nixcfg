@@ -49,8 +49,19 @@
       plugins = [ "extract" "fzf" "git" "magic-enter" ];
       theme = "evan";
       extraConfig = ''
+        # Use a special colour for Nix shells.
+        # https://github.com/ejpcmac/config/blob/bc9ee4e7363e4e0ca97f4addbdd9370b83048d3c/zsh/themes/bazik.zsh-theme#L39-L53
+        prompt_color() {
+            if [ -n "$IN_NIX_SHELL" ]; then
+                echo "$fg_bold[blue]"
+            else
+                echo "$fg_bold[green]"
+            fi
+        }
         MAGIC_ENTER_GIT_COMMAND='git status -u .'
         MAGIC_ENTER_OTHER_COMMAND='ls -lh .'
+        FZF_BASE=/etc/profiles/per-user/jake/bin/fzf
+        export FZF_BASE=/etc/profiles/per-user/jake/bin/fzf
         eval "$(direnv hook zsh)"
       '';
     };
