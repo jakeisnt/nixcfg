@@ -23,11 +23,6 @@
     extraGroups = [ "wheel" "networkmanager" "audio" "video" "docker" ];
   };
 
-  hardware.pulseaudio = {
-    enable = true;
-    support32Bit = true;
-  };
-
   sound.enable = true;
   security.sudo.wheelNeedsPassword = true;
 }

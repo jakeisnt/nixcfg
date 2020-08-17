@@ -25,6 +25,27 @@
     '';
   };
 
+  hardware.pulseaudio = {
+    enable = true;
+    # ensure that bluetooth support is included
+    package = pkgs.pulseaudioFull;
+    # enable extra bluetooth codecs
+    extraModules = [ pkgs.pulseaudio-modules-bt ];
+    support32Bit = true;
+    extraConfig = ''
+      load-module module-switch-on-connect
+    '';
+  };
+
+  hardware.bluetooth = {
+    enable = true;
+    extraConfig = ''
+      [General]
+      Enable=Source,Sink,Media,Socket
+    '';
+  };
+  services.blueman.enable = true;
+
   boot.plymouth.enable = true;
 
   services.syncthing = {
