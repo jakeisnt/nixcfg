@@ -11,7 +11,10 @@
     libinput.enable = true; # enable touchpad
     xkbOptions = "caps:swapescape";
     desktopManager = { xterm.enable = false; };
-    displayManager.startx.enable = false;
+    displayManager = {
+      startx.enable = false;
+      defaultSession = "none+exwm";
+    };
     windowManager.session = lib.singleton {
       name = "exwm";
       start = ''
