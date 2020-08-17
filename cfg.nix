@@ -1,7 +1,11 @@
 { config, pkgs, lib, ... }:
 
 {
-  imports = [ <musnix> <home-manager/nixos> ./nix-private ];
+  imports = [
+    # <musnix>
+    <home-manager/nixos>
+    ./nix-private
+  ];
 
   nixpkgs.config.allowUnfree = true;
   home-manager.useUserPackages = true;

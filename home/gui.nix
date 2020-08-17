@@ -32,6 +32,7 @@ in {
       niv
       nixfmt
       pulseaudio-ctl
+      darktable
     ] ++ justLinux [ fzf syncthing ];
 
   programs.home-manager.enable = true;
