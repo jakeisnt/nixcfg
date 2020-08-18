@@ -381,12 +381,33 @@
   :ensure t
   :defer t)
 
+;; https://stackoverflow.com/questions/32977707/sending-bash-commands-to-an-open-terminal-buffer-in-emacs
+(defun visit-project-term-buffer ()
+  "Create or visit a terminal buffer."
+  (interactive)
+  (if (not (get-buffer (persp-ansi-buffer-name)))
+  (progn
+    (split-window-sensibly (selected-window))
+    (other-window 1)
+    (ansi-term (getenv "SHELL"))
+    (rename-buffer (persp-ansi-buffer-name))
+    (end-of-buffer)
+    (insert (format "cd %s" (projectile-project-root)))
+    (term-send-input))
+(switch-to-buffer-other-window (persp-ansi-buffer-name))))
+
+(defun skira-setup ()
+  "Open everything I need to be productive at Skira."
+  (interactive)
+  (browse-url-firefox "https://app.slack.com/client/T0R0C5VFV/CNWV3L0BE")
+  (browse-url-firefox "https://mail.google.com/mail/u/2/#inbox")
+  (browse-url-firefox "https://calendar.google.com/calendar/b/2/r?tab=mc")
+  ;; (projectile-run-term "/home/jake/skira")
+  ;; (switch-to-buffer "*shell nixos*")
+  ;; (rename-buffer "skira-dev")
+  ;; (end-of-buffer)
+  ;; (insert "nix-shell")
+  ;; (term-send-input)
+  )
+
 (define-key evil-normal-state-map (kbd "SPC a") 'link-hint-open-link)
-
-
-(defun j/find-file-nixos
-    (ido-find-file-in-dir "/etc/nixos"))
-
-  (map! :leader
-        :prefix "f"
-        :desc "Find file in system config" "n" #'j/find-file-nixos)
