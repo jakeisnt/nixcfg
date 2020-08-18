@@ -25,7 +25,7 @@
     };
     ignores = [ ".venv" ".idea" ".DS_Store" ];
     extraConfig = {
-      credential = { helper = "cache"; };
+      credential = { helper = "store"; };
       pull = { ff = "only"; };
     };
   };
