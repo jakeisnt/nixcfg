@@ -15,7 +15,12 @@
     shellGlobalAliases = { mkdir = "mkdir -p"; };
     enableCompletion = true;
     enableAutosuggestions = true;
-    history.extended = true;
+
+    history = {
+      extended = true;
+      ignoreSpace = true;
+      share = true;
+    };
 
     # same format as aliases
     # env variables for zsh sessions
@@ -46,7 +51,7 @@
 
     oh-my-zsh = {
       enable = true;
-      plugins = [ "extract" "fzf" "git" "magic-enter" ];
+      plugins = [ "extract" "git" "magic-enter" ];
       theme = "evan";
       extraConfig = ''
         # Use a special colour for Nix shells.
@@ -60,8 +65,6 @@
         }
         MAGIC_ENTER_GIT_COMMAND='git status -u .'
         MAGIC_ENTER_OTHER_COMMAND='ls -lh .'
-        FZF_BASE=/etc/profiles/per-user/jake/bin/fzf
-        export FZF_BASE=/etc/profiles/per-user/jake/bin/fzf
         eval "$(direnv hook zsh)"
       '';
     };
