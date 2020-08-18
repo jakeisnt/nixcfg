@@ -13,6 +13,7 @@ in {
     ./picom.nix
     ./lorri.nix
     ./xdg.nix
+    ./fzf.nix
   ];
 
   services.xcape = {
@@ -33,7 +34,7 @@ in {
       nixfmt
       pulseaudio-ctl
       darktable
-    ] ++ justLinux [ fzf syncthing ];
+    ] ++ justLinux [ syncthing ];
 
   programs.home-manager.enable = true;
   home.sessionVariables.EDITOR = "emacsclient %u";
