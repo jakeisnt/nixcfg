@@ -5,16 +5,13 @@
 (use-package! exwm-config)
 (exwm-config-default)
 (use-package! exwm-randr)
-(setq exwm-randr-workspace-output-plist '(0 "eDP-1"
-                                          1 "eDP-1"
-                                          2 "eDP-1"
-                                          3 "eDP-1"
-                                          4 "eDP-1"
-                                          5 "eDP-1"
-                                          6 "eDP-1"
-                                          7 "eDP-1"
-                                          8 "eDP-1"
-                                          9 "eDP-1")
+
+(setq MON1 "eDP-1"
+      MON2 "DP-1"
+      MON3 "DP-2")
+(setq exwm-randr-workspace-output-plist '(0 MON1
+                                          1 MON2
+                                          2 MON3)
       exwm-workspace-show-all-buffers t
       exwm-layout-show-all-buffers t
       exwm-manage-force-tiling t)
@@ -22,7 +19,7 @@
 (add-hook 'exwm-randr-screen-change-hook
           (lambda ()
             (start-process-shell-command
-             "xrandr" nil "xrandr --output eDP-1 --scale 1x1")))
+             "xrandr" nil "xrandr --output DP-1 --above eDP-1 --output DP-2 --right-of DP-1")))
 (exwm-randr-enable)
 
 (defun jethro/exwm-rename-buffer-to-title () (exwm-workspace-rename-buffer (format "%s - %s" exwm-class-name exwm-title)))
@@ -49,8 +46,9 @@
 (exwm-systemtray-enable)
 
 ;; better firefox experience in exwm
-(use-package! exwm-firefox-evil)
-(add-hook 'exwm-manage-finish-hook 'exwm-firefox-evil-activate-if-firefox)
+(use-package! exwm-firefox-evil
+  :config (add-hook 'exwm-manage-finish-hook 'exwm-firefox-evil-activate-if-firefox))
+
 ;; add something to firefox
 (dolist (k `(escape))
   (cl-pushnew k exwm-input-prefix-keys))
@@ -84,10 +82,10 @@
 ;;               (exwm-workspace-move-window 1)
 ;;               (exwm-layout-hide-mode-line))))
 
-;; (add-hook 'exwm-update-title-hook
-;;           (defun pnh-exwm-title-hook ()
-;;             (when (string-match "Firefox" exwm-class-name)
-;;               (exwm-workspace-rename-buffer exwm-title))))
+(add-hook 'exwm-update-title-hook
+          (defun pnh-exwm-title-hook ()
+            (when (string-match "Firefox" exwm-class-name)
+              (exwm-workspace-rename-buffer exwm-title))))
 
 (setq browse-url-firefox-arguments '("-new-window"))
 
@@ -98,20 +96,6 @@
 (exwm-input-set-key (kbd "s-j") #'windmove-down)
 (exwm-input-set-key (kbd "s-k") #'windmove-up)
 (exwm-input-set-key (kbd "s-l") #'windmove-right)
-
-;; swap buffers with C-s-hjkl
-(exwm-input-set-key
- (kbd "C-s-h")
- (lambda () (interactive) (aw-swap-window (window-in-direction 'left))))
-(exwm-input-set-key
- (kbd "C-s-j")
- (lambda () (interactive) (aw-swap-window (window-in-direction 'below))))
-(exwm-input-set-key
- (kbd "C-s-k")
- (lambda () (interactive) (aw-swap-window (window-in-direction 'above))))
-(exwm-input-set-key
- (kbd "C-s-l")
- (lambda () (interactive) (aw-swap-window (window-in-direction 'right))))
 
 ;; grow and shrink windows
 (exwm-input-set-key (kbd "s-[") 'shrink-window-horizontally)
@@ -139,10 +123,3 @@
 
 ;; remappings for firefox
 (evil-define-key 'normal exwm-firefox-evil-mode-map (kbd "t") 'exwm-firefox-core-window-new)
-
-;; clean exwm logout function
-(defun exwm-logout ()
-  (interactive)
-  (recentf-save-list)
-  (save-some-buffers)
-  (start-process-shell-command "logout" nil "lxsession-logout"))
