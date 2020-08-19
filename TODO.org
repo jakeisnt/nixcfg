@@ -79,11 +79,12 @@ it should also have a more clearly defined structure
 * TODO cachix
 configure builds to run after commits to ensure that the
 configuration is still okay, making use of CI.
-* TODO add a new flow for creating a new package
-1. create git repo in home dir
-2. assoc. with public github repo
+* TODO add a new flow for creating a new project
+ask for a project name.
+1. create git repo in home dir with project name
+2. assoc. with public github repo with same name
 3. lorri init
-4. niv init
+4. niv init -- is niv necessary? it seems like too much.
 5. direnv allow
 6. (ensure lorri or nix-shell is hooked up with editor)
 7. open shell.nix file for editing
@@ -101,6 +102,7 @@ the correct emacs packages for interfacing with the code when codin
 https://christine.website/blog/how-i-start-nix-2020-03-08
 * TODO swap to zfs
 i can add autoshapshots pretty easily!!
+i do have to reformat everything to use ZFS in order to make this work, though.
 #+begin_src nix
 services.zfs = {
     autoSnapshot = {
@@ -115,6 +117,8 @@ services.zfs = {
 #+end_src
 * TODO add ssh keys
 adding public authorized keys seems good, at least for the pi
+this way i can add the keys ahead of time (in private)
+and have them available to all devices
 #+begin_src nix
 users.extraUsers.jake.openssh.authorizedKeys.keys = [
     "ssh-rsa ....."
@@ -125,7 +129,8 @@ users.extraUsers.jake.openssh.authorizedKeys.keys = [
 2. allow for the selection of a wifi network (via networkmanager)
 3. determine whether wi fi is sending u to default landing page for all websites (ping google, ddg, etc)
 4. if so, open the site in firefox. else, do nothing -- good to go
-* TODO zsh in nix-shell
+* DONE zsh in nix-shell
+CLOSED: [2020-08-19 Wed 08:59]
 - prompt should change color to indicate we are living in a shell
 - should have autocomplete for things available to us in the shell
 - fzf should work (aaahhh)
@@ -133,3 +138,5 @@ users.extraUsers.jake.openssh.authorizedKeys.keys = [
   it may be a good idea to create a default shell.nix with devtools and preferences for them
   that can be added to the projects i'm working on.
   others could import their own personal shell file to have their preferred dev tools accessible
+* TODO remove the stupid white bar in firefox
+why is this there! it's obnoxious!
