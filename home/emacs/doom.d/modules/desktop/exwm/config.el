@@ -41,76 +41,6 @@
 ;; - determine where it is (dp1 -> left, dp2 -> right?)
 ;; - scale relative to potential max size (if 1920x1080, increase size by 2x2 for example. scale everything to 4k.)
 
-
-(defun exwm-turn-off-monitors (curmon)
-  "Generate string to turn off monitors not used."
-  (let (MONITORS)
-  (setq MONITORS (list (list "eDP-1" "3840x2160")
-                      (list "DP-1" "1920x1080")
-                      (list "DP-2" "1920x1080")))
-  (mapconcat (lambda (ls) (if (not (string= (car ls) curmon))
-                                   (concat "--output " (car ls) " --off")
-                                 ""))
-             MONITORS
-             " ")))
-
-;; (defun exwm-change-screen-hook ()
-;;   "Dynamically change how EXWM renders to screens depending on what displays are connected."
-;;   (interactive)
-;;   (let ((xrandr-output-regexp "\n\\([^ ]+\\) connected ")
-;;         default-output
-;;         first-monitor)
-;;     (with-temp-buffer
-;;       (call-process "xrandr" nil t nil)
-;;       (goto-char (point-min))
-;;       (re-search-forward xrandr-output-regexp nil 'noerror)
-;;       (setq default-output (match-string 1))
-;;       (forward-line)
-;;       (if (not (re-search-forward xrandr-output-regexp nil 'noerror)) ;; single monitor
-;;           (call-process
-;;            "xrandr" "--fb 3840x2160" nil nil nil "--output" default-output "--auto" ;; "--mode" "3840x2160"
-;;            (exwm-turn-off-monitors default-output))
-
-;;         (setq first-monitor (match-string 1))
-;;         (forward-line)
-;;         (if (not (re-search-forward xrandr-output-regexp nil 'noerror))
-;;             (call-process ;; secondary monitor
-;;              "xrandr" nil nil nil
-;;              "--fb" "1920x1080"
-;;              "--output" first-monitor "--mode" "1920x1080" "--auto" ;; "--primary" was part of the command
-;;              (exwm-turn-off-monitors first-monitor))
-;;           (call-process ;; three monitors
-;;            "xrandr" nil nil nil
-;;            "--fb" "3840x1080"
-;;            "--output" first-monitor "--mode" "1920x1080" "--auto"
-;;            "--output" (match-string 1) "--mode" "1920x1080" "--right-of" first-monitor "--auto"
-;;            "--output" default-output "--off")
-;;           (setq exwm-randr-workspace-monitor-plist (list 1 "DP-1"
-;;                                                          2 "DP-1"
-;;                                                          3 "DP-1"
-;;                                                          4 "DP-1"
-;;                                                          6 "DP-1"
-;;                                                          6 "DP-2"
-;;                                                          7 "DP-2"
-;;                                                          8 "DP-2"
-;;                                                          9 "DP-2"
-;;                                                          0 "DP-2"))
-;;           ) ;; turns off the original screen
-;;         (setq exwm-randr-workspace-monitor-plist (list 1 (match-string 1)
-;;                                                        2 (match-string 1)
-;;                                                        3 (match-string 1)
-;;                                                        4 (match-string 1)
-;;                                                        6 (match-string 1)
-;;                                                        6 (match-string 1)
-;;                                                        7 (match-string 1)
-;;                                                        8 (match-string 1)
-;;                                                        9 (match-string 1)
-;;                                                        0 (match-string 1)))
-;;         )
-;;       (exwm-randr-refresh)
-;;       ;; (exwm-randr--get-outputs) (exwm-randr--get-monitors) (exwm-randr--get-monitor-alias)
-;;       ))) ;; monitor list uses first one
-
 (defun exwm-change-screen-hook ()
   (interactive)
   (let ((xrandr-output-regexp "\n\\([^ ]+\\) connected ")
@@ -125,15 +55,20 @@
       (re-search-forward xrandr-output-regexp nil 'noerror)
       (setq default-output (match-string 1))
       (setq last-monitor default-output)
-      (setq exwm-randr-workspace-monitor-plist (list 0 default-output))
+      (setq exwm-randr-workspace-monitor-plist (list 0 default-output
+                                                     1 "DP-1"
+                                                     2 "DP-2"))
       (forward-line)
       ;; if the regex doesn't find a next monitor:
       (progn
-          (message (concat "rendering to " default-output))
-          (call-process "xrandr" nil nil nil "--output" default-output "--primary" "--auto"))
+        (message (concat "rendering to " default-output))
+        (call-process "xrandr" nil nil nil "--output" default-output "--primary" "--auto"))
       ;; if there is more than one thing to render:
       (if (re-search-forward xrandr-output-regexp nil 'noerror)
           (progn
+            (progn
+              (message (concat "rendering to " default-output))
+              (call-process "xrandr" nil nil nil "--output" default-output "--primary" "--auto" "--scale 0.5x0.5"))
             (message "rendering more than one thing")
             (with-temp-buffer
               (call-process "xrandr" nil t nil "--listactivemonitors")
@@ -150,9 +85,13 @@
                     ;; add it to the list of current monitors
                     (message (concat "adding the monitor " cur-monitor))
                     (setq last-monitor cur-monitor)
-                         (add-to-list exwm-randr-workspace-monitor-plist (/ (length exwm-randr-workspace-monitor-plist) 2))
-                         (add-to-list exwm-randr-workspace-monitor-plist cur-monitor)))))))
-      ; (setq exwm-randr-workspace-monitor-plist (list 0 default-output))
+                    ;; (add-to-list exwm-randr-workspace-monitor-plist (+ (/ (length exwm-randr-workspace-monitor-plist) 2) 1) cur-monitor)
+                    )))))
+            (progn
+              (message (concat "rendering to " default-output))
+              (call-process "xrandr" nil nil nil "--output" default-output "--primary" "--auto"))
+        )
+                                        ; (setq exwm-randr-workspace-monitor-plist (list 0 default-output))
       (call-process "systemctl" nil nil nil "--user" "restart" "picom")
       (exwm-randr-refresh))))
 
