@@ -55,28 +55,25 @@
       (re-search-forward xrandr-output-regexp nil 'noerror)
       (setq default-output (match-string 1))
       (setq last-monitor default-output)
-      (setq exwm-randr-workspace-monitor-plist (list 0 default-output
-                                                     1 "DP-1"
-                                                     2 "DP-2"))
+      ;; (setq exwm-randr-workspace-monitor-plist (list 0 default-output
+      ;;                                                1 "DP-1"
+      ;;                                                2 "DP-2"))
       (forward-line)
       ;; if the regex doesn't find a next monitor:
-      (progn
-        (message (concat "rendering to " default-output))
-        (call-process "xrandr" nil nil nil "--output" default-output "--primary" "--auto"))
       ;; if there is more than one thing to render:
       (if (re-search-forward xrandr-output-regexp nil 'noerror)
           (progn
-            (progn
-              (message (concat "rendering to " default-output))
-              (call-process "xrandr" nil nil nil "--output" default-output "--primary" "--auto" "--scale 0.5x0.5"))
+            ;; (progn
+            ;;   (message (concat "rendering to " default-output))
+            ;;   (call-process "xrandr" nil nil nil "--output" default-output "--primary" "--auto" "--scale 0.5x0.5"))
             (message "rendering more than one thing")
             (with-temp-buffer
-              (call-process "xrandr" nil t nil "--listactivemonitors")
+              (call-process "xrandr" nil t nil ) ;;"--listactivemonitors"
               (goto-char (point-min))
               ;; for each active monitor:
               (while (not (eobp))
                 ;; when the next monitor name is found:
-                (when (and (re-search-forward xrandr-monitor-regexp nil 'noerror)
+                (when (and (re-search-forward xrandr-output-regexp nil 'noerror) ;; was monitor regexp
                            (not (string= (match-string 1) default-output)))
                   (progn
                     ;; add it to the screen to the right of the previous
@@ -85,13 +82,13 @@
                     ;; add it to the list of current monitors
                     (message (concat "adding the monitor " cur-monitor))
                     (setq last-monitor cur-monitor)
-                    ;; (add-to-list exwm-randr-workspace-monitor-plist (+ (/ (length exwm-randr-workspace-monitor-plist) 2) 1) cur-monitor)
+                    (add-to-list exwm-randr-workspace-monitor-plist (+ (/ (length exwm-randr-workspace-monitor-plist) 2) 1) cur-monitor)
                     )))))
             (progn
               (message (concat "rendering to " default-output))
-              (call-process "xrandr" nil nil nil "--output" default-output "--primary" "--auto"))
-        )
-                                        ; (setq exwm-randr-workspace-monitor-plist (list 0 default-output))
+              (call-process "xrandr" nil nil nil "--output" default-output "--primary" "--auto")
+              (add-to-list exwm-randr-workspace-monitor-plist 0 default-output)
+              ))
       (call-process "systemctl" nil nil nil "--user" "restart" "picom")
       (exwm-randr-refresh))))
 
