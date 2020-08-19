@@ -1,17 +1,19 @@
 #+TITLE: Todo
-* [1/12] create separate installation frameworks
+* [8/12] create separate installation frameworks
 ** DONE emacs:
 CLOSED: [2020-07-19 Sun 06:19]
    - exwm
    - firefox
    ... that's about it
-** [0/6] headless:
+** [2/6] headless:
 *** TODO vim
 *** TODO tmux
-*** TODO ranger
+*** DONE ranger
+CLOSED: [2020-08-20 Thu 00:34]
 *** TODO newsboat
 *** TODO mutt
-*** TODO shell aliases and config
+*** DONE shell aliases and config
+CLOSED: [2020-08-20 Thu 00:34]
 ** [5/5] 'normal' desktop:
 *** CANCELLED bspwm
 CLOSED: [2020-07-31 Fri 02:09]
@@ -44,7 +46,8 @@ CLOSED: [2020-07-31 Fri 02:10]
 ensure capslock -> mod/esc works
 allow tap-to-click on trackpad
 consider some of kyles fancy file input things
-* TODO bluetooth
+* DONE bluetooth
+CLOSED: [2020-08-20 Thu 00:34]
 ensure bluetoothctl is configured
 pair existing devices
 * DONE networking
