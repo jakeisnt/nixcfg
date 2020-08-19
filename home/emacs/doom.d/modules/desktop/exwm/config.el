@@ -1,28 +1,64 @@
 ;;; desktop/exwm/config.el -*- lexical-binding: t; -*-
 ;;emacs window manager !!
 
-(use-package! exwm)
-(use-package! exwm-config)
-(exwm-config-default)
-(use-package! exwm-randr)
+;;; Code:
+
+(require 'exwm)
+(require 'exwm-config)
+(exwm-config-example)
+
+(require 'exwm-randr)
 
 (setq MON1 "eDP-1"
       MON2 "DP-1"
       MON3 "DP-2")
-(setq exwm-randr-workspace-output-plist '(0 MON1
-                                          1 MON2
-                                          2 MON3)
-      exwm-workspace-show-all-buffers t
-      exwm-layout-show-all-buffers t
-      exwm-manage-force-tiling t)
+(setq
+ exwm-workspace-number 2
+  exwm-workspace-show-all-buffers t
+  exwm-layout-show-all-buffers t
+  exwm-manage-force-tiling t)
 
-(add-hook 'exwm-randr-screen-change-hook
-          (lambda ()
-            (start-process-shell-command
-             "xrandr" nil "xrandr --output DP-1 --above eDP-1 --output DP-2 --right-of DP-1")))
+;; (setq exwm-randr-workspace-monitor-plist '(1 MON1
+;;                                            2 MON1
+;;                                            3 MON1
+;;                                            4 MON1
+;;                                            5 MON1
+;;                                            6 MON1
+;;                                            7 MON1
+;;                                            8 MON1
+;;                                            9 MON3
+;;                                            0 MON2))
+;;
+(setq exwm-randr-workspace-monitor-plist '(1 "eDP-1"
+                                             2 "DP-2"))
+
+;; (add-hook 'exwm-randr-screen-change-hook
+;;           (lambda ()
+;;             (start-process-shell-command
+;;              "xrandr" nil "xrandr --output eDP-1 --output DP-1 --scale 2x2 --above eDP-1 --output DP-2 --scale 2x2 --right-of DP-1")))
+
+;; (defun exwm-change-screen-hook ()
+;;   (let ((xrandr-output-regexp "\n\\([^ ]+\\) connected ")
+;;         default-output)
+;;     (with-temp-buffer
+;;       (call-process "xrandr" nil t nil)
+;;       (goto-char (point-min))
+;;       (re-search-forward xrandr-output-regexp nil 'noerror)
+;;       (setq default-output (match-string 1))
+;;       (forward-line)
+;;       (if (not (re-search-forward xrandr-output-regexp nil 'noerror))
+;;           (call-process "xrandr" nil nil nil "--output" default-output "--auto")
+;;         (call-process
+;;          "xrandr" nil nil nil
+;;          "--output" (match-string 1) "--primary" "--auto"
+;;          "--output" default-output "--off")
+;;         (setq exwm-randr-workspace-monitor-plist (list 0 (match-string 1)))))))
+
 (exwm-randr-enable)
 
-(defun jethro/exwm-rename-buffer-to-title () (exwm-workspace-rename-buffer (format "%s - %s" exwm-class-name exwm-title)))
+(defun jethro/exwm-rename-buffer-to-title ()
+  "Rename Firefox buffers to include their window titles."
+  (exwm-workspace-rename-buffer (format "%s - %s" exwm-class-name exwm-title)))
 (add-hook 'exwm-update-title-hook 'jethro/exwm-rename-buffer-to-title)
 (add-hook 'exwm-update-class-hook
           (defun my-exwm-update-class-hook ()
@@ -42,12 +78,14 @@
       exwm-layout-show-all-buffers t)
 
 ;; system tray
-(use-package! exwm-systemtray)
+(require 'exwm-systemtray)
 (exwm-systemtray-enable)
+(display-time-mode 1)
+(display-battery-mode 1)
 
 ;; better firefox experience in exwm
 (use-package! exwm-firefox-evil
-  :config (add-hook 'exwm-manage-finish-hook 'exwm-firefox-evil-activate-if-firefox))
+              :config (add-hook 'exwm-manage-finish-hook 'exwm-firefox-evil-activate-if-firefox))
 
 ;; add something to firefox
 (dolist (k `(escape))
@@ -87,7 +125,11 @@
             (when (string-match "Firefox" exwm-class-name)
               (exwm-workspace-rename-buffer exwm-title))))
 
-(setq browse-url-firefox-arguments '("-new-window"))
+; (setq browse-url-firefox-arguments '("-new-window"))
+
+(setq browse-url-new-window-flag t
+      browse-url-firefox-new-window-is-tab t)
+;; browse-url-browser-function 'browse-url-firefox
 
 (exwm-input-set-key (kbd "s-SPC") #'counsel-linux-app)
 
@@ -105,21 +147,22 @@
 
 ;; audio fix for computer
 (exwm-input-set-key
- (kbd "<XF86AudioRaiseVolume>")
- (lambda () (interactive) (shell-command "pulseaudio-ctl up 10")))
+  (kbd "<XF86AudioRaiseVolume>")
+  (lambda () (interactive) (shell-command "pulseaudio-ctl up 10")))
 (exwm-input-set-key
- (kbd "<XF86AudioLowerVolume>")
- (lambda () (interactive) (shell-command "pulseaudio-ctl down 10")))
+  (kbd "<XF86AudioLowerVolume>")
+  (lambda () (interactive) (shell-command "pulseaudio-ctl down 10")))
 (exwm-input-set-key
- (kbd "<XF86AudioMute>")
- (lambda () (interactive) (shell-command "pulseaudio-ctl mute")))
+  (kbd "<XF86AudioMute>")
+  (lambda () (interactive) (shell-command "pulseaudio-ctl mute")))
 
 (exwm-input-set-key
- (kbd "<XF86MonBrightnessUp>")
- (lambda () (interactive) (shell-command "light -A 10")))
+  (kbd "<XF86MonBrightnessUp>")
+  (lambda () (interactive) (shell-command "light -A 10")))
 (exwm-input-set-key
- (kbd "<XF86MonBrightnessDown>")
- (lambda () (interactive) (shell-command "light -U 10")))
+  (kbd "<XF86MonBrightnessDown>")
+  (lambda () (interactive) (shell-command "light -U 10")))
 
 ;; remappings for firefox
 (evil-define-key 'normal exwm-firefox-evil-mode-map (kbd "t") 'exwm-firefox-core-window-new)
+(provide 'config);;;
