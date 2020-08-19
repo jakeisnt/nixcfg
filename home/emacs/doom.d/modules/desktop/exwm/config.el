@@ -10,7 +10,7 @@
 (require 'exwm-randr)
 
 (setq
- exwm-workspace-number 3
+ exwm-workspace-number 10
  exwm-workspace-show-all-buffers t
  exwm-layout-show-all-buffers t
  exwm-manage-force-tiling t)
@@ -31,7 +31,14 @@
       (setq last-monitor default-output)
       (setq exwm-randr-workspace-monitor-plist (list 0 default-output
                                                      1 "DP-1"
-                                                     2 "DP-2"))
+                                                     2 "DP-1"
+                                                     3 "DP-1"
+                                                     4 "DP-1"
+                                                     5 "DP-1"
+                                                     6 "DP-2"
+                                                     7 "DP-2"
+                                                     8 "DP-2"
+                                                     9 "DP-2"))
       (forward-line)
       ;; if there is more than one thing to render:
       (if (re-search-forward xrandr-output-regexp nil 'noerror)
