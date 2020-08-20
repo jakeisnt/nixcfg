@@ -402,12 +402,6 @@
   (browse-url-firefox "https://app.slack.com/client/T0R0C5VFV/CNWV3L0BE")
   (browse-url-firefox "https://mail.google.com/mail/u/2/#inbox")
   (browse-url-firefox "https://calendar.google.com/calendar/b/2/r?tab=mc")
-  ;; (projectile-run-term "/home/jake/skira")
-  ;; (switch-to-buffer "*shell nixos*")
-  ;; (rename-buffer "skira-dev")
-  ;; (end-of-buffer)
-  ;; (insert "nix-shell")
-  ;; (term-send-input)
-  )
+  (browse-url-firefox "https://app.asana.com/0/inbox/1189245019163511"))
 
 (define-key evil-normal-state-map (kbd "SPC a") 'link-hint-open-link)
