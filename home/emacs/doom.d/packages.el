@@ -54,9 +54,15 @@
 (package! org-projectile)
 (package! org-roam-server)
 (package! org-roam)
+(package! org-ref)
 (package! org-roam-bibtex)
 (package! org-noter)
 (package! company-org-roam)
+(package! org-super-agenda)
+;; (package! org-pandoc-import
+;;   :recipe (:host github ;; edit non-org files as org files
+;;            :repo "tecosaur/org-pandoc-import"
+;;            :files ("*.el" "filters" "preprocessors")))
 ;; (package! proof-general)
 (package! latex-preview-pane)
 ;; (package! org-chef) ;; save and parse recipes in org
@@ -67,3 +73,7 @@
 ;; (package! link-hint) ;; works just like 'f' and 'F' in Vimium
 ;; (package! org-alert) ;; provides system notification at org agenda times
 ;; (package! org-fc) spaced repitition for emacs
+
+(package! keycast)
+(package! flyspell-lazy)
+(package! vlf :recipe (:host github :repo "m00natic/vlfi" :files ("*.el")))
