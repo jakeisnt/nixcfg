@@ -66,7 +66,7 @@
         ;; else:
         (progn
           (message (concat "rendering to " default-output))
-          (call-process "xrandr" nil nil nil "--output" default-output "--primary" "--mode" "1920x1080" "--scale" "1x1" "--auto")))
+          (call-process "xrandr" nil nil nil "--output" default-output "--primary" "--mode" "3840x2160" "--scale" "1x1" "--auto")))
       (call-process "systemctl" nil nil nil "--user" "restart" "picom")
       (exwm-randr-refresh))))
 
@@ -97,8 +97,6 @@
 ;; system tray
 (require 'exwm-systemtray)
 (exwm-systemtray-enable)
-(display-time-mode 1)
-(display-battery-mode 1)
 
 ;; better firefox experience in exwm
 (use-package! exwm-firefox-evil
@@ -151,6 +149,12 @@
 ;; (exwm-input-set-key (kbd "s-SPC") #'counsel-linux-app)
 
 ;; jump to buffers with s-hjkl
+(exwm-input-set-key (kbd "s-H") #'+evil/window-move-left)
+(exwm-input-set-key (kbd "s-J") #'+evil/window-move-down)
+(exwm-input-set-key (kbd "s-K") #'+evil/window-move-down)
+(exwm-input-set-key (kbd "s-L") #'+evil/window-move-right)
+
+;; move buffers with HJKL
 (exwm-input-set-key (kbd "s-h") #'windmove-left)
 (exwm-input-set-key (kbd "s-j") #'windmove-down)
 (exwm-input-set-key (kbd "s-k") #'windmove-up)
