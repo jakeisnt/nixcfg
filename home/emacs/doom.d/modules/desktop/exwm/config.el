@@ -149,7 +149,7 @@
       browse-url-firefox-new-window-is-tab t)
 ;; browse-url-browser-function 'browse-url-firefox
 
-(exwm-input-set-key (kbd "s-SPC") #'counsel-linux-app)
+;; (exwm-input-set-key (kbd "s-SPC") #'counsel-linux-app)
 
 ;; jump to buffers with s-hjkl
 (exwm-input-set-key (kbd "s-h") #'windmove-left)
