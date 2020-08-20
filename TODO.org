@@ -147,3 +147,8 @@ why is this there! it's obnoxious!
 configure one of them with sensible defaults
 * TODO add snippets
 see what i do the most and make snippets for those componetns
+* TODO move between workspaces with right and left
+catch the error of last page
+see if there is one visible on the other monitor (hardcode the position?)
+if there is, switch to the rightmost or leftmost buffer on that monitor rather than
+not switching at all

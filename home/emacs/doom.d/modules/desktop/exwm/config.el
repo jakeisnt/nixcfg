@@ -45,7 +45,7 @@
           (progn
             ;; render default monitor larger
               (message (concat "Rendering first monitor to " default-output))
-              (call-process "xrandr" nil nil nil "--output" default-output "--primary" "--auto" "--scale 0.5x0.5")
+              (call-process "xrandr" nil nil nil "--output" default-output "--primary" "--mode 1920x1080" "--auto")
             (message "rendering more than one thing")
             (with-temp-buffer
               (call-process "xrandr" nil t nil ) ;;"--listactivemonitors"
