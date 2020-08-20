@@ -156,3 +156,6 @@ not switching at all
 ideally i would like the xps to take full advantage of 4k, at least when unplugged
 this may not be possible though
 not even sure if i want the screen to be on
+* TODO instead of opening the site with the same title twice, switch to a currently open buffer with that title
+rewrite a browse-url function to accomplish this!
+is there any way this could go wrong?
