@@ -405,3 +405,9 @@
   (browse-url-firefox "https://app.asana.com/0/inbox/1189245019163511"))
 
 (define-key evil-normal-state-map (kbd "SPC a") 'link-hint-open-link)
+
+(map! :leader
+      :prefix "p"
+      :desc "Find a line of code with a search term in a project." "l" #'+ivy/project-search)
+
+(provide 'config)
