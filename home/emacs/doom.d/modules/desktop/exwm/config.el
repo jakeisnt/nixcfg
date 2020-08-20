@@ -15,6 +15,7 @@
  exwm-layout-show-all-buffers t
  exwm-manage-force-tiling t)
 
+
 (defun exwm-change-screen-hook ()
   "Opens EXWM on additional monitors as they're plugged in."
   (interactive) ;; for convenience of testing
@@ -43,9 +44,8 @@
       (if (re-search-forward xrandr-output-regexp nil 'noerror)
           (progn
             ;; render default monitor larger
-              (message (concat "Rendering first monitor to " default-output))
-              (call-process "xrandr" nil nil nil "--output" default-output "--primary" "--mode 1920x1080" "--auto")
-            (message "rendering more than one thing")
+            (message (concat "Rendering first monitor to " default-output))
+            (call-process "xrandr" nil nil nil "--output" default-output "--primary" "--mode" "1920x1080" "--scale" "1x1" "--auto")
             (with-temp-buffer
               (call-process "xrandr" nil t nil)
               (goto-char (point-min))
@@ -64,9 +64,9 @@
                     ;; (add-to-list exwm-randr-workspace-monitor-plist (+ (/ (length exwm-randr-workspace-monitor-plist) 2) 1) cur-monitor)
                     )))))
         ;; else:
-            (progn
-              (message (concat "rendering to " default-output))
-              (call-process "xrandr" nil nil nil "--output" default-output "--primary" "--auto")))
+        (progn
+          (message (concat "rendering to " default-output))
+          (call-process "xrandr" nil nil nil "--output" default-output "--primary" "--auto")))
       (call-process "systemctl" nil nil nil "--user" "restart" "picom")
       (exwm-randr-refresh))))
 
