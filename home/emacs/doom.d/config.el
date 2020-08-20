@@ -1,30 +1,33 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
-;; Some functionality uses this to identify you, e.g. GPG configuration, email
-;; clients, file templates and snippets.
 ;;; Code:
 (setq user-full-name "Jacob Chvatal"
       user-mail-address "jakechvatal@gmail.com")
 
-(setq-default
- delete-by-moving-to-trash t                      ; Delete files to trash
- tab-width 4                                      ; Set width for tabs
- uniquify-buffer-name-style 'forward              ; Uniquify buffer names
- window-combination-resize t                      ; take new window space from all other windows (not just current)
- x-stretch-cursor t)                              ; Stretch cursor to the glyph width
+;; don't expire cached auth information
+(setq auth-source-cache-expiry nil)
+
+(setq-default delete-by-moving-to-trash t                      ; Delete files to trash
+              tab-width 4                                      ; Set width for tabs
+              uniquify-buffer-name-style 'forward              ; Uniquify buffer names
+              window-combination-resize t                      ; take new window space from all other windows (not just current)
+              x-stretch-cursor t                               ; Stretch cursor to the glyph width
+              history-length 1000                              ; improve history tracking for better recommendations
+              prescient-history-length 100)
 
 (setq undo-limit 80000000                         ; Raise undo-limit to 80Mb
       evil-want-fine-undo t                       ; By default while in insert all changes are one big blob. Be more granular
-      ;; auto-save-default t                         ; Nobody likes to lose work
-      inhibit-compacting-font-caches t            ; When there are lots of glyphs, keep them in memory
-      truncate-string-ellipsis "…")               ; Unicode ellispis are nicer than "...", and also save /precious/ space
+      inhibit-compacting-font-caches t)           ; When there are lots of glyphs, keep them in memory
 
 (delete-selection-mode 1)                         ; Replace selection when inserting text
 (display-time-mode 1)                             ; Enable time in the mode-line
+
+;; display battery info if available
 (unless (equal "Battery status not avalible"
                (battery))
-  (display-battery-mode 1))                       ; On laptops it's nice to know how much power you have
-(global-subword-mode 1)                           ; Iterate through CamelCase words
+  (display-battery-mode 1))
+;; Iterate through CamelCase words
+(global-subword-mode 1)
 
 ;; always split window to bottom right
 (setq evil-vsplit-window-right t
@@ -36,13 +39,15 @@
   :after '(evil-window-split evil-window-vsplit)
   (+ivy/switch-buffer))
 
+(setq +ivy-buffer-preview t) ;; buffer previews
+
 (defun doom-modeline-conditional-buffer-encoding ()
   "Only show text encoding when it's not UTF-8"
   (setq-local doom-modeline-buffer-encoding
               (unless (or (eq buffer-file-coding-system 'utf-8-unix)
                           (eq buffer-file-coding-system 'utf-8)))))
 
-
+(setq-default major-mode 'org-mode)
 (add-hook 'after-change-major-mode-hook #'doom-modeline-conditional-buffer-encoding)
 
 ;; -------------------------------------------------------------------------- RSS
@@ -79,13 +84,24 @@
 (require 'find-lisp)
 (setq org-directory "~/org/"
       j/org-agenda-directory "~/org/agenda/"
+      j/org-calendar-dir "~/org/calendar/"
       org-agenda-files (find-lisp-find-files j/org-agenda-directory "\.org$")
       org-default-notes-file "~/org/refile.org"
       org-attach-id-dir "~/org/.attach/"
-      org-roam-directory "~/org/wiki/org/")
+      org-roam-directory "~/org/wiki/org/"
+      org-use-property-inheritance t ;; convenient
+      org-log-done 'time ;; log the time you finish something
+      org-list-allow-alphabetical t ;; allow alpha bullets
+      org-export-in-background t) ;; run export async
+;; org-catch-invisible-edits 'smart ;; dont do weird invisible stuff
+;; org-re-reveal-root "https://cdn.jsdelivr.net/npm/reveal.js")
 
+(setq org-list-demote-modify-bullet '(("+" . "-") ("-" . "+") ("*" . "+") ("1." . "a.")))
 
-(setq j/org-calendar-dir "~/org/calendar/")
+(use-package! org-ref
+  :after org
+  :config
+  (setq org-ref-completion-library 'org-ref-ivy-cite))
 
 (use-package! org-projectile
   :init
@@ -105,6 +121,11 @@
 (setq org-log-done 'time
       org-log-into-drawer t
       org-log-state-notes-insert-after-drawers nil)
+
+
+(setq calc-angle-mode 'rad  ;; radians are rad
+      calc-algebraic-mode t ;; allows '2*x instead of 'x<RET>2*
+      calc-symbolic-mode t) ;; keeps stuff like √2 irrational for as long as possible
 
 (use-package! deft ;; use deft to index org wiki files
   :after org
@@ -177,9 +198,33 @@
       '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
         (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)")))
 
+
 (after! (org org-roam)
+  (setq org-roam-graph-node-extra-config '(("shape"      . "underline")
+                                           ("style"      . "rounded,filled")
+                                           ("fillcolor"  . "#EEEEEE")
+                                           ("color"      . "#C9C9C9")
+                                           ("fontcolor"  . "#111111")
+                                           ("fontname"   . "Overpass")))
   (use-package! org-roam-protocol)
-  (use-package! org-roam-server)
+  (use-package! org-roam-server
+    :after org-roam
+    :config
+    (setq org-roam-server-host "127.0.0.1"
+          org-roam-server-port 8078
+          org-roam-server-export-inline-images t
+          org-roam-server-authenticate nil
+          org-roam-server-label-truncate t
+          org-roam-server-label-truncate-length 60
+          org-roam-server-label-wrap-length 20))
+
+  (defun org-roam-server-open ()
+    "Ensure the server is active, then open the roam graph."
+    (interactive)
+    (org-roam-server-mode 1)
+    (browse-url-xdg-open (format "http://localhost:%d" org-roam-server-port)))
+
+
   (setq org-roam-ref-capture-templates
         '(("r" "ref" plain (function org-roam-capture--get-point)
            "%?"
@@ -217,6 +262,7 @@
         (with-current-buffer (find-file-noselect (car f))
           (when (s-contains? "setupfile" (buffer-string))
             (org-hugo-export-wim-to-md))))))
+
   (add-hook 'org-export-before-processing-hook #'j/org-export-preprocessor))
 
 (after! (org ox-hugo)
@@ -408,4 +454,145 @@
 
 (define-key evil-normal-state-map (kbd "SPC a") 'link-hint-open-link)
 
-(provide 'config)
+(use-package! keycast ;; from tecosaur
+  :commands keycast-mode
+  :config
+  (define-minor-mode keycast-mode
+    "Show current command and its key binding in the mode line."
+    :global t
+    (if keycast-mode
+        (progn
+          (add-hook 'pre-command-hook 'keycast-mode-line-update t)
+          (add-to-list 'global-mode-string '("" mode-line-keycast " ")))
+      (remove-hook 'pre-command-hook 'keycast-mode-line-update)
+      (setq global-mode-string (remove '("" mode-line-keycast " ") global-mode-string))))
+  (custom-set-faces!
+    '(keycast-command :inherit doom-modeline-debug
+                      :height 0.9)
+    '(keycast-key :inherit custom-modified
+                  :height 1.1
+                  :weight bold)))
+
+
+(use-package! vlf-setup
+  :defer-incrementally vlf-tune vlf-base vlf-write vlf-search vlf-occur vlf-follow vlf-ediff vlf)
+
+(use-package abbrev
+  :init
+  (setq-default abbrev-mode t)
+  ;; a hook funtion that sets the abbrev-table to org-mode-abbrev-table
+  ;; whenever the major mode is a text mode
+  (defun tec/set-text-mode-abbrev-table ()
+    (if (derived-mode-p 'text-mode)
+        (setq local-abbrev-table org-mode-abbrev-table)))
+  :commands abbrev-mode
+  :hook
+  (abbrev-mode . tec/set-text-mode-abbrev-table)
+  :config
+  (setq abbrev-file-name (expand-file-name "abbrev.el" doom-private-dir))
+  (setq save-abbrevs 'silently))
+
+
+(after! company
+  (setq company-idle-delay 0.5
+        company-minimum-prefix-length 2
+        company-show-numbers t)
+  (add-hook 'evil-normal-state-entry-hook #'company-abort)) ;; make aborting less annoying.
+
+(after! flyspell (require 'flyspell-lazy) (flyspell-lazy-mode 1))
+
+(use-package! org-super-agenda
+  :commands (org-super-agenda-mode))
+(after! org-agenda
+  (org-super-agenda-mode))
+(setq org-agenda-skip-scheduled-if-done t
+      org-agenda-skip-deadline-if-done t
+      org-agenda-include-deadlines t
+      org-agenda-block-separator nil
+      org-agenda-tags-column 100 ;; from testing this seems to be a good value
+      org-agenda-compact-blocks t)
+
+;; customize this in the future!
+(setq org-agenda-custom-commands
+      '(("o" "Overview"
+         ((agenda "" ((org-agenda-span 'day)
+                      (org-super-agenda-groups
+                       '((:name "Today"
+                          :time-grid t
+                          :date today
+                          :todo "TODAY"
+                          :scheduled today
+                          :order 1)))))
+          (alltodo "" ((org-agenda-overriding-header "")
+                       (org-super-agenda-groups
+                        '((:name "Next to do"
+                           :todo "NEXT"
+                           :order 1)
+                          (:name "Important"
+                           :tag "Important"
+                           :priority "A"
+                           :order 6)
+                          (:name "Due Today"
+                           :deadline today
+                           :order 2)
+                          (:name "Due Soon"
+                           :deadline future
+                           :order 8)
+                          (:name "Overdue"
+                           :deadline past
+                           :face error
+                           :order 7)
+                          (:name "Assignments"
+                           :tag "Assignment"
+                           :order 10)
+                          (:name "Issues"
+                           :tag "Issue"
+                           :order 12)
+                          (:name "Emacs"
+                           :tag "Emacs"
+                           :order 13)
+                          (:name "ProjectsG"
+                           :tag "Project"
+                           :order 14)
+                          (:name "Research"
+                           :tag "Research"
+                           :order 15)
+                          (:name "To read"
+                           :tag "Read"
+                           :order 30)
+                          (:name "Waiting"
+                           :todo "WAITING"
+                           :order 20)
+                          (:name "University"
+                           :tag "uni"
+                           :order 32)
+                          (:name "Trivial"
+                           :priority<= "E"
+                           :tag ("Trivial" "Unimportant")
+                           :todo ("SOMEDAY" )
+                           :order 90)
+                          (:discard (:tag ("Chore" "Routine" "Daily")))))))))))
+
+
+(setf (alist-get 'height +org-capture-frame-parameters) 15)
+
+(setq +org-capture-fn
+      (lambda ()
+        (interactive)
+        (set-window-parameter nil 'mode-line-format 'none)
+        (org-capture)))
+
+(after! org-superstar
+  (setq org-superstar-headline-bullets-list '("◉" "○" "✸" "✿" "✤" "✜" "◆" "▶")
+        org-superstar-prettify-item-bullets t ))
+
+(after! org
+  (setq org-ellipsis " ▾ "
+        org-priority-highest ?A
+        org-priority-lowest ?E
+        org-priority-faces
+        '((?A . 'all-the-icons-red)
+          (?B . 'all-the-icons-orange)
+          (?C . 'all-the-icons-yellow)
+          (?D . 'all-the-icons-green)
+          (?E . 'all-the-icons-blue))))

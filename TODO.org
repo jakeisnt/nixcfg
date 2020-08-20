@@ -161,3 +161,5 @@ rewrite a browse-url function to accomplish this!
 is there any way this could go wrong?
 * TODO make a custom start page
 the default one is boring and looks like everyone else's!
+* TODO add email configuration
+https://tecosaur.github.io/emacs-config/config.html

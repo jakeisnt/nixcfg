@@ -35,9 +35,9 @@
        doom              ; what makes DOOM look the way it does
        doom-dashboard    ; a nifty splash screen for Emacs
        doom-quit         ; DOOM quit-message prompts when you quit Emacs
-       ;;fill-column       ; a `fill-column' indicator
+       fill-column       ; a `fill-column' indicator
        hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
-       ;;hydra
+       hydra
        ;;indent-guides     ; highlighted indent columns
        ;;minimap           ; show a map of the code on the side
        modeline          ; snazzy, Atom-inspired modeline, plus API
@@ -89,7 +89,7 @@
 
        :tools
        ;;ansible
-       ;;debugger          ; FIXME stepping through code, to help you add bugs
+       ;;debugger          ; stepping through code, to help you add bugs
        direnv              ; environments everywhere!
        ;;docker
        ;;editorconfig      ; let someone else argue about tabs vs spaces
@@ -103,7 +103,7 @@
        ;;make              ; run make tasks from Emacs
        ;;pass              ; password manager for nerds
        pdf                 ; pdf enhancements
-       ;;prodigy           ; FIXME managing external services & code builders
+       ;;prodigy           ; managing external services & code builders
        ;;rgb               ; creating color strings
        ;;taskrunner        ; taskrunner for all your projects
        ;;terraform         ; infrastructure as code
@@ -153,14 +153,14 @@
         +hugo              ; export to hugo
         +projectile        ; per-project todo files
         ;; +jupyter        ; jupyter notebook babel
-        ;; +pandoc         ; export with pandoc
+        +pandoc         ; export with pandoc
         ;;+present         ; org-mode for presentations
         +pomodoro          ; something something tomato technique
         +journal           ; journal
         +roam              ; world's best wiki
         ; +tanglesync      ; maintain dotfiles as org-mode files
         ;; +chef              ; manage recipes
-        ; +ref               ; manage references
+        ;; +ref               ; manage references
         )
 
        ;;php               ; perl's insecure younger brother
