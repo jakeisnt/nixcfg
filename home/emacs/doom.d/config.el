@@ -91,7 +91,9 @@
   :init
   (map! :leader
         :prefix "p"
-        :desc "Add a TODO to a project" "n" #'org-projectile-project-todo-completing-read)
+        :desc "Add a TODO to a project" "n" #'org-projectile-project-todo-completing-read
+        :desc "Find a line of code with a search term in a project." "l" #'+ivy/project-search
+        :desc "Add a TODO to the current project." "N" #'org-projectile-capture-for-current-project)
   :config
   (progn
     (org-projectile-per-project)
@@ -105,16 +107,16 @@
       org-log-state-notes-insert-after-drawers nil)
 
 (use-package! deft ;; use deft to index org wiki files
-      :after org
-      :bind
-      ("C-c n d" . deft)
-      :custom
-      (deft-recursive t)
-      (deft-ignore-file-regexp "hugo_setup")
-      (deft-use-filename-as-title t)
-      (deft-use-filter-string-for-filename t)
-      (deft-default-extension "org")
-      (deft-directory "~/org/wiki/org/"))
+  :after org
+  :bind
+  ("C-c n d" . deft)
+  :custom
+  (deft-recursive t)
+  (deft-ignore-file-regexp "hugo_setup")
+  (deft-use-filename-as-title t)
+  (deft-use-filter-string-for-filename t)
+  (deft-default-extension "org")
+  (deft-directory "~/org/wiki/org/"))
 
 (use-package! org
   :mode ("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode)
@@ -151,24 +153,24 @@
 
 
 (setq org-capture-templates `(
-        ("i" "inbox" entry (file ,(concat j/org-agenda-directory "inbox.org"))
-         "* TODO %?")
-        ("m" "media" entry (file+headline ,(concat j/org-agenda-directory "media.org") "Media")
-         "* TODO [#A] Reply: %a :@home:@school:" :immediate-finish t)
-        ("p" "Protocol" entry (file+headline ,(concat org-directory "inbox.org") "Inbox")
-            "* TODO %^{Title}\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?")
-        ("L" "Protocol Link" entry (file+headline ,(concat org-directory "inbox.org") "Inbox")
-            "* TODO %? [[%:link][%:description]] \nCaptured On: %U")
-        ("l" "link" entry (file ,(concat j/org-agenda-directory "inbox.org"))
-         "* TODO %(org-cliplink-capture)" :immediate-finish t)
-        ("c" "org-protocol-capture" entry (file ,(concat j/org-agenda-directory "inbox.org"))
-         "* TODO [[%:link][%:description]]\n\n %i" :immediate-finish t)
-        ("r" "recipe" entry (file "~/org/recipes.org")
-         "%(org-chef-get-recipe-from-url)"
-         :empty-lines 1)
-        ;; ("m" "manual recipe" entry (file "~/org/recipes.org")
-        ;;  "* %^{Recipe title: }\n  :PROPERTIES:\n  :source-url:\n  :servings:\n  :prep-time:\n  :cook-time:\n  :ready-in:\n  :END:\n** Ingredients\n   %?\n** Directions\n\n")
-        ))
+                              ("i" "inbox" entry (file ,(concat j/org-agenda-directory "inbox.org"))
+                               "* TODO %?")
+                              ("m" "media" entry (file+headline ,(concat j/org-agenda-directory "media.org") "Media")
+                               "* TODO [#A] Reply: %a :@home:@school:" :immediate-finish t)
+                              ("p" "Protocol" entry (file+headline ,(concat org-directory "inbox.org") "Inbox")
+                               "* TODO %^{Title}\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?")
+                              ("L" "Protocol Link" entry (file+headline ,(concat org-directory "inbox.org") "Inbox")
+                               "* TODO %? [[%:link][%:description]] \nCaptured On: %U")
+                              ("l" "link" entry (file ,(concat j/org-agenda-directory "inbox.org"))
+                               "* TODO %(org-cliplink-capture)" :immediate-finish t)
+                              ("c" "org-protocol-capture" entry (file ,(concat j/org-agenda-directory "inbox.org"))
+                               "* TODO [[%:link][%:description]]\n\n %i" :immediate-finish t)
+                              ("r" "recipe" entry (file "~/org/recipes.org")
+                               "%(org-chef-get-recipe-from-url)"
+                               :empty-lines 1)
+                              ;; ("m" "manual recipe" entry (file "~/org/recipes.org")
+                              ;;  "* %^{Recipe title: }\n  :PROPERTIES:\n  :source-url:\n  :servings:\n  :prep-time:\n  :cook-time:\n  :ready-in:\n  :END:\n** Ingredients\n   %?\n** Directions\n\n")
+                              ))
 
 
 (setq org-todo-keywords
@@ -180,12 +182,12 @@
   (use-package! org-roam-server)
   (setq org-roam-ref-capture-templates
         '(("r" "ref" plain (function org-roam-capture--get-point)
-               "%?"
-               :file-name "websites/${slug}"
-               :head "#+TITLE: ${title}
+           "%?"
+           :file-name "websites/${slug}"
+           :head "#+TITLE: ${title}
     #+ROAM_KEY: ${ref}
     - source :: ${ref}"
-               :unnarrowed t)))
+           :unnarrowed t)))
   (defun j/org-roam-export-all ()
     "Re-exports all Org-roam files to Hugo markdown."
     (interactive)
@@ -196,9 +198,9 @@
   (defun j/org-roam--backlinks-list (file)
     (when (org-roam--org-roam-file-p file)
       (mapcar #'car (org-roam-db-query [:select :distinct [from]
-                                                :from links
-                                                :where (= to $s1)
-                                                :and from :not :like $s2] file "%private%"))))
+                                        :from links
+                                        :where (= to $s1)
+                                        :and from :not :like $s2] file "%private%"))))
   (defun j/org-export-preprocessor (_backend)
     (when-let ((links (j/org-roam--backlinks-list (buffer-file-name))))
       (insert "\n** Backlinks\n")
@@ -307,7 +309,7 @@
       "h r n" (lambda () (interactive)
                 (async-shell-command
                  (concat "echo " (shell-quote-argument (read-passwd "Rebuilding NixOS. Password: "))
-                       " | sudo -S nixos-rebuild switch"))))
+                         " | sudo -S nixos-rebuild switch"))))
 
 (defun gotop ()
   "Run the GOTOP process monitor."
@@ -336,32 +338,32 @@
   (setq pdf-latex-command "xelatex")
   (add-hook 'latex-mode-hook #'latex-preview-pane-mode))
 
- (add-hook 'TeX-after-compilation-finished-functions
-        #'TeX-revert-document-buffer)
+(add-hook 'TeX-after-compilation-finished-functions
+          #'TeX-revert-document-buffer)
 
- ;; to use pdfview with auctex
- ;; (setq TeX-view-program-selection '((output-pdf "PDF Tools"))
- ;;    TeX-view-program-list '(("PDF Tools" TeX-pdf-tools-sync-view))
- ;;    TeX-source-correlate-start-server t) ;; not sure if last line is neccessary
+;; to use pdfview with auctex
+;; (setq TeX-view-program-selection '((output-pdf "PDF Tools"))
+;;    TeX-view-program-list '(("PDF Tools" TeX-pdf-tools-sync-view))
+;;    TeX-source-correlate-start-server t) ;; not sure if last line is neccessary
 ;; to have the buffer refresh after compilation
 
 ;; TODO: figure out the buffer names I want!
 (setq frame-title-format
-    '(""
-      (:eval
-       (if (s-contains-p org-roam-directory (or buffer-file-name ""))
-           (replace-regexp-in-string ".*/[0-9]*-?" "🢔 " buffer-file-name)
-         "%b"))
-      (:eval
-       (let ((project-name (projectile-project-name)))
-         (unless (string= "-" project-name)
-           (format (if (buffer-modified-p)  " ◉ %s" "  ●  %s") project-name))))))
+      '(""
+        (:eval
+         (if (s-contains-p org-roam-directory (or buffer-file-name ""))
+             (replace-regexp-in-string ".*/[0-9]*-?" "🢔 " buffer-file-name)
+           "%b"))
+        (:eval
+         (let ((project-name (projectile-project-name)))
+           (unless (string= "-" project-name)
+             (format (if (buffer-modified-p)  " ◉ %s" "  ●  %s") project-name))))))
 
 
 (sp-local-pair ;; pair << and >>
-     '(org-mode)
-     "<<" ">>"
-     :actions '(insert))
+ '(org-mode)
+ "<<" ">>"
+ :actions '(insert))
 
 ;; default browser is firefox
 (setq browse-url-browser-function 'browse-url-generic
@@ -386,15 +388,15 @@
   "Create or visit a terminal buffer."
   (interactive)
   (if (not (get-buffer (persp-ansi-buffer-name)))
-  (progn
-    (split-window-sensibly (selected-window))
-    (other-window 1)
-    (ansi-term (getenv "SHELL"))
-    (rename-buffer (persp-ansi-buffer-name))
-    (end-of-buffer)
-    (insert (format "cd %s" (projectile-project-root)))
-    (term-send-input))
-(switch-to-buffer-other-window (persp-ansi-buffer-name))))
+      (progn
+        (split-window-sensibly (selected-window))
+        (other-window 1)
+        (ansi-term (getenv "SHELL"))
+        (rename-buffer (persp-ansi-buffer-name))
+        (end-of-buffer)
+        (insert (format "cd %s" (projectile-project-root)))
+        (term-send-input))
+    (switch-to-buffer-other-window (persp-ansi-buffer-name))))
 
 (defun skira-setup ()
   "Open everything I need to be productive at Skira."
@@ -405,9 +407,5 @@
   (browse-url-firefox "https://app.asana.com/0/inbox/1189245019163511"))
 
 (define-key evil-normal-state-map (kbd "SPC a") 'link-hint-open-link)
-
-(map! :leader
-      :prefix "p"
-      :desc "Find a line of code with a search term in a project." "l" #'+ivy/project-search)
 
 (provide 'config)

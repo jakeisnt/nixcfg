@@ -66,7 +66,7 @@
         ;; else:
         (progn
           (message (concat "rendering to " default-output))
-          (call-process "xrandr" nil nil nil "--output" default-output "--primary" "--auto")))
+          (call-process "xrandr" nil nil nil "--output" default-output "--primary" "--mode" "1920x1080" "--scale" "1x1" "--auto")))
       (call-process "systemctl" nil nil nil "--user" "restart" "picom")
       (exwm-randr-refresh))))
 

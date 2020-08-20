@@ -159,3 +159,5 @@ not even sure if i want the screen to be on
 * TODO instead of opening the site with the same title twice, switch to a currently open buffer with that title
 rewrite a browse-url function to accomplish this!
 is there any way this could go wrong?
+* TODO make a custom start page
+the default one is boring and looks like everyone else's!
