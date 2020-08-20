@@ -15,7 +15,6 @@
  exwm-layout-show-all-buffers t
  exwm-manage-force-tiling t)
 
-
 (defun exwm-change-screen-hook ()
   "Opens EXWM on additional monitors as they're plugged in."
   (interactive) ;; for convenience of testing
@@ -48,7 +47,7 @@
               (call-process "xrandr" nil nil nil "--output" default-output "--primary" "--mode 1920x1080" "--auto")
             (message "rendering more than one thing")
             (with-temp-buffer
-              (call-process "xrandr" nil t nil ) ;;"--listactivemonitors"
+              (call-process "xrandr" nil t nil)
               (goto-char (point-min))
               ;; for each active monitor:
               (while (not (eobp))

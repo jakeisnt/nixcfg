@@ -152,3 +152,7 @@ catch the error of last page
 see if there is one visible on the other monitor (hardcode the position?)
 if there is, switch to the rightmost or leftmost buffer on that monitor rather than
 not switching at all
+* TODO proper scaling of device when plugged in and unplugged
+ideally i would like the xps to take full advantage of 4k, at least when unplugged
+this may not be possible though
+not even sure if i want the screen to be on
