@@ -143,3 +143,7 @@ CLOSED: [2020-08-19 Wed 08:59]
   others could import their own personal shell file to have their preferred dev tools accessible
 * TODO remove the stupid white bar in firefox
 why is this there! it's obnoxious!
+* TODO ripgrep vs ag
+configure one of them with sensible defaults
+* TODO add snippets
+see what i do the most and make snippets for those componetns
