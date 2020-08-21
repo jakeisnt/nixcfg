@@ -15,7 +15,6 @@
  exwm-layout-show-all-buffers t
  exwm-manage-force-tiling t)
 
-
 (defun exwm-change-screen-hook ()
   "Opens EXWM on additional monitors as they're plugged in."
   (interactive) ;; for convenience of testing
@@ -91,13 +90,6 @@
                        (string= "Firefox" exwm-class-name))
                    (exwm-workspace-rename-buffer exwm-title)))))
 
-(setq exwm-workspace-show-all-buffers t
-      exwm-layout-show-all-buffers t)
-
-;; system tray
-(require 'exwm-systemtray)
-(exwm-systemtray-enable)
-
 ;; better firefox experience in exwm
 (use-package! exwm-firefox-evil
   :config (add-hook 'exwm-manage-finish-hook 'exwm-firefox-evil-activate-if-firefox))
@@ -106,47 +98,16 @@
 (dolist (k `(escape))
   (cl-pushnew k exwm-input-prefix-keys))
 
-
-;; Using ido to change "tabs" in Firefox!
-;; from technomancy dude
-;; For this to work properly you need to stop opening new tabs and open
-;; everything in new windows. It sounds crazy, but then you can use ido
-;; to switch between "tabs" and everything is wonderful.
-;;
-;; Step 1: about:config -> browser.tabs.opentabfor.middleclick -> false
-;; Step 2: change whatever "open link in new tab" binding in Saka Key or
-;;         whatever you use to open the link in a new window
-;; Step 3: rebind ctrl-t to open a new window as well
-;; Step 4: place the following in chrome/userChrome.css in your FF profile:
-;;         #tabbrowser-tabs { visibility: collapse !important; }
-;; Step 5: add this code to your exwm config:
-;; Step 6: restart your browser and enjoy your new C-x b fanciness!
-;; (defun pnh-trim-non-ff ()
-;;   (delete-if-not (apply-partially 'string-match "- Mozilla Firefox$")
-;;                   ido-temp-list))
-
-;; (add-hook 'exwm-manage-finish-hook
-;;           (defun pnh-exwm-manage-hook ()
-;;             (when (string-match "Firefox" exwm-class-name)
-;;               (exwm-workspace-move-window 3)
-;;               (exwm-layout-hide-mode-line)
-;;               (setq ido-make-buffer-list-hook 'pnh-trim-non-ff))
-;;             (when (string-match "Chromium" exwm-class-name)
-;;               (exwm-workspace-move-window 1)
-;;               (exwm-layout-hide-mode-line))))
-
 (add-hook 'exwm-update-title-hook
           (defun pnh-exwm-title-hook ()
             (when (string-match "Firefox" exwm-class-name)
               (exwm-workspace-rename-buffer exwm-title))))
 
-                                        ; (setq browse-url-firefox-arguments '("-new-window"))
-
 (setq browse-url-new-window-flag t
       browse-url-firefox-new-window-is-tab t)
-;; browse-url-browser-function 'browse-url-firefox
 
-;; (exwm-input-set-key (kbd "s-SPC") #'counsel-linux-app)
+;; Dmenu-adjacent
+(exwm-input-set-key (kbd "s-SPC") #'counsel-linux-app)
 
 ;; jump to buffers with s-hjkl
 (exwm-input-set-key (kbd "s-H") #'+evil/window-move-left)
