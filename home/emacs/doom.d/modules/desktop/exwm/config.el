@@ -51,7 +51,7 @@
               ;; for each active monitor:
               (while (not (eobp))
                 ;; when the next monitor name is found:
-                (when (and (re-search-forward xrandr-output-regexp nil 'noerror) ;; was monitor regexp
+                (when (and (re-search-forward xrandr-output-regexp nil 'noerror)
                            (not (string= (match-string 1) default-output)))
                   (progn
                     ;; add it to the screen to the right of the previous

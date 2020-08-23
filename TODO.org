@@ -163,3 +163,7 @@ is there any way this could go wrong?
 the default one is boring and looks like everyone else's!
 * TODO add email configuration
 https://tecosaur.github.io/emacs-config/config.html
+* TODO add firefox extensions
+- extension for translating information
+- extension for react dev tools (is there a way for me to add this to a shell somehow?)
+- password manager. (pref. lastpass)
