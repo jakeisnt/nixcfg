@@ -34,6 +34,7 @@ in {
       nixfmt
       pulseaudio-ctl
       darktable
+      gimp
       ag
     ] ++ justLinux [ syncthing ];
 
