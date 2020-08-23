@@ -9,14 +9,14 @@
   home.sessionVariables.BROWSER = "firefox";
   programs.firefox = {
     enable = true;
-    extensions = with pkgs.nur.repos.rycee.firefox-addons;
-      [
-        # lastpass-password-manager
-        # violentmonkey
-        # torswitch
-        # ublock-origin
-        org-capture
-      ];
+    extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+      # lastpass-password-manager
+      # violentmonkey
+      # torswitch
+      ublock-origin
+      org-capture
+      react-devtools
+    ];
 
     profiles = {
       jake = {
@@ -79,19 +79,23 @@
           html#main-window {
               --urlbar-text-font: "mononoki Nerd Font", sans-serif;
               --color-bg: #2E3440;
-              --toolbar-bgcolor: var(--color-bg) !important;
+              /* --toolbar-bgcolor: var(--color-bg) !important; */
               /* Firefox variables */
               --lwt-toolbar-field-focus-color: var(--color-bg) !important;
               --lwt-toolbar-field-color: #fefefa !important;
-              --lwt-toolbar-field-background-color: var(--color-bg) !important;
+              /* --lwt-toolbar-field-background-color: var(--color-bg) !important; */
 
-              --arrowpanel-background: var(--color-bg) !important;
-              --arrowpanel-color: var(--color-bg) !important;
-              --arrowpanel-border-color: transparent !important;
+              /* --arrowpanel-background: var(--color-bg) !important; */
+              /* --arrowpanel-color: var(--color-bg) !important; */
+              /* --arrowpanel-border-color: transparent !important; */
           }
 
            /* attempts to make the top border transparent */
-           .urlbarView-body-inner{ border-top-color: transparent !important }
+           .urlbarView-body-inner{
+                /* border-top-color: transparent !important; */
+                /* border-bottom-color: transparent !important; */
+            }
+
            :root {--in-content-page-background: var(--color-bg); /*tab flash on new tab*/}
 
            /*changes "flash" on tab open color*/
@@ -116,7 +120,7 @@
 
            /* Blank the placeholder text in the search bar */
            #searchbar .textbox-input::placeholder {
-             opacity: 0 !important;
+             /* opacity: 0 !important; */
            }
 
            #urlbar *|input::placeholder {
@@ -163,7 +167,7 @@
            #TabsToolbar{
              visibility: collapse !important;
              display: none;
-             background-color: var(--color-bg) !important;
+             /* background-color: var(--color-bg) !important; */
            }
 
            #main-window:not([customizing]) #navigator-toolbox:not(:focus-within):not(:hover) {
