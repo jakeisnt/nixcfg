@@ -8,7 +8,7 @@ in {
     ./git.nix
     ./tmux.nix
     ./shells.nix
-    ./redshift.nix
+    # ./redshift.nix
     ./udiskie.nix
     ./picom.nix
     ./lorri.nix

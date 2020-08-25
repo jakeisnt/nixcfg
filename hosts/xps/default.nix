@@ -80,6 +80,7 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
+  services.printing.drivers = [ ];
 
   networking.hostName = "xps";
   networking.networkmanager.enable = true;
