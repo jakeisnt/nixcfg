@@ -452,6 +452,11 @@
   (browse-url-firefox "https://calendar.google.com/calendar/b/2/r?tab=mc")
   (browse-url-firefox "https://app.asana.com/0/inbox/1189245019163511"))
 
+(map!
+  :leader
+  :prefix "o"
+  :desc "Open everything I need to be productive at Skira." "s" #'skira-setup)
+
 (define-key evil-normal-state-map (kbd "SPC a") 'link-hint-open-link)
 
 (use-package! keycast ;; from tecosaur
