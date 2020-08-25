@@ -35,7 +35,6 @@ in {
       pulseaudio-ctl
       darktable
       gimp
-      ag
     ] ++ justLinux [ syncthing ];
 
   programs.home-manager.enable = true;
