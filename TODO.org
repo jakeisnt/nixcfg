@@ -42,10 +42,11 @@ CLOSED: [2020-07-31 Fri 02:10]
 - State "CANCELLED"  from "TODO"       [2020-07-31 Fri 02:10]
 :END:
 
-* TODO input mapping
-ensure capslock -> mod/esc works
-allow tap-to-click on trackpad
-consider some of kyles fancy file input things
+* [1/3] input mapping
+** TODO ensure capslock -> mod/esc works
+** DONE allow tap-to-click on trackpad
+CLOSED: [2020-08-25 Tue 16:05]
+** TODO consider some of kyles fancy file input things
 * DONE bluetooth
 CLOSED: [2020-08-20 Thu 00:34]
 ensure bluetoothctl is configured
@@ -143,8 +144,10 @@ CLOSED: [2020-08-19 Wed 08:59]
   others could import their own personal shell file to have their preferred dev tools accessible
 * TODO remove the stupid white bar in firefox
 why is this there! it's obnoxious!
-* TODO ripgrep vs ag
+* DONE ripgrep vs ag
+CLOSED: [2020-08-25 Tue 15:59]
 configure one of them with sensible defaults
+ripgrep is just faster
 * TODO add snippets
 see what i do the most and make snippets for those componetns
 * TODO move between workspaces with right and left
@@ -167,3 +170,5 @@ https://tecosaur.github.io/emacs-config/config.html
 - extension for translating information
 - extension for react dev tools (is there a way for me to add this to a shell somehow?)
 - password manager. (pref. lastpass)
+* TODO add f/F keyboard shortcut to firefox
+i want to be able to click on links without using the mouse again
