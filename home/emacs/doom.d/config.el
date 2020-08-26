@@ -455,7 +455,7 @@
 (map!
   :leader
   :prefix "o"
-  :desc "Open everything I need to be productive at Skira." "s" #'skira-setup)
+  :desc "Open everything I need to be productive at Skira." "S" #'skira-setup)
 
 (define-key evil-normal-state-map (kbd "SPC a") 'link-hint-open-link)
 
