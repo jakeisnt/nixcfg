@@ -6,15 +6,10 @@
   home-manager.users.jake = import ../../home/gui.nix;
   services.xserver = {
     enable = true;
-    autorun = true;
     layout = "us";
     libinput.enable = true; # enable touchpad
     xkbOptions = "caps:swapescape";
-    desktopManager = { xterm.enable = false; };
-    displayManager = {
-      startx.enable = false;
-      defaultSession = "none+exwm";
-    };
+    displayManager.defaultSession = "none+exwm";
     windowManager.session = lib.singleton {
       name = "exwm";
       start = ''
@@ -28,6 +23,7 @@
     '';
   };
 
+  # pulseaudio hardware and software drivers
   hardware.pulseaudio = {
     enable = true;
     # ensure that bluetooth support is included
@@ -40,6 +36,7 @@
     '';
   };
 
+  # bluetooth hardware and software utilities
   hardware.bluetooth = {
     enable = true;
     extraConfig = ''
@@ -51,6 +48,7 @@
 
   boot.plymouth.enable = true;
 
+  # sync files with other devices (requires manual setup)
   services.syncthing = {
     enable = true;
     openDefaultPorts = true;
@@ -79,8 +77,8 @@
   programs.light.enable = true;
 
   # Enable CUPS to print documents.
-  services.printing.enable = true;
-  services.printing.drivers = [ ];
+  # services.printing.enable = true;
+  # services.printing.drivers = [ ];
 
   networking.hostName = "xps";
   networking.networkmanager.enable = true;
