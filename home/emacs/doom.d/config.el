@@ -450,6 +450,7 @@
   (browse-url-firefox "https://app.slack.com/client/T0R0C5VFV")
   (browse-url-firefox "https://mail.google.com/mail/u/2/#inbox")
   (browse-url-firefox "https://calendar.google.com/calendar/b/2/r?tab=mc")
+  (browse-url-firefox "https://github.com/plantaseed")
   (browse-url-firefox "https://app.asana.com/0/inbox/1189245019163511"))
 
 (map!
