@@ -13,6 +13,13 @@
       # lastpass-password-manager
       # violentmonkey
       # torswitch
+
+      # TODO choose bitwarden or pass
+      # bitwarden
+      # browserpass
+
+      linkhints
+      adsum-notabs
       ublock-origin
       org-capture
       react-devtools
