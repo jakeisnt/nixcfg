@@ -36,13 +36,10 @@
 (map!
  :leader
  :prefix "w"
- "x" (lambda () (evil-window-vsplit) (+ivy/projectile-find-file))
- "z" (lambda () (evil-window-vsplit) (+ivy/project-search)))
-
-;; open ivy to look for buffer after splitting window
-(defadvice! prompt-for-buffer (&rest _)
-  :after '(evil-window-split evil-window-vsplit)
-  (+ivy/switch-buffer))
+ "v" (lambda () (interactive) (evil-window-vsplit) (+ivy/switch-buffer))
+ "s" (lambda () (interactive) (evil-window-split) (+ivy/switch-buffer))
+ "x" (lambda () (interactive) (evil-window-vsplit) (+ivy/projectile-find-file))
+ "z" (lambda () (interactive) (evil-window-vsplit) (+ivy/project-search)))
 
 (setq +ivy-buffer-preview t) ;; buffer previews
 
