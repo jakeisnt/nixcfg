@@ -604,3 +604,16 @@
           (?C . 'all-the-icons-yellow)
           (?D . 'all-the-icons-green)
           (?E . 'all-the-icons-blue))))
+
+;; Visit a commonly used URL.
+;; TODO: Add hook to browse-url to show a list of
+;; frequently used websites to visit in a minibuffer;
+;; determine these based on previous uses of browse-url
+;; or from browser history somehow.
+(map!
+ :leader
+ :prefix "v"
+ "s" (lambda () (interactive) (browse-url "https://spotify.com"))
+ "d" (lambda () (interactive) (browse-url "https://discord.gg"))
+ "m" (lambda () (interactive) (browse-url "https://gmail.com"))
+ "g" (lambda () (interactive) (browse-url "https://github.com")))
