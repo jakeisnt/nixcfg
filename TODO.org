@@ -172,3 +172,6 @@ https://tecosaur.github.io/emacs-config/config.html
 - password manager. (pref. lastpass)
 * TODO add f/F keyboard shortcut to firefox
 i want to be able to click on links without using the mouse again
+* TODO if a buffer is opened in a project, change its name to the name of the project
+example:
+SPC-o-T in Pumbaa :: 'Term :: Pumbaa(1)' is the second terminal opened up in the Pumbaa project.
