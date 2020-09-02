@@ -77,6 +77,6 @@
 (package! keycast)
 (package! flyspell-lazy)
 (package! vlf :recipe (:host github :repo "m00natic/vlfi" :files ("*.el")))
-(package! prettier-js)
 (package! add-node-modules-path)
 (package! eslintd-fix)
+(package! company-flow)

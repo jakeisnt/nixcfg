@@ -618,22 +618,6 @@
  "m" (lambda () (interactive) (browse-url "https://gmail.com"))
  "g" (lambda () (interactive) (browse-url "https://github.com")))
 
-
-;; use local eslint from node_modules before global
-;; http://emacs.stackexchange.com/questions/21205/flycheck-with-file-relative-eslint-executable
-;; (defun my/use-eslint-from-node-modules ()
-;;   (let* ((root (locate-dominating-file
-;;                 (or (buffer-file-name) default-directory)
-;;                 "node_modules"))
-;;          (eslint (and root
-;;                       (expand-file-name "node_modules/eslint/bin/eslint.js"
-;;                                         root))))
-;;     (when (and eslint (file-executable-p eslint))
-;;       (setq-local flycheck-javascript-eslint-executable eslint))))
-;; (add-hook 'flycheck-mode-hook #'my/use-eslint-from-node-modules)
-
-
-
 (use-package! web-mode
   :init
   ;; adjust indents for web-mode to 2 spaces
@@ -649,17 +633,32 @@
           ad-do-it)
       ad-do-it)))
 
-
 (use-package! add-node-modules-path
   :after js2-mode
   :init
-  (add-hook 'js2-mode-hook (lambda () (add-node-modules-path)))
-  (add-hook 'web-mode-hook (lambda () (add-node-modules-path))))
+  (add-hook! (js2-mode) #'add-node-modules-path))
 
 (use-package! eslintd-fix
   :after js2-mode
   :init
-  (setq flycheck-javascript-eslint-executable "/usr/bin/env eslint_d")
-  (setq eslintd-fix-executable "/usr/bin/env eslint_d")
-  (add-hook 'js2-mode-hook 'eslintd-fix-mode)
-  (add-hook 'web-mode-hook 'eslintd-fix-mode))
+  (setq flycheck-javascript-eslint-executable "eslint_d"
+        eslintd-fix-executable "eslint_d")
+  (add-hook! (js2-mode) 'eslintd-fix-mode))
+
+;; (use-package! tide
+;;   :after js2-mode
+;;   :init
+;;   (setq tide-completion-detailed t
+;;         tide-always-show-documentation t)
+;;   (flycheck-mode +1)
+;;   (setq flycheck-check-syntax-automatically '(save mode-enabled))
+;;   (eldoc-mode +1)
+;;   (tide-hl-identifier-mode +1)
+;;   (company-mode +1)
+;;   (add-hook! (js2-mode) #'tide-setup))
+
+(setq projectile-globally-ignored-directories '("node_modules" ".happypack" "flow-typed" "build" "lib"))
+(setq grep-find-ignored-directories '("node_modules" ".happypack"))
+
+(eval-after-load 'company
+  (add-to-list 'company-backends 'company-flow))
