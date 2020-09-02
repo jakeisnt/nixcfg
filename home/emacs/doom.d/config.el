@@ -456,9 +456,9 @@
   (browse-url-firefox "https://app.asana.com/0/inbox/1189245019163511"))
 
 (map!
-  :leader
-  :prefix "o"
-  :desc "Open everything I need to be productive at Skira." "S" #'skira-setup)
+ :leader
+ :prefix "o"
+ :desc "Open everything I need to be productive at Skira." "S" #'skira-setup)
 
 (define-key evil-normal-state-map (kbd "SPC a") 'link-hint-open-link)
 
@@ -621,45 +621,45 @@
 
 ;; use local eslint from node_modules before global
 ;; http://emacs.stackexchange.com/questions/21205/flycheck-with-file-relative-eslint-executable
-(defun my/use-eslint-from-node-modules ()
-  (let* ((root (locate-dominating-file
-                (or (buffer-file-name) default-directory)
-                "node_modules"))
-         (eslint (and root
-                      (expand-file-name "node_modules/eslint/bin/eslint.js"
-                                        root))))
-    (when (and eslint (file-executable-p eslint))
-      (setq-local flycheck-javascript-eslint-executable eslint))))
-(add-hook 'flycheck-mode-hook #'my/use-eslint-from-node-modules)
+;; (defun my/use-eslint-from-node-modules ()
+;;   (let* ((root (locate-dominating-file
+;;                 (or (buffer-file-name) default-directory)
+;;                 "node_modules"))
+;;          (eslint (and root
+;;                       (expand-file-name "node_modules/eslint/bin/eslint.js"
+;;                                         root))))
+;;     (when (and eslint (file-executable-p eslint))
+;;       (setq-local flycheck-javascript-eslint-executable eslint))))
+;; (add-hook 'flycheck-mode-hook #'my/use-eslint-from-node-modules)
 
-;; adjust indents for web-mode to 2 spaces
-(defun my-web-mode-hook ()
-  "Hooks for Web mode. Adjust indents"
-  ;;; http://web-mode.org/
+
+
+(use-package! web-mode
+  :init
+  ;; adjust indents for web-mode to 2 spaces
   (setq web-mode-markup-indent-offset 2)
   (setq web-mode-css-indent-offset 2)
-  (setq web-mode-code-indent-offset 2))
-(add-hook 'web-mode-hook  'my-web-mode-hook)
+  (setq web-mode-code-indent-offset 2)
+  :config
+  ;; for better jsx syntax-highlighting in web-mode
+  ;; - courtesy of Patrick @halbtuerke
+  (defadvice web-mode-highlight-part (around tweak-jsx activate)
+    (if (equal web-mode-content-type "jsx")
+        (let ((web-mode-enable-part-face nil))
+          ad-do-it)
+      ad-do-it)))
 
-;; for better jsx syntax-highlighting in web-mode
-;; - courtesy of Patrick @halbtuerke
-(defadvice web-mode-highlight-part (around tweak-jsx activate)
-  (if (equal web-mode-content-type "jsx")
-    (let ((web-mode-enable-part-face nil))
-      ad-do-it)
-    ad-do-it))
 
-(use-package prettier-js
+(use-package! add-node-modules-path
   :after js2-mode
   :init
-  (add-hook 'js2-mode-hook 'prettier-js-mode)
-  (add-hook 'web-mode-hook 'prettier-js-mode)
-  :config
-  (defun enable-minor-mode (my-pair)
-    "Enable minor mode if filename match the regexp.  MY-PAIR is a cons cell (regexp . minor-mode)."
-    (if (buffer-file-name)
-        (if (string-match (car my-pair) buffer-file-name)
-            (funcall (cdr my-pair)))))
-  (add-hook 'web-mode-hook #'(lambda ()
-                               (enable-minor-mode
-                                '("\\.jsx?\\'" . prettier-js-mode)))))
+  (add-hook 'js2-mode-hook (lambda () (add-node-modules-path)))
+  (add-hook 'web-mode-hook (lambda () (add-node-modules-path))))
+
+(use-package! eslintd-fix
+  :after js2-mode
+  :init
+  (setq flycheck-javascript-eslint-executable "/usr/bin/env eslint_d")
+  (setq eslintd-fix-executable "/usr/bin/env eslint_d")
+  (add-hook 'js2-mode-hook 'eslintd-fix-mode)
+  (add-hook 'web-mode-hook 'eslintd-fix-mode))
