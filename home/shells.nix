@@ -51,7 +51,7 @@
 
     oh-my-zsh = {
       enable = true;
-      plugins = [ "extract" "git" "magic-enter" ];
+      plugins = [ "extract" "git" "magic-enter" "npm" "direnv" ];
       theme = "evan";
       extraConfig = ''
         # Use a special colour for Nix shells.
@@ -65,7 +65,7 @@
         }
         MAGIC_ENTER_GIT_COMMAND='git status -u .'
         MAGIC_ENTER_OTHER_COMMAND='ls -lh .'
-        eval "$(direnv hook zsh)"
+        # eval "$(direnv hook zsh)"
       '';
     };
   };
