@@ -2,12 +2,11 @@
 let inherit (import ./helpers.nix) justLinux justLinuxAttrs;
 in {
   imports = [
-    ./nvim
     ./emacs
     ./firefox.nix
     ./git.nix
-    ./tmux.nix
     ./shells.nix
+    ./starship.nix
     # ./redshift.nix
     ./udiskie.nix
     ./picom.nix
@@ -39,5 +38,4 @@ in {
 
   programs.home-manager.enable = true;
   home.sessionVariables.EDITOR = "emacsclient %u";
-  home.sessionVariables.ALTERNATE_EDITOR = "nvim";
 }
