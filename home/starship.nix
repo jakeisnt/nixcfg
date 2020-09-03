@@ -2,7 +2,7 @@
 
 {
   programs.starship = {
-    enable = false;
+    enable = true;
     settings = { nix_shell = { use_name = true; }; };
   };
 }

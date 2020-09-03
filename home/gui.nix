@@ -6,7 +6,7 @@ in {
     ./firefox.nix
     ./git.nix
     ./shells.nix
-    ./starship.nix
+    # ./starship.nix
     # ./redshift.nix
     ./udiskie.nix
     ./picom.nix
