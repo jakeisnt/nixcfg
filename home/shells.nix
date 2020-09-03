@@ -25,28 +25,15 @@
     # env variables for zsh sessions
     sessionVariables = { };
 
-    plugins = [
-      {
-        name = "zsh-nix-shell";
-        src = pkgs.fetchFromGitHub {
-          owner = "chisui";
-          repo = "zsh-nix-shell";
-          rev = "v0.1.0";
-          sha256 = "0snhch9hfy83d4amkyxx33izvkhbwmindy0zjjk28hih1a9l2jmx";
-        };
-      }
-
-      {
-        name = "nix-zsh-completions";
-        src = pkgs.fetchFromGitHub {
-          owner = "spwhitt";
-          repo = "nix-zsh-completions";
-          rev = "v0.4.4";
-          sha256 = "1n9whlys95k4wc57cnz3n07p7zpkv796qkmn68a50ygkx6h3afqf";
-        };
-      }
-
-    ];
+    plugins = [{
+      name = "nix-zsh-completions";
+      src = pkgs.fetchFromGitHub {
+        owner = "spwhitt";
+        repo = "nix-zsh-completions";
+        rev = "v0.4.4";
+        sha256 = "1n9whlys95k4wc57cnz3n07p7zpkv796qkmn68a50ygkx6h3afqf";
+      };
+    }];
 
     oh-my-zsh = {
       enable = true;
