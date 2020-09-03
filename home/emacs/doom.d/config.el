@@ -664,31 +664,3 @@
 
 (setq projectile-globally-ignored-directories '("node_modules" ".happypack" "flow-typed" "build" "lib"))
 (setq grep-find-ignored-directories '("node_modules" ".happypack"))
-
-
-(define-format-all-formatter prettier
-  (:executable "prettier")
-  (:install "echo 'not installing prettier'")
-  (:languages))
-
-(use-package! emacs-format-all-the-code
-  :config
-  (define-format-all-formatter eslint_d
-    (:executable "eslint_d")
-    (install)
-    (:languages
-    "CSS" "GraphQL" "JavaScript" "JSON" "JSX" "Less" "Markdown" "PHP"
-    "SCSS" "Solidity" "TOML" "TSX" "TypeScript" "Vue" "YAML"
-    "_Angular" "_Flow")
-    (:format
-    (format-all--buffer-easy
-      executable
-      "--cache --parser" (let ((pair (assoc language
-                                    '(("_Angular"   . "angular")
-                                      ("_Flow"      . "flow")
-                                      ("JavaScript" . "babel")
-                                      ("JSX"        . "babel")
-                                      ("Solidity"   . "solidity-parse")
-                                      ("TSX"        . "typescript")))))
-                  (if pair (cdr pair) (downcase language)))
-      (when (buffer-file-name) (list "--stdin-filename" (buffer-file-name)))))))
