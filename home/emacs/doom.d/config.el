@@ -636,14 +636,14 @@
 (use-package! add-node-modules-path
   :after js2-mode
   :init
-  (add-hook! (js2-mode) #'add-node-modules-path))
+  (add-hook! (js2-mode json-mode web-mode) #'add-node-modules-path))
 
 (use-package! eslintd-fix
   :after js2-mode
   :init
   (setq flycheck-javascript-eslint-executable "eslint_d"
         eslintd-fix-executable "eslint_d")
-  (add-hook! (js2-mode) 'eslintd-fix-mode))
+  (add-hook! (js2-mode json-mode web-mode) 'eslintd-fix-mode))
 
 ;; (use-package! tide
 ;;   :after js2-mode
@@ -659,6 +659,3 @@
 
 (setq projectile-globally-ignored-directories '("node_modules" ".happypack" "flow-typed" "build" "lib"))
 (setq grep-find-ignored-directories '("node_modules" ".happypack"))
-
-(eval-after-load 'company
-  (add-to-list 'company-backends 'company-flow))
