@@ -79,4 +79,3 @@
 (package! vlf :recipe (:host github :repo "m00natic/vlfi" :files ("*.el")))
 (package! add-node-modules-path)
 (package! eslintd-fix)
-(package! company-flow)
