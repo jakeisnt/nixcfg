@@ -29,6 +29,11 @@
 ;; Iterate through CamelCase words
 (global-subword-mode 1)
 
+(use-package! memento-mori
+  :config
+  (setq memento-mori-birth-date "1999-11-05")
+  (memento-mori-mode))
+
 ;; always split window to bottom right
 (setq evil-vsplit-window-right t
       evil-split-window-below t)
