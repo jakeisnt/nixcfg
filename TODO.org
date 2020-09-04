@@ -159,10 +159,15 @@ not switching at all
 ideally i would like the xps to take full advantage of 4k, at least when unplugged
 this may not be possible though
 not even sure if i want the screen to be on
-* TODO instead of opening the site with the same title twice, switch to a currently open buffer with that title
+* CANCELLED instead of opening the site with the same title twice, switch to a currently open buffer with that title
+CLOSED: [2020-09-04 Fri 09:55]
+:LOGBOOK:
+- State "CANCELLED"  from "TODO"       [2020-09-04 Fri 09:55] \\
+  Different websites could have the same title. this is silly
+:END:
 rewrite a browse-url function to accomplish this!
 is there any way this could go wrong?
-* TODO make a custom start page
+* TODO make a custom start page for emacs
 the default one is boring and looks like everyone else's!
 * TODO add email configuration
 https://tecosaur.github.io/emacs-config/config.html
@@ -170,8 +175,20 @@ https://tecosaur.github.io/emacs-config/config.html
 - extension for translating information
 - extension for react dev tools (is there a way for me to add this to a shell somehow?)
 - password manager. (pref. lastpass)
-* TODO add f/F keyboard shortcut to firefox
+* DONE add f/F keyboard shortcut to firefox
+CLOSED: [2020-09-04 Fri 09:54]
 i want to be able to click on links without using the mouse again
 * TODO if a buffer is opened in a project, change its name to the name of the project
 example:
 SPC-o-T in Pumbaa :: 'Term :: Pumbaa(1)' is the second terminal opened up in the Pumbaa project.
+* TODO add flycheck checkers for more types of files
+json, html, css globally would be nice
+could also be nice per project
+consider installing node, yarn and eslint_d globally,
+then locally installing things like postgres
+* TODO add tide
+much better javascript performance; easy to set up.
+check email for a link regarding better emacs setup
+* TODO grey out all text if a task is finished
+currently things are highlighted under DONE bullets
+i want to completely gray them out
