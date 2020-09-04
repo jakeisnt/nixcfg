@@ -664,3 +664,6 @@
 
 (setq projectile-globally-ignored-directories '("node_modules" ".happypack" "flow-typed" "build" "lib"))
 (setq grep-find-ignored-directories '("node_modules" ".happypack"))
+(use-package! editorconfig
+  :config
+  (editorconfig-mode 1))

@@ -80,3 +80,4 @@
 (package! add-node-modules-path)
 (package! eslintd-fix)
 (package! memento-mori)
+(package! editorconfig)
