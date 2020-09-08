@@ -200,3 +200,10 @@
 ;; remappings for firefox
 (evil-define-key 'normal exwm-firefox-evil-mode-map (kbd "t") 'exwm-firefox-core-window-new)
 (push ?\C-w exwm-input-prefix-keys)
+
+(defun j/restart-network-manager ()
+  "Restart network-manager service."
+  (interactive)
+  (start-process "nm" "*Messages*"
+		 "sudo"
+		 "service" "network-manager" "restart"))
