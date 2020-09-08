@@ -13,7 +13,8 @@
  exwm-workspace-number 10
  exwm-workspace-show-all-buffers t
  exwm-layout-show-all-buffers t
- exwm-manage-force-tiling t)
+ exwm-manage-force-tiling t
+ exwm-systemtray-height 24)
 
 (defun exwm-change-screen-hook ()
   "Opens EXWM on additional monitors as they're plugged in."
