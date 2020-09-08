@@ -6,15 +6,64 @@
 (require 'exwm)
 (require 'exwm-config)
 (exwm-config-example)
-
+(require 'exwm-systemtray)
 (require 'exwm-randr)
 
 (setq
  exwm-workspace-number 10
  exwm-workspace-show-all-buffers t
  exwm-layout-show-all-buffers t
- exwm-manage-force-tiling t
+ ;; exwm-manage-force-tiling t
  exwm-systemtray-height 24)
+
+;; show mode-line on floating windows.
+(add-hook 'exwm-floating-setup-hook #'exwm-layout-show-mode-line)
+
+;; Disable xrandr output named 'output'.
+(defun my-exwm-xrandr-off (output)
+  (if output (shell-command (concat "xrandr --output " output " --off"))))
+
+;; Enable only one xrandr output named 'default'.
+(defun my-exwm-xrandr-one-output (default)
+  (shell-command (concat "xrandr --output " default " --auto")))
+
+;; Update exwm-randr-workspace-output-plist with two outputs named
+;; 'default' and 'other'.  If the 'other' output is same as 'default'
+;; then all workspaces will be redirected to the 'default' output.
+(defun my-exwm-xrandr-config (default other)
+  (setq exwm-randr-workspace-output-plist
+	(progn
+	  (setq result (list 0 default))
+	  (setq index 1)
+	  (while (< index exwm-workspace-number)
+	    (setq result (append result (list index other)))
+	    (setq index (1+ index)))
+	  result)))
+
+
+;; Dynamically find the active xrandr outputs and update exwm
+;; workspace configuration and enable xrandr outputs appropriately.
+(defun my-exwm-xrandr-hook (default)
+  (let* ((connected-cmd "xrandr -q|awk '/ connected/ {print $1}'")
+	 (connected (process-lines "bash" "-lc" connected-cmd))
+	 (previous (delete-dups (seq-remove
+				 'integerp
+				 exwm-randr-workspace-monitor-plist))))
+    (cond ((member "DP-1" connected)
+	   (progn (my-exwm-xrandr-config default "DP-1")
+		  (my-exwm-xrandr-two-outputs default "DP-1")))
+	  ((member "DP-2" connected)
+	   (progn (my-exwm-xrandr-config default "DP-2")
+		  (my-exwm-xrandr-two-outputs default "DP-2")))
+	  ((member "HDMI-1" connected)
+	   (progn (my-exwm-xrandr-config default "HDMI-1")
+		  (my-exwm-xrandr-two-outputs default "HDMI-1")))
+	  ((member "HDMI-2" connected)
+	   (progn (my-exwm-xrandr-config default "HDMI-2")
+		  (my-exwm-xrandr-two-outputs default "HDMI-2")))
+	  (t (progn (my-exwm-xrandr-config default default)
+		    (mapcar 'my-exwm-xrandr-off
+			    (delete default previous)))))))
 
 (defun exwm-change-screen-hook ()
   "Opens EXWM on additional monitors as they're plugged in."
