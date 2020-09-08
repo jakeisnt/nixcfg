@@ -127,6 +127,58 @@
 (exwm-input-set-key (kbd "s-]") 'enlarge-window-horizontally)
 (exwm-input-set-key (kbd "s-}") 'enlarge-window)
 
+(defun j/screen-brightness-percentage ()
+  "Get the brightness percentage of the screen."
+  (interactive)
+  (string-to-number (shell-command-to-string "light")))
+
+(defun j/audio-status ()
+  "Get the current audio status."
+  (interactive)
+  (split-string
+   (shell-command-to-string "pulseaudio-ctl full-status") " "))
+
+(defun j/get-audio-level ()
+  "Get the current audio level."
+  (string-to-number (car (j/audio-status))))
+
+(defun j/source-is-muted? ()
+  "Is the audio currently muted?"
+  (string= (car (cdr (j/audio-status))) "yes"))
+
+(defun j/sink-is-muted? ()
+  "Is the audio currently muted?"
+  (string= (car (cdr (cdr (j/audio-status)))) "yes"))
+
+(defun j/change-volume (voldiff inc?)
+  "Adjust the system's audio in the specified direction."
+  (interactive)
+  (let ((cmd (when inc? "up" "down"))
+        (quantized-voldiff voldiff))
+    (shell-command (format "pulseaudio-ctl %s %d" cmd quantized-voldiff))
+    (if ((j/source-is-muted?)
+          (message "Audio is currently muted. Unmute.")
+          (message "Audio level is %d" (j/audio-status)))
+        (kill-buffer "*Shell Command Output*"))))
+
+(defun j/toggle-audio-mute ()
+  "Toggle the audio's mute status."
+  (interactive)
+  (shell-command "pulseaudio-ctl mute")
+  (if ((j/source-is-muted?)
+        (message "Muted audio.")
+        (message "Unmuted audio."))
+  (kill-buffer "*Shell Command Output*")))
+
+(defun j/change-brightness (brightdiff inc?)
+  "Change the screen brightness by the number in the specified direction."
+  (interactive)
+  (let ((cmd (when inc? "-A" "-U"))
+        (quantized-bdiff brightdiff))
+    (shell-command (format "light %s %d" cmd quantized-bdiff))
+    (message "Screen brightness is now %d" (j/screen-brightness-percentage))
+    (kill-buffer "*Shell Command Output*")))
+
 ;; audio fix for computer
 (exwm-input-set-key
  (kbd "<XF86AudioRaiseVolume>")
