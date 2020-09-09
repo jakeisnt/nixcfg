@@ -115,7 +115,6 @@
   (map! :leader
         :prefix "p"
         :desc "Add a TODO to a project" "n" #'org-projectile-project-todo-completing-read
-        :desc "Find a line of code with a search term in a project." "l" #'+ivy/project-search
         :desc "Add a TODO to the current project." "N" #'org-projectile-capture-for-current-project)
   :config
   (progn
@@ -618,10 +617,10 @@
 (map!
  :leader
  :prefix "v"
- "s" (lambda () (interactive) (browse-url "https://spotify.com"))
+ "s" (lambda () (interactive) (browse-url "https://open.spotify.com"))
  "d" (lambda () (interactive) (browse-url "https://discord.gg"))
  "m" (lambda () (interactive) (browse-url "https://gmail.com"))
- "g" (lambda () (interactive) (browse-url "https://github.com")))
+ "g" (lambda () (interactive) (browse-url "https://github.com/jakechv")))
 
 (use-package! web-mode
   :init
