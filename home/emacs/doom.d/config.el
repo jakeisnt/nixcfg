@@ -459,11 +459,6 @@
   (browse-url-firefox "https://github.com/plantaseed")
   (browse-url-firefox "https://app.asana.com/0/inbox/1189245019163511"))
 
-(map!
- :leader
- :prefix "o"
- :desc "Open everything I need to be productive at Skira." "S" #'skira-setup)
-
 (define-key evil-normal-state-map (kbd "SPC a") 'link-hint-open-link)
 
 (use-package! keycast ;; from tecosaur
@@ -617,10 +612,11 @@
 (map!
  :leader
  :prefix "v"
- "s" (lambda () (interactive) (browse-url "https://open.spotify.com"))
- "d" (lambda () (interactive) (browse-url "https://discord.gg"))
- "m" (lambda () (interactive) (browse-url "https://gmail.com"))
- "g" (lambda () (interactive) (browse-url "https://github.com/jakechv")))
+ :desc "Open Spotify" "s" (lambda () (interactive) (browse-url "https://open.spotify.com"))
+ :desc "Open everything I need to be productive at Skira." "S" #'skira-setup
+ :desc "Open Discord." "d" (lambda () (interactive) (browse-url "https://discord.gg"))
+ :desc "Open Gmail." "m" (lambda () (interactive) (browse-url "https://gmail.com"))
+ :desc "Open GitHub." "g" (lambda () (interactive) (browse-url "https://github.com/jakechv")))
 
 (use-package! web-mode
   :init
