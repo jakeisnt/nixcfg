@@ -192,3 +192,11 @@ check email for a link regarding better emacs setup
 * TODO grey out all text if a task is finished
 currently things are highlighted under DONE bullets
 i want to completely gray them out
+* TODO make shell commands run async
+currently shell command convenience function for sudo commands to open in buffer runs everything synchronously
+this seems ok until emacs freezes for two minutes running nixos-rebuild
+rebuilding nixos should use the same procedure doom emacs does for rebuilding:
+- open minibuffer
+- Run doom rebuild process async
+- display output in minibuffer as it happens
+this avoids interrupting current work
