@@ -612,11 +612,11 @@
 (map!
  :leader
  :prefix "v"
- :desc "Open Spotify" "s" (lambda () (interactive) (browse-url "https://open.spotify.com"))
- :desc "Open everything I need to be productive at Skira." "S" #'skira-setup
- :desc "Open Discord." "d" (lambda () (interactive) (browse-url "https://discord.gg"))
- :desc "Open Gmail." "m" (lambda () (interactive) (browse-url "https://gmail.com"))
- :desc "Open GitHub." "g" (lambda () (interactive) (browse-url "https://github.com/jakechv")))
+ :desc "Visit Spotify" "s" (lambda () (interactive) (browse-url "https://open.spotify.com"))
+ :desc "Visit Skira" "S" #'skira-setup
+ :desc "Visit Discord" "d" (lambda () (interactive) (browse-url "https://discord.gg"))
+ :desc "Visit Gmail" "m" (lambda () (interactive) (browse-url "https://gmail.com"))
+ :desc "Visit GitHub" "g" (lambda () (interactive) (browse-url "https://github.com/jakechv")))
 
 (use-package! web-mode
   :init

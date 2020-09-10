@@ -81,3 +81,4 @@
 (package! eslintd-fix)
 (package! memento-mori)
 (package! editorconfig)
+(package! password-store)
