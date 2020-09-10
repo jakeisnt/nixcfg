@@ -10,14 +10,7 @@
   programs.firefox = {
     enable = true;
     extensions = with pkgs.nur.repos.rycee.firefox-addons; [
-      # lastpass-password-manager
-      # violentmonkey
-      # torswitch
-
-      # TODO choose bitwarden or pass
-      # bitwarden
-      # browserpass
-
+      browserpass
       linkhints
       adsum-notabs
       ublock-origin
