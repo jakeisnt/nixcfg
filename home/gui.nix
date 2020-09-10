@@ -36,6 +36,7 @@ in {
       darktable
       gimp
       gnupg
+      pinentry
     ] ++ justLinux [ syncthing ];
 
   programs.home-manager.enable = true;

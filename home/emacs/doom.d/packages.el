@@ -82,3 +82,4 @@
 (package! memento-mori)
 (package! editorconfig)
 (package! password-store)
+(package! pinentry)
