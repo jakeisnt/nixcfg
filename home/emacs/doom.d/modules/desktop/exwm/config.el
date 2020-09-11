@@ -156,40 +156,6 @@
 (setq browse-url-new-window-flag t
       browse-url-firefox-new-window-is-tab t)
 
-;; modified from Doom
-;;;###autoload
-(defun j/vterm/here (arg)
-  "Open a terminal buffer in the current window at project root.
-
-If prefix ARG is non-nil, cd into `default-directory' instead of project root."
-  (interactive "P")
-  (unless (fboundp 'module-load)
-    (user-error "Your build of Emacs lacks dynamic modules support and cannot load vterm"))
-  (require 'vterm)
-  ;; This hack forces vterm to redraw, fixing strange artefacting in the tty.
-  (save-window-excursion
-    (pop-to-buffer "*scratch*"))
-  (let* ((project-root (or (doom-project-root) default-directory))
-         (default-directory
-           (if arg
-               default-directory
-             project-root))
-         display-buffer-alist)
-    (setenv "PROOT" project-root)
-    (vterm)
-    (+vterm--change-directory-if-remote)
-    (rename-buffer (concat "term:" project-root))))
-
-;; add something to firefox
-(dolist (k `(escape))
-  (cl-pushnew k exwm-input-prefix-keys))
-
-(add-hook 'exwm-update-title-hook
-          (defun pnh-exwm-title-hook ()
-            (when (string-match "Firefox" exwm-class-name)
-              (exwm-workspace-rename-buffer exwm-title))))
-;; Dmenu-adjacent
-(exwm-input-set-key (kbd "s-SPC") #'counsel-linux-app)
 
 ;; jump to buffers with s-hjkl
 (exwm-input-set-key (kbd "s-H") #'+evil/window-move-left)
