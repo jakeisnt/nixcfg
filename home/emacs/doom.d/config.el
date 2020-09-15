@@ -62,13 +62,16 @@
 ;; (use-package! elfeed-protocol
 ;;   :config
 ;;   (elfeed-protocol-enable)
-;;   (setq elfeed-protocol-ttrss-maxsize 200
-;;         elfeed-set-timeout 36000
-;;         elfeed-show-entry-switch 'display-buffer
-;;         elfeed-search-remain-on-entry t
-;;         elfeed-feeds
-;;         '(("ttrss+https://jake@rss.chvatal.com"
-;;            :password (read-passwd "Provide your tt-rss password:")))))
+;;   )
+
+(after! elfeed
+  (setq elfeed-protocol-ttrss-maxsize 200
+        elfeed-set-timeout 36000
+        elfeed-show-entry-switch 'display-buffer
+        elfeed-search-remain-on-entry t
+        elfeed-feeds
+        '(("ttrss+https://jake@rss.chvatal.com"
+          :password (read-passwd "Provide your tt-rss password:")))))
 
 ;; (after! elfeed
 ;;   :init
@@ -461,24 +464,6 @@
 
 (define-key evil-normal-state-map (kbd "SPC a") 'link-hint-open-link)
 
-(use-package! keycast ;; from tecosaur
-  :commands keycast-mode
-  :config
-  (define-minor-mode keycast-mode
-    "Show current command and its key binding in the mode line."
-    :global t
-    (if keycast-mode
-        (progn
-          (add-hook 'pre-command-hook 'keycast-mode-line-update t)
-          (add-to-list 'global-mode-string '("" mode-line-keycast " ")))
-      (remove-hook 'pre-command-hook 'keycast-mode-line-update)
-      (setq global-mode-string (remove '("" mode-line-keycast " ") global-mode-string))))
-  (custom-set-faces!
-    '(keycast-command :inherit doom-modeline-debug
-                      :height 0.9)
-    '(keycast-key :inherit custom-modified
-                  :height 1.1
-                  :weight bold)))
 
 
 (use-package! vlf-setup
@@ -505,8 +490,6 @@
         company-minimum-prefix-length 2
         company-show-numbers t)
   (add-hook 'evil-normal-state-entry-hook #'company-abort)) ;; make aborting less annoying.
-
-(after! flyspell (require 'flyspell-lazy) (flyspell-lazy-mode 1))
 
 (use-package! org-super-agenda
   :commands (org-super-agenda-mode))
@@ -589,20 +572,6 @@
         (set-window-parameter nil 'mode-line-format 'none)
         (org-capture)))
 
-(after! org-superstar
-  (setq org-superstar-headline-bullets-list '("◉" "○" "✸" "✿" "✤" "✜" "◆" "▶")
-        org-superstar-prettify-item-bullets t ))
-
-(after! org
-  (setq org-ellipsis " ▾ "
-        org-priority-highest ?A
-        org-priority-lowest ?E
-        org-priority-faces
-        '((?A . 'all-the-icons-red)
-          (?B . 'all-the-icons-orange)
-          (?C . 'all-the-icons-yellow)
-          (?D . 'all-the-icons-green)
-          (?E . 'all-the-icons-blue))))
 
 ;; Visit a commonly used URL.
 ;; TODO: Add hook to browse-url to show a list of
@@ -660,130 +629,7 @@
 
 (setq projectile-globally-ignored-directories '("node_modules" ".happypack" "flow-typed" "build" "lib"))
 (setq grep-find-ignored-directories '("node_modules" ".happypack"))
+
 (use-package! editorconfig
   :config
   (editorconfig-mode 1))
-
-(setq auth-sources `("~/.authinfo"))
-
-(use-package! forge
-  :after magit)
-
-(use-package lsp-mode
-  :hook (prog-mode . lsp))
-
-(use-package lsp-ui)
-(use-package lsp-python-ms
-  :config (lsp-python-ms-auto-install-server t))
-(use-package python
-  :delight "π "
-  :bind (("M-[" . python-nav-backward-block)
-         ("M-]" . python-nav-forward-block))
-  :preface
-  (defun python-remove-unused-imports()
-    "Removes unused imports and unused variables with autoflake."
-    (interactive)
-    (if (executable-find "autoflake")
-        (progn
-          (shell-command (format "autoflake --remove-all-unused-imports -i %s"
-                                 (shell-quote-argument (buffer-file-name))))
-          (revert-buffer t t t))
-      (warn "python-mode: Cannot find autoflake executable."))))
-
-;; (use-package blacken
-;;   :delight
-;;   :hook (python-mode . blacken-mode)
-;;   :custom (blacken-line-length 80))
-
-;; (use-package dap-mode
-;;     :after lsp-mode
-;;     :config
-;;     (dap-mode t)
-;;     (dap-ui-mode t))
-
-;; (use-package lsp-pyright
-;;   :if (executable-find "pyright")
-;;   :hook (python-mode . (lambda ()
-;;                          (require 'lsp-pyright)
-;;                          (lsp))))
-
-;; (use-package py-isort
-;;   :after python
-;;   :hook ((python-mode . pyvenv-mode)
-;;          (before-save . py-isort-before-save)))
-
-;; (use-package pyenv-mode
-;;   :after python
-;;   :hook ((python-mode . pyenv-mode)
-;;          (projectile-switch-project . projectile-pyenv-mode-set))
-;;   :custom (pyenv-mode-set "3.8.5")
-;;   :preface
-;;   (defun projectile-pyenv-mode-set ()
-;;     "Set pyenv version matching project name."
-;;     (let ((project (projectile-project-name)))
-;;       (if (member project (pyenv-mode-versions))
-;;           (pyenv-mode-set project)
-;;         (pyenv-mode-unset)))))
-
-;; (use-package pyvenv
-;;   :after python
-;;   :hook (python-mode . pyvenv-mode)
-;;   :custom
-;;   (pyvenv-default-virtual-env-name "env")
-;;   (pyvenv-mode-line-indicator '(pyvenv-virtual-env-name ("[venv:"
-;;                                                          pyvenv-virtual-env-
-
-(use-package webpaste
-  :config (webpaste-provider-priority '("ix.io" "dpaste.com")))
-
-(use-package wiki-summary
-  :defer 1
-  :bind ("C-c W" . wiki-summary)
-  :preface
-  (defun my/format-summary-in-buffer (summary)
-    "Given a summary, stick it in the *wiki-summary* buffer and display the buffer"
-    (let ((buf (generate-new-buffer "*wiki-summary*")))
-      (with-current-buffer buf
-        (princ summary buf)
-        (fill-paragraph)
-        (goto-char (point-min))
-        (text-mode)
-        (view-mode))
-      (pop-to-buffer buf))))
-
-(use-package paradox
-  :defer 1
-  :custom
-  (paradox-column-width-package 27)
-  (paradox-column-width-version 13)
-  (paradox-execute-asynchronously t)
-  (paradox-hide-wiki-packages t)
-  :config
-  (paradox-enable)
-  (remove-hook 'paradox-after-execute-functions #'paradox--report-buffer-print))
-(use-package hydra
-  :defer 2
-  :bind ("C-c f" . hydra-flycheck/body))
-
-(defhydra hydra-flycheck (:color blue)
-  "
-  ^
-  ^Flycheck^          ^Errors^            ^Checker^
-  ^────────^──────────^──────^────────────^───────^─────
-  _q_ quit            _<_ previous        _?_ describe
-  _M_ manual          _>_ next            _d_ disable
-  _v_ verify setup    _f_ check           _m_ mode
-  ^^                  _l_ list            _s_ select
-  ^^                  ^^                  ^^
-  "
-  ("q" nil)
-  ("<" flycheck-previous-error :color pink)
-  (">" flycheck-next-error :color pink)
-  ("?" flycheck-describe-checker)
-  ("M" flycheck-manual)
-  ("d" flycheck-disable-checker)
-  ("f" flycheck-buffer)
-  ("l" flycheck-list-errors)
-  ("m" flycheck-mode)
-  ("s" flycheck-select-checker)
-  ("v" flycheck-verify-setup))

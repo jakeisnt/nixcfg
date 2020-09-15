@@ -72,6 +72,7 @@
        ;;ibuffer         ; interactive buffer management
        undo              ; persistent, smarter undo for your inevitable mistakes
        vc                ; version-control and Emacs, sitting in a tree
+       ;; (undo +tree)
 
        :term
        ;;eshell            ; the elisp shell that works everywhere
@@ -95,13 +96,13 @@
        lookup              ; navigate your code and its documentation
        lsp
        ;;macos             ; MacOS-specific commands
-       magit               ; a git porcelain for Emacs
+       (magit +forge)       ; a git porcelain for Emacs
        ;;make              ; run make tasks from Emacs
-       ;;pass              ; password manager for nerds
+       ;; pass                ; password manager for nerds
        pdf                 ; pdf enhancements
        ;;prodigy           ; managing external services & code builders
-       ;;rgb               ; creating color strings
-       ;;taskrunner        ; taskrunner for all your projects
+       rgb               ; creating color strings
+       ;; taskrunner        ; taskrunner for all your projects
        ;;terraform         ; infrastructure as code
        ;;tmux              ; an API for interacting with tmux
        ;;upload            ; map local to remote projects via ssh/ftp
@@ -131,7 +132,9 @@
        ;;idris             ;
        json              ; At least it ain't XML
        ;;(java +meghanada) ; the poster child for carpal tunnel syndrome
-       javascript        ; all(hope(abandon(ye(who(enter(here))))))
+       (javascript
+       +lsp
+        )   ; all(hope(abandon(ye(who(enter(here))))))
        ;;julia             ; a better, faster MATLAB
        ;;kotlin            ; a better, slicker Java(Script)
        ;;latex             ; writing papers in Emacs has never been so fun
@@ -145,15 +148,17 @@
        ;;ocaml             ; an objective camel
        (org                ; organize your plain life in plain text
         +dragndrop         ; drag and drop pictures onto org files
-        +noter             ; take notes on pdfs
         +hugo              ; export to hugo
+        +journal           ; journal
+        +pandoc         ; export with pandoc
+        +pomodoro
+        +roam              ; world's best wiki
+
+        +noter             ; take notes on pdfs
         +projectile        ; per-project todo files
         ;; +jupyter        ; jupyter notebook babel
-        +pandoc         ; export with pandoc
         ;;+present         ; org-mode for presentations
-        +pomodoro          ; something something tomato technique
-        +journal           ; journal
-        +roam              ; world's best wiki
+
         ; +tanglesync      ; maintain dotfiles as org-mode files
         ;; +chef              ; manage recipes
         ;; +ref               ; manage references
@@ -162,7 +167,7 @@
        ;;php               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
-       ;;python            ; beautiful is better than ugly
+       ;;(python +lsp)       ; beautiful is better than ugly
        ;;qt                ; the 'cutest' gui framework ever
        ;;racket            ; a DSL for DSLs
        ;;raku              ; the artist formerly known as perl6
@@ -188,7 +193,7 @@
        :app
        ;;calendar
        ;;irc               ; how neckbeards socialize
-       ;;(rss +org)        ; emacs as an RSS reader
+       rss                 ; emacs as an RSS reader
        ;;twitter           ; twitter client https://twitter.com/vnought
 
        :config

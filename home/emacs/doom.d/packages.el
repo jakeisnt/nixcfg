@@ -73,9 +73,6 @@
 ;; (package! link-hint) ;; works just like 'f' and 'F' in Vimium
 ;; (package! org-alert) ;; provides system notification at org agenda times
 ;; (package! org-fc) spaced repitition for emacs
-
-(package! keycast)
-(package! flyspell-lazy)
 (package! vlf :recipe (:host github :repo "m00natic/vlfi" :files ("*.el")))
 (package! add-node-modules-path)
 (package! eslintd-fix)
@@ -85,7 +82,4 @@
 (package! pinentry)
 (package! lsp-ui)
 (package! lsp-python-ms)
-(package! webpaste)
-;; (package! imgpbb)
-(package! wiki-summary)
 (package! paradox)
