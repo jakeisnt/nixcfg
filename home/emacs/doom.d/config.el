@@ -3,9 +3,7 @@
 ;;
 ;; Copyright (C) YY YY
 ;;
-;; Author: YY <http://github/YY>
-;; Maintainer: YY <YY>
-;; Created: YY
+;; Author: YY <http://github/YY> ;; Maintainer: YY <YY> ;; Created: YY
 ;; Modified: YY
 ;; Version: 0.0.1
 ;; Keywords:
@@ -43,17 +41,18 @@
       interprogram-paste-function 'x-cut-buffer-or-selection-value)
 
 (setq projectile-globally-ignored-directories '("node_modules" ".happypack" "flow-typed" "build" "lib")
-      grep-find-ignored-directories '("node_modules" ".happypack")
+      grep-find-ignored-directories '("node_modules" ".happypack"))
 
 (setq doom-theme 'doom-nord
       doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
       doom-variable-pitch-font (font-spec :family "sans" :size 13))
 
-(delete-selection-mode 1)
-
 ;; always split window to bottom right
 (setq evil-vsplit-window-right t
       evil-split-window-below t)
+
+(delete-selection-mode 1)
+
 
 (map!
  :leader
@@ -80,22 +79,6 @@
 ;; Prevents some cases of Emacs flickering
 (add-to-list 'default-frame-alist '(inhibit-double-buffering . t))
 
-;; https://stackoverflow.com/questions/32977707/sending-bash-commands-to-an-open-terminal-buffer-in-emacs
-(defun visit-project-term-buffer ()
-  "Create or visit a terminal buffer."
-  (interactive)
-  (if (not (get-buffer (persp-ansi-buffer-name)))
-      (progn
-        (split-window-sensibly (selected-window))
-        (other-window 1)
-        (ansi-term (getenv "SHELL"))
-        (rename-buffer (persp-ansi-buffer-name))
-        (end-of-buffer)
-        (insert (format "cd %s" (projectile-project-root)))
-        (term-send-input))
-    (switch-to-buffer-other-window (persp-ansi-buffer-name))))
-
-
 (use-package! vlf-setup
   :defer-incrementally vlf-tune vlf-base vlf-write vlf-search vlf-occur vlf-follow vlf-ediff vlf)
 
@@ -109,11 +92,10 @@
         (setq local-abbrev-table org-mode-abbrev-table)))
   :commands abbrev-mode
   :hook
-  (abbrev-mode . tec/set-text-mode-abbrev-table)
+  (abbrev-mode tec/set-text-mode-abbrev-table)
   :config
   (setq abbrev-file-name (expand-file-name "abbrev.el" doom-private-dir))
   (setq save-abbrevs 'silently))
-
 
 (use-package! company
   :config
@@ -128,27 +110,6 @@
                  (concat "echo " (shell-quote-argument (read-passwd "Rebuilding NixOS. Password: "))
                          " | sudo -S nixos-rebuild switch"))))
 
-(defun gotop ()
-  "Run the GOTOP process monitor."
-  (interactive)
-  (if (get-buffer "*gotop*")
-      (switch-to-buffer "*gotop*")
-    (ansi-term "/usr/bin/env bash" "gotop")
-    (comint-send-string "*gotop*" "gotop\n")))
-
-(defun htop ()
-  "Run the HTOP process monitor."
-  (interactive)
-  (if (get-buffer "*htop*")
-      (switch-to-buffer "*htop*")
-    (ansi-term "/usr/bin/env bash" "htop")
-    (comint-send-string "*htop*" "htop\n")))
-
-(defun connect-vultr ()
-  "Connect to my Vultr VPS."
-  (interactive)
-  (dired "/ssh:jake@107.191.42.68:"))
-
 (use-package! latex-preview-pane
   :config
   (setq pdf-latex-command "xelatex")
@@ -162,5 +123,6 @@
 ;;    TeX-view-program-list '(("PDF Tools" TeX-pdf-tools-sync-view))
 ;;    TeX-source-correlate-start-server t) ;; not sure if last line is neccessary
 ;; to have the buffer refresh after compilation
+
 (provide 'config)
 ;;; config.el ends here
