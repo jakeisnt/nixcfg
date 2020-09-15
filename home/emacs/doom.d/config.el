@@ -43,9 +43,7 @@
 (setq projectile-globally-ignored-directories '("node_modules" ".happypack" "flow-typed" "build" "lib")
       grep-find-ignored-directories '("node_modules" ".happypack"))
 
-(setq doom-theme 'doom-nord
-      doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
-      doom-variable-pitch-font (font-spec :family "sans" :size 13))
+(setq doom-theme 'doom-nord)
 
 ;; always split window to bottom right
 (setq evil-vsplit-window-right t
@@ -124,5 +122,44 @@
 ;;    TeX-source-correlate-start-server t) ;; not sure if last line is neccessary
 ;; to have the buffer refresh after compilation
 
+;; Visit a commonly used URL.
+;; TODO: Add hook to browse-url to show a list of
+;; frequently used websites to visit in a minibuffer;
+;; determine these based on previous uses of browse-url
+;; or from browser history somehow.
+(use-package! browse-url
+  :init
+  (setq browse-url-browser-function 'browse-url-generic
+        browse-url-generic-program "firefox"))
+
+(use-package! link-hint
+  :ensure t
+  :defer t)
+
+(define-key evil-normal-state-map (kbd "SPC a") 'link-hint-open-link)
+
+(defun skira-setup ()
+    "Open everything I need to be productive at Skira."
+    (browse-url "https://app.slack.com/client/T0R0C5VFV")
+    (browse-url "https://mail.google.com/mail/u/2/#inbox")
+    (browse-url "https://calendar.google.com/calendar/b/2/r?tab=mc")
+    (browse-url "https://github.com/plantaseed")
+    (browse-url "https://app.asana.com/0/inbox/1189245019163511"))
+  ;; Find a URL
+  (map! :leader
+        "\"" (lambda ()
+               (interactive)
+               (browse-url (read-string "URL:"))))
+  (map! :leader
+        "'" (lambda () (interactive) (counsel-search)))
+  (map!
+   :leader
+   :prefix "v"
+   :desc "Visit Calendar" "c" (lambda () (interactive) (browse-url "https://calendar.google.com"))
+   :desc "Visit Discord" "d" (lambda () (interactive) (browse-url "https://discord.gg"))
+   :desc "Visit Spotify" "s" (lambda () (interactive) (browse-url "https://open.spotify.com"))
+   :desc "Visit Skira" "S" #'skira-setup
+   :desc "Visit Gmail" "m" (lambda () (interactive) (browse-url "https://gmail.com"))
+   :desc "Visit GitHub" "g" (lambda () (interactive) (browse-url "https://github.com/jakechv")))
 (provide 'config)
 ;;; config.el ends here

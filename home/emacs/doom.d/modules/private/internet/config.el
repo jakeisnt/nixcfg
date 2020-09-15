@@ -28,9 +28,15 @@
 (use-package! browse-url
   :init
   (setq browse-url-browser-function 'browse-url-generic
-        browse-url-generic-program "firefox")
-  :config
-  (defun skira-setup ()
+        browse-url-generic-program "firefox"))
+
+(use-package! link-hint
+  :ensure t
+  :defer t)
+
+(define-key evil-normal-state-map (kbd "SPC a") 'link-hint-open-link)
+
+(defun skira-setup ()
     "Open everything I need to be productive at Skira."
     (browse-url "https://app.slack.com/client/T0R0C5VFV")
     (browse-url "https://mail.google.com/mail/u/2/#inbox")
@@ -52,14 +58,7 @@
    :desc "Visit Spotify" "s" (lambda () (interactive) (browse-url "https://open.spotify.com"))
    :desc "Visit Skira" "S" #'skira-setup
    :desc "Visit Gmail" "m" (lambda () (interactive) (browse-url "https://gmail.com"))
-   :desc "Visit GitHub" "g" (lambda () (interactive) (browse-url "https://github.com/jakechv"))))
-
-(use-package! link-hint
-  :ensure t
-  :defer t
-  :config (define-key evil-normal-state-map (kbd "SPC a") 'link-hint-open-link))
-
-
+   :desc "Visit GitHub" "g" (lambda () (interactive) (browse-url "https://github.com/jakechv")))
 ;; (use-package! elfeed
 ;;   :init
 ;;   (setq elfeed-protocol-ttrss-maxsize 200 elfeed-set-timeout 36000
