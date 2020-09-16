@@ -9,12 +9,12 @@
 (display-time-mode 1)
 
 (defconst batteryFull
-  "Power AC, battery Full (100.0% load, remaining time 0:00)"
+  "Power AC, battery Full (100.0% load"
   "A string representing a full battery.")
 
 ;; display battery info if available and not full
 (unless (or (equal "Battery status not available" (battery))
-            (equal  batteryFull (battery)))
+            (equal  batteryFull (substring (battery) 0 (length batteryFull))))
   (display-battery-mode 1))
 
 (use-package! memento-mori
@@ -24,7 +24,17 @@
 
 (add-hook 'after-change-major-mode-hook #'doom-modeline-conditional-buffer-encoding)
 
-(provide 'config)
+(setq
+ doom-modeline-project-detection `projectile
+ doom-modeline-checker-simple-format t
+ doom-modeline-workspace-name t
+ doom-modeline-persp-name nil
+ doom-modeline-persp-icon nil
+ doom-modeline-mu4e t
+ doom-modeline-github t
+ display-time-load-average nil
+ display-time-24hr-format t)
 
+(provide 'config)
 ;;; Commentary:
 ;;; config.el ends here
