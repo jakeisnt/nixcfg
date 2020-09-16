@@ -17,10 +17,22 @@
             (equal  batteryFull (substring (battery) 0 (length batteryFull))))
   (display-battery-mode 1))
 
+(if buffer-read-only
+    (progn
+      (line-number-mode -1)
+      (column-number-mode -1)
+      (display-line-numbers-mode -1))
+  (progn
+      (line-number-mode 1)
+      (column-number-mode 1)
+      (display-line-numbers-mode 1)))
+
 (use-package! memento-mori
   :config
   (setq memento-mori-birth-date "1999-11-05")
   (memento-mori-mode))
+
+(size-indication-mode -1)
 
 (add-hook 'after-change-major-mode-hook #'doom-modeline-conditional-buffer-encoding)
 
