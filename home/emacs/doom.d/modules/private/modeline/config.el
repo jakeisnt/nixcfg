@@ -8,12 +8,14 @@
 
 (display-time-mode 1)
 
-;; display battery info if available
-(unless (equal "Battery status not avalible"
-               (battery))
+(defconst batteryFull
+  "Power AC, battery Full (100.0% load, remaining time 0:00)"
+  "A string representing a full battery.")
+
+;; display battery info if available and not full
+(unless (or (equal "Battery status not available" (battery))
+            (equal  batteryFull (battery)))
   (display-battery-mode 1))
-;; Iterate through CamelCase words
-(global-subword-mode 1)
 
 (use-package! memento-mori
   :config

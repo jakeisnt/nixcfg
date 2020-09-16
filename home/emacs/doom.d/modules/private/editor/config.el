@@ -19,6 +19,9 @@
 ;;
 ;;; Code:
 
+;; Iterate through CamelCase words
+(global-subword-mode 1)
+
 (use-package! web-mode
   :init
   ;; adjust indents for web-mode to 2 spaces
