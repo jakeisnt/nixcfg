@@ -13,6 +13,7 @@ in {
     ./lorri.nix
     ./xdg.nix
     ./fzf.nix
+    ./xresources.nix
     ./pass.nix
   ];
 
