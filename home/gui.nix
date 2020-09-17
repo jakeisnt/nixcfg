@@ -37,6 +37,7 @@ in {
       gimp
       gnupg
       pinentry
+      zip
     ] ++ justLinux [ syncthing ];
 
   programs.home-manager.enable = true;

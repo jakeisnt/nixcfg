@@ -38,7 +38,12 @@
       inhibit-compacting-font-caches t
       display-line-numbers-type 'relative
       select-enable-clipboard t
-      interprogram-paste-function 'x-cut-buffer-or-selection-value)
+      interprogram-paste-function 'x-cut-buffer-or-selection-value
+      gc-cons-threshold 100000000
+      read-process-output-max (* 1024 1024)
+      lsp-completion-provider :capf
+      lsp-idle-delay 0.500
+      )
 
 (setq projectile-globally-ignored-directories '("node_modules" ".happypack" "flow-typed" "build" "lib")
       grep-find-ignored-directories '("node_modules" ".happypack"))
@@ -163,5 +168,29 @@
    :desc "Visit Skira" "S" #'skira-setup
    :desc "Visit Gmail" "m" (lambda () (interactive) (browse-url "https://gmail.com"))
    :desc "Visit GitHub" "g" (lambda () (interactive) (browse-url "https://github.com/jakechv")))
+
+
+;;; automatic #bang
+(add-hook 'after-save-hook
+          'executable-make-buffer-file-executable-if-script-p)
+
+(defun hlu-make-script-executable ()
+  "If file starts with a shebang, make `buffer-file-name' executable
+
+       Since it doesn't rely on ##chmod##, it also works for remote
+       files, i.e. those accessed by TrampMode.
+
+       taken from:
+       http://www.emacswiki.org/emacs-en/MakingScriptsExecutableOnSave"
+  (save-excursion
+    (save-restriction
+      (widen)
+      (goto-char (point-min))
+      (when (and (looking-at "^#!")
+            	 (not (file-executable-p buffer-file-name)))
+        (set-file-modes buffer-file-name
+            		(logior (file-modes buffer-file-name) #o100))
+        (message (concat "Made " buffer-file-name " executable"))))))
+
 (provide 'config)
 ;;; config.el ends here
