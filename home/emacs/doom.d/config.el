@@ -152,22 +152,22 @@
   (browse-url "https://github.com/plantaseed")
   (browse-url "https://app.asana.com/0/inbox/1189245019163511"))
 
-  ;; Find a URL
-  (map! :leader
-        "\"" (lambda ()
-               (interactive)
-               (browse-url (read-string "URL:"))))
-  (map! :leader
-        "'" (lambda () (interactive) (counsel-search)))
-  (map!
-   :leader
-   :prefix "v"
-   :desc "Visit Calendar" "c" (lambda () (interactive) (browse-url "https://calendar.google.com"))
-   :desc "Visit Discord" "d" (lambda () (interactive) (browse-url "https://discord.gg"))
-   :desc "Visit Spotify" "s" (lambda () (interactive) (browse-url "https://open.spotify.com"))
-   :desc "Visit Skira" "S" #'skira-setup
-   :desc "Visit Gmail" "m" (lambda () (interactive) (browse-url "https://gmail.com"))
-   :desc "Visit GitHub" "g" (lambda () (interactive) (browse-url "https://github.com/jakechv")))
+;; Find a URL
+(map! :leader
+      "\"" (lambda ()
+             (interactive)
+             (browse-url (read-string "URL:"))))
+(map! :leader
+      "'" (lambda () (interactive) (counsel-search)))
+(map!
+ :leader
+ :prefix "v"
+ :desc "Visit Calendar" "c" (lambda () (interactive) (browse-url "https://calendar.google.com"))
+ :desc "Visit Discord" "d" (lambda () (interactive) (browse-url "https://discord.gg"))
+ :desc "Visit Spotify" "s" (lambda () (interactive) (browse-url "https://open.spotify.com"))
+ :desc "Visit Skira" "S" #'skira-setup
+ :desc "Visit Gmail" "m" (lambda () (interactive) (browse-url "https://gmail.com"))
+ :desc "Visit GitHub" "g" (lambda () (interactive) (browse-url "https://github.com/jakechv")))
 
 
 ;;; automatic #bang
@@ -187,9 +187,9 @@
       (widen)
       (goto-char (point-min))
       (when (and (looking-at "^#!")
-            	 (not (file-executable-p buffer-file-name)))
+                 (not (file-executable-p buffer-file-name)))
         (set-file-modes buffer-file-name
-            		(logior (file-modes buffer-file-name) #o100))
+                        (logior (file-modes buffer-file-name) #o100))
         (message (concat "Made " buffer-file-name " executable"))))))
 
 (provide 'config)
