@@ -60,6 +60,6 @@
 (package! vlf :recipe (:host github :repo "m00natic/vlfi" :files ("*.el")))
 (package! password-store)
 (package! pinentry)
-
+(package! ytdl)
 (provide 'packages)
 ;;; packages.el ends here

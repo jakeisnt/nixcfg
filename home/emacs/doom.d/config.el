@@ -42,8 +42,7 @@
       gc-cons-threshold 100000000
       read-process-output-max (* 1024 1024)
       lsp-completion-provider :capf
-      lsp-idle-delay 0.500
-      )
+      lsp-idle-delay 0.500)
 
 (setq projectile-globally-ignored-directories '("node_modules" ".happypack" "flow-typed" "build" "lib")
       grep-find-ignored-directories '("node_modules" ".happypack"))
@@ -191,6 +190,41 @@
         (set-file-modes buffer-file-name
                         (logior (file-modes buffer-file-name) #o100))
         (message (concat "Made " buffer-file-name " executable"))))))
+
+
+(defun doom-dashboard-widget-banner ()
+  (let ((point (point)))
+    (mapc (lambda (line)
+            (insert (propertize (+doom-dashboard--center +doom-dashboard--width line)
+                                'face 'doom-dashboard-banner) " ")
+            (insert "\n"))
+          '("
+                              ::::.    ':::::     ::::'
+                              ':::::    ':::::.  ::::'
+                                :::::     '::::.:::::
+                          .......:::::..... ::::::::
+                        ::::::::::::::::::. ::::::    ::::.
+                        ::::::::::::::::::::: :::::.  .::::'
+                              .....           ::::' :::::'
+                              :::::            '::' :::::'
+                    ........:::::               ' :::::::::::.
+                    :::::::::::::                 :::::::::::::
+                    ::::::::::: ..              :::::
+                        .::::: .:::            :::::
+                        .:::::  :::::          '''''    .....
+                        :::::   ':::::.  ......:::::::::::::'
+                        :::     ::::::. ':::::::::::::::::'
+                                .:::::::: '::::::::::
+                              .::::''::::.     '::::.
+                              .::::'   ::::.     '::::.
+                            .::::      ::::      '::::.
+
+                                    E M A C S
+
+"))))
+
+(setq doom-dashboard-functions
+      (cons doom-dashboard-widget-banner (cdr doom-dashboard-functions)))
 
 (provide 'config)
 ;;; config.el ends here

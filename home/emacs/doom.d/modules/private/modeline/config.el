@@ -22,9 +22,10 @@
   (setq memento-mori-birth-date "1999-11-05")
   (memento-mori-mode))
 
-(line-number-mode -1)
-(column-number-mode -1)
-(size-indication-mode -1)
+(progn
+  (line-number-mode -1)
+  (column-number-mode -1)
+  (size-indication-mode -1))
 
 (add-hook 'after-change-major-mode-hook #'doom-modeline-conditional-buffer-encoding)
 
