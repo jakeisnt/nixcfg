@@ -42,8 +42,14 @@ CLOSED: [2020-07-31 Fri 02:10]
 - State "CANCELLED"  from "TODO"       [2020-07-31 Fri 02:10]
 :END:
 
-* [1/3] input mapping
-** TODO ensure capslock -> mod/esc works
+* [2/3] input mapping
+** CANCELLED ensure capslock -> mod/esc works
+CLOSED: [2020-09-17 Thu 23:48]
+:LOGBOOK:
+- State "CANCELLED"  from "TODO"       [2020-09-17 Thu 23:48] \\
+  i am okay not having mod on that key
+  and it could take a lot of wokr to get that done
+:END:
 ** DONE allow tap-to-click on trackpad
 CLOSED: [2020-08-25 Tue 16:05]
 ** TODO consider some of kyles fancy file input things
@@ -157,6 +163,7 @@ CLOSED: [2020-08-19 Wed 08:59]
   others could import their own personal shell file to have their preferred dev tools accessible
 * TODO remove the stupid white bar in firefox
 why is this there! it's obnoxious!
+* TODO get 'pass' properly working and syncing with everything
 * DONE ripgrep vs ag
 CLOSED: [2020-08-25 Tue 15:59]
 configure one of them with sensible defaults
@@ -180,7 +187,8 @@ CLOSED: [2020-09-04 Fri 09:55]
 :END:
 rewrite a browse-url function to accomplish this!
 is there any way this could go wrong?
-* TODO make a custom start page for emacs
+* DONE make a custom start page for emacs
+CLOSED: [2020-09-17 Thu 23:50]
 the default one is boring and looks like everyone else's!
 * TODO add email configuration
 https://tecosaur.github.io/emacs-config/config.html
@@ -194,12 +202,22 @@ i want to be able to click on links without using the mouse again
 * TODO if a buffer is opened in a project, change its name to the name of the project
 example:
 SPC-o-T in Pumbaa :: 'Term :: Pumbaa(1)' is the second terminal opened up in the Pumbaa project.
-* TODO add flycheck checkers for more types of files
+* CANCELLED add flycheck checkers for more types of files
+CLOSED: [2020-09-17 Thu 23:47]
+:LOGBOOK:
+- State "CANCELLED"  from "TODO"       [2020-09-17 Thu 23:47] \\
+  doing everything locally is just better
+:END:
 json, html, css globally would be nice
 could also be nice per project
 consider installing node, yarn and eslint_d globally,
 then locally installing things like postgres
-* TODO add tide
+* CANCELLED add tide
+CLOSED: [2020-09-17 Thu 23:47]
+:LOGBOOK:
+- State "CANCELLED"  from "TODO"       [2020-09-17 Thu 23:47] \\
+  working just fine with the tide config built into doom
+:END:
 much better javascript performance; easy to set up.
 check email for a link regarding better emacs setup
 * TODO grey out all text if a task is finished
