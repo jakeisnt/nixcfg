@@ -65,13 +65,26 @@ CLOSED: [2020-07-20 Mon 17:53]
 this probably has to be handled in counsel-search and browse-url-firefox
 is it worth it? it definitely makes things more consisten... borrow from jethro's configuration
 * TODO add Nord GTK theme
+somewhat done, i added the nord X theme...
 * TODO let s-* keyboard shortcuts through in the firefox mode
 org-capture should work independent of mode
 * DONE emacs :: make a org capture template to save a link and add a note to it
 CLOSED: [2020-07-20 Mon 17:51]
 * DONE emacs :: block audio ctrl and f-keys from firefox
 CLOSED: [2020-07-20 Mon 17:51]
-* TODO emacs :: hopefully make config literate at some point!
+* CANCELLED emacs :: hopefully make config literate at some point!
+CLOSED: [2020-09-17 Thu 23:45]
+:LOGBOOK:
+- State "CANCELLED"  from "TODO"       [2020-09-17 Thu 23:45] \\
+  literate config isn't super important
+
+  it's cool to be able to publish the config on a website
+  and run the config,
+
+  but it's more interesting when there is more content.
+
+  come back to this when i have more progress made
+:END:
 this is good for documentation and for ensuring the code is good quality
 * TODO add the server component
 its mostly here,
