@@ -42,5 +42,5 @@ in {
     ] ++ justLinux [ syncthing ];
 
   programs.home-manager.enable = true;
-  home.sessionVariables.EDITOR = "emacsclient %u";
+  home.sessionVariables.EDITOR = "emacsclient";
 }
