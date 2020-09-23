@@ -61,5 +61,6 @@
 (package! password-store)
 (package! pinentry)
 (package! ytdl)
+(package! ranger)
 (provide 'packages)
 ;;; packages.el ends here

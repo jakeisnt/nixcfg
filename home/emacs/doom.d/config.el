@@ -226,5 +226,16 @@
 (setq doom-dashboard-functions
       (cons doom-dashboard-widget-banner (cdr doom-dashboard-functions)))
 
+(use-package! ranger)
+
+(ranger-override-dired-mode t)
+(setq
+  ranger-cleanup-on-disable t
+  ranger-modify-header t
+  ranger-hide-cursor t
+  ranger-preview-file t
+  ranger-max-preview-size 20
+  ranger-dont-show-binary t)
+
 (provide 'config)
 ;;; config.el ends here

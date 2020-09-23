@@ -6,7 +6,6 @@ in {
     ./firefox.nix
     ./git.nix
     ./shells.nix
-    # ./starship.nix
     # ./redshift.nix
     ./udiskie.nix
     ./picom.nix
@@ -24,7 +23,6 @@ in {
 
   home.packages = with pkgs;
     [
-      ranger
       ripgrep
       valgrind
       wget
