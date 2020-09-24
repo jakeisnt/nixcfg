@@ -7,13 +7,10 @@
     ./nix-private
   ];
 
-  nixpkgs.config.allowUnfree = true;
   home-manager.useUserPackages = true;
-
   nix.gc.automatic = true;
   nix.gc.options = "--delete-older-than 30d";
   boot.cleanTmpDir = true;
-
   hardware.enableRedistributableFirmware = true;
 
   users.users.jake = {
