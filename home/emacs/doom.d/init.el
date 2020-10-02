@@ -177,6 +177,7 @@
        internet
        modeline
        org
+       ;; urweb
 
        :config
        ;;literate

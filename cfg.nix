@@ -22,4 +22,5 @@
 
   sound.enable = true;
   security.sudo.wheelNeedsPassword = true;
+  nix.trustedUsers = [ "root" "jake" ];
 }

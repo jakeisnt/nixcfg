@@ -49,6 +49,9 @@
         eslintd-fix-executable "eslint_d")
   (add-hook! (js2-mode json-mode web-mode) 'eslintd-fix-mode))
 
+(setq lsp-clients-typescript-javascript-server-args
+      "--jsx")
+
 ;; (use-package! tide
 ;;   :after js2-mode
 ;;   :init
