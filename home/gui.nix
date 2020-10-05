@@ -36,6 +36,7 @@ in {
       gimp
       gnupg
       pinentry
+      blender
       zip
     ] ++ justLinux [ syncthing ];
 
