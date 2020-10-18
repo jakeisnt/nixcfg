@@ -26,8 +26,10 @@
   # pulseaudio hardware and software drivers
   hardware.pulseaudio = {
     enable = true;
+    daemon.config = { default-sample-rate = 48000; };
     # ensure that bluetooth support is included
-    package = pkgs.pulseaudioFull;
+    package = pkgs.pulseaudioFull.override { jackaudioSupport = true; };
+    # package = pkgs.pulseaudioFull;
     # enable extra bluetooth codecs
     extraModules = [ pkgs.pulseaudio-modules-bt ];
     support32Bit = true;

@@ -122,7 +122,7 @@
        markdown            ; writing docs for people to ignore
        ;;nim               ; python + lisp at the speed of c
        nix                ; I hereby declare "nix geht mehr!"
-       ocaml
+       ;; ocaml
 
        (org
         +dragndrop
@@ -177,6 +177,7 @@
        internet
        modeline
        org
+       tidal
        ;; urweb
 
        :config
