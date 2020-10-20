@@ -1,15 +1,7 @@
 { config, pkgs, lib, ... }:
 
 {
-  imports = [ <musnix> <home-manager/nixos> ./nix-private ];
-
-  environment.systemPackages = with pkgs; [
-    qjackctl
-    jack2
-    libjack2
-    supercollider
-    leiningen
-  ];
+  imports = [ <home-manager/nixos> ./nix-private ];
 
   home-manager.useUserPackages = true;
   nix.gc.automatic = true;

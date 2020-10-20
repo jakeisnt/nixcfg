@@ -23,6 +23,8 @@
     '';
   };
 
+  environment.systemPackages = with pkgs; [ qjackctl jack2 libjack2 ];
+
   # pulseaudio hardware and software drivers
   hardware.pulseaudio = {
     enable = true;
@@ -36,6 +38,16 @@
     extraConfig = ''
       load-module module-switch-on-connect
     '';
+  };
+
+  services.jack = {
+    jackd.enable = true;
+    alsa.enable = false;
+    loopback = { enable = true; };
+  };
+
+  systemd.user.services.pupseaudio.environment = {
+    JACK_PROMISCUOUS_SERVER = "jackaudio";
   };
 
   # bluetooth hardware and software utilities
