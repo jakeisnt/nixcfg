@@ -38,8 +38,6 @@ in {
       pinentry
       blender
       zip
-      niv
-      docker
     ] ++ justLinux [ syncthing ];
 
   programs.home-manager.enable = true;
