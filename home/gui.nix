@@ -23,21 +23,31 @@ in {
 
   home.packages = with pkgs;
     [
-      ripgrep
-      valgrind
-      wget
+      # linux utils
       coreutils
-      sqlite
-      direnv
-      niv
-      nixfmt
-      pulseaudio-ctl
-      darktable
-      gimp
+      ripgrep
+      wget
+      zip
       gnupg
       pinentry
+
+      # development help
+      sqlite
+      valgrind
+      direnv
+
+      # nix utils
+      niv
+      nixfmt
+
+      # config specific
+      pulseaudio-ctl
+
+      # photo/video
+      darktable
+      gimp
       blender
-      zip
+      audacity
     ] ++ justLinux [ syncthing ];
 
   programs.home-manager.enable = true;
