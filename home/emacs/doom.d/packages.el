@@ -62,5 +62,6 @@
 (package! pinentry)
 (package! ytdl)
 (package! ranger)
+(package! elpher)
 (provide 'packages)
 ;;; packages.el ends here
