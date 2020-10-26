@@ -56,12 +56,12 @@
 ;;            :repo "tecosaur/org-pandoc-import"
 ;;            :files ("*.el" "filters" "preprocessors")))
 ;; (package! proof-general)
-(package! latex-preview-pane)
+(package! latex-preview-pane :pin "5297668a89996b50b2b62f99cba01cc544dbed2e ")
 (package! vlf :recipe (:host github :repo "m00natic/vlfi" :files ("*.el")))
-(package! password-store)
-(package! pinentry)
-(package! ytdl)
-(package! ranger)
-(package! elpher)
+(package! password-store :pin "f152064da9832d6d3d2b4e75f43f63bf2d50716f ")
+(package! pinentry :pin "b6afcb01c5c43653c8d504309df13e58f8247b06")
+(package! ranger :pin "caf75f0060e503af078c7e5bb50d9aaa508e6f3e")
+(package! elpher :pin "cc19cc4d1c174ed568625d2f34cf25914184d1f2")
+
 (provide 'packages)
 ;;; packages.el ends here

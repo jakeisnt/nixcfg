@@ -19,7 +19,7 @@
 ;;
 ;;; Code:
 
-(package! memento-mori)
+(package! memento-mori :pin "b99c5ff526079fc5a1e1be097534855da176bc2b")
 
 (provide 'packages)
 ;;; packages.el ends here
