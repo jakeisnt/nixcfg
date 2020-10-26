@@ -30,6 +30,7 @@ in {
       zip
       gnupg
       pinentry
+      openssl
 
       # development help
       sqlite
