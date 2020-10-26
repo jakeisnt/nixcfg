@@ -21,3 +21,11 @@ sudo nix-channel --update
 ln -s /etc/nixos ~/.config/nixpkgs
 sudo nixos-rebuild switch
 #+end_src
+** some install notes
+i had to:
+- login as root
+ passwd {username}
+ set password for username
+ then i could log in as normal user
+ chown -hR jake /etc/nixos
+ then git clone into it from my nix-cfg repo
