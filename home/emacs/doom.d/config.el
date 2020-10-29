@@ -237,5 +237,9 @@
   ranger-max-preview-size 20
   ranger-dont-show-binary t)
 
+(defun ido-kill-emacs-hook ()
+  ;; Quit emacs despite the ido.last buffer being written to.
+  (ignore-errors (ido-save-history)))
+
 (provide 'config)
 ;;; config.el ends here

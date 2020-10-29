@@ -37,11 +37,6 @@
           ad-do-it)
       ad-do-it)))
 
-(use-package! add-node-modules-path
-  :after js2-mode
-  :init
-  (add-hook! (js2-mode json-mode web-mode) #'add-node-modules-path))
-
 (use-package! eslintd-fix
   :after js2-mode
   :init
@@ -49,8 +44,12 @@
         eslintd-fix-executable "eslint_d")
   (add-hook! (js2-mode json-mode web-mode) 'eslintd-fix-mode))
 
-(setq lsp-clients-typescript-javascript-server-args
-      "--jsx")
+(use-package! add-node-modules-path
+  :after js2-mode
+  :init
+  (add-hook! (js2-mode json-mode web-mode) 'add-node-modules-path))
+
+(setq lsp-clients-typescript-javascript-server-args "--jsx")
 
 ;; (use-package! tide
 ;;   :after js2-mode
@@ -65,7 +64,7 @@
 ;;   (add-hook! (js2-mode) #'tide-setup))
 
 (use-package! editorconfig
-  :config
-  (editorconfig-mode 1))
+  :config (editorconfig-mode 1))
+
 (provide 'config)
 ;;; config.el ends here
