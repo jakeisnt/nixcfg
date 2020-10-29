@@ -29,5 +29,3 @@ i had to:
  then i could log in as normal user
  chown -hR jake /etc/nixos
  then git clone into it from my nix-cfg repo
-
-https://grahamc.com/blog/erase-your-darlings
