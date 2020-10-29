@@ -1,17 +1,33 @@
 { pkgs, ... }:
+let
+  aliases = {
+    mkdir = "mkdir -p";
+    weather = "curl wttr.in";
+  };
+  globalAliases = { mkdir = "mkdir -p"; };
+in {
+  programs.bash = {
+    enable = true;
+    shellAliases = aliases;
+  };
 
-{
-  programs.bash = { enable = true; };
+  programs.fish = {
+    enable = true;
+    interactiveShellInit = ''
+      set fish_greeting
+      fish_vi_key_bindings
+      bind -M insert -m default jk backward-char force-repaint
+    '';
+
+  };
+
   programs.zsh = {
     enable = true;
     autocd = true;
-    shellAliases = {
-      mkdir = "mkdir -p";
-      weather = "curl wttr.in";
-    };
+    shellAliases = aliases;
 
     # like shell aliases, but substituted anywhere on a line
-    shellGlobalAliases = { mkdir = "mkdir -p"; };
+    shellGlobalAliases = globalAliases;
     enableCompletion = true;
     enableAutosuggestions = true;
 

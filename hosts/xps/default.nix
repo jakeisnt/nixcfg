@@ -23,7 +23,14 @@
     '';
   };
 
-  environment.systemPackages = with pkgs; [ qjackctl jack2 libjack2 ];
+  environment.systemPackages = with pkgs; [
+    qjackctl
+    jack2
+    libjack2
+    oil
+    nushell
+    elvish
+  ];
 
   # pulseaudio hardware and software drivers
   hardware.pulseaudio = {
@@ -46,7 +53,7 @@
     loopback = { enable = true; };
   };
 
-  systemd.user.services.pupseaudio.environment = {
+  systemd.user.services.pulseaudio.environment = {
     JACK_PROMISCUOUS_SERVER = "jackaudio";
   };
 

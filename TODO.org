@@ -231,3 +231,7 @@ rebuilding nixos should use the same procedure doom emacs does for rebuilding:
 - Run doom rebuild process async
 - display output in minibuffer as it happens
 this avoids interrupting current work
+* fun
+https://github.com/Xe/nixos-configs/blob/master/common/programs/dwm.nix
+https://grahamc.com/blog/erase-your-darlings
+https://mcwhirter.com.au/craige/blog/2019/Installing_an_xmonad_Environment_on_NixOS/ xmonad nixos
