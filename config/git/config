@@ -1,13 +1,12 @@
 [user]
-	name = Henrik Lissner
+	name = Jacob Chvatal
 	email = henrik@lissner.net
-	signingkey = 5F6C0EA160557395
 [commit]
-	gpgsign = true
+	gpgsign = false
 [core]
 	whitespace = trailing-space
 [github]
-	user = hlissner
+	user = jakechv
 [rebase]
 	autosquash = true
 [push]

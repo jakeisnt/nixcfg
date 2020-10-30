@@ -11,5 +11,5 @@ rec {
   themesDir   = "${modulesDir}/themes";
   homeDir = "/home/${let name = getEnv "USERNAME"; in
                      if elem name [ "" "root" ]
-                     then "hlissner" else name}";
+                     then "jake" else name}";
 }
