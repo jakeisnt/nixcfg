@@ -56,7 +56,6 @@
       };
       term = {
         default = "terminator";
-        st.enable = true;
         terminator.enable = true;
       };
       vm = {
