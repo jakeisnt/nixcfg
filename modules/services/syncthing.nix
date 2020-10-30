@@ -15,7 +15,7 @@ in
             services.syncthing = {
                   enable = true;
                   openDefaultPorts = true;
-                  user = config.my.username;
+                  user = username;
                   configDir = "/home/${username}/.config/syncthing";
                   dataDir = "/home/${username}/.local/share/syncthing";
                   # declarative = {
