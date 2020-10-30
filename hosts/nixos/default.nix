@@ -37,8 +37,8 @@
   ## Modules
   modules = {
     desktop = {
-      # bspwm.enable = true;
-      exwm.enable = true;
+      bspwm.enable = true;
+      # exwm.enable = true;
       apps = {
         discord.enable = true;
         rofi.enable = true;

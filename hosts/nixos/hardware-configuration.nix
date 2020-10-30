@@ -6,7 +6,7 @@
 {
   imports =
     [ (modulesPath + "/installer/scan/not-detected.nix")
-      inputs.nixos-hardware.nixosModules.dell-xps-13-9370
+      # inputs.nixos-hardware.nixosModules.dell-xps-13-9370
     ];
 
   boot = {
