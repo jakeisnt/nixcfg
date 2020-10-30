@@ -34,45 +34,6 @@
     keyMap = "us";
   };
 
-  services.xserver.libinput.enable = true;
-  services.xserver.xkbOptions = "caps:swapescape";	
-  services.xserver.monitorSection = ''
-    DisplaySize 508 285
-  '';
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.jake = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-  };
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  # environment.systemPackages = with pkgs; [
-  #   wget vim
-  #   git
-  #   firefox
-  # ];
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
-  # nix.package = pkgs.nixFlakes;
-  nix.extraOptions = ''
-    experimental-features = nix-command flakes
-'';
-
-
   ## Modules
   modules = {
     desktop = {
@@ -144,5 +105,15 @@
   programs.ssh.startAgent = true;
   services.openssh.startWhenNeeded = true;
   networking.networkmanager.enable = true;
+
+
+  # broken touchpad
+  services.xserver.libinput.enable = true;
+  # duh
+  services.xserver.xkbOptions = "caps:swapescape";
+  # better hidpi
+  services.xserver.monitorSection = ''
+    DisplaySize 508 285
+  '';
 }
 
