@@ -1,6 +1,6 @@
 [user]
 	name = Jacob Chvatal
-	email = henrik@lissner.net
+	email = jakechvatal@gmail.com
 [commit]
 	gpgsign = false
 [core]
@@ -30,7 +30,7 @@
 	clean = git-lfs clean -- %f
 [url "https://github.com/"]
     insteadOf = gh:
-[url "git@github.com:hlissner/"]
+[url "git@github.com:jakechv/"]
     insteadOf = gh:/
 [url "https://gitlab.com/"]
     insteadOf = gl:
