@@ -41,7 +41,6 @@
       apps = {
         discord.enable = true;
         rofi.enable = true;
-        # skype.enable = true;
       };
       browsers = {
         default = "firefox";
