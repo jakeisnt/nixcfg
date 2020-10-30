@@ -11,7 +11,7 @@ with lib;
   #         "192.168.1.12" = [ "midori" ];
   #       };
   #       hosts = flatten (attrValues hostConfig);
-  #       hostName = config.networking.hostName;
+        # hostName = config.networking.hostName;
   #   in mkIf (builtins.elem hostName hosts) hostConfig;
 
   time.timeZone = mkDefault "Europe/Stockholm";
