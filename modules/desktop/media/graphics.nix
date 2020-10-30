@@ -17,7 +17,7 @@ in {
     raster.enable  = mkBoolOpt true;
     vector.enable  = mkBoolOpt true;
     sprites.enable = mkBoolOpt true;
-    photo.enable   = mkBOolOpt true;
+    photo.enable   = mkBoolOpt true;
   };
 
   config = mkIf cfg.enable {
