@@ -17,6 +17,6 @@ in {
             then [ exts.pass-tomb ]
             else [])))
     ];
-    env.PASSWORD_STORE_DIR = "$HOME/.secrets/password-store";
+    env.PASSWORD_STORE_DIR = "$HOME/jake/.pass";
   };
 }
