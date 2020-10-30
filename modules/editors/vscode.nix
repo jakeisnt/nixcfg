@@ -4,9 +4,23 @@ with lib;
 with lib.my;
 let
   cfg = config.modules.editors.vscode;
-  extensions = (with pkgs.vscode-extensions; [
+  extensions = with pkgs.vscode-extensions; ([
     bbenoist.Nix
-  ]) ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+    vscodevim.vim
+  ] ++
+  (if config.modules.dev.node then [
+  ] else []) ++
+
+  (if config.modules.dev.cc then [
+    xaver.clang-format
+    ms-vscode.cpptools
+  ] else []) ++
+
+  (if config.modules.dev.rust then [
+    matklad.rust-analyzer
+  ] else [])
+  )
+  ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
     {
       name = "remote-ssh-edit";
       publisher = "ms-vscode-remote";
