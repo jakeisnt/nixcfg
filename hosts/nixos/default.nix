@@ -67,6 +67,7 @@
       default = "nvim";
       emacs.enable = true;
       vim.enable = true;
+      vscode.enable = true;
     };
     dev = {
       node.enable = true;
