@@ -1,6 +1,6 @@
 { config, options, pkgs, lib, ... }:
 with lib;
-let username = let name = getenv "username"; in
+let username = let name = getEnv "username"; in
                if elem name [ "" "root" ] then "jake" else name;
 in
 {
