@@ -55,8 +55,9 @@
         spotify.enable = true;
       };
       term = {
-        default = "xst";
+        default = "terminator";
         st.enable = true;
+        terminator.enable = true;
       };
       vm = {
         # virtualbox.enable = true;
