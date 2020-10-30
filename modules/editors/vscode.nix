@@ -8,15 +8,15 @@ let
     bbenoist.Nix
     vscodevim.vim
   ] ++
-  (if config.modules.dev.node then [
+  (if config.modules.dev.node.enable then [
   ] else []) ++
 
-  (if config.modules.dev.cc then [
+  (if config.modules.dev.cc.enable then [
     xaver.clang-format
     ms-vscode.cpptools
   ] else []) ++
 
-  (if config.modules.dev.rust then [
+  (if config.modules.dev.rust.enable then [
     matklad.rust-analyzer
   ] else [])
   )
