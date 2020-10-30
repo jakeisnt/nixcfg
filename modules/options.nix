@@ -30,7 +30,7 @@ with lib.my;
       isNormalUser = true;
       name = let name = builtins.getEnv "USER"; in
              if elem name [ "" "root" ]
-             then "hlissner" else name;
+             then "jake" else name;
       uid = 1000;
     };
 
