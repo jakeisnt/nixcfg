@@ -19,9 +19,6 @@
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.networkmanager.enable = true;
 
-  # Set your time zone.
-  # time.timeZone = "Europe/Amsterdam";
-
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
   # replicates the default behaviour.
@@ -38,20 +35,12 @@
     font = "Lat2-Terminus16";
     keyMap = "us";
   };
-  
 
-  # Configure keymap in X11
-  # services.xserver.layout = "us";
-  # services.xserver.xkbOptions = "eurosign:e";
-  # services.xserver.enable = true;
-  # services.xserver.desktopManager.gnome3.enable = true;
+  services.xserver.libinput.enable = true;
   services.xserver.xkbOptions = "caps:swapescape";	
   services.xserver.monitorSection = ''
     DisplaySize 508 285
   '';
-
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.jake = {
