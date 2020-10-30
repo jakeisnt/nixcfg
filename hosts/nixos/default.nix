@@ -97,7 +97,7 @@
 
     };
     services = {
-      # syncthing.enable = true;
+      syncthing.enable = true;
       ssh.enable = true;
     };
     theme.active = "alucard";
