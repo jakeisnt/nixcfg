@@ -84,3 +84,10 @@ And I say, `bin/hey`. [What's going on?](http://hemansings.com/)
 [vim]: https://github.com/hlissner/.vim
 [nixos]: https://releases.nixos.org/?prefix=nixos/20.09-small/
 [host/kuro]: https://github.com/hlissner/dotfiles/tree/master/hosts/kuro
+
+
+# extra stuff
+install browserpass locally:
+$ nix-channel --update
+$ nix-env -iA nixpkgs.browserpass # Or nix-env -iA nixos.browserpass on NixOS
+$ DESTDIR=~/.nix-profile make -f ~/.nix-profile/lib/browserpass/Makefile <desired make goal>
