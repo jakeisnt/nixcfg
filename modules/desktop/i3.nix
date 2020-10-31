@@ -36,28 +36,26 @@ in {
         };
         windowManager.i3 = {
           enable = true;
-          package = pkgs.i3-caps;
-          config = rec {
-            
-            modifier = "Mod4";
-            focus.followMouse = false;
-            window.titlebar = false;
-            gaps = {
-              smartGaps = true;
-              outer = 0;
-              inner = 15;
-              top = 0;
-            };
+          package = pkgs.i3-gaps;
+          # config = rec {
+          #   modifier = "Mod4";
+          #   focus.followMouse = false;
+          #   window.titlebar = false;
+          #   gaps = {
+          #     smartGaps = true;
+          #     outer = 0;
+          #     inner = 15;
+          #     top = 0;
+          #   };
 
-            startup = [{
-              command = "systemctl --user restart polybar";
-              always = true;
-              notification = false;
-            }];
+          #   startup = [{
+          #     command = "systemctl --user restart polybar";
+          #     always = true;
+          #     notification = false;
+          #   }];
 
-            keybindings = { "key combo" = "bound cmd"; };
-          }
-            
+          #   keybindings = { "key combo" = "bound cmd"; };
+          # };
         };
       };
     };
