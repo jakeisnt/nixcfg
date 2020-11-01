@@ -39,7 +39,6 @@
       term = {
         default = "termite";
         termite.enable = true;
-        terminator.enable = true;
       };
       vm = {
         # virtualbox.enable = true;
@@ -69,7 +68,6 @@
       direnv.enable = true;
       git.enable = true;
       gnupg.enable = true;
-      # weechat.enable = true;
       pass.enable = true;
       tmux.enable = true;
       # ranger.enable = true;
@@ -100,7 +98,6 @@
 
   # Select internationalisation properties.
   console = {
-    font = "Lat2-Terminus16";
     keyMap = "us";
   };
 
