@@ -44,6 +44,7 @@ foreground = ${colors.fg}
 
 width = 100%
 height = 34
+dpi = 200
 offset-x = 0
 offset-y = 0
 bottom = true
@@ -75,7 +76,8 @@ modules-right = syncthing redshift wlan pad network-up pad network-down pad batt
 ;tray-padding = 2
 ;tray-transparent = true
 ;tray-background = #0063ff
-
+tray-maxsize: 40
+	
 [module/bspwm]
 type = internal/bspwm
 pin-workspaces = true
