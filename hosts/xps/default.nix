@@ -71,7 +71,7 @@
       gnupg.enable = true;
       pass.enable = true;
       tmux.enable = true;
-      # ranger.enable = true;
+      ranger.enable = true;
       zsh.enable = true;
     };
     hardware = {
