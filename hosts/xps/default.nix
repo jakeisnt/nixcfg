@@ -37,7 +37,8 @@
         spotify.enable = true;
       };
       term = {
-        default = "terminator";
+        default = "termite";
+        termite.enable = true;
         terminator.enable = true;
       };
       vm = {
