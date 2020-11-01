@@ -11,9 +11,7 @@
       ../personal.nix
     ];
 
-  # Use the systemd-boot EFI boot loader.
-  boot.loader.efi.canTouchEfiVariables = true;
-  networking.hostName = "xps"; # Define your hostname.
+  networking.hostName = "xps"; 
 
   ## Modules
   modules = {
@@ -30,7 +28,7 @@
         firefox.enable = true;
       };
       media = {
-        # daw.enable = true;
+        daw.enable = true;
         documents.enable = true;
         graphics.enable = true;
         mpv.enable = true;
@@ -75,7 +73,6 @@
       zsh.enable = true;
     };
     hardware = {
-
     };
     services = {
       syncthing.enable = true;
