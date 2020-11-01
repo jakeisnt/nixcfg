@@ -22,6 +22,7 @@
       # exwm.enable = true;
       apps = {
         discord.enable = true;
+        slack.enable = true;
         rofi.enable = true;
       };
       browsers = {
