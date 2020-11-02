@@ -2,9 +2,9 @@
 
 with lib;
 with lib.my;
-let cfg = config.modules.desktop.apps.slack;
+let cfg = config.modules.messengers.slack;
 in {
-  options.modules.desktop.apps.slack = {
+  options.modules.messengers.slack = {
     enable = mkBoolOpt false;
   };
 

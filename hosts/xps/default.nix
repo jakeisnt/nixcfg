@@ -17,10 +17,7 @@
   modules = {
     desktop = {
       bspwm.enable = true;
-      # exwm.enable = true;
       apps = {
-        discord.enable = true;
-        slack.enable = true;
         rofi.enable = true;
       };
       browsers = {
@@ -31,7 +28,6 @@
         daw.enable = true;
         documents.enable = true;
         graphics.enable = true;
-        mpv.enable = true;
         recording.enable = true;
         spotify.enable = true;
       };
@@ -42,6 +38,16 @@
       vm = {
         # virtualbox.enable = true;
       };
+    };
+
+    media = {
+      mpv.enable = true;
+    };
+
+    messengers = {
+      discord.enable = true;
+      slack.enable = true;
+      signal.enable = true;
     };
     editors = {
       default = "nvim";
