@@ -10,9 +10,8 @@ in {
 
   config = mkIf cfg.enable {
     user.packages = with pkgs; [
-      # If not installed from the bleeding edge, Discord will sometimes
-      # soft-lock itself on a "there's an update for discord" screen.
+    ] ++ (if config.services.xserver.enable then [
       slack
-    ];
+    ] else [ slack-term ]);
   };
 }

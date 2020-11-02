@@ -10,7 +10,8 @@ in {
 
   config = mkIf cfg.enable {
     user.packages = with pkgs; [
+    ] ++ (if config.services.xserver.enable then [
       signal-desktop
-    ];
+    ] else [ signal-cli ]);
   };
 }
