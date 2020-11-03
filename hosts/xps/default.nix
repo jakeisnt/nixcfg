@@ -78,8 +78,6 @@
       ranger.enable = true;
       zsh.enable = true;
     };
-    hardware = {
-    };
     services = {
       syncthing.enable = true;
       ssh.enable = true;
@@ -90,6 +88,8 @@
   programs.ssh.startAgent = true;
   services.openssh.startWhenNeeded = true;
   networking.networkmanager.enable = true;
+
+  users.users.jake.extraGroups = [ "networkmanager" ];
 
   # broken touchpad
   services.xserver.libinput.enable = true;
