@@ -1,14 +1,16 @@
 [user]
 	name = Jacob Chvatal
-	email = jakechv@github.com
+	email = jakeisnt@github.com
 [commit]
 	gpgsign = false
 [core]
 	whitespace = trailing-space
 [github]
-	user = jakechv
+	user = jakeisnt
 [rebase]
 	autosquash = true
+[pull]
+	rebase = true
 [push]
 	default = current
 [alias]
