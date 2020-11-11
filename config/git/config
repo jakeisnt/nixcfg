@@ -32,7 +32,7 @@
 	clean = git-lfs clean -- %f
 [url "https://github.com/"]
     insteadOf = gh:
-[url "git@github.com:jakechv/"]
+[url "git@github.com:jakeisnt/"]
     insteadOf = gh:/
 [url "https://gitlab.com/"]
     insteadOf = gl:
