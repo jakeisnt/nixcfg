@@ -9,6 +9,7 @@ in {
   };
 
   config = mkIf cfg.enable {
+    android_sdk.accept_license = true;
     user.packages = with pkgs; [
       android-studio
       androidenv.androidPkgs_9_0.androidsdk
