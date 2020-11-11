@@ -57,6 +57,7 @@
     };
     dev = {
       node.enable = true;
+      android.enable = true;
       # cc.enable = true;
       # rust.enable = true;
       # lua.enable = true;
