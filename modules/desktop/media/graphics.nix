@@ -17,6 +17,7 @@ in {
     raster.enable  = mkBoolOpt true;
     vector.enable  = mkBoolOpt true;
     sprites.enable = mkBoolOpt true;
+    photo.enable   = mkBoolOpt true;
   };
 
   config = mkIf cfg.enable {
@@ -36,6 +37,11 @@ in {
         krita
         gimp
         gimpPlugins.resynthesizer2  # content-aware scaling in gimp
+      ] else []) ++
+
+      # replaces lightroom
+      (if cfg.photo.enable then [
+        darktable
       ] else []) ++
 
       # Sprite sheets & animation

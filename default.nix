@@ -59,11 +59,18 @@ with inputs;
 
   # Just the bear necessities...
   environment.systemPackages = with pkgs; [
+    # TODO: decide which tool to use
     cached-nix-shell
+    lorri
+    niv
     coreutils
     git
     vim
     wget
     gnumake
+
+    # fine...
+    unzip
+    cmake
   ];
 }

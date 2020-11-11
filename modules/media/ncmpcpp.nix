@@ -2,9 +2,9 @@
 
 with lib;
 with lib.my;
-let cfg = config.modules.desktop.media.ncmpcpp;
+let cfg = config.modules.media.ncmpcpp;
 in {
-  options.modules.desktop.media.ncmpcpp = {
+  options.modules.media.ncmpcpp = {
     enable = mkBoolOpt false;
     # modipy.enable = mkBoolOpt false;
   };

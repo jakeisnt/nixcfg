@@ -9,6 +9,12 @@ with lib;
 with lib.my;
 let cfg = config.modules.desktop.browsers.firefox;
 in {
+  # nixpkgs.config.packageOverrides = pkgs: {
+  #   nur = import (builtins.fetchTarball
+  #     "https://github.com/nix-community/NUR/archive/master.tar.gz") {
+  #       inherit pkgs;
+  #     };
+  # };
   options.modules.desktop.browsers.firefox = with types; {
     enable = mkBoolOpt false;
     profileName = mkOpt types.str config.user.name;
@@ -16,6 +22,9 @@ in {
     settings = mkOpt' (attrsOf (oneOf [ bool int str ])) {} ''
       Firefox preferences to set in <filename>user.js</filename>
     '';
+    # extensions = mkOpt (attrsOf array) {} ''
+    #   Additional FIrefox extensions to install.
+    # '';
     extraConfig = mkOpt' lines "" ''
       Extra lines to add to <filename>user.js</filename>
     '';
@@ -27,7 +36,7 @@ in {
   config = mkIf cfg.enable (mkMerge [
     {
       user.packages = with pkgs; [
-        firefox-bin
+        firefox-bin 
         (makeDesktopItem {
           name = "firefox-private";
           desktopName = "Firefox (Private)";
@@ -41,6 +50,11 @@ in {
       # Prevent auto-creation of ~/Desktop. The trailing slash is necessary; see
       # https://bugzilla.mozilla.org/show_bug.cgi?id=1082717
       env.XDG_DESKTOP_DIR = "$HOME/";
+
+      # programs.firefox.extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+      #   browserpass
+      #   vimium
+      # ];
 
       modules.desktop.browsers.firefox.settings = {
         "devtools.theme" = "dark";
@@ -120,6 +134,11 @@ in {
         "datareporting.healthreport.uploadEnabled" = false;
         "datareporting.healthreport.service.enabled" = false;
         "datareporting.policy.dataSubmissionEnabled" = false;
+
+        # skip homepage when startin
+        "browser.search.firstRunSkipsHomepage" = true;
+        # allow use of system gtk dark theme
+        "widget.content.allow-gtk-dark-theme" = true;
       };
 
       # Use a stable profile name so we can target it in themes

@@ -1,14 +1,16 @@
 [user]
 	name = Jacob Chvatal
-	email = henrik@lissner.net
+	email = jake@isnt.online
 [commit]
 	gpgsign = false
 [core]
 	whitespace = trailing-space
 [github]
-	user = jakechv
+	user = jakeisnt
 [rebase]
 	autosquash = true
+[pull]
+	rebase = true
 [push]
 	default = current
 [alias]
@@ -30,7 +32,7 @@
 	clean = git-lfs clean -- %f
 [url "https://github.com/"]
     insteadOf = gh:
-[url "git@github.com:hlissner/"]
+[url "git@github.com:jakeisnt/"]
     insteadOf = gh:/
 [url "https://gitlab.com/"]
     insteadOf = gl:

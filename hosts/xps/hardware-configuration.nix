@@ -4,20 +4,17 @@
 { config, lib, pkgs, inputs, modulesPath, ... }:
 
 {
-  imports = [
-    (modulesPath + "/installer/scan/not-detected.nix")
-    inputs.nixos-hardware.nixosModules.dell-xps-13-9370
-  ];
+  imports =
+    [ (modulesPath + "/installer/scan/not-detected.nix")
+      # inputs.nixos-hardware.nixosModules.dell-xps-13-9370
+    ];
 
   boot = {
     initrd.availableKernelModules = [ "xhci_pci" "nvme" "rtsx_pci_sdmmc" ];
     initrd.kernelModules = [ "dm-snapshot" ];
     kernelModules = [ "kvm-intel" ];
     extraModulePackages = [ ];
-    # HACK Disables fixes for spectre, meltdown, L1TF and a number of CPU
-    #      vulnerabilities. This is not a good idea for mission critical or
-    #      server/headless builds, but on my lonely home system I prioritize raw
-    #      performance over security.  The gains are minor.
+    # disable spectre, meltdown fixes
     kernelParams = [ "mitigations=off" ];
   };
 
@@ -33,28 +30,28 @@
   programs.light.enable = true;
   user.extraGroups = [ "video" ];
 
-  # Storage
-  fileSystems = {
-    "/" = {
-      device = "/dev/disk/by-label/nixos";
+  # high-resolution display
+  hardware.video.hidpi.enable = lib.mkDefault true;
+
+  fileSystems."/" =
+    { device = "/dev/disk/by-label/nixos";
+      fsType = "ext4";
+      # keep file system from recording on file visit
+      options = [ "noatime" ];
+    };
+
+  fileSystems."/home" =
+    { device = "/dev/disk/by-label/home";
       fsType = "ext4";
       options = [ "noatime" ];
     };
-    "/boot" = {
-      device = "/dev/disk/by-label/BOOT";
+
+  fileSystems."/boot" =
+    { device = "/dev/disk/by-label/BOOT";
       fsType = "vfat";
     };
-    "/home" = {
-      device = "/dev/disk/by-label/home";
-      fsType = "ext4";
-      options = [ "noatime" ];
-    };
-  };
-  swapDevices = [ { device = "/dev/disk/by-label/swap"; }];
 
-  boot.initrd.luks.devices.home = {
-    device = "/dev/nvme0n1p8";
-    preLVM = true;
-    allowDiscards = true;
-  };
+  swapDevices =
+    [ { device = "/dev/disk/by-uuid/786f7e92-74b5-4327-873a-89905a173f86"; }
+    ];
 }

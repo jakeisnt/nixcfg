@@ -2,9 +2,9 @@
 
 with lib;
 with lib.my;
-let cfg = config.modules.desktop.media.mpv;
+let cfg = config.modules.media.mpv;
 in {
-  options.modules.desktop.media.mpv = {
+  options.modules.media.mpv = {
     enable = mkBoolOpt false;
   };
 

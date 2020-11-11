@@ -22,6 +22,7 @@ in {
 
     environment.shellAliases = {
       vim = "nvim";
+      vi  = "nvim";
       v   = "nvim";
     };
   };
