@@ -48,6 +48,7 @@
       discord.enable = true;
       slack.enable = true;
       signal.enable = true;
+      email.enable = true;
     };
     editors = {
       default = "nvim";
