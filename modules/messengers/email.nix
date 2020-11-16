@@ -12,7 +12,9 @@ in {
     user.packages = with pkgs; [
     ] ++ (if config.services.xserver.enable then [
       sylpheed
+      # alternatives: thunderbird (maybe bloated, but may support office365), claws (different ui)
     ] else [ neomutt ]);
     # todo: add some more config to set up email automatically depending on account!
+    # alternatives: interfaces within emacs like mu4e, mostly
   };
 }
