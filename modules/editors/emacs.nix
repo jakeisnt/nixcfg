@@ -56,6 +56,8 @@ in {
       # :lang rust
       rustfmt
       unstable.rust-analyzer
+      # org +gnuplot
+      gnuplot
     ];
 
     env.PATH = [ "$XDG_CONFIG_HOME/emacs/bin" ];
