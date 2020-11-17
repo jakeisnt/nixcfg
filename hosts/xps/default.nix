@@ -45,6 +45,7 @@
     };
 
     messengers = {
+      matrix.enable = true;
       discord.enable = true;
       slack.enable = true;
       signal.enable = true;
