@@ -58,6 +58,8 @@ in {
       unstable.rust-analyzer
       # org +gnuplot
       gnuplot
+      # org +pandoc
+      pandoc
     ];
 
     env.PATH = [ "$XDG_CONFIG_HOME/emacs/bin" ];
