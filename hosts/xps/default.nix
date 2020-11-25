@@ -5,21 +5,18 @@
 { config, pkgs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ../personal.nix
-    ];
+  imports = [ # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ../personal.nix
+  ];
 
-  networking.hostName = "xps"; 
+  networking.hostName = "xps";
 
   ## Modules
   modules = {
     desktop = {
       bspwm.enable = true;
-      apps = {
-        rofi.enable = true;
-      };
+      apps = { rofi.enable = true; };
       browsers = {
         default = "firefox";
         firefox.enable = true;
@@ -32,17 +29,15 @@
         spotify.enable = true;
       };
       term = {
-        default = "termite";
-        termite.enable = true;
+        default = "xst";
+        st.enable = true;
       };
       vm = {
         # virtualbox.enable = true;
       };
     };
 
-    media = {
-      mpv.enable = true;
-    };
+    media = { mpv.enable = true; };
 
     messengers = {
       matrix.enable = true;
@@ -104,9 +99,7 @@
   '';
 
   # Select internationalisation properties.
-  console = {
-    keyMap = "us";
-  };
+  console = { keyMap = "us"; };
 
 }
 
