@@ -1,0 +1,6 @@
+{
+    "window.menuBarVisibility": "hidden",
+    "keyboard.dispatch": "keyCode",
+    "editor.lineNumbers": "relative" ,
+    "editor.minimap.enable": false
+}

@@ -57,11 +57,13 @@ with inputs;
     systemd-boot.enable = mkDefault true;
   };
 
+  # enable lorri for shell.nix!
+  services.lorri.enable = true;
+
   # Just the bear necessities...
   environment.systemPackages = with pkgs; [
     # TODO: decide which tool to use
     cached-nix-shell
-    lorri
     niv
     coreutils
     git

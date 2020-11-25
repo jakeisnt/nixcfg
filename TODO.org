@@ -1,0 +1,8 @@
+#+TITLE: Todo
+
+* mouse keys
+https://en.wikipedia.org/wiki/Mouse_keys enable Xorg mouse keys
+* color scheme stuff
+central source of truth for color scheme
+swap it every time you want to switch things up, changes color scheme throughout nixos config
+requires reworking how home-manager works in this context, though

@@ -8,8 +8,16 @@ let
     bbenoist.Nix
     vscodevim.vim
   ] ++
-  (if config.modules.dev.node.enable then [
-  ] else []) ++
+  (if config.modules.dev.node.enable then 
+  pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+    # {
+    #   name = "vscode-eslint";
+    #   publisher = "dbaeumer";
+    #   version = "2.1.10";
+    #   sha256 = "0hqfgxzm4vy1qpkp5n6g7rvhzbwhrwgxhx10wwcaxbzqihbvvglf";
+    # }
+  ]
+   else []) ++
 
   (if config.modules.dev.cc.enable then [
     xaver.clang-format
