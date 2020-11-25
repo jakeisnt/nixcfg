@@ -62,16 +62,19 @@ with inputs;
 
   # Just the bear necessities...
   environment.systemPackages = with pkgs; [
-    # TODO: decide which tool to use
+    # nix tools
     cached-nix-shell
     niv
+    nixfmt
+
+    # linux good to haves
     coreutils
     git
     vim
     wget
     gnumake
 
-    # fine...
+    # unliked, but offer extra convenience
     unzip
     cmake
   ];
