@@ -16,6 +16,7 @@
   modules = {
     desktop = {
       bspwm.enable = true;
+      # i3.enable = true;
       apps = { rofi.enable = true; };
       browsers = {
         default = "firefox";
@@ -29,7 +30,7 @@
         spotify.enable = true;
       };
       term = {
-        default = "xst";
+        default = "st";
         st.enable = true;
       };
       vm = {

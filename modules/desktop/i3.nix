@@ -4,9 +4,7 @@ with lib;
 with lib.my;
 let cfg = config.modules.desktop.i3;
 in {
-  options.modules.desktop.i3 = {
-    enable = mkBoolOpt false;
-  };
+  options.modules.desktop.i3 = { enable = mkBoolOpt false; };
 
   config = mkIf cfg.enable {
     modules.theme.onReload.i3 = ''
@@ -31,6 +29,7 @@ in {
       xserver = {
         enable = true;
         displayManager = {
+          defaultSession = "none+i3";
           lightdm.enable = true;
           lightdm.greeters.mini.enable = true;
         };
@@ -67,6 +66,14 @@ in {
       serviceConfig.Restart = "always";
       serviceConfig.RestartSec = 2;
       serviceConfig.ExecStart = "${pkgs.dunst}/bin/dunst";
+    };
+
+    # link recursively so other modules can link files in their folders
+    home.configFile = {
+      "i3" = {
+        source = "${configDir}/i3";
+        recursive = true;
+      };
     };
   };
 }

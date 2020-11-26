@@ -11,9 +11,10 @@ super + apostrophe
 	bspc window -s last
 
 super + Return
-	exec termite
+	# exec termite
 	# Attach to a detached session. If none is available create a new one, rather
 	# than attach to one that is already attached to elsewhere.
+	exec xst
 	# xst -e bash -c "(tmux ls | grep -qEv 'attached|scratch' && tmux at) || tmux"
 
 ctrl + super + Return
