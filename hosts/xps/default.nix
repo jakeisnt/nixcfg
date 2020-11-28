@@ -21,6 +21,7 @@
       browsers = {
         default = "firefox";
         firefox.enable = true;
+        netsurf.enable = true;
       };
       media = {
         daw.enable = true;
