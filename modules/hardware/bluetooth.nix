@@ -2,8 +2,9 @@
 
 with lib;
 with lib.my;
-let hwCfg = config.modules.hardware;
-    cfg = hwCfg.bluetooth;
+let
+  hwCfg = config.modules.hardware;
+  cfg = hwCfg.bluetooth;
 in {
   options.modules.hardware.bluetooth = {
     enable = mkBoolOpt false;
@@ -12,6 +13,7 @@ in {
 
   config = mkIf cfg.enable (mkMerge [
     { hardware.bluetooth.enable = true; }
+    { services.blueman.enable = true; }
 
     (mkIf cfg.audio.enable {
       hardware.pulseaudio = {
