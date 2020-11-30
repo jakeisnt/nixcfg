@@ -15,7 +15,7 @@
     kernelModules = [ "kvm-intel" ];
     extraModulePackages = [ ];
     # disable spectre, meltdown fixes
-    kernelParams = [ "mitigations=off" ];
+    kernelParams = [ "mitigations=off" "video=eDP-1:3940x1920@60" ];
   };
 
   # CPU
