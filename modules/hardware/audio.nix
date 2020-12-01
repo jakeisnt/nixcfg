@@ -10,7 +10,7 @@ in {
     sound.enable = true;
     hardware.pulseaudio = {
       enable = true;
-      # daemon.config = { default-sample-rate = 48000; };
+      daemon.config = { default-sample-rate = 48000; };
       support32Bit = true;
 
       extraConfig = ''

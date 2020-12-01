@@ -22,7 +22,7 @@
         default = "firefox";
         firefox.enable = true;
         # netsurf.enable = true;
-        chrome.enable = true;
+        # chrome.enable = true;
       };
       media = {
         daw.enable = true;
