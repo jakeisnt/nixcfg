@@ -2,5 +2,7 @@
     "window.menuBarVisibility": "hidden",
     "keyboard.dispatch": "keyCode",
     "editor.lineNumbers": "relative" ,
-    "editor.minimap.enable": false
+    "editor.minimap.enable": false,
+    "editor.scrollbar.horizontal": "hidden",
+    "editor.scrollbar.vertical": "hidden",
 }
