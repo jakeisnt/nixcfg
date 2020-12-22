@@ -1,7 +1,6 @@
 { config, lib, ... }:
 
-with lib;
-{
+with lib; {
   # networking.hosts =
   #   let hostConfig = {
   #         "192.168.1.2"  = [ "ao" ];
@@ -11,10 +10,10 @@ with lib;
   #         "192.168.1.12" = [ "midori" ];
   #       };
   #       hosts = flatten (attrValues hostConfig);
-        # hostName = config.networking.hostName;
+  # hostName = config.networking.hostName;
   #   in mkIf (builtins.elem hostName hosts) hostConfig;
 
-  time.timeZone = mkDefault "Europe/Stockholm";
+  time.timeZone = mkDefault "America/Los_Angeles";
   i18n.defaultLocale = mkDefault "en_US.UTF-8";
 
   # For redshift, mainly
@@ -24,5 +23,6 @@ with lib;
   } else if config.time.timeZone == "Europe/Stockholm" then {
     latitude = 55.88;
     longitude = 12.5;
-  } else {});
+  } else
+    { });
 }
