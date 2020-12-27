@@ -61,9 +61,6 @@ tray-offset-y = -3
 tray-maxsize = 25
 tray-background = ${color.adapta}
 
-scroll-up = i3wm-wsnext
-scroll-down = i3wm-wsprev
-
 ## Mod Loc #########
 modules-left = bspwm
 modules-center = xwindow

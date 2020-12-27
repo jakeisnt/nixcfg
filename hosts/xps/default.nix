@@ -16,7 +16,6 @@
   modules = {
     desktop = {
       bspwm.enable = true;
-      # i3.enable = true;
       apps = { rofi.enable = true; };
       browsers = {
         default = "firefox";

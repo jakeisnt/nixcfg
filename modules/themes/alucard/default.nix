@@ -10,12 +10,7 @@ in {
     # Desktop-agnostic configuration
     {
       environment.variables.POLYBAR_CONFIG = with config.modules.desktop;
-        if bspwm.enable then
-          "./config/polybar/bspwm"
-        else if i3.enable then
-          "./config/polybar/i3"
-        else
-          "";
+        if bspwm.enable then "./config/polybar/bspwm" else "";
 
       modules = {
         theme = {
@@ -102,9 +97,6 @@ in {
           (mkIf desktop.bspwm.enable {
             "bspwm/rc.d/polybar".source = ./config/polybar/run.sh;
             "bspwm/rc.d/theme".source = ./config/bspwmrc;
-          })
-          (mkIf desktop.i3.enable {
-            "i3/rc.d/polybar".source = ./config/polybar/run.sh;
           })
           (mkIf desktop.apps.rofi.enable {
             "rofi/theme" = {
