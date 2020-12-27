@@ -1,6 +1,5 @@
 [ -d "$ZGEN_DIR" ] || git clone https://github.com/tarjoilija/zgen "$ZGEN_DIR"
 source $ZGEN_SOURCE
-source /etc/nixos/bin
 if ! zgen saved; then
   echo "Initializing zgen"
   zgen load hlissner/zsh-autopair autopair.zsh
