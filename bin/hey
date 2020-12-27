@@ -18,7 +18,6 @@
 #                        modified in place (while tweaking). Run again to
 #                        restore the old link (careful, you'll lose work if you
 #                        don't save your changes elsewhere!)
-#   hey vm            -> hey rebuild vm
 #   hey up|upgrade    -> hey update && hey rebuild switch
 #   hey gc            -> GC user profile, optimise nix store
 #   sudo hey gc       -> GC, optimise nix store, & delete old boot entries
@@ -56,7 +55,6 @@ function main {
     echo "  test (t)           Quickly rebuild, for quick iteration"
     echo "  theme              Quickly swap to another theme"
     echo "  upgrade (up)       Update flake lockfile and rebuild"
-    echo "  vm                 Build flake into a VM image"
   }
 
   function _rebuild {
@@ -141,8 +139,6 @@ function main {
     t|test)      _rebuild --fast test "$@"      ;;
     re|rebuild)  _rebuild "${@:-switch}"        ;;
     rollback)    _rebuild --rollback switch     ;;
-    vm)          _rebuild "$@" vm               ;;
-
     u|update)    _update "$@"                   ;;
     up|upgrade)  _update && _rebuild switch     ;;
     s|search)    nix search nixpkgs "$@"        ;;
