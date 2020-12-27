@@ -11,7 +11,6 @@ let cfg = config.modules.desktop.browsers.qutebrowser;
 in {
   options.modules.desktop.browsers.qutebrowser = with types; {
     enable = mkBoolOpt false;
-    userStyles = mkOpt lines "";
   };
 
   config = mkIf cfg.enable {
@@ -32,7 +31,6 @@ in {
         source = "${configDir}/qutebrowser";
         recursive = true;
       };
-      dataFile."qutebrowser/userstyles.css".text = cfg.userStyles;
     };
   };
 }

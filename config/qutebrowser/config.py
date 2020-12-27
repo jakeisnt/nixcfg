@@ -1,10 +1,6 @@
 import os
 import glob
 
-## Per-domain settings
-c.content.user_stylesheets = glob.glob(os.path.expanduser('~/.local/share/qutebrowser/userstyles.css'))
-
-
 ## General config
 # c.confirm_quit = ['never']
 c.editor.command = ['emacsclient', '-c', '-a', ' ', '+{line}:{column}', '{}']
