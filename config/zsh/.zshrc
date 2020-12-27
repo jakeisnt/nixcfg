@@ -44,7 +44,6 @@ if [[ $TERM != dumb ]]; then
 
   ##
   autoload -Uz compinit && compinit -u -d $ZSH_CACHE/zcompdump
-  autopair-init
 
   # If you have host-local configuration, this is where you'd put it
   [ -f ~/.zshrc ] && source ~/.zshrc
