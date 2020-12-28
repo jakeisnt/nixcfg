@@ -15,8 +15,8 @@
   ## Modules
   modules = {
     desktop = {
-      bspwm.enable = true;
-      apps = { rofi.enable = true; };
+      sway.enable = true;
+      # apps = { rofi.enable = true; };
       browsers = {
         default = "firefox";
         firefox.enable = true;
@@ -93,16 +93,14 @@
   users.users.jake.extraGroups = [ "networkmanager" ];
 
   # broken touchpad
-  services.xserver.libinput.enable = true;
+  # services.xserver.libinput.enable = true;
   # duh
-  services.xserver.xkbOptions = "caps:swapescape";
+  # services.xserver.xkbOptions = "caps:swapescape";
   # better hidpi
-  services.xserver.monitorSection = ''
-    DisplaySize 508 285
-  '';
+  # services.xserver.monitorSection = ''
+  #   DisplaySize 508 285
+  # '';
 
   # Select internationalisation properties.
   console = { keyMap = "us"; };
-
 }
-
