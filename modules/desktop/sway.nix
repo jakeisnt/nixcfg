@@ -10,21 +10,6 @@ in {
     environment.systemPackages = with pkgs; [
       lightdm
       dunst
-      libnotify
-      (polybar.override {
-        pulseSupport = true;
-        nlSupport = true;
-      })
-    ];
-
-    services = {
-      wayland.windowManager.sway = {
-        enable = true;
-        wrapperFeatures.gtk = true;
-      };
-    };
-
-    home.packages = with pkgs; [
       swaylock
       swayidle
       wl-clipboard
@@ -32,6 +17,16 @@ in {
       alacritty
       dmenu
       wl-clipboard
+      libnotify
+      (polybar.override {
+        pulseSupport = true;
+        nlSupport = true;
+      })
     ];
+
+    wayland.windowManager.sway = {
+      enable = true;
+      wrapperFeatures.gtk = true;
+    };
   };
 }
