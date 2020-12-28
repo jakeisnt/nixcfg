@@ -7,6 +7,12 @@ in {
   options.modules.desktop.sway = { enable = mkBoolOpt false; };
 
   config = mkIf cfg.enable {
+    programs.sway.enable = true;
+    wayland.windowManager.sway = {
+      enable = true;
+      wrapperFeatures.gtk = true;
+    };
+
     environment.systemPackages = with pkgs; [
       lightdm
       dunst
@@ -23,10 +29,5 @@ in {
         nlSupport = true;
       })
     ];
-
-    wayland.windowManager.sway = {
-      enable = true;
-      wrapperFeatures.gtk = true;
-    };
   };
 }

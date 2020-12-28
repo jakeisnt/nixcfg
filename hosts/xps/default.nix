@@ -90,7 +90,7 @@
   services.openssh.startWhenNeeded = true;
   networking.networkmanager.enable = true;
 
-  users.users.jake.extraGroups = [ "networkmanager" ];
+  users.users.jake.extraGroups = [ "networkmanager" "sway" ];
 
   # broken touchpad
   # services.xserver.libinput.enable = true;
