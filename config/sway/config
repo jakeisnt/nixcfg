@@ -41,8 +41,14 @@ output eDP1 resolution 3840x2160 position 0,0
 input "2:7:SynPS/2_Synaptics_TouchPad" {
   dwt enabled
   tap enabled
+  drag enabled
+  tap_button_map lrm
   natural_scroll enabled
   middle_emulation enabled
+}
+
+input type:keyboard {
+  xkb_options caps:swapescape
 }
 
 ### Key bindings
@@ -117,11 +123,7 @@ bindsym $mod+Shift+7 move container to workspace number 7
 bindsym $mod+Shift+8 move container to workspace number 8
 bindsym $mod+Shift+9 move container to workspace number 9
 bindsym $mod+Shift+0 move container to workspace number 10
-# Note: workspaces can have any name you want, not just numbers.
-# We just use 1-10 as the default.
-#
-# Layout stuff:
-#
+
 # You can "split" the current object of your focus with
 # $mod+b or $mod+v, for horizontal and vertical splits
 # respectively.
@@ -144,57 +146,51 @@ bindsym $mod+space focus mode_toggle
 
 # Move focus to the parent container
 bindsym $mod+a focus parent
-#
+
 # Scratchpad:
-#
 # Sway has a "scratchpad", which is a bag of holding for windows.
 # You can send windows there and get them back later.
-
 # Move the currently focused window to the scratchpad
 bindsym $mod+Shift+minus move scratchpad
 
 # Show the next scratchpad window or hide the focused scratchpad window.
 # If there are multiple scratchpad windows, this command cycles through them.
 bindsym $mod+minus scratchpad show
-#
-# Resizing containers:
-#
-mode "resize" {
-# left will shrink the containers width
-# right will grow the containers width
-# up will shrink the containers height
-# down will grow the containers height
-bindsym $left resize shrink width 10px
-bindsym $down resize grow height 10px
-bindsym $up resize shrink height 10px
-bindsym $right resize grow width 10px
 
-# Ditto, with arrow keys
-bindsym Left resize shrink width 10px
-bindsym Down resize grow height 10px
-bindsym Up resize shrink height 10px
-bindsym Right resize grow width 10px
-
-# Return to default mode
-bindsym Return mode "default"
-bindsym Escape mode "default"
-}
 bindsym $mod+r mode "resize"
+mode "resize" {
+  # left will shrink the containers width
+  # right will grow the containers width
+  # up will shrink the containers height
+  # down will grow the containers height
+  bindsym $left resize shrink width 10px
+  bindsym $down resize grow height 10px
+  bindsym $up resize shrink height 10px
+  bindsym $right resize grow width 10px
+  
+  # Ditto, with arrow keys
+  bindsym Left resize shrink width 10px
+  bindsym Down resize grow height 10px
+  bindsym Up resize shrink height 10px
+  bindsym Right resize grow width 10px
+  
+  # Return to default mode
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+}
 
-#
 # Status Bar:
-#
 # Read `man 5 sway-bar` for more information about this section.
 bar {
-position top
+  position top
+  
+  # When the status_command prints a new line to stdout, swaybar updates.
+  # The default just shows the current date and time.
+  status_command while date +'%Y-%m-%d %l:%M:%S %p'; do sleep 1; done
 
-# When the status_command prints a new line to stdout, swaybar updates.
-# The default just shows the current date and time.
-status_command while date +'%Y-%m-%d %l:%M:%S %p'; do sleep 1; done
-
-colors {
-statusline #ffffff
-background #323232
-inactive_workspace #32323200 #32323200 #5c5c5c
-}
+  colors {
+    statusline #ffffff
+    background #323232
+    inactive_workspace #32323200 #32323200 #5c5c5c
+  }
 }
