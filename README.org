@@ -1,4 +1,3 @@
 #+title: NixOS Config
 
 Heavily inspired by hlissner's dotfiles, with many of my own configuration options added.
-Feel free to take a look or use them yourself. Check out `hosts/` for examples of devices to get started with.
