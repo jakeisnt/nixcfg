@@ -104,8 +104,4 @@
   # Select internationalisation properties.
   console = { keyMap = "us"; };
 
-  wayland.windowManager.sway = {
-    enable = true;
-    wrapperFeatures.gtk = true;
-  };
 }

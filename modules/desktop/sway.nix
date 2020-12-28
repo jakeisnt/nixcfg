@@ -8,6 +8,10 @@ in {
 
   config = mkIf cfg.enable {
     programs.sway.enable = true;
+    wayland.windowManager.sway = {
+      enable = true;
+      wrapperFeatures.gtk = true;
+    };
 
     environment.systemPackages = with pkgs; [
       lightdm
