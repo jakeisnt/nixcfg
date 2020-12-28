@@ -26,6 +26,6 @@ case "$(echo -e "$options" | $rofi_command -dmenu -selected-row 2)" in
         systemctl suspend
         ;;
     $log_out)
-        bspc quit
+        quit
         ;;
 esac
