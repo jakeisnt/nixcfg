@@ -9,8 +9,6 @@ in {
   config = mkIf (cfg.active == "alucard") (mkMerge [
     # Desktop-agnostic configuration
     {
-      environment.variables.POLYBAR_CONFIG = with config.modules.desktop; "";
-
       modules = {
         theme = {
           wallpaper = mkDefault ./config/wallpaper.png;
@@ -50,35 +48,7 @@ in {
         };
       };
 
-      # Compositor
-      services.picom = {
-        fade = true;
-        fadeDelta = 1;
-        fadeSteps = [ 1.0e-2 1.2e-2 ];
-        shadow = true;
-        shadowOffsets = [ (-10) (-10) ];
-        shadowOpacity = 0.22;
-        # activeOpacity = "1.00";
-        # inactiveOpacity = "0.92";
-        settings = {
-          shadow-radius = 12;
-          # blur-background = true;
-          # blur-background-frame = true;
-          # blur-background-fixed = true;
-          blur-kern = "7x7box";
-          blur-strength = 320;
-        };
-      };
-
-      # Login screen theme
-      services.xserver.displayManager.lightdm.greeters.mini.extraConfig = ''
-        text-color = "#ff79c6"
-        password-background-color = "#1E2029"
-        window-color = "#181a23"
-        border-color = "#181a23"
-      '';
-
-      # Other dotfiles
+      # 
       home.configFile = with config.modules;
         mkMerge [
           {
