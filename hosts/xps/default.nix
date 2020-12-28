@@ -92,16 +92,6 @@
 
   users.users.jake.extraGroups = [ "networkmanager" "sway" ];
 
-  # broken touchpad
-  # services.xserver.libinput.enable = true;
-  # duh
-  # services.xserver.xkbOptions = "caps:swapescape";
-  # better hidpi
-  # services.xserver.monitorSection = ''
-  #   DisplaySize 508 285
-  # '';
-
   # Select internationalisation properties.
   console = { keyMap = "us"; };
-
 }
