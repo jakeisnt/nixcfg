@@ -11,16 +11,14 @@ with lib;
 with lib.my;
 let cfg = config.modules.desktop.media.daw;
 in {
-  options.modules.desktop.media.daw = {
-    enable = mkBoolOpt false;
-  };
+  options.modules.desktop.media.daw = { enable = mkBoolOpt false; };
 
   config = mkIf cfg.enable {
     user.packages = with pkgs; [
-      lmms       # for making music
-      audacity   # for recording and remastering audio
-      sunvox     # for making music (where LMMS is overkill)
-      orca-c     # powers sunvox
+      lmms # for making music
+      audacity # for recording and remastering audio
+      # sunvox     # for making music (where LMMS is overkill)
+      orca-c # powers sunvox
     ];
   };
 }

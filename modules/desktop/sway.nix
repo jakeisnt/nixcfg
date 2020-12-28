@@ -7,8 +7,11 @@ in {
   options.modules.desktop.sway = { enable = mkBoolOpt false; };
 
   config = mkIf cfg.enable {
-    programs.sway.enable = true;
-    wayland.windowManager.sway = {
+    # wayland.windowManager.sway = {
+    #   enable = true;
+    #   wrapperFeatures.gtk = true;
+    # };
+    programs.sway = {
       enable = true;
       wrapperFeatures.gtk = true;
     };

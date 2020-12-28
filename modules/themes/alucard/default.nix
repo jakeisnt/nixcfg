@@ -9,8 +9,7 @@ in {
   config = mkIf (cfg.active == "alucard") (mkMerge [
     # Desktop-agnostic configuration
     {
-      environment.variables.POLYBAR_CONFIG = with config.modules.desktop;
-        if bspwm.enable then "./config/polybar/bspwm" else "";
+      environment.variables.POLYBAR_CONFIG = with config.modules.desktop; "";
 
       modules = {
         theme = {
@@ -86,23 +85,23 @@ in {
             # Sourced from sessionCommands in modules/themes/default.nix
             "xtheme/90-theme".source = ./config/Xresources;
           }
-          (mkIf desktop.bspwm.enable {
-            "bspwm/rc.d/polybar".source = ./config/polybar/run.sh;
-            "bspwm/rc.d/theme".source = ./config/bspwmrc;
-          })
+          # (mkIf desktop.bspwm.enable {
+          #   "bspwm/rc.d/polybar".source = ./config/polybar/run.sh;
+          #   "bspwm/rc.d/theme".source = ./config/bspwmrc;
+          # })
           (mkIf desktop.apps.rofi.enable {
             "rofi/theme" = {
               source = ./config/rofi;
               recursive = true;
             };
           })
-          (mkIf (desktop.bspwm.enable) {
-            "polybar" = {
-              source = ./config/polybar;
-              recursive = true;
-            };
-            "dunst/dunstrc".source = ./config/dunstrc;
-          })
+          # (mkIf (desktop.bspwm.enable) {
+          #   "polybar" = {
+          #     source = ./config/polybar;
+          #     recursive = true;
+          #   };
+          #   "dunst/dunstrc".source = ./config/dunstrc;
+          # })
           (mkIf desktop.media.graphics.vector.enable {
             "inkscape/templates/default.svg".source =
               ./config/inkscape/default-template.svg;
