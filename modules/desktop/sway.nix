@@ -22,7 +22,15 @@ in {
       ];
       wrapperFeatures.gtk = true;
     };
-    # Here we but a shell script into path, which lets us start sway.service (after importing the environment of the login shell).
+
+    home.configFile = {
+      # Write it recursively so other modules can write files to it
+      "zsh" = {
+        source = "${configDir}/zsh";
+        recursive = true;
+      };
+    };
+
     environment.systemPackages = with pkgs;
       [
         (pkgs.writeTextFile {

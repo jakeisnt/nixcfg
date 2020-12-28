@@ -2,11 +2,12 @@
 
 with lib;
 with lib.my;
-with inputs;
-{
+with inputs; {
   imports =
     # I use home-manager to deploy files to $HOME; little else
-    [ home-manager.nixosModules.home-manager ]
+    [
+      home-manager.nixosModules.home-manager
+    ]
     # All my personal modules
     ++ (mapModulesRec' (toString ./modules) import);
 
@@ -26,10 +27,8 @@ with inputs;
       "home-manager=${home-manager}"
       "dotfiles=${dotFilesDir}"
     ];
-    binaryCaches = [
-      "https://cache.nixos.org/"
-      "https://nix-community.cachix.org"
-    ];
+    binaryCaches =
+      [ "https://cache.nixos.org/" "https://nix-community.cachix.org" ];
     binaryCachePublicKeys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
     ];
@@ -41,7 +40,6 @@ with inputs;
   };
   system.configurationRevision = mkIf (self ? rev) self.rev;
   system.stateVersion = "20.09";
-
 
   ## Some reasonable, global defaults
   # This is here to appease 'nix flake check' for generic hosts with no

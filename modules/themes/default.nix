@@ -23,11 +23,6 @@ in {
 
     wallpaper = mkOpt (either path null) null;
 
-    loginWallpaper = mkOpt (either path null) (if cfg.wallpaper != null then
-      toFilteredImage cfg.wallpaper "-gaussian-blur 0x2 -modulate 70 -level 5%"
-    else
-      null);
-
     gtk = {
       theme = mkOpt str "";
       iconTheme = mkOpt str "";

@@ -48,7 +48,6 @@ in {
         };
       };
 
-      # 
       home.configFile = with config.modules;
         mkMerge [
           {
@@ -58,6 +57,12 @@ in {
           (mkIf desktop.apps.rofi.enable {
             "rofi/theme" = {
               source = ./config/rofi;
+              recursive = true;
+            };
+          })
+          (mkIf desktop.sway.enable {
+            "sway/config" = {
+              source = ./config/sway;
               recursive = true;
             };
           })
