@@ -9,13 +9,22 @@ in {
   config = mkIf cfg.enable {
     user.packages = with pkgs; [ editorconfig-core-c neovim ];
 
-    # This is for non-neovim, so it loads my nvim config
-    # env.VIMINIT = "let \\$MYVIMRC='\\$XDG_CONFIG_HOME/nvim/init.vim' | source \\$MYVIMRC";
-
+    env = {
+      VIM_DIR = "$XDG_CONFIG_HOME/vim";
+      VIMINIT =
+        "let \\$MYVIMRC='\\$XDG_CONFIG_HOME/nvim/init.vim' | source \\$MYVIMRC";
+    };
     environment.shellAliases = {
       vim = "nvim";
       vi = "nvim";
       v = "nvim";
+    };
+
+    home.configFile = {
+      "nvim" = {
+        source = "${configDir}/nvim";
+        recursive = true;
+      };
     };
   };
 }
