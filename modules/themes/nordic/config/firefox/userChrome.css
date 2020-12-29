@@ -13,7 +13,6 @@
   /* Hide tabbar if only one tab */
   @import url(./css/tabs-hide-if-only-one.css);
 
-
   /* Remove the colored overline on the focused tab */
   .tabbrowser-tab .tab-line { background: none !important; }
 
@@ -48,6 +47,10 @@
 
   .scrollbutton-up[orient="horizontal"]~spacer { border-width: 0px; opacity: 0 }
 
+  scrollbar {
+    -moz-appearance: none !important;
+    display: none !important;
+  }
 
   /*** NAV BAR ***/
   /* Hide urlbar */
