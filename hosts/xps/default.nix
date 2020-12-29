@@ -16,7 +16,7 @@
       browsers = {
         default = "firefox";
         firefox.enable = true;
-        # netsurf.enable = true;
+        netsurf.enable = true;
         # chrome.enable = true;
       };
       media = {
@@ -53,7 +53,7 @@
     dev = {
       node.enable = true;
       android.enable = true;
-      # cc.enable = true;
+      cc.enable = true;
       # rust.enable = true;
       # lua.enable = true;
       # lua.love2d.enable = true;
@@ -87,7 +87,7 @@
   networking.networkmanager.enable = true;
 
   services.xserver.libinput.enable = true;
-  services.xserver.xkbOptions = "caps:swapescape";
+  # services.xserver.xkbOptions = "caps:swapescape";
 
   users.users.jake.extraGroups = [ "networkmanager" "sway" ];
 
