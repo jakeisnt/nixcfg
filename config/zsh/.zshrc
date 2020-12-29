@@ -50,4 +50,4 @@ if [[ $TERM != dumb ]]; then
 fi
 
 # activate direnv : )
-eval "direnv hook zsh"
+eval "$(direnv hook zsh)"
