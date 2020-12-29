@@ -69,3 +69,23 @@ prompt_init() {
 }
 
 prompt_init "$@"
+
+if [ "$TERM" = "linux" ]; then
+  echo -en "\e]P03B4252" #black, nord1
+  echo -en "\e]P1BF616A" #darkred, nord11
+  echo -en "\e]P2A3BE8C" #darkgreen, nord14
+  echo -en "\e]P3EBCB8B" #brown, nord13
+  echo -en "\e]P481A1C1" #darkblue, nord9
+  echo -en "\e]P5B48EAD" #darkmagenta, nord15
+  echo -en "\e]P688C0D0F4" #darkcyan, nord8
+  echo -en "\e]P7E5E9F0" #lightgrey, nord5
+  echo -en "\e]P84C566A" #darkgrey, nord3
+  echo -en "\e]P9BF616A" #red, nord11
+  echo -en "\e]PAA3BE8C" #green, nord14
+  echo -en "\e]PBEBCB8B" #yellow, nord13
+  echo -en "\e]PC81A1C1" #blue, nord9
+  echo -en "\e]PDB48EAD" #magenta, nord15
+  echo -en "\e]PE8FBCBB" #cyan, nord7
+  echo -en "\e]PFECEFF4" #white, nord6
+  clear
+fi
