@@ -11,5 +11,19 @@ https://en.wikipedia.org/wiki/Mouse_keys enable Xorg mouse keys
 central source of truth for color scheme
 swap it every time you want to switch things up, changes color scheme throughout nixos config
 requires reworking how home-manager works in this context, though
+
+Concretely:
+In themes/default.nix:
+- pull in all of the files that require configuration
+- use their existing configuration, make sure it's properly formatted
+- prefix a string that's formatted with the nord color scheme config we want
+this means that our values are serialized to the final config file along with the original configs provided
+
+it would be great to use nix formatting within the files, substituting for the right variables when loading, but i'm not sure if this is possible
 * Set up screen share
 https://superuser.com/questions/1221333/screensharing-under-wayland has a good link to do this
+* fix trackpad
+can it be done ? ;_;
+* add configuration for other languages
+would be nice to have a swedish keybaord
+* try different window managers
