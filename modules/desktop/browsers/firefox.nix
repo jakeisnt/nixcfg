@@ -49,6 +49,7 @@ in {
     # Prevent auto-creation of ~/Desktop. The trailing slash is necessary; see
     # https://bugzilla.mozilla.org/show_bug.cgi?id=1082717
     env.XDG_DESKTOP_DIR = "$HOME/";
+    env.XDG_DOWNLOAD_DIR = "$HOME/";
     environment.variables.MOZ_ENABLE_WAYLAND = "1";
 
     # programs.firefox.extensions = with pkgs.nur.repos.rycee.firefox-addons; [
@@ -60,8 +61,6 @@ in {
       "devtools.theme" = "dark";
       # Enable userContent.css and userChrome.css for our theme modules
       "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
-      # Stop creating ~/Downloads!
-      "browser.download.dir" = "${homeDir}/dl";
       # Don't use the built-in password manager; a nixos user is more likely
       # using an external one (you are using one, right?).
       "signon.rememberSignons" = false;
