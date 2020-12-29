@@ -10,7 +10,6 @@ in {
     user.packages = with pkgs; [ editorconfig-core-c neovim ];
 
     env = {
-      VIM_DIR = "$XDG_CONFIG_HOME/vim";
       VIMINIT =
         "let \\$MYVIMRC='\\$XDG_CONFIG_HOME/nvim/init.vim' | source \\$MYVIMRC";
     };
