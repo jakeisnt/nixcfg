@@ -19,6 +19,8 @@ in {
         wl-clipboard
         alacritty
         dmenu
+        sway-contrib.grimshot
+        wf-recorder
       ];
       wrapperFeatures.gtk = true;
     };
