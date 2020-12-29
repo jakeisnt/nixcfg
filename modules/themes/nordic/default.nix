@@ -13,8 +13,8 @@ in {
         theme = {
           gtk = {
             theme = "Nordic";
-            iconTheme = "Paper";
-            cursorTheme = "Paper";
+            iconTheme = "Zafiro-icons";
+            cursorTheme = "Zafiro-icons";
           };
         };
 
@@ -31,7 +31,7 @@ in {
 
     # Desktop theming
     {
-      user.packages = with pkgs; [ nordic ];
+      user.packages = with pkgs; [ nordic zafiro-icons ];
       fonts = {
         fonts = with pkgs; [
           fira-code
