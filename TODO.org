@@ -1,8 +1,15 @@
 #+TITLE: Todo
 
-* mouse keys
+* CANCELLED mouse keys
+CLOSED: [2020-12-28 Mon 20:18]
+:LOGBOOK:
+- State "CANCELLED"  from              [2020-12-28 Mon 20:18] \\
+  no more xorg
+:END:
 https://en.wikipedia.org/wiki/Mouse_keys enable Xorg mouse keys
 * color scheme stuff
 central source of truth for color scheme
 swap it every time you want to switch things up, changes color scheme throughout nixos config
 requires reworking how home-manager works in this context, though
+* Set up screen share
+https://superuser.com/questions/1221333/screensharing-under-wayland has a good link to do this

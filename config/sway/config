@@ -1,20 +1,12 @@
-# Default config for sway
-#
-# Copy this to ~/.config/sway/config and edit it to your liking.
-#
-# Read `man 5 sway` for a complete reference.
-
-### Variables
-#
-# Logo key. Use Mod1 for Alt.
 set $mod Mod4
-# Home row direction keys, like vim
+
 set $left h
 set $down j
 set $up k
 set $right l
-# Your preferred terminal emulator
+
 set $term alacritty
+
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
@@ -48,21 +40,13 @@ input "2:7:SynPS/2_Synaptics_TouchPad" {
 }
 
 input type:keyboard {
-  # capslock key should work as escape key
   xkb_options caps:swapescape
   repeat_delay 250
   repeat_rate 45
 }
 
-### Key bindings
-# Basics:
-# Start a terminal
 bindsym $mod+Return exec $term
-
-# Kill focused window
 bindsym $mod+Shift+q kill
-
-# Start your launcher
 bindsym $mod+Space exec $menu
 
 # Drag floating windows by holding down $mod and left mouse button.
@@ -72,9 +56,6 @@ bindsym $mod+Space exec $menu
 # mouse button for dragging.
 floating_modifier $mod normal
 
-# Reload the configuration file
-bindsym $mod+Shift+c reload
-
 # Exit sway (logs you out of your Wayland session)
 bindsym $mod+Shift+e exec 'swaymsg exit'
 
@@ -83,25 +64,15 @@ bindsym $mod+$down focus down
 bindsym $mod+$up focus up
 bindsym $mod+$right focus right
 
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
+bindsym $mod+Shift+c reload
 
 # Move the focused window with the same, but add Shift
 bindsym $mod+Shift+$left move left
 bindsym $mod+Shift+$down move down
 bindsym $mod+Shift+$up move up
 bindsym $mod+Shift+$right move right
-# Ditto, with arrow keys
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
-#
-# Workspaces:
-#
-# Switch to workspace
+
+# Workspaces
 bindsym $mod+1 workspace number 1
 bindsym $mod+2 workspace number 2
 bindsym $mod+3 workspace number 3
@@ -168,23 +139,11 @@ bindsym XF86AudioMute exec 'pactl set-sink-mute @DEFAULT_SINK@ toggle'
 
 bindsym $mod+r mode "resize"
 mode "resize" {
-  # left will shrink the containers width
-  # right will grow the containers width
-  # up will shrink the containers height
-  # down will grow the containers height
   bindsym $left resize shrink width 10px
   bindsym $down resize grow height 10px
   bindsym $up resize shrink height 10px
   bindsym $right resize grow width 10px
   
-  # Ditto, with arrow keys
-  bindsym Left resize shrink width 10px
-  bindsym Down resize grow height 10px
-  bindsym Up resize shrink height 10px
-  bindsym Right resize grow width 10px
-  
-  # Return to default mode
-  bindsym Return mode "default"
   bindsym Escape mode "default"
 }
 
@@ -192,14 +151,16 @@ mode "resize" {
 # Read `man 5 sway-bar` for more information about this section.
 bar {
   position top
-  
   # When the status_command prints a new line to stdout, swaybar updates.
   # The default just shows the current date and time.
-  status_command while date +'%Y-%m-%d %l:%M:%S %p'; do sleep 1; done
+  status_command while date +'%Y-%m-%d %H:%M'; do sleep 1; done
 
   colors {
-    statusline #ffffff
-    background #323232
-    inactive_workspace #32323200 #32323200 #5c5c5c
+    statusline #d8dee9
+    background #434c5e
+    inactive_workspace #434c5e #434c5e #8fbcbb
   }
 }
+
+# TODO: I might like it more with the title?
+default_border pixel 2
