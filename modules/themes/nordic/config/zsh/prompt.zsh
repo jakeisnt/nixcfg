@@ -90,4 +90,3 @@ prompt_init() {
 }
 
 prompt_init "$@"
-
