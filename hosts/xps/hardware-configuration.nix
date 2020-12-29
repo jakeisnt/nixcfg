@@ -3,7 +3,7 @@
 {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
-    # inputs.nixos-hardware.nixosModules.dell-xps-13-9370
+    # inputs.nixos-hardware.nixosModules.dell-xps-13-9370: 'lenovo_fix.py' isn't friendly with the kernel atm
   ];
 
   boot = {
@@ -11,8 +11,8 @@
     initrd.kernelModules = [ "dm-snapshot" ];
     kernelModules = [ "kvm-intel" ];
     extraModulePackages = [ ];
-    # disable spectre, meltdown fixes
-    kernelParams = [ "mitigations=off" "video=eDP-1:3940x1920@60" ];
+    # disable spectre and meltdown fixes
+    kernelParams = [ "mitigations=off" "video=eDP-1:3840x2160@60" ];
   };
 
   # CPU

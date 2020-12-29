@@ -1,3 +1,6 @@
+# I don't actively use VSCode, but it's good to have a configuration handy
+# because it's become the industry standard for text editors.
+
 { config, options, lib, pkgs, ... }:
 
 with lib;

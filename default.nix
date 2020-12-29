@@ -11,8 +11,7 @@ with inputs; {
     # All my personal modules
     ++ (mapModulesRec' (toString ./modules) import);
 
-  # Common config for all nixos machines; and to ensure the flake operates
-  # soundly
+  # Common config for all nixos machines to ensure the flake operates soundly
   environment.variables.DOTFILES = dotFilesDir;
 
   # Configure nix and nixpkgs
