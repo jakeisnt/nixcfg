@@ -27,8 +27,9 @@
         spotify.enable = true;
       };
       term = {
-        default = "st";
+        default = "alacritty";
         st.enable = true;
+        alacritty.enable = true;
       };
       vm = {
         # virtualbox.enable = true;

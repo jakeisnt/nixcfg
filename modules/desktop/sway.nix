@@ -17,7 +17,6 @@ in {
         mako
         kanshi
         wl-clipboard
-        alacritty
         dmenu
         sway-contrib.grimshot
         wf-recorder

@@ -35,7 +35,6 @@ input "2:7:SynPS/2_Synaptics_TouchPad" {
   tap enabled
   drag enabled
   tap_button_map lrm
-  natural_scroll enabled
   middle_emulation enabled
 }
 
@@ -149,18 +148,35 @@ mode "resize" {
 
 # Status Bar:
 # Read `man 5 sway-bar` for more information about this section.
+
+set $foreground #D8DEE9
+set $background #2E3440
+set $lighterbg  #4C566A
+
 bar {
-  position top
+  position bottom
   # When the status_command prints a new line to stdout, swaybar updates.
   # The default just shows the current date and time.
   status_command while date +'%Y-%m-%d %H:%M'; do sleep 1; done
-
   colors {
-    statusline #d8dee9
-    background #434c5e
-    inactive_workspace #434c5e #434c5e #8fbcbb
+    background  $background
+    statusline  $foreground
+    separator   $background
+
+    #Type               border      background  font
+    focused_workspace   $lighterbg  $lighterbg  $foreground
+    active_workspace    $background $background $foreground
+    inactive_workspace  $background $background $foreground
+    urgent_workspace    $background $background $foreground
   }
 }
 
-# TODO: I might like it more with the title?
+# Color settings: old: focused: #f993f6 inactive: #93c3f9
+# class                 border  backgr  text    indicator child_border
+client.focused          #6f757d #6f757d #282A36 #6f757d   #6f757d
+client.focused_inactive #44475A #44475A #282A36 #44475A   #44475A
+client.unfocused        #44475A #44475A #F8F8F2 #44475A   #44475A
+client.urgent           #FF5555 #FF5555 #282A36 #FF5555   #FF5555
+client.placeholder      #282A36 #282A36 #F8F8F2 #282A36   #282A3
+
 default_border pixel 2
