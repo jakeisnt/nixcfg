@@ -2,7 +2,7 @@
 if empty(glob('$XDG_CONFIG_HOME/nvim/autoload/plug.vim'))
     silent !curl -fLo $XDG_CONFIG_HOME/nvim/autoload/plug.vim --create-dirs
                 \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    silent :PlugInstall
+    autocmd VimEnter * PlugInstall
 endif
 
 " NOTE: A TODO with no comment corresponds to an item that is currently being tried,
