@@ -45,9 +45,9 @@ if [[ $TERM != dumb ]]; then
   ##
   autoload -Uz compinit && compinit -u -d $ZSH_CACHE/zcompdump
 
+  # activate direnv
+  eval "$(direnv hook zsh)"
+
   # If you have host-local configuration, this is where you'd put it
   [ -f ~/.zshrc ] && source ~/.zshrc
 fi
-
-# activate direnv : )
-eval "$(direnv hook zsh)"
