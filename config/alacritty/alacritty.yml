@@ -1,29 +1,14 @@
-# Any items in the `env` entry below will be added as
-# environment variables. Some entries may override variables
-# set by alacritty itself.
 window:
   dimensions:
     columns: 0
     lines: 0
-  # Window position (changes require restart)
-  #position:
-  #  x: 0
-  #  y: 0
-  # Window padding (changes require restart)
   padding:
-   x: 4
-   y: 6
+   x: 10
+   y: 7
   # Spread additional padding evenly around the terminal content.
   dynamic_padding: false
   decorations: full
   tabspaces: 2
-  # Startup Mode (changes require restart)
-  #
-  #   - Windowed
-  #   - Maximized
-  #   - Fullscreen
-  #
-  #startup_mode: Windowed
   # Window title
   title: Alacritty 
   # Window class (Linux/BSD only):
@@ -32,13 +17,8 @@ window:
     #instance: Alacritty
     # General application class
     #general: Alacritty
-  # GTK theme variant (Linux/BSD only)
-  #
-  # Override the variant of the GTK theme. Commonly supported values are `dark` and `light`.
-  # Set this to `None` to use the default theme variant.
-  #gtk_theme_variant: None
 scrolling:
-  history: 0
+  history: 100000
   multiplier: 3
   #auto_scroll: true
   
