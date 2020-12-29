@@ -1,15 +1,10 @@
-! TODO: move this to 'hidpi' file specific to xps
-*dpi: 200
-Xft.dpi: 200
+Xft.dpi: 96
 Xft.autohint: 0
 Xft.lcdfilter: lcddefault
 Xft.hintstyle: hintfull
 Xft.hinting: 1
 Xft.antialias: 1
 Xft.rgba: rgb
-
-! rofi
-rofi.dpi: 200
 
 !! Colors
 #define blk  #1E2029

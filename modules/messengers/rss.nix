@@ -4,16 +4,13 @@ with lib;
 with lib.my;
 let cfg = config.modules.messengers.rss;
 in {
-  options.modules.messengers.rss = {
-    enable = mkBoolOpt false;
-  };
+  options.modules.messengers.rss = { enable = mkBoolOpt false; };
 
   config = mkIf cfg.enable {
-    user.packages = with pkgs; [
-    ] ++ (if config.services.xserver.enable then [
-      feedreader
-    ] else [ newsboat ]);
-    # todo: add option for server config or local config
-    # todo: add list of local config options
+    user.packages = with pkgs;
+      [ ]
+      ++ (if config.programs.sway.enable then [ feedreader ] else [ newsboat ]);
+    # TODO: add option for server config or local config
+    # TODO: add list of local config options
   };
 }

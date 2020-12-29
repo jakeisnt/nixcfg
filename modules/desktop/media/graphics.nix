@@ -36,7 +36,7 @@ in {
       (if cfg.raster.enable then [
         krita
         gimp
-        gimpPlugins.resynthesizer2 # content-aware scaling in gimp
+        # gimpPlugins.resynthesizer2 # content-aware scaling in gimp
       ] else
         [ ]) ++
 

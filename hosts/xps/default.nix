@@ -1,7 +1,3 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, pkgs, ... }:
 
 {
@@ -15,12 +11,12 @@
   ## Modules
   modules = {
     desktop = {
-      bspwm.enable = true;
-      apps = { rofi.enable = true; };
+      sway.enable = true;
+      # apps = { rofi.enable = true; };
       browsers = {
         default = "firefox";
         firefox.enable = true;
-        # netsurf.enable = true;
+        netsurf.enable = true;
         # chrome.enable = true;
       };
       media = {
@@ -57,7 +53,7 @@
     dev = {
       node.enable = true;
       android.enable = true;
-      # cc.enable = true;
+      cc.enable = true;
       # rust.enable = true;
       # lua.enable = true;
       # lua.love2d.enable = true;
@@ -71,11 +67,10 @@
       };
     };
     shell = {
-      direnv.enable = true;
       git.enable = true;
       gnupg.enable = true;
       pass.enable = true;
-      tmux.enable = true;
+      # tmux.enable = true;
       ranger.enable = true;
       zsh.enable = true;
     };
@@ -83,26 +78,16 @@
       syncthing.enable = true;
       ssh.enable = true;
     };
-    theme.active = "alucard";
+    theme.active = "nordic";
   };
 
   programs.ssh.startAgent = true;
   services.openssh.startWhenNeeded = true;
   networking.networkmanager.enable = true;
 
-  users.users.jake.extraGroups = [ "networkmanager" ];
-
-  # broken touchpad
   services.xserver.libinput.enable = true;
-  # duh
-  services.xserver.xkbOptions = "caps:swapescape";
-  # better hidpi
-  services.xserver.monitorSection = ''
-    DisplaySize 508 285
-  '';
+  users.users.jake.extraGroups = [ "networkmanager" "sway" ];
 
   # Select internationalisation properties.
   console = { keyMap = "us"; };
-
 }
-
