@@ -28,12 +28,9 @@ in {
       };
     }
 
-    # Desktop (X11) theming
-    (mkIf config.services.xserver.enable {
-      user.packages = with pkgs; [
-        dracula-theme
-        paper-icon-theme # for rofi
-      ];
+    # Desktop theming
+    {
+      user.packages = with pkgs; [ dracula-theme ];
       fonts = {
         fonts = with pkgs; [
           fira-code
@@ -60,17 +57,11 @@ in {
               recursive = true;
             };
           })
-          (mkIf desktop.sway.enable {
-            "sway/config" = {
-              source = ./config/sway;
-              recursive = true;
-            };
-          })
           (mkIf desktop.media.graphics.vector.enable {
             "inkscape/templates/default.svg".source =
               ./config/inkscape/default-template.svg;
           })
         ];
-    })
+    }
   ]);
 }
