@@ -86,8 +86,6 @@
   networking.networkmanager.enable = true;
 
   services.xserver.libinput.enable = true;
-  # services.xserver.xkbOptions = "caps:swapescape";
-
   users.users.jake.extraGroups = [ "networkmanager" "sway" ];
 
   # Select internationalisation properties.

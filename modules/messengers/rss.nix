@@ -8,10 +8,8 @@ in {
 
   config = mkIf cfg.enable {
     user.packages = with pkgs;
-      [ ] ++ (if config.services.xserver.enable then
-        [ feedreader ]
-      else
-        [ newsboat ]);
+      [ ]
+      ++ (if config.programs.sway.enable then [ feedreader ] else [ newsboat ]);
     # TODO: add option for server config or local config
     # TODO: add list of local config options
   };

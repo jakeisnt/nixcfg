@@ -8,7 +8,7 @@ in {
 
   config = mkIf cfg.enable {
     user.packages = with pkgs;
-      [ ] ++ (if config.services.xserver.enable then
+      [ ] ++ (if config.programs.sway.enable then
         [
           sylpheed
           # alternatives: thunderbird (maybe bloated, but may support office365), claws (different ui)
