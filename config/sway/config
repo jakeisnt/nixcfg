@@ -10,11 +10,13 @@ set $term alacritty
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-set $menu dmenu_path | dmenu | xargs swaymsg exec --
+set $menu dmenu_path | dmenu -b | xargs swaymsg exec --
 
 ### Output configuration
 # Default wallpaper
 #output * bg ~/.config/sway/backgrounds/Sway_Wallpaper_Blue_1920x1080.png fill
+
+output * bg #434C5E solid_color
 # use swaymsg to get the monitor configuration
 output eDP1 resolution 3840x2160 position 0,0
 
