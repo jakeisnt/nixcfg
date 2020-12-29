@@ -6,14 +6,13 @@ with lib;
 with lib.my;
 let cfg = config.modules.theme;
 in {
-  config = mkIf (cfg.active == "alucard") (mkMerge [
+  config = mkIf (cfg.active == "nordic") (mkMerge [
     # Desktop-agnostic configuration
     {
       modules = {
         theme = {
-          wallpaper = mkDefault ./config/wallpaper.png;
           gtk = {
-            theme = "Dracula";
+            theme = "Nordic";
             iconTheme = "Paper";
             cursorTheme = "Paper";
           };
@@ -30,7 +29,7 @@ in {
 
     # Desktop theming
     {
-      user.packages = with pkgs; [ dracula-theme ];
+      user.packages = with pkgs; [ nordic ];
       fonts = {
         fonts = with pkgs; [
           fira-code
@@ -51,12 +50,6 @@ in {
             # Sourced from sessionCommands in modules/themes/default.nix
             "xtheme/90-theme".source = ./config/Xresources;
           }
-          (mkIf desktop.apps.rofi.enable {
-            "rofi/theme" = {
-              source = ./config/rofi;
-              recursive = true;
-            };
-          })
           (mkIf desktop.media.graphics.vector.enable {
             "inkscape/templates/default.svg".source =
               ./config/inkscape/default-template.svg;
