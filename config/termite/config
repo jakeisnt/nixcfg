@@ -30,54 +30,6 @@ filter_unmatched_urls = true
 # "off", "left" or "right"
 scrollbar = off
 
-[colors]
-#cursor = #dcdccc
-#cursor_foreground = #dcdccc
-#foreground_bold = #ffffff
-
-# If unset, will reverse foreground and background
-highlight = #2f2f2f
-
-# Colors from color0 to color254 can be set
-foreground = #bbc2cf
-background = #282c34
-cursor = #5B6268
-
-# black
-color0 = #1B2229
-color8 = #1c1f24
-
-# red
-color1 = #ff6c6b
-color9 = #e987b5
-
-# green
-color2 = #4db5bd
-color10 = #98be65
-
-# yellow
-color3 = #ECBE7B
-color11 = #c678dd
-
-# blue
-color4 = #51afef
-color12 = #ecbe6a
-
-# magenta
-color5 = #c678dd
-color13 = #da8548
-
-# cyan
-color6 = #46D9FF
-color14 = #51afef
-
-# white
-color7 = #DFDFDF
-color15 = #5B6268
-
-selection_background = #21242b
-selection_foreground = #5B6268
-
 [hints]
 background = #282c34
 foreground = #bbc2cf
@@ -86,4 +38,37 @@ foreground = #bbc2cf
 padding = 5
 border_width = 5
 roundness = 2.0
-vim: ft=dosini cms=#%s
+
+# Copyright (c) 2016-present Arctic Ice Studio <development@arcticicestudio.com>
+# Copyright (c) 2016-present Sven Greb <code@svengreb.de>
+
+# Project:    Nord Termite
+# Repository: https://github.com/arcticicestudio/nord-termite
+# License:    MIT
+
+[colors]
+cursor = #d8dee9
+cursor_foreground = #2e3440
+
+foreground = #d8dee9
+foreground_bold = #d8dee9
+background = #2e3440
+
+highlight = #4c566a
+
+color0  = #3b4252
+color1  = #bf616a
+color2  = #a3be8c
+color3  = #ebcb8b
+color4  = #81a1c1
+color5  = #b48ead
+color6  = #88c0d0
+color7  = #e5e9f0
+color8  = #4c566a
+color9  = #bf616a
+color10 = #a3be8c
+color11 = #ebcb8b
+color12 = #81a1c1
+color13 = #b48ead
+color14 = #8fbcbb
+color15 = #eceff4
