@@ -30,6 +30,7 @@ in {
         source = "${configDir}/sway";
         recursive = true;
       };
+      "mako" = { source = "${configDir}/mako"; };
     };
 
     environment.systemPackages = with pkgs;
