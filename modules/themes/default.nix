@@ -75,9 +75,6 @@ in {
       };
     }
 
-    # (mkIf (cfg.wallpaper != null)
-    #    }))
-
     (mkIf (cfg.onReload != { }) (let
       reloadTheme = with pkgs;
         (writeScriptBin "reloadTheme" ''

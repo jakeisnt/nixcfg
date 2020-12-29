@@ -78,7 +78,7 @@
       syncthing.enable = true;
       ssh.enable = true;
     };
-    theme.active = "alucard";
+    theme.active = "nordic";
   };
 
   programs.ssh.startAgent = true;
