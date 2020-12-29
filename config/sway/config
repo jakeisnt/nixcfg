@@ -49,7 +49,7 @@ input "2:7:SynPS/2_Synaptics_TouchPad" {
 
 input type:keyboard {
   # capslock key should work as escape key
-  xkb_options caps:escape
+  xkb_options caps:swapescape
   repeat_delay 250
   repeat_rate 45
 }
@@ -58,8 +58,6 @@ input type:keyboard {
 # Basics:
 # Start a terminal
 bindsym $mod+Return exec $term
-
-bindsym $mod+h exec $term
 
 # Kill focused window
 bindsym $mod+Shift+q kill

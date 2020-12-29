@@ -25,8 +25,8 @@ in {
 
     home.configFile = {
       # Write it recursively so other modules can write files to it
-      "zsh" = {
-        source = "${configDir}/zsh";
+      "sway" = {
+        source = "${configDir}/sway";
         recursive = true;
       };
     };
