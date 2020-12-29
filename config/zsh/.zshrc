@@ -48,3 +48,6 @@ if [[ $TERM != dumb ]]; then
   # If you have host-local configuration, this is where you'd put it
   [ -f ~/.zshrc ] && source ~/.zshrc
 fi
+
+# activate direnv : )
+eval $(direnv hook zsh)
