@@ -51,3 +51,8 @@ if [[ $TERM != dumb ]]; then
   # If you have host-local configuration, this is where you'd put it
   [ -f ~/.zshrc ] && source ~/.zshrc
 fi
+
+# start sway on login if not in tty1
+if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
+  exec sway
+fi
