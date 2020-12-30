@@ -36,7 +36,10 @@
       };
     };
 
-    media = { mpv.enable = true; };
+    media = {
+      mpv.enable = true;
+      ncmpcpp.enable = true;
+    };
 
     messengers = {
       matrix.enable = true;
@@ -87,7 +90,7 @@
   networking.networkmanager.enable = true;
 
   services.xserver.libinput.enable = true;
-  users.users.jake.extraGroups = [ "networkmanager" "sway" ];
+  users.users.jake.extraGroups = [ "networkmanager" "sway" "mopidy" ];
 
   # Select internationalisation properties.
   console = { keyMap = "us"; };

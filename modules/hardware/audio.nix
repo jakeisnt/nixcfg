@@ -17,6 +17,7 @@ in {
         load-module module-switch-on-connect
       '';
 
+      # load-module module-native-protocol-tcp auth-ip-acl=127.0.0.1
       # HACK Prevents ~/.esd_auth files by disabling the esound protocol module
       #      for pulseaudio, which I likely don't need. Is there a better way?
       # configFile =
