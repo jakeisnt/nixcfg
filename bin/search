@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+
+# If a query is provided, search duckduckgo for that query.
+# If not, visit the duckduckgo website.
+
+# In the future support more options for searches;
+# passing the flag '-p' followed with the platform name or an abbreviation
+# (arguments 1 and 2) should make the third argument come up with the search.
+
+set -e
+
+firefox https://duckduckgo.com/$1
