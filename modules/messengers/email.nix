@@ -7,16 +7,18 @@ in {
   options.modules.messengers.email = { enable = mkBoolOpt false; };
 
   config = mkIf cfg.enable {
-    user.packages = with pkgs;
-      [ ] ++ (if config.programs.sway.enable then
-        [
-          sylpheed
-          # alternatives: thunderbird (maybe bloated, but may support office365), claws (different ui)
-          # TODO: use some daemon i can fetch email through independent of the client
-        ]
-      else
-        [ neomutt ]);
-    # todo: add some more config to set up email automatically depending on account!
-    # alternatives: interfaces within emacs like mu4e
+    user.packages = with pkgs; [ w3m mutt neomutt offlineimap msmtp ];
+    services.offlineimap = {
+      enable = true;
+      path = with pkgs; [ bash pass neomutt mutt ];
+      onCalendar = "*:0/30"; # fetch mail every 30 minutes
+    };
+
+    home.configFile = {
+      # TODO: remove secrets and finalize config files
+      # "offlineimap" = { source = "${configDir}/offlineimap"; };
+      # "mutt" = { source = "${configDir}/mutt"; };
+      # "msmtp" = { source = "${configDir}/msmtp"; };
+    };
   };
 }
