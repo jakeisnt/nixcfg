@@ -50,4 +50,16 @@
 
   swapDevices =
     [{ device = "/dev/disk/by-uuid/786f7e92-74b5-4327-873a-89905a173f86"; }];
+
+  # Undervolt
+  #
+  # Note that this is incredibly device specific.
+  # If you're copying this config, there is no guarantee
+  # that you'll be able to get away with these values.
+  services.undervolt = {
+    enable = true;
+    coreOffset = -80;
+    gpuOffset = -80;
+    uncoreOffset = -80;
+  };
 }
