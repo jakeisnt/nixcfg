@@ -1,1 +1,3 @@
 result
+# hide this until i have a better way of managing secrets
+config/mopidy/mopidy.conf
