@@ -27,3 +27,5 @@ can it be done ? ;_;
 * add configuration for other languages
 would be nice to have a swedish keybaord
 * try different window managers
+* configure password store
+lol
