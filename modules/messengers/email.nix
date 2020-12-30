@@ -7,7 +7,7 @@ in {
   options.modules.messengers.email = { enable = mkBoolOpt false; };
 
   config = mkIf cfg.enable {
-    user.packages = with pkgs; [ w3m mutt neomutt offlineimap msmtp ];
+    user.packages = with pkgs; [ w3m mutt neomutt offlineimap msmtp notmuch ];
     services.offlineimap = {
       enable = true;
       path = with pkgs; [ bash pass neomutt mutt ];
