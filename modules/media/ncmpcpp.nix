@@ -55,7 +55,7 @@ in {
     home.configFile = {
       "ncmpcpp/config".source = "${configDir}/ncmpcpp/config";
       "ncmpcpp/bindings".source = "${configDir}/ncmpcpp/bindings";
-      "mopidy/mopidy.conf".source = "${configDir}/mopidy/mopidy.conf";
+      # "mopidy/mopidy.conf".source = "${configDir}/mopidy/mopidy.conf";
     };
   };
 }
