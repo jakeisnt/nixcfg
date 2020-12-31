@@ -28,7 +28,6 @@
       };
       term = {
         default = "alacritty";
-        st.enable = true;
         alacritty.enable = true;
       };
       vm = {
