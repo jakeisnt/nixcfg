@@ -7,12 +7,25 @@
   ];
 
   boot = {
+    consoleLogLevel = 1;
     initrd.availableKernelModules = [ "xhci_pci" "nvme" "rtsx_pci_sdmmc" ];
     initrd.kernelModules = [ "dm-snapshot" ];
     kernelModules = [ "kvm-intel" ];
     extraModulePackages = [ ];
-    # disable spectre and meltdown fixes
-    kernelParams = [ "mitigations=off" "video=eDP-1:3840x2160@60" ];
+    kernelParams = [
+      # disable spectre and meltdown fixes
+      "mitigations=off"
+      # 4k video config
+      "video=eDP-1:3840x2160@60"
+      # fast quiet boot
+      "quiet"
+      "splash"
+      "vga=current"
+      "i915.fastboot=1"
+      "loglevel=3"
+      "systemd.show_status=auto"
+      "udev.log_priority=3"
+    ];
   };
 
   # CPU
