@@ -1,0 +1,75 @@
+# By default, old articles are cached and have to be fetched manually with R
+# This configures newsboat to download feeds automatically
+auto-reload yes
+refresh-on-startup yes
+show-read-articles yes
+cleanup-on-quit yes
+
+# Vim bindings
+unbind-key h
+unbind-key j
+unbind-key k
+unbind-key l
+
+bind-key h quit
+bind-key j next
+bind-key k prev
+bind-key l open
+
+unbind-key J
+unbind-key K
+
+bind-key J next-feed
+bind-key K prev-feed
+
+unbind-key d
+unbind-key u
+bind-key d pagedown
+bind-key u pageup
+
+unbind-key n
+unbind-key N
+bind-key n next-unread
+bind-key N prev-unread
+
+unbind-key r
+unbind-key x
+bind-key r toggle-article-read
+bind-key x pb-delete
+
+browser linkhandler
+macro v set browser "setsid -f mpv"; open-in-browser ; set browser linkhandler
+macro p set browser "setsid -f feh"; open-in-browser ; set browser linkhandler
+macro c set browser "xsel -b <<<"; open-in-browser ; set browser linkhandler
+
+# color scheme and format
+articlelist-format "%4i %f %D  %?T?|%-17T| ?%t"
+
+highlight article     "(^Feed:.*|^Title:.*|^Author:.*)"     red      default
+highlight article     "(^Link:.*|^Date:.*)"                 white    default
+highlight article     "^Podcast Download URL:.*"            cyan     default
+highlight article     "^Links:"                             magenta  black    underline
+highlight article     "https?://[^ ]+"                      green    default
+highlight article     "^(Title):.*$"                        blue     default
+highlight article     "\\[[0-9][0-9]*\\]"                   magenta  default  bold
+highlight article     "\\[image\\ [0-9]+\\]"                green    default  bold
+highlight article     "\\[embedded flash: [0-9][0-9]*\\]"   green    default  bold
+highlight article     ":.*\\(link\\)$"                      cyan     default
+highlight article     ":.*\\(image\\)$"                     blue     default
+highlight article     ":.*\\(embedded flash\\)$"            magenta  default
+
+color background                                            default   default
+color listnormal                                            default   default
+color listfocus                                             magenta   default
+color info                                                  blue      black
+color article                                               default   default
+color listnormal_unread                                     white     default
+color listfocus_unread                                      color255  red
+
+# urls-source "ttrss"
+# ttrss-url "https://rss.chvatal.com/"
+# ttrss-login "jake"
+# ttrss-passwordfile "~/.newsboat/password"
+
+# ttrss-flag-star "s"
+# ttrss-flag-publish "p"

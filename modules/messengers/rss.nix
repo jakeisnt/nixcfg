@@ -5,12 +5,13 @@ with lib.my;
 let cfg = config.modules.messengers.rss;
 in {
   options.modules.messengers.rss = { enable = mkBoolOpt false; };
-
   config = mkIf cfg.enable {
-    user.packages = with pkgs;
-      [ ]
-      ++ (if config.programs.sway.enable then [ feedreader ] else [ newsboat ]);
-    # TODO: add option for server config or local config
-    # TODO: add list of local config options
+    # feedreader: nice gui for RSS, if newsboat becomes unwieldy
+    user.packages = with pkgs; [ newsboat ];
+    # we want to be able to tweak .config/newsboat/urls without rebuild, so it's not included here.
+    # TODO: consider tt-rss server (or mimic the protocol with another service?)
+    home.configFile = {
+      "newsboat/config".source = "${configDir}/newsboat/config";
+    };
   };
 }

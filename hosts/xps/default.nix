@@ -42,6 +42,7 @@
     };
 
     messengers = {
+      rss.enable = true;
       matrix.enable = true;
       discord.enable = true;
       slack.enable = true;
@@ -74,7 +75,7 @@
       git.enable = true;
       gnupg.enable = true;
       pass.enable = true;
-      tmux.enable = true;
+      # tmux.enable = true;
       ranger.enable = true;
       zsh.enable = true;
     };
