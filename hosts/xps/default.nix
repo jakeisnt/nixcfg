@@ -82,6 +82,7 @@
     services = {
       syncthing.enable = true;
       ssh.enable = true;
+      vpn.enable = true;
     };
     theme.active = "nordic";
   };
