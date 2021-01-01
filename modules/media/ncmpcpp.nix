@@ -30,7 +30,7 @@ in {
       ncmpcpp
       (writeScriptBin "mpd" ''
         #!${stdenv.shell}
-        exec ${mopidyEnv}/bin/mopidy & disown
+        exec ${mopidyEnv}/bin/mopidy &> /dev/null & disown
       '')
     ];
 
