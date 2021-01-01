@@ -6,8 +6,12 @@ let
   cfg = config.modules.media.ncmpcpp;
   mopidyEnv = pkgs.buildEnv {
     name = "mopidy-with-extensions";
-    paths = closePropagation
-      (with pkgs; [ mopidy-spotify mopidy-youtube mopidy-mpd ]);
+    paths = closePropagation (with pkgs; [
+      mopidy-spotify
+      mopidy-youtube
+      mopidy-mpd
+      unstable.mopidy-scrobbler # not in 20.09 yet
+    ]);
     pathsToLink = [ "/${pkgs.mopidyPackages.python.sitePackages}" ];
     buildInputs = [ pkgs.makeWrapper ];
     postBuild = ''
