@@ -1,4 +1,4 @@
-{ options, config, lib, pkgs, inputs, ... }:
+{ options, res, config, lib, pkgs, inputs, ... }:
 with lib;
 with lib.my;
 let
@@ -6,7 +6,28 @@ let
   # use a custom build of firefox
   # TODO: add anti tracking policies at build time
   # https://wiki.kairaven.de/open/app/firefox in german : (
-  firefox = wrapFirefox firefox-unwrapped { forceWayland = true; };
+  firefoxWrapped = pkgs.wrapFirefox pkgs.firefox-unwrapped {
+    forceWayland = true;
+    extraPolicies = {
+      CaptivePortal = false;
+      DisableFirefoxStudies = true;
+      DisablePocket = true;
+      DisableTelemetry = true;
+      DisableFirefoxAccounts = true;
+      FirefoxHome = {
+        Pocket = false;
+        Snippets = false;
+      };
+      UserMessaging = {
+        ExtensionRecommendations = false;
+        SkipOnboarding = true;
+      };
+    };
+    extraPrefs = ''
+      // Show more ssl cert infos
+      lockPref("security.identityblock.show_extended_validation", true);
+    '';
+  };
 in {
   options.modules.desktop.browsers.firefox = with types; {
     enable = mkBoolOpt false;
@@ -26,7 +47,7 @@ in {
   config = mkIf cfg.enable (mkMerge [{
     nixpkgs.overlays = [ inputs.nur.overlay ];
     user.packages = with pkgs; [
-      firefox-bin
+      firefoxWrapped
       (makeDesktopItem {
         name = "firefox-private";
         desktopName = "Firefox (Private)";
