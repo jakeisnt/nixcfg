@@ -18,6 +18,7 @@
 
     home-manager.url = "github:rycee/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    nur.url = "github:nix-community/NUR/master";
 
     # Extras
     emacs-overlay.url = "github:nix-community/emacs-overlay";
