@@ -17,13 +17,12 @@ in {
   };
 
   config = mkIf cfg.enable {
-    nixpkgs.overlays = [ inputs.emacs-overlay.overlay ];
+    nixpkgs.overlays = [ inputs.emacs-overlay.overlay inputs.nur.overlay ];
 
     user.packages = with pkgs; [
       ## Emacs itself
       binutils # native-comp needs 'as', provided by this
-      emacsPgtkGcc
-      # 28 + pgtk + native-comp - i wish, native comp broken rn
+      emacsPgtkGcc # 28 + pgtk + native-comp
 
       ## Doom dependencies
       git
