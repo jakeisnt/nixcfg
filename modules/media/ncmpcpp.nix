@@ -10,7 +10,7 @@ let
       mopidy-spotify
       mopidy-youtube
       mopidy-mpd
-      unstable.mopidy-scrobbler # not in 20.09 yet
+      mopidy-scrobbler
     ]);
     pathsToLink = [ "/${pkgs.mopidyPackages.python.sitePackages}" ];
     buildInputs = [ pkgs.makeWrapper ];
