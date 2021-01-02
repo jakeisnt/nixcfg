@@ -11,7 +11,6 @@ alias cp='cp -i'
 alias mv='mv -i'
 alias mkdir='mkdir -p'
 alias wget='wget -c'
-alias cat='bat' # bat is just better
 
 alias mk=make
 alias rcp='rsync -vaP --delete'
