@@ -1,20 +1,13 @@
-# modules/browser/firefox.nix --- https://www.mozilla.org/en-US/firefox
-#
-# Oh firefox, gateway to the interwebs, devourer of ram. Give onto me your
-# infinite knowledge and shelter me from ads.
-
-{ options, config, lib, pkgs, ... }:
-
+{ options, config, lib, pkgs, inputs, ... }:
 with lib;
 with lib.my;
-let cfg = config.modules.desktop.browsers.firefox;
+let
+  cfg = config.modules.desktop.browsers.firefox;
+  # use a custom build of firefox
+  # TODO: add anti tracking policies at build time
+  # https://wiki.kairaven.de/open/app/firefox in german : (
+  firefox = wrapFirefox firefox-unwrapped { forceWayland = true; };
 in {
-  # nixpkgs.config.packageOverrides = pkgs: {
-  #   nur = import (builtins.fetchTarball
-  #     "https://github.com/nix-community/NUR/archive/master.tar.gz") {
-  #       inherit pkgs;
-  #     };
-  # };
   options.modules.desktop.browsers.firefox = with types; {
     enable = mkBoolOpt false;
     profileName = mkOpt types.str config.user.name;
@@ -22,9 +15,6 @@ in {
     settings = mkOpt' (attrsOf (oneOf [ bool int str ])) { } ''
       Firefox preferences to set in <filename>user.js</filename>
     '';
-    # extensions = mkOpt (attrsOf array) {} ''
-    #   Additional FIrefox extensions to install.
-    # '';
     extraConfig = mkOpt' lines "" ''
       Extra lines to add to <filename>user.js</filename>
     '';
@@ -34,6 +24,7 @@ in {
   };
 
   config = mkIf cfg.enable (mkMerge [{
+    nixpkgs.overlays = [ inputs.nur.overlay ];
     user.packages = with pkgs; [
       firefox-bin
       (makeDesktopItem {
@@ -48,14 +39,28 @@ in {
 
     # Prevent auto-creation of ~/Desktop. The trailing slash is necessary; see
     # https://bugzilla.mozilla.org/show_bug.cgi?id=1082717
-    env.XDG_DESKTOP_DIR = "$HOME/";
-    env.XDG_DOWNLOAD_DIR = "$HOME/";
-    environment.variables.MOZ_ENABLE_WAYLAND = "1";
+    env = {
+      XDG_DESKTOP_DIR = "$HOME/";
+      XDG_DOWNLOAD_DIR = "$HOME/";
+      MOZ_ENABLE_WAYLAND = "1";
+    };
 
-    # programs.firefox.extensions = with pkgs.nur.repos.rycee.firefox-addons; [
-    #   browserpass
-    #   vimium
-    # ];
+    # find extensions here:
+    # https://gitlab.com/rycee/nur-expressions/-/blob/master/pkgs/firefox-addons/generated-firefox-addons.nix
+    # TODO request that redux-devtools is added:
+    # https://addons.mozilla.org/en-US/firefox/addon/reduxdevtools/
+    home-manager.users.jake.programs.firefox.extensions =
+      with pkgs.nur.repos.rycee.firefox-addons;
+      [
+        browserpass
+        vimium
+        buster-captcha-solver
+        clearurls
+        dark-night-mode
+        decentraleyes
+        org-capture
+        ublock-origin
+      ] ++ (if config.modules.dev.node.enable then [ react-devtools ] else [ ]);
 
     modules.desktop.browsers.firefox.settings = {
       "devtools.theme" = "dark";
@@ -135,7 +140,7 @@ in {
       "datareporting.healthreport.service.enabled" = false;
       "datareporting.policy.dataSubmissionEnabled" = false;
 
-      # skip homepage when startin
+      # skip homepage when starting
       "browser.search.firstRunSkipsHomepage" = true;
       # allow use of system gtk dark theme
       "widget.content.allow-gtk-dark-theme" = true;

@@ -24,6 +24,8 @@ in {
       wrapperFeatures.gtk = true;
     };
 
+    env.XDG_CURRENT_DESKTOP = "sway";
+
     home.configFile = {
       # Write it recursively so other modules can write files to it
       "sway" = {
