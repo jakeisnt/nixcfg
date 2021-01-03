@@ -9,31 +9,19 @@ in {
   };
 
   config = mkIf cfg.enable {
-    # nixpkgs.overlays = [ inputs.simple-nixos-mailserver ];
     mailserver = {
       enable = true;
       fqdn = "mx.isnt.online";
       domains = [ "isnt.online" ];
 
-      # A list of all login accounts. To create the password hashes, use
       loginAccounts = {
           "jake@isnt.online" = {
             hashedPassword = "$2y$05$i2n.i1k9b1JIOKhokTI2YeQSY93rZG5gneBF32cT6X7EhxI2t/bJS";
             aliases = [ ];
-
-              # Make this user the catchAll address for domains example.com and
-              # example2.com
               catchAll = [
                   "isnt.online"
               ];
           };
-      };
-
-      # Extra virtual aliases. These are email addresses that are forwarded to
-      # loginAccounts addresses.
-      extraVirtualAliases = {
-          # address = forward address;
-      "jake2@isnt.online" = "jake@isnt.online";
       };
 
       # Use Let's Encrypt certificates. Note that this needs to set up a stripped

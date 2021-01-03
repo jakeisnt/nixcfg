@@ -4,4 +4,3 @@ config/mopidy/mopidy.conf
 config/offlineimap
 config/mutt
 config/msmtp
-hosts/vultr/mailserver.nix
