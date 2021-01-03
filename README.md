@@ -1,7 +1,7 @@
 [![Made with Doom Emacs](https://img.shields.io/badge/Made_with-Doom_Emacs-blueviolet.svg?style=flat-square&logo=GNU%20Emacs&logoColor=white)](https://github.com/hlissner/doom-emacs)
 [![NixOS 20.09](https://img.shields.io/badge/NixOS-v20.09-blue.svg?style=flat-square&logo=NixOS&logoColor=white)](https://nixos.org)
 
-A fork of [hlissner's dotfiles](https://github.com/hlissner/dotfiles) with substantial modifications - most notably Wayland - for my own usage.
+A fork of [hlissner's dotfiles](https://github.com/hlissner/dotfiles) with substantial modifications - most notably the addition of Wayland and the Nord theme - for my own usage.
 
 <img src="/../screenshots/nordic/sway-1.jpg" width="100%" />
 <img src="/../screenshots/nordic/sway-2.jpg" width="100%" />
