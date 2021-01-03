@@ -25,7 +25,6 @@ with inputs; {
       "nixpkgs-unstable=${nixpkgs-unstable}"
       "nixpkgs-overlays=${dotFilesDir}/overlays"
       "home-manager=${home-manager}"
-      "simple-nixos-mailserver=${simple-nixos-mailserver}"
       "dotfiles=${dotFilesDir}"
     ];
     binaryCaches =
