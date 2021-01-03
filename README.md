@@ -3,7 +3,6 @@
 
 A fork of [hlissner's dotfiles](https://github.com/hlissner/dotfiles) with substantial modifications - most notably Wayland - for my own usage.
 
-I think it looks pretty good too:
 <img src="/../screenshots/nordic/sway-1.jpg" width="100%" />
 <img src="/../screenshots/nordic/sway-2.jpg" width="100%" />
 
