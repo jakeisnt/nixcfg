@@ -43,6 +43,6 @@ In the new `default.nix`, copy the structure of one of the other
 
 You should now be able to rebuild. If there are duplicate configuration
 options, preferentially remove those from your configuration, but not without
-making sure that this repository is removing something important!
+making sure that you don't remove something important!
 
 You now have a working system with this configuration : )
