@@ -1,4 +1,4 @@
-{ lib, config, pkgs, inputs, mailserver, ... }:
+{ lib, config, pkgs, inputs, ... }:
 
 with lib;
 with lib.my;
@@ -9,8 +9,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    nixpkgs.overlays = [ inputs.simple-nixos-mailserver.overlay ];
-    # simple-nixos-mailserver.nixosModule {
+    # nixpkgs.overlays = [ inputs.simple-nixos-mailserver ];
     mailserver = {
       enable = true;
       fqdn = "mx.isnt.online";

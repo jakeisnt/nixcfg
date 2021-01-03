@@ -22,6 +22,9 @@
       ranger.enable = true;
       zsh.enable = true;
     };
+    services = {
+      mailserver.enable = true;
+    };
     theme.active = "nordic";
   };
 

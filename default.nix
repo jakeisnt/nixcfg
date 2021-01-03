@@ -7,6 +7,7 @@ with inputs; {
     # I use home-manager to deploy files to $HOME; little else
     [
       home-manager.nixosModules.home-manager
+      simple-nixos-mailserver.nixosModules.mailserver
     ]
     # All my personal modules
     ++ (mapModulesRec' (toString ./modules) import);
@@ -24,6 +25,7 @@ with inputs; {
       "nixpkgs-unstable=${nixpkgs-unstable}"
       "nixpkgs-overlays=${dotFilesDir}/overlays"
       "home-manager=${home-manager}"
+      "simple-nixos-mailserver=${simple-nixos-mailserver}"
       "dotfiles=${dotFilesDir}"
     ];
     binaryCaches =
