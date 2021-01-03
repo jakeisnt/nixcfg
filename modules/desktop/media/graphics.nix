@@ -22,6 +22,8 @@ in {
   };
 
   config = mkIf cfg.enable {
+    # use wayland
+    env.GDK_BACKEND = "wayland";
     user.packages = with pkgs;
       (if cfg.tools.enable then [
         font-manager # so many damned fonts...
