@@ -1,10 +1,19 @@
-#+title: NixOS Config
+[![Made with Doom Emacs](https://img.shields.io/badge/Made_with-Doom_Emacs-blueviolet.svg?style=flat-square&logo=GNU%20Emacs&logoColor=white)](https://github.com/hlissner/doom-emacs)
+[![NixOS 20.09](https://img.shields.io/badge/NixOS-v20.09-blue.svg?style=flat-square&logo=NixOS&logoColor=white)](https://nixos.org)
 
-Heavily inspired by hlissner's dotfiles, with many of my own configuration options added.
+A fork of [hlissner's dotfiles](https://github.com/hlissner/dotfiles) with substantial modifications - most notably Wayland - for my own usage.
 
-* Installation
+I think it looks pretty good too:
+<img src="/../screenshots/nordic/sway-1.jpg" width="100%" />
+<img src="/../screenshots/nordic/sway-2.jpg" width="100%" />
+
+Feel free to poke around and contact me if you have any questions : )
+
+
+
+## Installation
 Follow the default NixOS install instructions; formatting the disk and what
-have you.
+have you. These steps are detailed in the NixOS install instructions.
 
 I prefer to `chown /etc/nixos` so that you can control it without being a
 root user, but this is down to personal preference.
