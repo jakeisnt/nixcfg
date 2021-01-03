@@ -1,11 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  imports =
-    [ 
-      ./hardware-configuration.nix
-      ../personal.nix
-    ];
+  imports = [ ./hardware-configuration.nix ../personal.nix ];
 
   networking.hostName = "vultr";
 
@@ -13,7 +9,7 @@
     editors = {
       default = "nvim";
       vim.enable = true;
-    }; 
+    };
     shell = {
       git.enable = true;
       ranger.enable = true;
@@ -21,6 +17,7 @@
     };
     services = {
       mailserver.enable = true;
+      ssh.enable = true;
     };
     theme.active = "nordic";
   };
@@ -30,7 +27,6 @@
   boot.loader.grub.device = "/dev/vda";
 
   # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
   networking.useDHCP = false;
   networking.interfaces.ens3.useDHCP = true;
 }
