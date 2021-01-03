@@ -59,14 +59,9 @@ with inputs; {
     systemd-boot.enable = mkDefault true;
   };
 
-  # enable lorri for shell.nix!
-  services.lorri.enable = true;
-
-  # Just the bear necessities...
+  # let's get started!
   environment.systemPackages = with pkgs; [
     # nix tools
-    cached-nix-shell
-    niv
     nixfmt
 
     # linux good to haves
@@ -76,7 +71,7 @@ with inputs; {
     wget
     gnumake
 
-    # unliked, but offer extra convenience
+    # offer some convenience as needed
     unzip
     cmake
   ];

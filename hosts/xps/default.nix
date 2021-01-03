@@ -75,6 +75,10 @@
       git.enable = true;
       gnupg.enable = true;
       pass.enable = true;
+      direnv = {
+        enable = true;
+        preventGC = true;
+      };
       # tmux.enable = true;
       ranger.enable = true;
       zsh.enable = true;
