@@ -27,10 +27,14 @@ with inputs; {
       "home-manager=${home-manager}"
       "dotfiles=${dotFilesDir}"
     ];
-    binaryCaches =
-      [ "https://cache.nixos.org/" "https://nix-community.cachix.org" ];
+    binaryCaches = [
+      "https://cache.nixos.org/"
+      "https://nix-community.cachix.org"
+      "https://nix-cfg.cachix.org"
+    ];
     binaryCachePublicKeys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "nix-cfg.cachix.org-1:K5log6+7FTtbqKDRwAhcJvFEdOiavE0aIUWBsYfns4Y="
     ];
     registry = {
       nixos.flake = nixpkgs;
@@ -55,14 +59,9 @@ with inputs; {
     systemd-boot.enable = mkDefault true;
   };
 
-  # enable lorri for shell.nix!
-  services.lorri.enable = true;
-
-  # Just the bear necessities...
+  # let's get started!
   environment.systemPackages = with pkgs; [
     # nix tools
-    cached-nix-shell
-    niv
     nixfmt
 
     # linux good to haves
@@ -72,7 +71,7 @@ with inputs; {
     wget
     gnumake
 
-    # unliked, but offer extra convenience
+    # offer some convenience as needed
     unzip
     cmake
   ];

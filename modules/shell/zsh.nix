@@ -44,7 +44,6 @@ in {
       fd
       fzf
       tldr
-      direnv
     ];
 
     env = {
