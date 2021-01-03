@@ -29,4 +29,4 @@ jobs:
         name: nix-cfg
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
     - name: Build system config
-      run: nix build .#nixosConfigurations.${{ matrix.machine }}.config.system.build.toplevel
+      run: nix build .#nixosConfigurations.${{ matrix.machine }}.config.system.build.toplevel --show-trace
