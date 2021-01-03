@@ -1,3 +1,40 @@
 #+title: NixOS Config
 
 Heavily inspired by hlissner's dotfiles, with many of my own configuration options added.
+
+* Installation
+Follow the default NixOS install instructions; formatting the disk and what
+have you.
+
+I prefer to `chown /etc/nixos` so that you can control it without being a
+root user, but this is down to personal preference.
+
+Now that you have a `configuration.nix`, enable flakes on your system (they
+aren't available by default as of 20.09). Add the following to your
+`configuration.nix` and rebuild:
+#+begin_src nix
+{ pkgs, ... }: {
+   nix = {
+    package = pkgs.nixFlakes;
+    extraOptions = ''
+      experimental-features = nix-command flakes
+    '';
+   };
+}
+#+end_src
+If that built successfully, you should now have flakes available on your system.
+
+Clone this repository.
+Make a new folder in `hosts/` with the name of your system (change the name
+to something other than `nixos`, preferably!) and put your
+`configuration.nix` and `hardware-configuration.nix` in it. 
+Rename `hosts/${hostname}/configuration.nix` to `default.nix`.
+
+In the new `default.nix`, copy the structure of one of the other
+`default.nix` files to enable the modules that you'd like to run.
+
+You should now be able to rebuild. If there are duplicate configuration
+options, preferentially remove those from your configuration, but not without
+making sure that this repository is removing something important!
+
+You now have a working system with this configuration : )

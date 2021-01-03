@@ -7,6 +7,7 @@ with inputs; {
     # I use home-manager to deploy files to $HOME; little else
     [
       home-manager.nixosModules.home-manager
+      simple-nixos-mailserver.nixosModules.mailserver
     ]
     # All my personal modules
     ++ (mapModulesRec' (toString ./modules) import);
