@@ -1,5 +1,5 @@
 { config, pkgs, system, ... }:
-let release = "nixos-${system.stateVersion}";
+let release = "nixos-20.09";
 in {
   imports = [
     (builtins.fetchTarball {
@@ -16,9 +16,8 @@ in {
     # A list of all login accounts. To create the password hashes, use
     loginAccounts = {
         "jake@isnt.online" = {
-            # hashedPasswordFile = /etc/nixos/passwords/jake.email;
-	    hashedPassword = "$2y$05$i2n.i1k9b1JIOKhokTI2YeQSY93rZG5gneBF32cT6X7EhxI2t/bJS";
-            aliases = [ ];
+	      hashedPassword = "$2y$05$i2n.i1k9b1JIOKhokTI2YeQSY93rZG5gneBF32cT6X7EhxI2t/bJS";
+          aliases = [ ];
 
             # Make this user the catchAll address for domains example.com and
             # example2.com
