@@ -14,13 +14,16 @@ Feel free to poke around and contact me if you have any questions : )
 Follow the default NixOS install instructions; formatting the disk and what
 have you. These steps are detailed in the NixOS install instructions.
 
+When formatting your disks, make sure to label your root partition 'nixos'. 
+`default.nix` needs all systems to have the same disk label to properly test rebuilds of all flakes. 
+
 I prefer to `chown /etc/nixos` so that you can control it without being a
 root user, but this is down to personal preference.
 
 Now that you have a `configuration.nix`, enable flakes on your system (they
 aren't available by default as of 20.09). Add the following to your
 `configuration.nix` and rebuild:
-#+begin_src nix
+``` nix
 { pkgs, ... }: {
    nix = {
     package = pkgs.nixFlakes;
@@ -29,7 +32,7 @@ aren't available by default as of 20.09). Add the following to your
     '';
    };
 }
-#+end_src
+```
 If that built successfully, you should now have flakes available on your system.
 
 Clone this repository.
