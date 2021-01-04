@@ -34,6 +34,11 @@ in {
       '')
     ];
 
+    environment.shellAliases = {
+      music = "mpd & ncmpcpp";
+      mus = "mpd & ncmpcpp";
+    };
+
     # as a systemd service, mopidy can't properly connect to pulseaudio
     # so this is on hold until that's figured out.
     # systemd.services.mopidy = {

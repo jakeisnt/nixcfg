@@ -10,8 +10,14 @@ in {
     user.packages = with pkgs; [ w3m mutt neomutt offlineimap msmtp notmuch ];
     services.offlineimap = {
       enable = true;
-      path = with pkgs; [ bash pass neomutt mutt ];
+      path = with pkgs; [ bash pass neomutt ];
       onCalendar = "*:0/30"; # fetch mail every 30 minutes
+    };
+
+    environment.shellAliases = {
+      mutt = "neomutt";
+      mail = "neomutt";
+      m = "neomutt";
     };
 
     home.configFile = {
