@@ -51,6 +51,7 @@ Plug 'majutsushi/tagbar'                            " browse tags of current fil
 Plug 'vim-scripts/utl.vim'                          " text linking
 
 " Appearance
+Plug 'mhinz/vim-startify'            " start menu
 Plug 'vim-airline/vim-airline'       " status bar
 Plug 'junegunn/goyo.vim'             " minimalist vim
 Plug 'junegunn/limelight.vim'        " highlight current paragraph
@@ -66,7 +67,6 @@ Plug 'rbong/vim-flog'         " git branch viewer TODO may not be frequently use
 " tmux
 Plug 'benmills/vimux'           " interact with tmux inside vim
 Plug 'roxma/vim-tmux-clipboard' " copy between vim and tmux
-Plug 'christoomey/vim-tmux-navigator' " vim, tmux nav consistently
 
 " tools
 Plug 'farmergreg/vim-lastplace' " save place in file
@@ -79,8 +79,8 @@ Plug 'sheerun/vim-polyglot'     " syntax highlighting
 Plug 'jceb/vim-orgmode'         " TODO keymappings for taking notes
 Plug 'tpope/vim-speeddating'    " required for org
 Plug 'inkarkat/vim-SyntaxRange' " syntax for just part of file - for org mode
-Plug 'mhinz/vim-startify'       " start menu
-" Plug 'reedes/vim-pencil'        " TODO writing
+Plug 'LnL7/vim-nix'             " Nix file support
+" Plug 'reedes/vim-pencil'      " TODO writing
 call plug#end()
 
 " --- Vim Settings ---
