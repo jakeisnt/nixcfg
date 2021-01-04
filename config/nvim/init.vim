@@ -13,52 +13,47 @@ endif
 " --- Plugins ---
 call plug#begin('$XDG_CONFIG_HOME/nvim/plugged')
 " editing
-Plug 'tpope/vim-surround'              " close parens
-Plug 'junegunn/vim-easy-align'         " align text
-Plug 'matze/vim-move'                  " move lines without cut-paste
-Plug 'tomtom/tcomment_vim'             " autocomment support 
-Plug 'tpope/vim-repeat'                " improves repeats
-" Plug 'vim-scripts/visualrepeat'        " repeat in visual mode
-Plug 'maxbrunsfeld/vim-yankstack'      " track yanks
-Plug 'tpope/vim-unimpaired'            " bracket mapping
-Plug 'chrisbra/NrrwRgn'                " narrow region for editing file in new buffer
-Plug 'wellle/targets.vim'              " better targets
-Plug 'easymotion/vim-easymotion'       " better configuration for motions
-Plug 'michaeljsmith/vim-indent-object' " objects offering indentation interaction
+Plug 'tpope/vim-surround', {'tag': 'v2.1'}  " close parens
+Plug 'junegunn/vim-easy-align', {'tag': 'v2.10.0'}        " align text
+Plug 'matze/vim-move', {'tag': 'v1.4'}                  " move lines without cut-paste
+Plug 'tomtom/tcomment_vim', {'tag': 'v3.08.1'}             " autocomment support
+Plug 'tpope/vim-repeat', {'tag': 'v1.2'}                " improves repeats
+" Plug 'vim-scripts/visualrepeat', {'tag': 'v1.30'}        " repeat in visual mode
+Plug 'tpope/vim-unimpaired', {'tag': 'v2.0'}            " bracket mapping
+Plug 'chrisbra/NrrwRgn', {'tag': 'v0.33'}                " narrow region for editing file in new buffer
+Plug 'wellle/targets.vim', {'tag': 'v0.5.0'}              " better targets
+Plug 'easymotion/vim-easymotion', {'tag': 'v3.0.1'}       " better configuration for motions
+Plug 'michaeljsmith/vim-indent-object', {'tag': 'v1.1.2'} " objects offering indentation interaction
 
 " Autocompletion
-Plug 'dense-analysis/ale' " linting
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'dense-analysis/ale', {tag': 'v3.0.0'} " linting
+Plug 'Shougo/deoplete.nvim', {'tag': 'v6.0', 'do': ':UpdateRemotePlugins' }
 " Use ALE for deoplete
 let g:deoplete#enable_at_startup = 1
-" call deoplete#custom#option('sources', { '_': ['ale'] })
+call deoplete#custom#option('sources', { '_': ['ale'] })
 
 " Navigation
-Plug 'scrooloose/nerdtree'                          " directory navigation
-Plug 'Xuyuanp/nerdtree-git-plugin'                  " git integration for nerdtree
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " fuzzy file finding - incredible!
-Plug 'junegunn/fzf.vim'
-Plug 'justinmk/vim-sneak'                           " hunt with two chars
-Plug 'mhinz/vim-sayonara'                           " sensibly close buffer
-Plug 'majutsushi/tagbar'                            " browse tags of current file
-Plug 'vim-scripts/utl.vim'                          " text linking
+Plug 'scrooloose/nerdtree', {'tag': 'v6.9.11'} " directory navigation
+Plug 'Xuyuanp/nerdtree-git-plugin',     " git integration for nerdtree TODO: pin!
+Plug 'junegunn/fzf.vim' " TODO: pin
+Plug 'justinmk/vim-sneak', {'tag': 'v1.9'}                           " hunt with two chars
+Plug 'mhinz/vim-sayonara'                           " sensibly close buffer TODO: pin
+Plug 'majutsushi/tagbar', {'tag': 'v2.7'}                            " browse tags of current file
+Plug 'vim-scripts/utl.vim'                          " text linking TODO: pin
 
 " Appearance
-Plug 'mhinz/vim-startify'            " start menu
-Plug 'vim-airline/vim-airline'       " status bar
-Plug 'junegunn/goyo.vim'             " minimalist vim
-Plug 'junegunn/limelight.vim'        " highlight current paragraph
-Plug 'arcticicestudio/nord-vim'      " one dark theme for vim
-Plug 'camspiers/lens.vim'            " auto window resizing TODO do i really ever need this?
-Plug 'vim-scripts/folddigest.vim'    " displays folds as summary
+Plug 'vim-airline/vim-airline', {'tag': 'v0.11'}       " status bar
+Plug 'junegunn/goyo.vim', {'tag': 'v1.6.0'}             " minimalist vim
+Plug 'junegunn/limelight.vim'        " highlight current paragraph TODO: pin
+Plug 'arcticicestudio/nord-vim', {'tag': 'v0.15.0'}     " one dark theme for vim
 
 " git
-Plug 'airblade/vim-gitgutter' " displays git diff info
-Plug 'tpope/vim-fugitive'     " git convenience functions
-Plug 'rbong/vim-flog'         " git branch viewer TODO may not be frequently used
+Plug 'airblade/vim-gitgutter' " displays git diff info TODO: tags
+Plug 'tpope/vim-fugitive', {'tag': 'v3.2'}     " git convenience functions
+Plug 'rbong/vim-flog', {'tag': 'v1.2.0'}         " git branch viewer TODO may not be frequently used
 
 " tmux
-Plug 'benmills/vimux'           " interact with tmux inside vim
+Plug 'benmills/vimux', {'tag': 'v1.0.0'}           " interact with tmux inside vim
 Plug 'roxma/vim-tmux-clipboard' " copy between vim and tmux
 
 " tools
