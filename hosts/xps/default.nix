@@ -74,7 +74,7 @@
     shell = {
       git.enable = true;
       gnupg.enable = true;
-      pass.enable = true;
+      # pass.enable = true;
       direnv = {
         enable = true;
         preventGC = true;
