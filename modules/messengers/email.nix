@@ -21,10 +21,9 @@ in {
     };
 
     home.configFile = {
-      # TODO: remove secrets and finalize config files
-      # "offlineimap" = { source = "${configDir}/offlineimap"; };
-      # "mutt" = { source = "${configDir}/mutt"; };
-      # "msmtp" = { source = "${configDir}/msmtp"; };
+      "offlineimap" = { source = "${secretsDir}/offlineimap"; };
+      "mutt" = { source = "${secretsDir}/mutt"; };
+      "msmtp" = { source = "${secretsDir}/msmtp"; };
     };
   };
 }
