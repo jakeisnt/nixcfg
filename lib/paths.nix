@@ -6,6 +6,7 @@ with lib; rec {
   dotFilesDir = toString ../.;
   modulesDir = "${dotFilesDir}/modules";
   configDir = "${dotFilesDir}/config";
+  secretsDir = "${dotFilesDir}/secrets";
   binDir = "${dotFilesDir}/bin";
   themesDir = "${modulesDir}/themes";
   homeDir = "/home/${
