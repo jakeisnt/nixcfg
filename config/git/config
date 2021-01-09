@@ -1,8 +1,9 @@
 [user]
 	name = Jacob Chvatal
 	email = jake@isnt.online
+	signingkey = AFF8C0623B1CE493
 [commit]
-	gpgsign = false
+	gpgsign = true
 [core]
 	whitespace = trailing-space
 [github]
