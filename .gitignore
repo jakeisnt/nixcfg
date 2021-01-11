@@ -1,6 +1,1 @@
 result
-# hide these until i have a better way of managing secrets
-config/mopidy/mopidy.conf
-config/offlineimap
-config/mutt
-config/msmtp

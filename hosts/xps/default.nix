@@ -94,6 +94,18 @@
   services.openssh.startWhenNeeded = true;
   networking.networkmanager.enable = true;
 
+  # services = {
+  #   # detect devices over DNS
+  #   avahi.enable = true;
+  #   # knot resolver TODO learn more about this
+  #   kresd = {
+  #     enable = true;
+  #     extraConfig = "verbose(true)";
+  #   };
+  # };
+
+  # automatic firmware update
+  services.fwupd.enable = true;
   services.xserver.libinput.enable = true;
   users.users.jake.extraGroups = [ "networkmanager" "sway" "mopidy" ];
 

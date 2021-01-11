@@ -26,11 +26,19 @@
 	ranked-authors = !git authors | sort | uniq -c | sort -n
 	emails = !git log --format="%aE" | sort -u
 	email-domains = !git log --format="%aE" | awk -F'@' '{print $2}' | sort -u
+[diff]
+	algorithm = patience
 [filter "lfs"]
 	required = true
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	clean = git-lfs clean -- %f
+[transfer]
+	fsckObjects = true
+[fetch]
+	fsckObjects = true
+[receive]
+	fsckObjects = true
 [url "https://github.com/"]
     insteadOf = gh:
 [url "git@github.com:jakeisnt/"]
@@ -42,4 +50,4 @@
 [url "https://bitbucket.org/"]
     insteadOf = bb:
 [url "https://git.v0.com"]
-    insteadOf = v0:
+	insteadOf = v0:
