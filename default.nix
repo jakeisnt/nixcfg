@@ -41,7 +41,7 @@ with inputs; {
       nixpkgs.flake = nixpkgs-unstable;
     };
     useSandbox = true;
-    trustedUsers = "jake";
+    trustedUsers = [ "jake" ];
     gc.automatic = false; # never automatically garbage collect
   };
   system.configurationRevision = mkIf (self ? rev) self.rev;
