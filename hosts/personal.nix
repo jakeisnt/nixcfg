@@ -17,7 +17,7 @@ with lib; {
   };
 
   # Only allow user creation through Nix
-  users.mutableUsers = false;
+  # users.mutableUsers = false;
 
   location = (if config.time.timeZone == "America/Los_Angeles" then {
     latitude = 43.70011;

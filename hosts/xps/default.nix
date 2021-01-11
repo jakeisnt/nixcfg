@@ -94,6 +94,15 @@
   services.openssh.startWhenNeeded = true;
   networking.networkmanager.enable = true;
 
+  # Approve polkit access for those in wheel group by default
+  # security.polkit.extraConfig = ''
+  #   polkit.addRule(function(action, subject) {
+  #   if (subject.isInGroup("wheel")) {
+  #       return polkit.Result.YES;
+  #   }
+  #   });
+  # '';
+
   # services = {
   #   # detect devices over DNS
   #   avahi.enable = true;

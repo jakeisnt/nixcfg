@@ -8,9 +8,27 @@
 
   boot = {
     consoleLogLevel = 1;
-    initrd.availableKernelModules =
-      [ "xhci_pci" "nvme" "rtsx_pci_sdmmc" "usb_storage" ];
-    initrd.kernelModules = [ "dm-snapshot" ];
+    initrd = {
+      availableKernelModules = [
+        "xhci_pci"
+        "nvme"
+        "rtsx_pci_sdmmc"
+        "usb_storage"
+        # force power savings when possible
+        "iwlwifi.power_save=Y"
+        "pcie_aspm=force"
+
+        # Optimize xps battery; causes framebuffer issues on some devices
+        "i915.semaphores=1"
+        "i915.enable_fbc=1"
+        "i915.enable_psr=2"
+        "i915.enable_rc6=7"
+        "i915.lvds_downclock=1"
+      ];
+      kernelModules = [ "dm-snapshot" ];
+      checkJournalingFS = true;
+    };
+
     kernelModules = [ "kvm-intel" ];
     kernel.sysctl = {
       # enable ipv6 privacy extensions and prefer using temp addresses

@@ -5,14 +5,15 @@ with lib.my;
 let cfg = config.modules.shell.gnupg;
 in {
   options.modules.shell.gnupg = with types; {
-    enable   = mkBoolOpt false;
-    cacheTTL = mkOpt int 3600;  # 1hr
+    enable = mkBoolOpt false;
+    cacheTTL = mkOpt int 3600; # 1hr
   };
 
   config = mkIf cfg.enable {
     environment.variables.GNUPGHOME = "$XDG_CONFIG_HOME/gnupg";
 
     programs.gnupg.agent.enable = true;
+    enableSSHSupport = config.modules.services.ssh.enable;
 
     user.packages = [ pkgs.tomb ];
 
