@@ -2,7 +2,9 @@
 
 with lib;
 with lib.my;
-let cfg = config.modules.desktop.sway;
+let
+  cfg = config.modules.desktop.sway;
+  colors = config.modules.theme.color;
 in {
   options.modules.desktop.sway = { enable = mkBoolOpt false; };
 
@@ -27,12 +29,55 @@ in {
     env.XDG_CURRENT_DESKTOP = "sway";
 
     home.configFile = {
-      # Write it recursively so other modules can write files to it
-      "sway" = {
-        source = "${configDir}/sway";
-        recursive = true;
-      };
-      "mako" = { source = "${configDir}/mako"; };
+      "sway/config".text = with colors;
+        concatStrings [
+          (''
+            set $foreground #${foreground}
+            set $background #${background}
+            set $lighterbg  #${fadeColor}
+            set $urgent #${urgent}
+            set $urgenttext #F8F8F2
+            set $inactiveback #44475A
+            set $pholdback #282A36
+            set $focusedback #6f757d
+          '')
+          (concatMapStringsSep "\n" readFile [ "${configDir}/sway/config" ])
+        ];
+      "mako/config".text = with colors; ''
+        sort=-time
+        layer=overlay
+        max-visible=-1
+        background-color=#${background}
+        border-color=#${color0}
+        text-color=#${foreground}
+        width=300
+        height=110
+        border-size=1
+        default-timeout=5000
+        ignore-timeout=1
+        margin=10,12
+
+        [urgency=low]
+        background-color=#${background}
+        border-color=#${color0}
+
+        [urgency=normal]
+        background-color=#${background}
+        border-color=#${color0}
+
+        [urgency=high]
+        background-color=#${urgent}
+        border-color=#${urgent}
+        default-timeout=0
+
+        [category=mpd]
+        default-timeout=2000
+        group-by=category
+
+        [category=spotify]
+        default-timeout=2000
+        group-by=category
+      '';
     };
 
     environment.systemPackages = with pkgs;
@@ -103,5 +148,3 @@ in {
     };
   };
 }
-
-# TODO register emacs as service
