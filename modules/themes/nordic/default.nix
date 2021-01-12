@@ -86,10 +86,6 @@ in {
 
       home.configFile = with config.modules;
         mkMerge [
-          {
-            # Sourced from sessionCommands in modules/themes/default.nix
-            "xtheme/90-theme".source = ./config/Xresources;
-          }
           (mkIf desktop.media.graphics.vector.enable {
             "inkscape/templates/default.svg".source =
               ./config/inkscape/default-template.svg;
