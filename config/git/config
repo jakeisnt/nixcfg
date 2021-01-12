@@ -33,6 +33,11 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	clean = git-lfs clean -- %f
+[sendemail]
+	smtpserver = mx.isnt.online
+	smtpencryption = tls
+	smtpserverport= 587
+	smtpuser = jake@isnt.online
 [transfer]
 	fsckObjects = true
 [fetch]
