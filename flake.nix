@@ -23,10 +23,12 @@
     # Extras
     emacs-overlay.url = "github:nix-community/emacs-overlay";
     nixos-hardware.url = "github:nixos/nixos-hardware";
-    simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver";
+    simple-nixos-mailserver.url =
+      "gitlab:simple-nixos-mailserver/nixos-mailserver";
   };
 
-  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, home-manager, simple-nixos-mailserver, ... }:
+  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, home-manager
+    , simple-nixos-mailserver, ... }:
     let
       inherit (lib) attrValues;
       inherit (lib.my) mapModules mapModulesRec mapHosts;
@@ -42,6 +44,7 @@
           };
           overlays = extraOverlays ++ (attrValues self.overlays);
         };
+
       pkgs = mkPkgs nixpkgs [ self.overlay ];
       uPkgs = mkPkgs nixpkgs-unstable [ ];
 

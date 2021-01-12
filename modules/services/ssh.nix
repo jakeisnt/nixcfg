@@ -12,9 +12,5 @@ in {
       challengeResponseAuthentication = false;
       passwordAuthentication = false;
     };
-
-    user.openssh.authorizedKeys.keys = [''
-      ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGlx01MslXiUGleFZrb50+8WG73VfX5HUnrN0Xwgb4Xj jakeisnt@github.com
-    ''];
   };
 }

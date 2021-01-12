@@ -13,8 +13,6 @@ in {
     environment.variables.GNUPGHOME = "$XDG_CONFIG_HOME/gnupg";
 
     programs.gnupg.agent.enable = true;
-    enableSSHSupport = config.modules.services.ssh.enable;
-
     user.packages = [ pkgs.tomb ];
 
     # HACK Without this config file you get "No pinentry program" on 20.03.
