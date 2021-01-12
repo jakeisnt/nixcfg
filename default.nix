@@ -41,6 +41,8 @@ with inputs; {
       nixpkgs.flake = nixpkgs-unstable;
     };
     useSandbox = true;
+    trustedUsers = [ secrets.username ];
+    gc.automatic = false; # never automatically garbage collect
   };
   system.configurationRevision = mkIf (self ? rev) self.rev;
   system.stateVersion = "20.09";
@@ -63,12 +65,13 @@ with inputs; {
   environment.systemPackages = with pkgs; [
     # nix tools
     nixfmt
+    nixpkgs-fmt
 
     # linux good to haves
     coreutils
-    git
-    vim
     wget
+    file # check type of files
+    h # fun program
     gnumake
 
     # offer some convenience as needed

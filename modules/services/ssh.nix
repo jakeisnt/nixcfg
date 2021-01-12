@@ -1,8 +1,12 @@
-{ options, config, lib, ... }:
+{ options, config, lib, pkgs, ... }:
 
 with lib;
 with lib.my;
-let cfg = config.modules.services.ssh;
+let
+  cfg = config.modules.services.ssh;
+  add = "/run/current-system/sw/bin/ssh-add";
+  keygen = "/run/current-system/sw/bin/ssh-keygen";
+  ssh-agent = "/run/current-system/sw/bin/ssh-agent";
 in {
   options.modules.services.ssh = { enable = mkBoolOpt false; };
 
@@ -13,8 +17,15 @@ in {
       passwordAuthentication = false;
     };
 
-    user.openssh.authorizedKeys.keys = [''
-      ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGlx01MslXiUGleFZrb50+8WG73VfX5HUnrN0Xwgb4Xj jakeisnt@github.com
-    ''];
+    user.packages = with pkgs;
+      [
+        (writeScriptBin "ssh-key" ''
+          #!${stdenv.shell}
+          # Create SSH key
+          ${keygen} -t rsa -b 4096 -C "youremail@domain.com"
+          eval $(${ssh-agent} -s)
+          ${add} $HOME/.ssh/id_rsa
+        '')
+      ];
   };
 }

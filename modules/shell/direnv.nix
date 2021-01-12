@@ -24,5 +24,15 @@ in {
     };
 
     modules.shell.zsh.rcInit = ''eval "$(direnv hook zsh)"'';
+
+    services.lorri.enable = true;
+    systemd.user.services.lorri = {
+      wantedBy = [ "ac.target" ];
+      partOf = [ "ac.target" ];
+      unitConfig = {
+        ConditionGroup = "users";
+        StopWhenUnneeded = true;
+      };
+    };
   };
 }

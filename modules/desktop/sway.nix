@@ -81,7 +81,8 @@ in {
 
     services.redshift = {
       enable = true;
-      package = pkgs.redshift-wlr;
+      # package = pkgs.redshift-wlr;
+      extraOptions = [ "-m" "wayland" ];
     };
 
     programs.waybar.enable = true;
@@ -102,3 +103,5 @@ in {
     };
   };
 }
+
+# TODO register emacs as service

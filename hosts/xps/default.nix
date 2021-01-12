@@ -12,12 +12,10 @@
   modules = {
     desktop = {
       sway.enable = true;
-      # apps = { rofi.enable = true; };
       browsers = {
         default = "firefox";
         firefox.enable = true;
-        netsurf.enable = true;
-        # chrome.enable = true;
+        # netsurf.enable = true;
       };
       media = {
         daw.enable = true;
@@ -94,6 +92,27 @@
   services.openssh.startWhenNeeded = true;
   networking.networkmanager.enable = true;
 
+  # Approve polkit access for those in wheel group by default
+  # security.polkit.extraConfig = ''
+  #   polkit.addRule(function(action, subject) {
+  #   if (subject.isInGroup("wheel")) {
+  #       return polkit.Result.YES;
+  #   }
+  #   });	
+  # '';
+
+  # services = {
+  #   # detect devices over DNS
+  #   avahi.enable = true;
+  #   # knot resolver TODO learn more about this
+  #   kresd = {
+  #     enable = true;
+  #     extraConfig = "verbose(true)";
+  #   };
+  # };
+
+  # automatic firmware update
+  services.fwupd.enable = true;
   services.xserver.libinput.enable = true;
   users.users.jake.extraGroups = [ "networkmanager" "sway" "mopidy" ];
 

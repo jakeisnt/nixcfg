@@ -11,6 +11,9 @@ with lib; rec {
   themesDir = "${modulesDir}/themes";
   homeDir = "/home/${
       let name = getEnv "USERNAME";
-      in if elem name [ "jake" "root" ] then "jake" else name
+      in if elem name [ secrets.username "root" ] then
+        secrets.username
+      else
+        name
     }";
 }

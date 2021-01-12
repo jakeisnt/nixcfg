@@ -12,6 +12,7 @@ in {
       gitAndTools.gh
       gitAndTools.git-open
       gitAndTools.diff-so-fancy
+      gitAndTools.git-absorb
       (mkIf config.modules.shell.gnupg.enable gitAndTools.git-crypt)
     ];
 
