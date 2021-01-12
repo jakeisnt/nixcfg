@@ -29,11 +29,20 @@ in {
     env.XDG_CURRENT_DESKTOP = "sway";
 
     home.configFile = {
-      # Write it recursively so other modules can write files to it
-      "sway" = {
-        source = "${configDir}/sway";
-        recursive = true;
-      };
+      "sway/config".text = with colors;
+        concatStrings [
+          (''
+            set $foreground #${foreground}
+            set $background #${background}
+            set $lighterbg  #${fadeColor}
+            set $urgent #${urgent}
+            set $urgenttext #F8F8F2
+            set $inactiveback #44475A
+            set $pholdback #282A36
+            set $focusedback #6f757d
+          '')
+          (concatMapStringsSep "\n" readFile [ "${configDir}/sway/config" ])
+        ];
       "mako/config".text = with colors; ''
         sort=-time
         layer=overlay
