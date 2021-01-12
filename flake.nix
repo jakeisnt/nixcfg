@@ -27,8 +27,7 @@
       "gitlab:simple-nixos-mailserver/nixos-mailserver";
   };
 
-  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, home-manager
-    , simple-nixos-mailserver, ... }:
+  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, ... }:
     let
       inherit (lib) attrValues;
       inherit (lib.my) mapModules mapModulesRec mapHosts;
