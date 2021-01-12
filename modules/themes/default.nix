@@ -23,6 +23,28 @@ in {
 
     wallpaper = mkOpt (either path null) null;
 
+    color = {
+      foreground = mkOpt str "";
+      background = mkOpt str "";
+      fadeColor = mkOpt str "";
+      color0 = mkOpt str "";
+      color1 = mkOpt str "";
+      color2 = mkOpt str "";
+      color3 = mkOpt str "";
+      color4 = mkOpt str "";
+      color5 = mkOpt str "";
+      color6 = mkOpt str "";
+      color7 = mkOpt str "";
+      color8 = mkOpt str "";
+      color9 = mkOpt str "";
+      color10 = mkOpt str "";
+      color11 = mkOpt str "";
+      color12 = mkOpt str "";
+      color13 = mkOpt str "";
+      color14 = mkOpt str "";
+      color15 = mkOpt str "";
+    };
+
     gtk = {
       theme = mkOpt str "";
       iconTheme = mkOpt str "";
@@ -64,6 +86,41 @@ in {
         "Trolltech.conf".text = ''
           [Qt]
           ${optionalString (cfg.gtk.theme != "") "style=${cfg.gtk.theme}"}
+        '';
+        ".Xresources".text = with cfg.color; ''
+          Xft.dpi: 96
+          Xft.autohint: 0
+          Xft.lcdfilter: lcddefault
+          Xft.hintstyle: hintfull
+          Xft.hinting: 1
+          Xft.antialias: 1
+          Xft.rgba: rgb
+
+          !! general
+          scratch.font: monospace:pixelsize=32
+
+          *.foreground:   ${foreground}
+          *.background:   ${background}
+          *.cursorColor:  ${foreground}
+          *fading: 35
+          *fadeColor: ${fadeColor}
+
+          *.color0: ${color0}
+          *.color1: ${color1}
+          *.color2: ${color2}
+          *.color3: ${color3}
+          *.color4: ${color4}
+          *.color5: ${color5}
+          *.color6: ${color6}
+          *.color7: ${color7}
+          *.color8: ${color8}
+          *.color9: ${color9}
+          *.color10: ${color10}
+          *.color11: ${color11}
+          *.color12: ${color12}
+          *.color13: ${color13}
+          *.color14: ${color14}
+          *.color15: ${color15}
         '';
       };
     }
