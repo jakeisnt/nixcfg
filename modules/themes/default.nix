@@ -56,8 +56,30 @@ in {
 
   config = mkIf (cfg.active != null) (mkMerge [
     {
-
       environment.variables.GTK_THEME = cfg.gtk.theme;
+      # TTY Theme
+      modules.shell.zsh.rcInit = with cfg.color; ''
+        # if in TTY, configure TTY color scheme
+        if [ "$TERM" = "linux" ]; then
+          echo -en "\e]P0${color0}"
+          echo -en "\e]P1${color1}"
+          echo -en "\e]P2${color2}"
+          echo -en "\e]P3${color3}"
+          echo -en "\e]P4${color4}"
+          echo -en "\e]P5${color5}"
+          echo -en "\e]P6${color6}"
+          echo -en "\e]P7${color7}"
+          echo -en "\e]P8${color8}"
+          echo -en "\e]P9${color9}"
+          echo -en "\e]PA${color10}"
+          echo -en "\e]PB${color11}"
+          echo -en "\e]PC${color12}"
+          echo -en "\e]PD${color13}"
+          echo -en "\e]PE${color14}"
+          echo -en "\e]PF${color15}"
+          clear
+        fi
+      '';
       home.configFile = {
         # GTK
         "gtk-3.0/settings.ini".text = ''
@@ -87,6 +109,7 @@ in {
           [Qt]
           ${optionalString (cfg.gtk.theme != "") "style=${cfg.gtk.theme}"}
         '';
+        # Xresources theme
         ".Xresources".text = with cfg.color; ''
           Xft.dpi: 96
           Xft.autohint: 0
@@ -99,28 +122,28 @@ in {
           !! general
           scratch.font: monospace:pixelsize=32
 
-          *.foreground:   ${foreground}
-          *.background:   ${background}
-          *.cursorColor:  ${foreground}
+          *.foreground:   #${foreground}
+          *.background:   #${background}
+          *.cursorColor:  #${foreground}
           *fading: 35
-          *fadeColor: ${fadeColor}
+          *fadeColor: #${fadeColor}
 
-          *.color0: ${color0}
-          *.color1: ${color1}
-          *.color2: ${color2}
-          *.color3: ${color3}
-          *.color4: ${color4}
-          *.color5: ${color5}
-          *.color6: ${color6}
-          *.color7: ${color7}
-          *.color8: ${color8}
-          *.color9: ${color9}
-          *.color10: ${color10}
-          *.color11: ${color11}
-          *.color12: ${color12}
-          *.color13: ${color13}
-          *.color14: ${color14}
-          *.color15: ${color15}
+          *.color0: #${color0}
+          *.color1: #${color1}
+          *.color2: #${color2}
+          *.color3: #${color3}
+          *.color4: #${color4}
+          *.color5: #${color5}
+          *.color6: #${color6}
+          *.color7: #${color7}
+          *.color8: #${color8}
+          *.color9: #${color9}
+          *.color10: #${color10}
+          *.color11: #${color11}
+          *.color12: #${color12}
+          *.color13: #${color13}
+          *.color14: #${color14}
+          *.color15: #${color15}
         '';
       };
     }
