@@ -23,31 +23,8 @@ in {
     home.configFile = {
       "offlineimap/config".text = ''
         [general]
-        # List of accounts to be synced, separated by a comma.
         ui = ttyui
-        # gmail could also be an account
         accounts = isnt
-
-        # [Account gmail]
-        # # Identifier for the local repository; e.g. the maildir to be synced via IMAP.
-        # localrepository = gmail-local
-        # # Identifier for the remote repository; i.e. the actual IMAP, usually non-local.
-        # remoterepository = gmail-remote
-
-        # [Repository gmail-local]
-        # # OfflineIMAP supports Maildir, GmailMaildir, and IMAP for local repositories.
-        # type = Maildir
-        # # Where should the mail be placed?
-        # localfolders = ~/.mail/gmail
-
-        # [Repository gmail-remote]
-        # # Remote repos can be IMAP or Gmail, the latter being a preconfigured IMAP.
-        # type = Gmail
-        # remoteuser = ${secrets.gmail.user}
-        # remotepass = ${secrets.gmail.password}
-        # realdelete = no
-        # maxconnections = 3
-        # sslcacertfile = /etc/ssl/certs/ca-certificates.crt
 
         [Account isnt]
         localrepository = isnt-local
