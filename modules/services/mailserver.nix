@@ -4,9 +4,7 @@ with lib;
 with lib.my;
 let cfg = config.modules.services.mailserver;
 in {
-  options.modules.services.mailserver = {
-    enable = mkBoolOpt false;
-  };
+  options.modules.services.mailserver = { enable = mkBoolOpt false; };
 
   config = mkIf cfg.enable {
     mailserver = {
@@ -15,13 +13,11 @@ in {
       domains = [ "isnt.online" ];
 
       loginAccounts = {
-          "jake@isnt.online" = {
-            hashedPassword = "$2y$05$i2n.i1k9b1JIOKhokTI2YeQSY93rZG5gneBF32cT6X7EhxI2t/bJS";
-            aliases = [ ];
-              catchAll = [
-                  "isnt.online"
-              ];
-          };
+        "jake@isnt.online" = {
+          hashedPassword = secrets.email.hashedPassword;
+          aliases = [ ];
+          catchAll = [ "isnt.online" ];
+        };
       };
 
       # Use Let's Encrypt certificates. Note that this needs to set up a stripped
@@ -44,7 +40,7 @@ in {
 
     # Accept LetsEncrypt certificates
     security.acme = {
-      email = "jakechvatal@gmail.com"; 
+      email = "jakechvatal@gmail.com";
       acceptTerms = true;
     };
   };
