@@ -55,6 +55,8 @@ in {
         cyan = mkOpt str "";
         white = mkOpt str "";
       };
+      # used for mako
+      urgent = mkOpt str "";
     };
 
     gtk = {

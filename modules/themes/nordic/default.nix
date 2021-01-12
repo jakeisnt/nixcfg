@@ -61,10 +61,11 @@ in {
               green = "809575";
               yellow = "b29e75";
               blue = "68809a";
-              magenta = "8c738";
+              magenta = "8c738c";
               cyan = "6d96a5";
               white = "aeb3bb";
             };
+            urgent = "FF5555";
           };
         };
 
