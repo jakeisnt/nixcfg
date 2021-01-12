@@ -47,7 +47,7 @@ in {
     #   description = "mopidy music player daemon";
     #   serviceConfig = {
     #     ExecStart = "${mopidyEnv}/bin/mopidy";
-    #     User = "jake";
+    #     User = ${secrets.username};
     #   };
     # };
 

@@ -1,9 +1,10 @@
 { config, options, pkgs, lib, ... }:
 with builtins;
 with lib;
+with lib.my;
 let
   username = let name = getEnv "username";
-  in if elem name [ "" "root" ] then "jake" else name;
+  in if elem name [ secrets.username "root" ] then secrets.username else name;
 in {
   options.modules.services.syncthing = {
     enable = mkOption {

@@ -10,7 +10,7 @@ with lib.my;
 let
   cfg = config.modules.desktop.media.graphics;
   username = let name = getEnv "username";
-  in if elem name [ "" "root" ] then "jake" else name;
+  in if elem name [ "" "root" ] then secrets.username else name;
 in {
   options.modules.desktop.media.graphics = {
     enable = mkBoolOpt false;
