@@ -4,9 +4,7 @@ with lib;
 with lib.my;
 let cfg = config.modules.services.gitea;
 in {
-  options.modules.services.gitea = {
-    enable = mkBoolOpt false;
-  };
+  options.modules.services.gitea = { enable = mkBoolOpt false; };
 
   config = mkIf cfg.enable {
     # I prefer git@... ssh addresses over gitea@...
@@ -18,18 +16,22 @@ in {
 
     services.gitea = {
       enable = true;
-      log.level = "Info";
 
       user = "git";
       database = {
         user = "git";
         type = "postgres";
       };
-      useWizard = false;
+
       disableRegistration = true;
 
       # We're assuming SSL-only connectivity
       cookieSecure = true;
+
+      log.level = "Error";
+      settings.server.DISABLE_ROUTER_LOG = true;
     };
+
+    user.extraGroups = [ "gitea" ];
   };
 }
