@@ -8,7 +8,6 @@ in {
     enable = mkBoolOpt false;
     zfs.enable = mkBoolOpt false;
     ssd.enable = mkBoolOpt false;
-    # TODO automount.enable = mkBoolOpt false;
   };
 
   config = mkIf cfg.enable (mkMerge [
@@ -25,7 +24,10 @@ in {
     }
 
     (mkIf (!cfg.zfs.enable && cfg.ssd.enable) {
-      services.fstrim.enable = true;
+      services.fstrim = {
+        enable = true;
+        interval = "daily";
+      };
     })
 
     (mkIf cfg.zfs.enable (mkMerge [
