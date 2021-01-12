@@ -55,6 +55,16 @@ in {
             color13 = nord15;
             color14 = nord7;
             color15 = nord6;
+            dim = {
+              black = "373e4d";
+              red = "94545d";
+              green = "809575";
+              yellow = "b29e75";
+              blue = "68809a";
+              magenta = "8c738";
+              cyan = "6d96a5";
+              white = "aeb3bb";
+            };
           };
         };
 
