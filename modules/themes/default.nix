@@ -51,6 +51,11 @@ in {
       cursorTheme = mkOpt str "";
     };
 
+    # Extra content for the Firefox userContent.css file
+    extraUserContent = mkOpt str "";
+    # Extra content for the .Xresources file
+    extraXResources = mkOpt str "";
+
     onReload = mkOpt (attrsOf lines) { };
   };
 
@@ -79,6 +84,29 @@ in {
           echo -en "\e]PF${color15}"
           clear
         fi
+      '';
+
+      modules.desktop.browsers.firefox.userContent = ''
+        @import url("userChrome.css");
+
+        /* Hide scrollbar */
+        :root{
+            scrollbar-width: none !important;
+        }
+
+        /* Removes white loading page */
+        @-moz-document url(about:blank), url(about:newtab), url(about:home) {
+            html:not(#ublock0-epicker), html:not(#ublock0-epicker) body, #newtab-customize-overlay {
+                background: #${cfg.color.background} !important;
+            }
+        }
+
+        @-moz-document url(about:privatebrowsing) {
+            :root{
+                scrollbar-width: none !important;
+            }
+        }
+        ${cfg.extraUserContent}
       '';
       home.configFile = {
         # GTK
@@ -144,6 +172,7 @@ in {
           *.color13: #${color13}
           *.color14: #${color14}
           *.color15: #${color15}
+          ${cfg.extraXResources}
         '';
       };
     }
