@@ -19,7 +19,12 @@ with inputs; {
   environment.variables.NIXPKGS_ALLOW_UNFREE = "1";
   nix = {
     package = pkgs.nixFlakes;
-    extraOptions = "experimental-features = nix-command flakes";
+    # Use Flakes
+    # Use a remote builder when it has faster connection
+    extraOptions = ''
+      experimental-features = nix-command flakes
+      builders-use-substitutes = true
+    '';
     nixPath = (mapAttrsToList (n: v: "${n}=${v}") inputs) ++ [
       "nixpkgs-overlays=${dotFilesDir}/overlays"
       "dotfiles=${dotFilesDir}"
