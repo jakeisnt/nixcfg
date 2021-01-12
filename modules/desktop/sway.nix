@@ -139,5 +139,3 @@ in {
     };
   };
 }
-
-# TODO register emacs as service

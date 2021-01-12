@@ -101,6 +101,9 @@ in {
             "inkscape/templates/default.svg".source =
               ./config/inkscape/default-template.svg;
           })
+          (mkIf editors.vim.enable {
+            "nvim/theme.vim" = { source = ./config/theme.vim; };
+          })
         ];
     }
   ]);

@@ -203,7 +203,6 @@ set shortmess+=c               " add to search
 set signcolumn=yes             " always show sign column
 syntax on                      " syntax highlighting
 filetype plugin indent on      " file type detection
-colorscheme nord            
 set cursorline                 " current line is visible
 set showmatch                  " show matching braces
 syntax enable                  " enable syntax highlighting
@@ -461,3 +460,7 @@ function! RemoveEmptyBuffers()
   endif
 endfunction
 " }}}
+
+if !empty(glob("$XDG_CONFIG_HOME/nvim/theme.vim"))
+  source $XDG_CONFIG_HOME/nvim/theme.vim
+endif
