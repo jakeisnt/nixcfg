@@ -6,6 +6,8 @@
     # inputs.nixos-hardware.nixosModules.dell-xps-13-9370: 'lenovo_fix.py' isn't friendly with the kernel atm
   ];
 
+  # https://github.com/yegortimoshenko/yegortimoshenko-flake/blob/master/profiles/hardware/dell-xps/9380/default.nix
+
   boot = {
     consoleLogLevel = 1;
     initrd = {
@@ -25,7 +27,7 @@
         "i915.enable_rc6=7"
         "i915.lvds_downclock=1"
       ];
-      kernelModules = [ "dm-snapshot" ];
+      kernelModules = [ "dm-snapshot" "i915 " ];
       checkJournalingFS = true;
     };
 
@@ -124,5 +126,12 @@
     coreOffset = -80;
     gpuOffset = -80;
     uncoreOffset = -80;
+  };
+
+  services = {
+    # https://github.com/NixOS/nixos-hardware/pull/127
+    throttled.enable = lib.mkDefault true;
+    # https://wiki.archlinux.org/index.php/Dell_XPS_13_(9370)#Thermal_Throttling
+    thermald.enable = lib.mkDefault true;
   };
 }
