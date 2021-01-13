@@ -90,7 +90,15 @@
 
   programs.ssh.startAgent = true;
   services.openssh.startWhenNeeded = true;
-  networking.networkmanager.enable = true;
+
+  networking.networkmanager = {
+    enable = true;
+    wifi = {
+      backend = "iwd";
+      powersave = true;
+      macAddress = "random";
+    };
+  };
 
   # Approve polkit access for those in wheel group by default
   # security.polkit.extraConfig = ''
