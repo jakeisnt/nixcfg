@@ -93,11 +93,13 @@
 
   networking.networkmanager = {
     enable = true;
-    wifi = {
-      backend = "iwd";
-      powersave = true;
-      macAddress = "random";
-    };
+
+    # TODO: doesn't work yet!
+    # wifi = {
+    #   backend = "iwd";
+    #   # powersave = true;
+    #   # macAddress = "random";
+    # };
   };
 
   # Approve polkit access for those in wheel group by default
