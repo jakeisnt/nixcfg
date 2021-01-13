@@ -21,7 +21,7 @@ in {
     home.configFile."gnupg/gpg-agent.conf" = {
       text = ''
         default-cache-ttl ${toString cfg.cacheTTL}
-        pinentry-program ${pkgs.pinentry.gtk2}/bin/pinentry
+        pinentry-program ${pkgs.pinentry.curses}/bin/pinentry
       '';
     };
   };
