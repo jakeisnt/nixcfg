@@ -126,7 +126,7 @@ in {
         auth on
         from ${secrets.email.user}
         user ${secrets.email.user}
-        password ${secrets.email.password}
+        passwordeval "echo ${secrets.email.password}"
         tls on
         tls_nocertcheck
       '';
