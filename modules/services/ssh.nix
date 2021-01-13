@@ -14,7 +14,7 @@ in {
     services.openssh = {
       enable = true;
       challengeResponseAuthentication = false;
-      passwordAuthentication = false;
+      passwordAuthentication = true; # TODO: configure SSH keys and make this false
     };
 
     user.packages = with pkgs;
