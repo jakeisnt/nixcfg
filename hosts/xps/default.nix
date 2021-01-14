@@ -49,7 +49,10 @@
     };
     editors = {
       default = "nvim";
-      emacs.enable = true;
+      emacs = {
+        enable = true;
+        daemon = true;
+      };
       vim.enable = true;
       vscode.enable = true;
     };
