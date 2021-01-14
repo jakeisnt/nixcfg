@@ -31,6 +31,11 @@ in {
           aliases = [ ];
           catchAll = [ domain ];
         };
+
+        "admin@${domain}" = {
+          hashedPassword = secrets.email.hashedPassword;
+          aliases = [ ];
+        };
       };
 
       # Use Let's Encrypt certificates. Note that this needs to set up a stripped

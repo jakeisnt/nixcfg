@@ -27,10 +27,12 @@ with lib.my;
       bitwarden = {
         enable = true;
         registration = false;
+        mail = true;
       };
       gitea = {
         enable = true;
         registration = false;
+        mail = true;
       };
       nginx.enable = true;
     };

@@ -43,13 +43,13 @@ in {
             yubicoServer = "https://api.yubico.com/wsapi/2.0/verify";
           })
           (mkIf cfg.mail {
-            smtpHost = "mx.${domain}";
-            smtpFrom = "bitwarden@${domain}";
-            smtpFromName = "Bitwarden";
+            smtpHost = "localhost";
+            smtpFrom = "admin@${domain}";
+            smtpFromName = "Admin";
             smtpPort = 587;
             smtpSsl = true;
-            smtpUsername = secrets.email.user;
-            smtpPassword = secrets.email.password;
+            smtpUsername = "admin@${domain}";
+            smtpPassword = secrets.email.hashedPassword;
             smtpTimeout = 15;
           })
         ];

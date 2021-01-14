@@ -8,6 +8,7 @@ in {
   options.modules.services.gitea = { 
     enable = mkBoolOpt false;
     registration = mkBoolOpt false; 
+    mail = mkBoolOpt false;
   };
 
   config = mkIf cfg.enable {
@@ -25,7 +26,6 @@ in {
         enable = true;
         domain = "git.${domain}";
         appName = "git.${domain}";
-        rootUrl = "git.${domain}";
 
         user = "git";
         database = {
@@ -40,7 +40,7 @@ in {
         };
 
         dump.enable = true;
-        disableRegistration = false;
+        disableRegistration = cfg.registration;
         httpPort = 3000;
 
         # We're assuming SSL-only connectivity
@@ -48,6 +48,15 @@ in {
 
         log.level = "Error";
         settings.server.DISABLE_ROUTER_LOG = true;
+        settings.mailer = mkIf cfg.mail {
+          ENABLED = true;
+          FROM = "admin@${domain}";
+          MAILER_TYPE = "smtp";
+          HOST = "localhost:587";
+          IS_TLS_ENABLED = true;
+          USER = "admin@${domain}";
+          PASSWD = secrets.email.hashedPassword;
+        };
       };
 
       nginx = {
