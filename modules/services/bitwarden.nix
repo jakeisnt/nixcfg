@@ -78,11 +78,5 @@ in {
       };
     };
     user.packages = with pkgs; [ bitwarden_rs-vault ];
-    # security.acme.certs = {
-    #   "bitwarden.${domain}" = {
-    #     group = "bitwarden_rs";
-    #     keyType = "rsa2048";
-    #   };
-    # };
   };
 }
