@@ -88,13 +88,5 @@ in {
         '';
       };
     };
-
-    security.acme.certs = {
-      "matrix.${secrets.matrix.server_name}" = {
-        group = "matrix-synapse";
-        postRun =
-          "systemctl reload nginx.service; systemctl restart matrix-synapse.service";
-      };
-    };
   };
 }
