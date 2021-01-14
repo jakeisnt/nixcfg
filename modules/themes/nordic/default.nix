@@ -33,7 +33,6 @@ in {
           gtk = {
             theme = "Nordic";
             iconTheme = "Zafiro-icons";
-            cursorTheme = "Zafiro-icons";
           };
           color = with colorscheme; {
             foreground = nord4;
