@@ -10,6 +10,7 @@ let cfg = config.modules.editors.emacs;
 in {
   options.modules.editors.emacs = {
     enable = mkBoolOpt false;
+    daemon = mkBoolOpt false;
     doom = {
       enable = mkBoolOpt true;
       fromSSH = mkBoolOpt false;
@@ -18,6 +19,12 @@ in {
 
   config = mkIf cfg.enable {
     nixpkgs.overlays = [ inputs.emacs-overlay.overlay inputs.nur.overlay ];
+
+    services.emacs = mkIf cfg.daemon {
+      enable = true;
+      package = pkgs.emacsPgtkGcc;
+      defaultEditor = true;
+    };
 
     user.packages = with pkgs; [
       ## Emacs itself
