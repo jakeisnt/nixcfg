@@ -8,6 +8,7 @@ in {
   options.modules.services.mailserver = { enable = mkBoolOpt false; };
 
   config = mkIf cfg.enable {
+    modules.services.acme.enable = true;
     networking.firewall.allowedTCPPorts = [
       # Email
       25   # SMTP
@@ -48,12 +49,6 @@ in {
       # whether to scan inbound emails for viruses (note that this requires at least
       # 1 Gb RAM for the server. Without virus scanning 256 MB RAM should be plenty)
       virusScanning = false;
-    };
-
-    # Accept LetsEncrypt certificates
-    security.acme = {
-      email = "jakechvatal@gmail.com";
-      acceptTerms = true;
     };
   };
 }
