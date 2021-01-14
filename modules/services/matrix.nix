@@ -24,15 +24,11 @@ in {
         nginx.virtualHosts."element.${domain}" = {
           enableACME = true;
           forceSSL = true;
-          serverAliases = [
-            "element.${domain}"
-          ];
 
           root = pkgs.element-web.override {
             conf = {
               default_server_config."m.homeserver" = {
-                "base_url" = "${domain}";
-                "server_name" = "element.${domain}";
+                "server_name" = "matrix.${domain}";
               };
             };
           };

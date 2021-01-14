@@ -22,6 +22,7 @@ with lib.my;
       matrix = {
         enable = true;
         registration = true;  
+        element = true;
       };
       nginx.enable = true;
     };
