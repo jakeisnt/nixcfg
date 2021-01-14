@@ -4,14 +4,24 @@ with lib;
 with lib.my;
 let cfg = config.modules.services.matrix;
 in {
-  options.modules.services.matrix = { enable = mkBoolOpt false; };
+  options.modules.services.matrix = { 
+    enable = mkBoolOpt false;
+    registration = mkBoolOpt false;
+  };
 
   config = mkIf cfg.enable {
+    # This server uses nginx, so just enable it here : )
+    modules.services.nginx.enable = true;
+
+    networking.firewall.allowedTCPPorts = [
+      8448 # Matrix federation
+    ];
+
     services = {
       matrix-synapse = {
         enable = true;
         server_name = secrets.matrix.server_name;
-        enable_registration = true;
+        enable_registration = cfg.registration;
         registration_shared_secret = secrets.matrix.password;
 
         public_baseurl = "https://matrix.${secrets.matrix.server_name}";
@@ -59,12 +69,6 @@ in {
       };
 
       nginx = {
-        enable = true;
-        recommendedTlsSettings = true;
-        recommendedOptimisation = true;
-        recommendedGzipSettings = true;
-        recommendedProxySettings = true;
-
         virtualHosts = {
           "matrix.${secrets.matrix.server_name}" = {
             forceSSL = true;

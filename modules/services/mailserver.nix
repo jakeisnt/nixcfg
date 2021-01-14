@@ -7,6 +7,17 @@ in {
   options.modules.services.mailserver = { enable = mkBoolOpt false; };
 
   config = mkIf cfg.enable {
+    networking.firewall.allowedTCPPorts = [
+      # Email
+      25   # SMTP
+      465  # Submission TLS
+      587  # Submission StartTLS
+      993  # IMAP with TLS
+      995  # POP3 with TLS
+      143  # IMAP with StartTLS
+      110  # POP3 with StartTLS
+    ];
+
     mailserver = {
       enable = true;
       fqdn = "mx.isnt.online";

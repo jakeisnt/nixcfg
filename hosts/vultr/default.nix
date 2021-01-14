@@ -19,7 +19,11 @@
     services = {
       mailserver.enable = true;
       ssh.enable = true;
-      matrix.enable = true;
+      matrix = {
+        enable = true;
+        registration = true;  
+      };
+      nginx.enable = true;
     };
     theme.active = "nordic";
   };
@@ -27,27 +31,10 @@
   boot.loader.grub.enable = true;
   boot.loader.grub.version = 2;
   boot.loader.grub.device = "/dev/vda";
-
-  networking.firewall = {
-    enable = true;
-    allowedTCPPorts = [
-      22   # SSH
-      80   # http
-      443  # https
-
-      # Matrix
-      8448 # Matrix federation
-
-      # Email
-      25   # SMTP
-      465  # Submission TLS
-      587  # Submission StartTLS
-      993  # IMAP with TLS
-      995  # POP3 with TLS
-      143  # IMAP with StartTLS
-      110  # POP3 with StartTLS
-    ];
-  };
+  
+  # The ports are configured in their respective services,
+  # but the system should individually decide whether to enable the firewall
+  networking.firewall.enable = true;
 
   # Enable the OpenSSH daemon.
   networking.useDHCP = false;

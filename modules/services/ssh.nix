@@ -14,8 +14,13 @@ in {
     services.openssh = {
       enable = true;
       challengeResponseAuthentication = false;
-      passwordAuthentication = true; # TODO: configure SSH keys and make this false
+      passwordAuthentication = true; # TODO: configure SSH keys properly and make this false
     };
+
+    # Allow SSHing through firewall
+    networking.firewall.allowedTCPPorts = [
+      22
+    ];
 
     user.packages = with pkgs;
       [
