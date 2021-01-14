@@ -19,6 +19,12 @@ in {
   config = mkIf cfg.enable {
     nixpkgs.overlays = [ inputs.emacs-overlay.overlay inputs.nur.overlay ];
 
+    services.emacs = {
+      enable = true;
+      package = pkgs.emacsPgtkGcc;
+      defaultEditor = true;
+    };
+
     user.packages = with pkgs; [
       ## Emacs itself
       binutils # native-comp needs 'as', provided by this
