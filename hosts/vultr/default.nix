@@ -24,6 +24,10 @@ with lib.my;
         registration = true;  
         element = true;
       };
+      bitwarden = {
+        enable = true;
+        registration = true;
+      };
       nginx.enable = true;
     };
     theme.active = "nordic";

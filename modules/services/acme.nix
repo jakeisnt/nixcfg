@@ -9,7 +9,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    services.acme = {
+    security.acme = {
       email = "${secrets.gmail.user}";
       acceptTerms = true;
     };
