@@ -20,8 +20,8 @@ in {
       #   extraConfig = ''
       #     max_upload_size: "50M"
       #     '';
-      # };
-      postgresql.enable = true;
+      };
+      # postgresql.enable = true;
     };
   };
 }
