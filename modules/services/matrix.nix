@@ -9,18 +9,18 @@ in {
   config = mkIf cfg.enable {
     services = {
       matrix-synapse = {
-        enable = true;
-        server_name = "isnt.online";
-        registration_shared_secret = "secret";
-        database_type = "psycopg2";
-        databse_args = {
-          database = "matrix-synapse";
-        };
-
-        extraConfig = ''
-          max_upload_size: "50M"
-          '';
-      };
+      #   enable = true;
+      #   server_name = "isnt.online";
+      #   registration_shared_secret = "secret";
+      #   database_type = "psycopg2";
+      #   databse_args = {
+      #     database = "matrix-synapse";
+      #   };
+      #
+      #   extraConfig = ''
+      #     max_upload_size: "50M"
+      #     '';
+      # };
       postgresql.enable = true;
     };
   };
