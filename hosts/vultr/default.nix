@@ -21,12 +21,16 @@ with lib.my;
       ssh.enable = true;
       matrix = {
         enable = true;
-        registration = true;  
+        registration = false;  
         element = true;
       };
       bitwarden = {
         enable = true;
-        registration = true;
+        registration = false;
+      };
+      gitea = {
+        enable = true;
+        registration = false;
       };
       nginx.enable = true;
     };
