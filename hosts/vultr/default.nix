@@ -19,6 +19,7 @@
     services = {
       mailserver.enable = true;
       ssh.enable = true;
+      matrix.enable = true;
     };
     theme.active = "nordic";
   };
@@ -31,8 +32,11 @@
     enable = true;
     allowedTCPPorts = [
       22   # SSH
-      8448 # Matrix
-      80   # Standard
+      80   # http
+      443  # https
+
+      # Matrix
+      8448 # Matrix federation
 
       # Email
       25   # SMTP
