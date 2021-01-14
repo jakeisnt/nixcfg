@@ -3,20 +3,32 @@
 with lib;
 with lib.my;
 let cfg = config.modules.services.mailserver;
+    domain = config.networking.domain;
 in {
   options.modules.services.mailserver = { enable = mkBoolOpt false; };
 
   config = mkIf cfg.enable {
+    networking.firewall.allowedTCPPorts = [
+      # Email
+      25   # SMTP
+      465  # Submission TLS
+      587  # Submission StartTLS
+      993  # IMAP with TLS
+      995  # POP3 with TLS
+      143  # IMAP with StartTLS
+      110  # POP3 with StartTLS
+    ];
+
     mailserver = {
       enable = true;
-      fqdn = "mx.isnt.online";
-      domains = [ "isnt.online" ];
+      fqdn = "mx.${domain}";
+      domains = [ domain ];
 
       loginAccounts = {
-        "jake@isnt.online" = {
+        "jake@${domain}" = {
           hashedPassword = secrets.email.hashedPassword;
           aliases = [ ];
-          catchAll = [ "isnt.online" ];
+          catchAll = [ domain ];
         };
       };
 

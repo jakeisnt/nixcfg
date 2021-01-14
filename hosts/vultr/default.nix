@@ -1,5 +1,5 @@
-{ config, pkgs, ... }:
-
+{ config, pkgs, lib, ... }:
+with lib.my;
 {
   imports = [ ./hardware-configuration.nix ../personal.nix ];
 
@@ -19,6 +19,12 @@
     services = {
       mailserver.enable = true;
       ssh.enable = true;
+      matrix = {
+        enable = true;
+        registration = true;  
+        element = true;
+      };
+      nginx.enable = true;
     };
     theme.active = "nordic";
   };
@@ -27,25 +33,15 @@
   boot.loader.grub.version = 2;
   boot.loader.grub.device = "/dev/vda";
 
-  networking.firewall = {
-    enable = true;
-    allowedTCPPorts = [
-      22   # SSH
-      8448 # Matrix
-      80   # Standard
+  networking = {
+    domain = secrets.domain;
+    # The ports are configured in their respective services,
+    # but the system should individually decide whether to enable the firewall
+    firewall.enable = true;
 
-      # Email
-      25   # SMTP
-      465  # Submission TLS
-      587  # Submission StartTLS
-      993  # IMAP with TLS
-      995  # POP3 with TLS
-      143  # IMAP with StartTLS
-      110  # POP3 with StartTLS
-    ];
+    # Enable the OpenSSH daemon.
+    useDHCP = false;
+    interfaces.ens3.useDHCP = true;
   };
-
-  # Enable the OpenSSH daemon.
-  networking.useDHCP = false;
-  networking.interfaces.ens3.useDHCP = true;
+  
 }
