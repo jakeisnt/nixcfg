@@ -3,6 +3,7 @@
 with lib;
 with lib.my;
 let cfg = config.modules.services.mailserver;
+    domain = config.networking.domain;
 in {
   options.modules.services.mailserver = { enable = mkBoolOpt false; };
 
@@ -20,14 +21,14 @@ in {
 
     mailserver = {
       enable = true;
-      fqdn = "mx.isnt.online";
-      domains = [ "isnt.online" ];
+      fqdn = "mx.${domain}";
+      domains = [ domain ];
 
       loginAccounts = {
-        "jake@isnt.online" = {
+        "jake@${domain}" = {
           hashedPassword = secrets.email.hashedPassword;
           aliases = [ ];
-          catchAll = [ "isnt.online" ];
+          catchAll = [ domain ];
         };
       };
 

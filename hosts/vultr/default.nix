@@ -1,5 +1,5 @@
-{ config, pkgs, ... }:
-
+{ config, pkgs, lib, ... }:
+with lib.my;
 {
   imports = [ ./hardware-configuration.nix ../personal.nix ];
 
@@ -31,12 +31,16 @@
   boot.loader.grub.enable = true;
   boot.loader.grub.version = 2;
   boot.loader.grub.device = "/dev/vda";
-  
-  # The ports are configured in their respective services,
-  # but the system should individually decide whether to enable the firewall
-  networking.firewall.enable = true;
 
-  # Enable the OpenSSH daemon.
-  networking.useDHCP = false;
-  networking.interfaces.ens3.useDHCP = true;
+  networking = {
+    domain = secrets.domain;
+    # The ports are configured in their respective services,
+    # but the system should individually decide whether to enable the firewall
+    firewall.enable = true;
+
+    # Enable the OpenSSH daemon.
+    useDHCP = false;
+    interfaces.ens3.useDHCP = true;
+  };
+  
 }
