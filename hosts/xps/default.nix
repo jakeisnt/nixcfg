@@ -94,6 +94,10 @@
   programs.ssh.startAgent = true;
   services.openssh.startWhenNeeded = true;
 
+  user.packages = with pkgs; [
+    bitwarden-cli
+  ];
+
   networking.networkmanager = {
     enable = true;
 
