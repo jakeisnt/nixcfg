@@ -57,12 +57,25 @@ in {
         mailboxes +INBOX
 
         macro index D \
-            "<save-message>+[Gmail]/Trash<enter>" \
+            "<save-message>+[isnt]/Trash<enter>" \
             "move message to the trash"
 
         macro index S \
-            "<save-message>+[Gmail]/Spam<enter>" \
+            "<save-message>+[isnt]/Spam<enter>" \
             "mark message as spam"
+
+        macro index \Cv \
+        "<enter-command> set my_crypt_verify_sig=\$crypt_verify_sig<enter> \
+        <enter-command> set crypt_verify_sig=yes<enter> \
+        <display-message><enter-command> set crypt_verify_sig=\$my_crypt_verify_sig<enter>" \
+        'Verify PGP signature and open the message'
+
+        macro pager \Cv \
+        "<exit><enter-command> set my_crypt_verify_sig=\$crypt_verify_sig<enter> \
+        <enter-command> set crypt_verify_sig=yes<enter> \
+        <display-message><enter-command> set crypt_verify_sig=\$my_crypt_verify_sig<enter>" \
+        'Verify PGP signature'
+
 
         # main options
         set realname   = "${secrets.name}"
@@ -70,7 +83,7 @@ in {
         set mail_check = 0
         set envelope_from
 
-        unset move           # gmail does that
+        # unset move           # gmail does that
         set delete           # don't ask, just do
         unset confirmappend  # don't ask, just do!
         set quit             # don't ask, just do!!
@@ -113,6 +126,11 @@ in {
         set forward_format = "Fwd: %s"
         set include
         set forward_quote
+
+        # pgp
+        set crypt_autosign=yes
+        set pgp_autosign=yes
+        set pgp_sign_as=AFF8C0623B1CE493
 
         ignore *                               # first, ignore all headers
         unignore from: to: cc: date: subject:  # then, show only these
