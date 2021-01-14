@@ -73,7 +73,7 @@ in {
     home-manager.users.jake.programs.firefox.extensions =
       with pkgs.nur.repos.rycee.firefox-addons;
       [
-        browserpass
+        bitwarden
         vimium
         buster-captcha-solver
         clearurls

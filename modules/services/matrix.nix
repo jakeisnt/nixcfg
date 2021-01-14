@@ -12,7 +12,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    # This server uses nginx, so just enable it here : )
+    modules.services.acme.enable = true;
     modules.services.nginx.enable = true;
 
     networking.firewall.allowedTCPPorts = [
