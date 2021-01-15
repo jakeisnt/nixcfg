@@ -43,57 +43,32 @@ in {
           registration_shared_secret = secrets.matrix.password;
 
           public_baseurl = "https://matrix.${domain}";
-          tls_certificate_path = "/var/lib/acme/matrix.isnt.online/fullchain.pem";
-          tls_private_key_path = "/var/lib/acme/matrix.isnt.online/key.pem";
+          # tls_certificate_path = "/var/lib/acme/matrix.isnt.online/fullchain.pem";
+          # tls_private_key_path = "/var/lib/acme/matrix.isnt.online/key.pem";
 
           database_type = "psycopg2";
           database_args = { database = "matrix-synapse"; };
 
           listeners = [
             { # federation
-              bind_address = "";
-              port = 8448;
+              bind_address = "::1";
+              port = 8008;
               resources = [
                 {
                   compress = true;
-                  names = [ "client" "webclient" ];
-                }
-                {
-                  compress = false;
-                  names = [ "federation" ];
+                  names = [ "client" "federation" ];
                 }
               ];
 
-              tls = true;
-              type = "http";
-              x_forwarded = false;
-            }
-            { # client
-              bind_address = "127.0.0.1";
-              port = 8008;
-              resources = [{
-                compress = true;
-                names = [ "client" "webclient" ];
-              }];
               tls = false;
               type = "http";
-              x_forwarded = true;
+              x_forwarded = false;
             }
           ];
 
           extraConfig = ''
             max_upload_size: "100M"
           '';
-        };
-
-        nginx = {
-          virtualHosts = {
-            "matrix.${domain}" = {
-              forceSSL = true;
-              enableACME = true;
-              locations."/" = { proxyPass = "http://127.0.0.1:8008"; };
-            };
-          };
         };
 
         postgresql = {
@@ -109,6 +84,46 @@ in {
                 OWNER "matrix-synapse";
           '';
         };
+
+        nginx = {
+          virtualHosts = {
+            "${domain}" = {
+              locations."= /.well-known/matrix/server".extraConfig =
+                let
+                  # use 443 instead of the default 8448 port
+                  server = { "m.server" = "matrix.${domain}:443"; };
+                in ''
+                  add_header Content-Type application/json;
+                  return 200 '${builtins.toJSON server}';
+                '';
+              locations."= /.well-known/matrix/client".extraConfig =
+                let
+                  client = {
+                    "m.homeserver" =  { "base_url" = "https://matrix.${domain}"; };
+                    "m.identity_server" =  { "base_url" = "https://vector.im"; };
+                  };
+                in ''
+                  add_header Content-Type application/json;
+                  add_header Access-Control-Allow-Origin *;
+                  return 200 '${builtins.toJSON client}';
+                '';
+            };
+
+            "matrix.${domain}" = {
+              enableACME = true;
+              forceSSL = true;
+
+              locations."/".extraConfig = ''
+                return 404;
+              '';
+
+              locations."/_matrix" = {
+                proxyPass = "http://[::1]:8008";
+              };
+            };
+          };
+        };
+
       }
     ];
   };
