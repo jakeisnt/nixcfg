@@ -31,6 +31,8 @@ in {
                 "base_url" = "https://matrix.${domain}";
                 "server_name" = "${domain}";
               };
+
+              jitsi.preferredDomain = mkIf config.modules.services.jitsi.enable "jitsi.${domain}";
             };
           };
         };
