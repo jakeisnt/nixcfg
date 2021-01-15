@@ -32,7 +32,5 @@ in {
       allowedTCPPorts = [ 5349 5350 ];
       allowedUDPPorts = [ 80 443 3478 3479 ];
     };
-
-    user.extraGroups = [ "jellyfin" ];
   };
 }
