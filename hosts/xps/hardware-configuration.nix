@@ -130,7 +130,7 @@
 
   services = {
     # https://github.com/NixOS/nixos-hardware/pull/127
-    throttled.enable = lib.mkDefault true;
+    # throttled.enable = lib.mkDefault true;
     # https://wiki.archlinux.org/index.php/Dell_XPS_13_(9370)#Thermal_Throttling
     thermald.enable = lib.mkDefault true;
   };
