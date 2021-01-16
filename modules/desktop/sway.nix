@@ -26,6 +26,8 @@ in {
       wrapperFeatures.gtk = true;
     };
 
+    # services.xserver.displayManager.sessionPackages = with pkgs; [ ly ];
+
     env.XDG_CURRENT_DESKTOP = "sway";
 
     home.configFile = {
@@ -80,28 +82,53 @@ in {
       '';
     };
 
-    environment.systemPackages = with pkgs;
-      [
-        (pkgs.writeTextFile {
-          name = "startsway";
-          destination = "/bin/startsway";
-          executable = true;
-          text = ''
-            #! ${pkgs.bash}/bin/bash
+    environment.systemPackages = with pkgs; [
+      ly
+      (pkgs.writeTextFile {
+        name = "startsway";
+        destination = "/bin/startsway";
+        executable = true;
+        text = ''
+          #! ${pkgs.bash}/bin/bash
 
-            # first import environment variables from the login manager
-            systemctl --user import-environment
-            # then start the service
-            exec systemctl --user start sway.service
-          '';
-        })
-      ];
+          # first import environment variables from the login manager
+          systemctl --user import-environment
+          # then start the service
+          exec systemctl --user start sway.service
+        '';
+      })
+    ];
     systemd.user.targets.sway-session = {
       description = "Sway compositor session";
       documentation = [ "man:systemd.special(7)" ];
       bindsTo = [ "graphical-session.target" ];
       wants = [ "graphical-session-pre.target" ];
       after = [ "graphical-session-pre.target" ];
+    };
+
+    security.pam.services.ly.unixAuth = true;
+
+    systemd.services.ly = {
+      description = "ly - tui login screen";
+      aliases = [ "display-manager.service" ];
+      after = [
+        "systemd-user-sessions.service"
+        # "plymouth-quit-wait.service"
+        "getty@tty2.service"
+      ];
+
+      serviceConfig = {
+        Type = "idle";
+        ExecStart = ''
+          ${pkgs.ly}/bin/ly
+        '';
+        StandardInput = "tty";
+        TTYPath = "/dev/tty2";
+        TTYReset = "yes";
+        TTYHangup = "yes";
+      };
+
+      # installConfig = { Alias = "display-manager.service"; };
     };
 
     systemd.user.services.sway = {
