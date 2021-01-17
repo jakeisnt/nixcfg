@@ -68,6 +68,9 @@ in {
     ];
 
     env.PATH = [ "$XDG_CONFIG_HOME/emacs/bin" ];
+    # for emacs tree-sitter
+    env.LD_LIBRARY_PATH =
+      [ "$(nix-build -E 'import <nixpkgs>' -A 'gcc.cc.lib')/lib64" ];
 
     modules.shell.zsh.rcFiles = [ "${configDir}/emacs/aliases.zsh" ];
 
