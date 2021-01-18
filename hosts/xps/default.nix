@@ -87,6 +87,7 @@
     services = {
       syncthing.enable = true;
       ssh.enable = true;
+      backups.enable = true;
     };
     theme.active = "nordic";
   };
@@ -94,9 +95,7 @@
   programs.ssh.startAgent = true;
   services.openssh.startWhenNeeded = true;
 
-  user.packages = with pkgs; [
-    bitwarden-cli
-  ];
+  user.packages = with pkgs; [ bitwarden-cli ];
 
   networking.networkmanager = {
     enable = true;
