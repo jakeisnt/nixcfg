@@ -43,9 +43,9 @@
       matrix.enable = true;
       discord.enable = true;
       slack.enable = true;
-      signal.enable = true;
+      # signal.enable = true;
       email.enable = true;
-      deltachat.enable = true;
+      # deltachat.enable = true;
     };
     editors = {
       default = "nvim";
