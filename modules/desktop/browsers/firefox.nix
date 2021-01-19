@@ -63,6 +63,8 @@ in {
     env = {
       XDG_DESKTOP_DIR = "$HOME/";
       XDG_DOWNLOAD_DIR = "$HOME/";
+      XDG_PICTURES_DIR = "$HOME/pics/";
+      XDG_MUSIC_DIR = "$HOME/music/";
       MOZ_ENABLE_WAYLAND = "1";
     };
 
