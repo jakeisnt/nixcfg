@@ -17,7 +17,10 @@ with lib.my;
       gnupg.enable = true;
     };
     services = {
-      syncthing.enable = true;
+      syncthing = {
+        enable = true;
+        server = true;
+      };
       mailserver.enable = true;
       ssh.enable = true;
       matrix = {

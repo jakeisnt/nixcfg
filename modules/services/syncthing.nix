@@ -15,21 +15,27 @@ in {
   };
 
   config = mkIf cfg.enable {
-    # modules.services.acme.enable = true;
-    # modules.services.nginx.enable = true;
-    #
-    # services.nginx = mkIf cfg.server {
-    #   "syncthing.${domain}" = {
-    #     forceSSL = true;
-    #     enableACME = true;
-    #     locations."/" = {
-    #       proxyPass = "http://localhost:21027";
-    #       proxyWebsockets = true;
-    #   };
-    # };
+    modules.services = mkIf cfg.server {
+      acme.enable = true;
+      nginx.enable = true;
+    };
+
+    services.nginx = mkIf cfg.server {
+      # virtualHosts = {
+      #   "syncthing.${domain}" = {
+      #     forceSSL = true;
+      #     enableACME = true;
+      #     locations."/" = {
+      #       proxyPass = "http://localhost:8384";
+      #       proxyWebsockets = true;
+      #     };
+      #   };
+      # };
+    };
 
     services.syncthing = {
       enable = true;
+      # guiAddress = mkIf cfg.server "syncthing.${domain}";
       user = username;
       openDefaultPorts = true;
       configDir = "/home/${username}/.config/syncthing";
