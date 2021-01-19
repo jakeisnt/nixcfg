@@ -41,6 +41,8 @@ in {
             "M4GBTEM-N55HKKV-KLP4G5H-JFMMPUD-REYTNI6-EE4L2WS-S7KJES6-TK6Y4Q5";
           phone.id =
             "SGMQCCV-JQ6FIFB-PSKOJUE-DYV34FO-N26QZVV-XNSIV3X-TWBOHYF-KPWPJQF";
+          vultr.id =
+            "RGIZAD-VHMLCCH-PFONWDZ-JEHKFAS-QG2ODRM-L7CWZBZ-SYD3LJF-DXZC3QI";
         };
         folders = let
           deviceEnabled = devices: lib.elem config.networking.hostName devices;
