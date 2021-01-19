@@ -31,7 +31,7 @@ in {
     services.syncthing = {
       enable = true;
       user = username;
-      # openDefaultPorts = true;
+      openDefaultPorts = true;
       configDir = "/home/${username}/.config/syncthing";
       dataDir = "/home/${username}/.local/share/syncthing";
 
@@ -57,14 +57,14 @@ in {
             type = deviceType [ "xps" ];
             enable = deviceEnabled devices;
           };
-          # secrets = rec {
-          #   devices = [ "kuro" "shiro" "ao" "aka" ];
-          #   path = "/home/${config.my.username}/.secrets";
-          #   watch = true;
-          #   rescanInterval = 3600;
-          #   type = deviceType [ "kuro" "shiro" ];
-          #   enable = deviceEnabled devices;
-          # };
+          pics = rec {
+            devices = [ "phone" "xps" "vultr" ];
+            path = "/home/${secrets.username}/pics";
+            watch = true;
+            rescanInterval = 3600 * 6;
+            type = deviceType [ "xps" ];
+            enable = deviceEnabled devices;
+          };
         };
       };
     };
