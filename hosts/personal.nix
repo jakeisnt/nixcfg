@@ -5,12 +5,6 @@ with lib.my; {
   time.timeZone = mkDefault "America/Los_Angeles";
   i18n.defaultLocale = mkDefault "en_US.UTF-8";
 
-  # block facebook
-  networking.extraHosts =
-    "127.0.0.1 www.facebook.com facebook.com x.facebook.com";
-
-  # for redshift mostly
-
   console = {
     earlySetup = true;
     # keyMap = "colemak"; TODO custom key map, as I wish

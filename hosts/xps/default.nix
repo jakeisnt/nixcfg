@@ -43,9 +43,9 @@
       matrix.enable = true;
       discord.enable = true;
       slack.enable = true;
-      signal.enable = true;
+      # signal.enable = true;
       email.enable = true;
-      deltachat.enable = true;
+      # deltachat.enable = true;
     };
     editors = {
       default = "nvim";
@@ -65,6 +65,7 @@
       # lua.love2d.enable = true;
     };
     hardware = {
+      extraHosts.enable = true;
       audio.enable = true;
       bluetooth.enable = true;
       fs = {
@@ -87,6 +88,7 @@
     services = {
       syncthing.enable = true;
       ssh.enable = true;
+      backup.enable = true;
     };
     theme.active = "nordic";
   };
@@ -94,9 +96,7 @@
   programs.ssh.startAgent = true;
   services.openssh.startWhenNeeded = true;
 
-  user.packages = with pkgs; [
-    bitwarden-cli
-  ];
+  user.packages = with pkgs; [ bitwarden-cli ];
 
   networking.networkmanager = {
     enable = true;
