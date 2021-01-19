@@ -3,17 +3,31 @@ with builtins;
 with lib;
 with lib.my;
 let
+  cfg = config.modules.services.syncthing;
   username = let name = getEnv "username";
   in if elem name [ "" "root" ] then "jake" else name;
+
+  domain = config.networking.domain;
 in {
   options.modules.services.syncthing = {
-    enable = mkOption {
-      type = types.bool;
-      default = false;
-    };
+    enable = mkBoolOpt false;
+    server = mkBoolOpt false;
   };
 
-  config = mkIf config.modules.services.syncthing.enable {
+  config = mkIf cfg.enable {
+    # modules.services.acme.enable = true;
+    # modules.services.nginx.enable = true;
+    #
+    # services.nginx = mkIf cfg.server {
+    #   "syncthing.${domain}" = {
+    #     forceSSL = true;
+    #     enableACME = true;
+    #     locations."/" = {
+    #       proxyPass = "http://localhost:21027";
+    #       proxyWebsockets = true;
+    #   };
+    # };
+
     services.syncthing = {
       enable = true;
       user = username;
@@ -34,7 +48,7 @@ in {
             if deviceEnabled devices then "sendreceive" else "receiveonly";
         in {
           test = rec {
-            devices = [ "xps" "phone" ];
+            devices = [ "xps" "phone" "vultr" ];
             path = "/home/${secrets.username}/test";
             watch = true;
             rescanInterval = 3600 * 6;
