@@ -135,6 +135,8 @@ in {
         ignore *                               # first, ignore all headers
         unignore from: to: cc: date: subject:  # then, show only these
         hdr_order from: to: cc: date: subject: # and in this order
+
+        auto_view text/html
       '';
       "msmtp/config".text = ''
         account default

@@ -82,7 +82,7 @@
   # CPU
   nix.maxJobs = lib.mkDefault 8;
   # "powersave" for the obvious
-  powerManagement.cpuFreqGovernor = lib.mkDefault "ondemand";
+  powerManagement.cpuFreqGovernor = lib.mkDefault "conservative";
   hardware.cpu.intel.updateMicrocode = true;
 
   # Power management

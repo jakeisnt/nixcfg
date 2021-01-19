@@ -1,0 +1,7 @@
+application/pdf;gv '%s'; test=test -n "$DISPLAY"
+application/pdf;pdfcat '%s'; copiousoutput
+text/html; firefox '%s'; edit=emacs -c '%s'; test=test -n "$DISPLAY"
+text/html; w3m -T text/html '%s'; needsterminal
+text/html; w3m -T text/html -dump '%s'; copiousoutput
+
+
