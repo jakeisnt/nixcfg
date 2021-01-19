@@ -21,21 +21,21 @@ in {
     };
 
     services.nginx = mkIf cfg.server {
-      # virtualHosts = {
-      #   "syncthing.${domain}" = {
-      #     forceSSL = true;
-      #     enableACME = true;
-      #     locations."/" = {
-      #       proxyPass = "http://localhost:8384";
-      #       proxyWebsockets = true;
-      #     };
-      #   };
-      # };
+      virtualHosts = {
+        "syncthing.${domain}" = {
+          forceSSL = true;
+          enableACME = true;
+          locations."/" = {
+            proxyPass = "http://localhost:8384";
+            proxyWebsockets = true;
+          };
+        };
+      };
     };
 
     services.syncthing = {
       enable = true;
-      # guiAddress = mkIf cfg.server "syncthing.${domain}";
+      guiAddress = mkIf cfg.server "syncthing.${domain}";
       user = username;
       openDefaultPorts = true;
       configDir = "/home/${username}/.config/syncthing";
@@ -48,7 +48,7 @@ in {
           phone.id =
             "SGMQCCV-JQ6FIFB-PSKOJUE-DYV34FO-N26QZVV-XNSIV3X-TWBOHYF-KPWPJQF";
           vultr.id =
-            "RGIZAD-VHMLCCH-PFONWDZ-JEHKFAS-QG2ODRM-L7CWZBZ-SYD3LJF-DXZC3QI";
+            "JRGIZAD-VHMLCCH-PFONWDZ-JEHKFAS-QG2ODRM-L7CWZBZ-SYD3LJF-DXZC3QI";
         };
         folders = let
           deviceEnabled = devices: lib.elem config.networking.hostName devices;
