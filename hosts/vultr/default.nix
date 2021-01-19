@@ -18,6 +18,7 @@ with lib.my;
     };
     services = {
       mailserver.enable = true;
+      search.enable = true;
       ssh.enable = true;
       matrix = {
         enable = true;
