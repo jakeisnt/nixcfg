@@ -49,24 +49,14 @@ in {
           deviceType = devices:
             if deviceEnabled devices then "sendreceive" else "receiveonly";
         in {
-          test = rec {
-            devices = [ "xps" "phone" "vultr" ];
-            path = "/home/${secrets.username}/test";
+          work = rec {
+            devices = [ "phone" "xps" "vultr" ];
+            path = "/home/${secrets.username}/work";
             watch = true;
             rescanInterval = 3600 * 6;
             type = deviceType [ "xps" ];
             enable = deviceEnabled devices;
           };
-          # work = rec {
-          #   devices = [ # "pi" "vultr"
-          #     "phone"
-          #     "xps"
-          #   ];
-          #   path = "/home/${secrets.username}/work";
-          #   watch = true;
-          #   rescanInterval = 3600 * 6;
-          #   enable = deviceEnabled devices;
-          # };
           # secrets = rec {
           #   devices = [ "kuro" "shiro" "ao" "aka" ];
           #   path = "/home/${config.my.username}/.secrets";
