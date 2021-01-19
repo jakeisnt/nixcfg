@@ -65,6 +65,7 @@
       # lua.love2d.enable = true;
     };
     hardware = {
+      extraHosts.enable = true;
       audio.enable = true;
       bluetooth.enable = true;
       fs = {
