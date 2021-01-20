@@ -7,65 +7,48 @@ set $right l
 
 set $term alacritty
 
-# Your preferred application launcher
-# Note: pass the final command to swaymsg so that the resulting window can be opened
-# on the original workspace that the command was run on.
 set $menu dmenu_path | dmenu -b | xargs swaymsg exec --
 
-### Output configuration
-# Default wallpaper
-#output * bg ~/.config/sway/backgrounds/Sway_Wallpaper_Blue_1920x1080.png fill
-
 output * bg #434C5E solid_color
-# use swaymsg to get the monitor configuration
 output eDP1 resolution 3840x2160 position 0,0
 
-### Idle configuration
-# Example configuration:
-# exec swayidle -w \
-#          timeout 300 'swaylock -f -c 000000' \
-#          timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
-#          before-sleep 'swaylock -f -c 000000'
-#
-# This will lock your screen after 300 seconds of inactivity, then turn off
-# your displays after another 300 seconds, and turn your screens back on when
-# resumed. It will also lock your screen before your computer goes to sleep.
-
 ### Input configuration
-input "2:7:SynPS/2_Synaptics_TouchPad" {
+input type:touchpad {
   dwt enabled
-  tap enabled
+  tap enabled # enable tap to click for broken touchpad
   drag enabled
   tap_button_map lrm
   middle_emulation enabled
 }
 
 input type:keyboard {
-  xkb_options caps:swapescape
   repeat_delay 250
   repeat_rate 45
 }
 
+# Default laptop keyboard
+# (assume external keyboards are programmed with sanity)
+# Add an identifier for your default keyboard name
+# Caps lock is in the wrong place > : (
+input "1:1:AT_Translated_Set_2_keyboard" {
+  xkb_options caps:swapescape
+}
+
+# Basic navigation
 bindsym $mod+Return exec $term
 bindsym $mod+Shift+q kill
 bindsym $mod+Space exec $menu
-
-# Drag floating windows by holding down $mod and left mouse button.
-# Resize them with right mouse button + $mod.
-# Despite the name, also works for non-floating windows.
-# Change normal to inverse to use left mouse button for resizing and right
-# mouse button for dragging.
 floating_modifier $mod normal
 
-# Exit sway (logs you out of your Wayland session)
+# Exit and reload
 bindsym $mod+Shift+e exec 'swaymsg exit'
+bindsym $mod+Shift+c reload
 
+# Change window focus
 bindsym $mod+$left focus left
 bindsym $mod+$down focus down
 bindsym $mod+$up focus up
 bindsym $mod+$right focus right
-
-bindsym $mod+Shift+c reload
 
 # Move the focused window with the same, but add Shift
 bindsym $mod+Shift+$left move left
