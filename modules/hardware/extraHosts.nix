@@ -13,7 +13,7 @@ let
 in {
   options.modules.hardware.extraHosts = {
     enable = mkBoolOpt false;
-    allowSocial = mkBoolOpt false;
+    allowSocial = mkBoolOpt true;
   };
 
   config = mkIf cfg.enable {
