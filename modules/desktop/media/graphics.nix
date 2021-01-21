@@ -23,7 +23,9 @@ in {
 
   config = mkIf cfg.enable {
     # use wayland
-    env.GDK_BACKEND = "wayland";
+    # this should happen automatically
+    # setting it breaks chromium and electron apps
+    # env.GDK_BACKEND = "wayland";
     user.packages = with pkgs;
       (if cfg.tools.enable then [
         font-manager # so many damned fonts...
