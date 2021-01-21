@@ -20,6 +20,7 @@
       XDG_DOWNLOAD_DIR = "$HOME/";
       XDG_PICTURES_DIR = "$HOME/pics/";
       XDG_MUSIC_DIR = "$HOME/music/";
+      XDG_SESSION_TYPE = "wayland";
     };
     variables = {
       # Conform more programs to XDG conventions. The rest are handled by their
