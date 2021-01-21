@@ -25,7 +25,7 @@ in {
     environment.variables.GRADLE_OPTS =
       "-Dorg.gradle.project.android.aapt2FromMavenOverride=${androidSdk}/libexec/android-sdk/build-tools/28.0.3/aapt2";
     # https://github.com/swaywm/sway/issues/595
-    environment.variables._JAVA_AWT_WM_NONREPARENTING = 1;
+    environment.variables._JAVA_AWT_WM_NONREPARENTING = "1";
 
     env.ANDROID_JAVA_HOME = "${pkgs.openjdk8.home}";
     env.ANDROID_SDK_ROOT = "${androidSdk}";
