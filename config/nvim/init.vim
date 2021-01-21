@@ -9,13 +9,6 @@ endif
 "       and may be removed in the future.
 " TODO integrate <silent> bindings for better ergonomics
 " TODO switch from ALE to coc.nvim, go all in on nvim because nix guarantees i have access to it
-" https://github.com/CKolkey/.dotfiles/blob/master/nvim_init.vim
-" http://thedarnedestthing.com/space%20vim
-" http://vimsheet.com/
-" https://vim.rtorr.com/
-" https://github.com/huyvohcmc/dotfiles
-" https://github.com/Blaradox/dotFiles
-" https://github.com/xero/dotfiles
 
 " --- Plugins ---
 call plug#begin('$XDG_CONFIG_HOME/nvim/plugged')
