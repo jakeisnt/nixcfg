@@ -1,30 +1,49 @@
-{ options, config, lib, pkgs, ... }:
+{ options, config, lib, pkgs, stdenv, ... }:
 
 with lib;
 with lib.my;
 let
   cfg = config.modules.desktop.sway;
   colors = config.modules.theme.color;
+  swayPackage = pkgs.sway.override {
+    withGtkWrapper = true;
+    sway-unwrapped = pkgs.callPackage ../../overlays/sway/sway.nix { };
+  };
 in {
   options.modules.desktop.sway = { enable = mkBoolOpt false; };
 
   config = mkIf cfg.enable {
-    programs.sway = {
-      enable = true;
-      extraPackages = with pkgs; [
-        swaylock
-        swayidle
-        xwayland
-        waybar
-        mako
-        kanshi
-        wl-clipboard
-        dmenu
-        sway-contrib.grimshot
-        wf-recorder
-      ];
-      wrapperFeatures.gtk = true;
-    };
+
+    # nixpkgs.overlays = [ swayOverlay ];
+    # programs.sway = {
+    #   enable = true;
+    #   extraPackages = with pkgs; [
+    #     swaylock
+    #     swayidle
+    #     xwayland
+    #     waybar
+    #     mako
+    #     kanshi
+    #     wl-clipboard
+    #     dmenu
+    #     sway-contrib.grimshot
+    #     wf-recorder
+    #   ];
+    #   wrapperFeatures.gtk = true;
+    # };
+    user.packages = with pkgs; [
+      swayPackage
+      swaylock
+      swayidle
+      xwayland
+      waybar
+      mako
+      kanshi
+      wl-clipboard
+      dmenu
+      sway-contrib.grimshot
+      wf-recorder
+    ];
 
     env.XDG_CURRENT_DESKTOP = "sway";
 
