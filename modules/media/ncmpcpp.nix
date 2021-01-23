@@ -4,6 +4,7 @@ with lib;
 with lib.my;
 let
   cfg = config.modules.media.ncmpcpp;
+  mopidycli = pkgs.callPackage ../../packages/mopidycli/mopidycli.nix { };
   mopidyEnv = pkgs.buildEnv {
     name = "mopidy-with-extensions";
     paths = closePropagation (with pkgs; [
@@ -28,6 +29,7 @@ in {
   config = mkIf cfg.enable {
     user.packages = with pkgs; [
       ncmpcpp
+      mopidycli
       (writeScriptBin "mpd" ''
         #!${stdenv.shell}
         exec ${mopidyEnv}/bin/mopidy &> /dev/null & disown
