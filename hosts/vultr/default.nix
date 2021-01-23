@@ -30,7 +30,7 @@ with lib.my;
         mail = false;
       };
       gitea = {
-        enable = true;
+        enable = false;
         registration = false;
         mail = false;
       };

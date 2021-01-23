@@ -23,7 +23,6 @@ with inputs; {
     # Use a remote builder when it has faster connection
     extraOptions = ''
       experimental-features = nix-command flakes
-      builders-use-substitutes = true
     '';
     nixPath = (mapAttrsToList (n: v: "${n}=${v}") inputs) ++ [
       "nixpkgs-overlays=${dotFilesDir}/overlays"
