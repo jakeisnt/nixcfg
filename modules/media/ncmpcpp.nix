@@ -4,7 +4,6 @@ with lib;
 with lib.my;
 let
   cfg = config.modules.media.ncmpcpp;
-  mopidycli = pkgs.callPackage ../../packages/mopidycli/mopidycli.nix { };
   mopidyEnv = pkgs.buildEnv {
     name = "mopidy-with-extensions";
     paths = closePropagation (with pkgs; [
