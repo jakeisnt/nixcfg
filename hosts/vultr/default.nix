@@ -29,11 +29,6 @@ with lib.my;
         registration = false;
         mail = false;
       };
-      gitea = {
-        enable = false;
-        registration = false;
-        mail = false;
-      };
       jitsi.enable = true;
       nginx.enable = true;
     };
