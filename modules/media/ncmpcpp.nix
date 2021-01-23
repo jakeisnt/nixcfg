@@ -28,7 +28,7 @@ in {
   config = mkIf cfg.enable {
     user.packages = with pkgs; [
       ncmpcpp
-      mopidycli
+      mpc_cli
       (writeScriptBin "mpd" ''
         #!${stdenv.shell}
         exec ${mopidyEnv}/bin/mopidy &> /dev/null & disown
