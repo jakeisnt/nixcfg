@@ -12,16 +12,33 @@ in {
     programs.sway = {
       enable = true;
       extraPackages = with pkgs; [
+        # lockscreens
         swaylock
         swayidle
+
+        # support x applications
         xwayland
+
+        # taskbar
         waybar
+
+        # notifications
         mako
+
+        # dynamic output configuration
         kanshi
         wl-clipboard
+
+        # program launcher
         dmenu
+
+        # screenshot
         sway-contrib.grimshot
+
+        # video recording
         wf-recorder
+        ffmpeg
+        v4l-utils
       ];
       wrapperFeatures.gtk = true;
     };

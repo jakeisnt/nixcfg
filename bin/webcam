@@ -1,0 +1,10 @@
+#!/usr/bin/env nix-shell
+inx-shell -p gphoto2 v4l2loopback-utils v4l2loopback-dkms ffmpeg
+
+# use a dslr as a webcam
+# make sure the camera is plugged into your device
+# and has a consistent power source (the USB bus may not be enough)
+
+# gphoto2 --auto-detect to make sure that your camera can be seen
+
+

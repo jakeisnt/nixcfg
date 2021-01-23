@@ -26,8 +26,31 @@
         "i915.enable_psr=2"
         "i915.enable_rc6=7"
         "i915.lvds_downclock=1"
+        "dslr-webcam"
       ];
-      kernelModules = [ "dm-snapshot" "i915 " ];
+      kernelModules = [
+        "dm-snapshot"
+        "i915"
+        "dslr-webcam"
+        "xhci_pci"
+        "nvme"
+        "rtsx_pci_sdmmc"
+        "usb_storage"
+        # force power savings when possible
+        "iwlwifi.power_save=Y"
+        "pcie_aspm=force"
+
+        # Optimize xps battery; causes framebuffer issues on some devices
+        "i915.semaphores=1"
+        "i915.enable_fbc=1"
+        "i915.enable_psr=2"
+        "i915.enable_rc6=7"
+        "i915.lvds_downclock=1"
+
+        # camera support! 
+        "dslr-webcam"
+        "v4l2loopback"
+      ];
       checkJournalingFS = true;
     };
 
@@ -49,8 +72,10 @@
       }))
     ];
     # Create video device 'obs'
+    # options v4l2loopback exclusive_caps=1 max_buffers=2 video_nr=9 card_label="obs"
     extraModprobeConfig = ''
-      options v4l2loopback exclusive_caps=1 video_nr=9 card_label="obs"
+      alias dslr-webcam v4l2loopback
+      options v4l2loopback exclusive_caps=1 max_buffers=2 video_nr=8,9
     '';
     kernelParams = [
       # disable spectre and meltdown fixes

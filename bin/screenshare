@@ -1,0 +1,4 @@
+#!/usr/bin/env nix-shell
+#! nix-shell -i bash -p ffmpeg wf-recorder
+
+wf-recorder --muxer=v4l2 -f /dev/video0 -c rawvideo -x yuyv422
