@@ -28,8 +28,8 @@ in {
           root = pkgs.element-web.override {
             conf = {
               default_server_config."m.homeserver" = {
+                "server_name" = domain;
                 "base_url" = "https://matrix.${domain}";
-                "server_name" = "${domain}";
               };
 
               jitsi.preferredDomain = mkIf config.modules.services.jitsi.enable "jitsi.${domain}";
@@ -41,30 +41,26 @@ in {
         matrix-synapse = {
           enable = true;
           server_name = domain;
+          public_baseurl = "https://matrix.${domain}";
           enable_registration = cfg.registration;
           registration_shared_secret = secrets.matrix.password;
-
-          public_baseurl = "https://matrix.${domain}";
-          # tls_certificate_path = "/var/lib/acme/matrix.isnt.online/fullchain.pem";
-          # tls_private_key_path = "/var/lib/acme/matrix.isnt.online/key.pem";
 
           database_type = "psycopg2";
           database_args = { database = "matrix-synapse"; };
 
           listeners = [
-            { # federation
-              bind_address = "::1";
+            { 
               port = 8008;
+              bind_address = "::1";
+              type = "http";
+              tls = false;
+              x_forwarded = true;
               resources = [
                 {
-                  compress = true;
                   names = [ "client" "federation" ];
+                  compress = false;
                 }
               ];
-
-              tls = false;
-              type = "http";
-              x_forwarded = false;
             }
           ];
 
@@ -89,7 +85,7 @@ in {
 
         nginx = {
           virtualHosts = {
-            "${domain}" = {
+            domain = {
               locations."= /.well-known/matrix/server".extraConfig =
                 let
                   # use 443 instead of the default 8448 port
@@ -125,7 +121,6 @@ in {
             };
           };
         };
-
       }
     ];
   };
