@@ -11,8 +11,6 @@ in {
   config = mkIf cfg.enable {
     services.xserver = {
       enable = true;
-      startDbusSession = true;
-
       libinput.enable = true;
       displayManager.sddm.enable = true;
       windowManager.xmonad = {

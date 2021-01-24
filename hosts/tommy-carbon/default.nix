@@ -1,57 +1,72 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports = [ # Include the results of the hardware scan.
-    ./hardware-configuration.nix
-  ];
-
-  # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  imports = [ ./hardware-configuration.nix ];
 
   networking.hostName = "tommy-carbon"; # Define your hostname.
-  networking.wireless.enable =
-    true; # Enables wireless support via wpa_supplicant.
-  networking.wireless.networks = { "8)" = { psk = "not-the-real-password"; }; };
+  # TODOs:
+  # put password in lib/secrets.nix
+  # Add 'tommy' to 'lib/secrets.nix'
 
-  # The global useDHCP flag is deprecated, therefore explicitly set to false here.
-  # Per-interface useDHCP will be mandatory in the future, so this generated config
-  # replicates the default behaviour.
-  networking.useDHCP = false;
-  networking.interfaces.enp0s31f6.useDHCP = true;
-  networking.interfaces.wlp0s20f3.useDHCP = true;
+  modules = {
+    desktop = {
+      xmonad.enable = true;
+      browsers = {
+        default = "firefox";
+        firefox.enable = true;
+      };
+      media = {
+        documents.enable = true;
+        graphics.enable = true;
+        spotify.enable = true;
+      };
+      term = {
+        default = "alacritty";
+        alacritty.enable = true;
+      };
+    };
+    messengers = { discord.enable = true; };
+    editors = {
+      default = "emacs";
+      vim.enable = true;
+      emacs = {
+        enable = true;
+        daemon = true;
+      };
+    };
+    hardware = {
+      audio.enable = true;
+      bluetooth.enable = true;
+      fs = {
+        enable = true;
+        ssd.enable = true;
+      };
+    };
+    shell = { git.enable = true; };
+    services = { ssh.enable = true; };
+  };
+
+  networking.wireless.enable = true;
+  networking.wireless.networks = { "8)" = { psk = "not-the-real-password"; }; };
 
   # so I can mount and read my wiki
   programs.fuse.userAllowOther = true;
-
-  sound.enable = true;
-  hardware.pulseaudio.enable = true;
-
-  users.users.tommy = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-  };
 
   services = {
     gnome3.gnome-keyring.enable = true;
     upower.enable = true;
     dbus = {
       enable = true;
-      socketActivated = true;
       packages = [ pkgs.gnome3.dconf ];
     };
   };
 
-  services.xserver = {
-    layout = "us";
-    xkbVariant = "colemak";
-  };
+  services.xserver.xkbVariant = "colemak";
 
   environment.systemPackages = with pkgs; [
     feh
     haskellPackages.libmpd
     haskellPackages.xmobar
-    libnotify
     lxqt.lxqt-notificationd
     trayer
     xbrightness
@@ -61,18 +76,13 @@
     xscreensaver
     xsettingsd
     wget
-    vim
-    firefox
-    emacs
     sshfs
     tree
     pavucontrol
     fzf
-    discord
     dzen2
     htop
     gimp
-    git
     pcmanfm
   ];
 
