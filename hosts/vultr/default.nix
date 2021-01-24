@@ -31,6 +31,7 @@ with lib.my;
       };
       jitsi.enable = true;
       nginx.enable = true;
+      logging.enable = false;
     };
     theme.active = "nordic";
   };
