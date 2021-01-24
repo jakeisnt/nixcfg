@@ -22,12 +22,18 @@ in {
       domain = "grafana.${domain}";
       port = 2342;
       addr = "127.0.0.1";
+
+      provision = {
+        enable = true;
+        dashboards = [{
+          name = "Prometheus";
+          url = "localhost:9001";
+          # access: server (default)
+        }];
+      };
     };
 
-    # grafana data source;
-    # Prometheus
-    # url: localhost 9001
-    # access: server (default)
+    # TODO: configure more grafana information to display
 
     services.prometheus = mkIf cfg.prometheus {
       enable = true;
