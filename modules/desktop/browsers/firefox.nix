@@ -68,7 +68,7 @@ in {
       with pkgs.nur.repos.rycee.firefox-addons;
       [
         bitwarden
-        vimium
+        tridactyl
         buster-captcha-solver
         clearurls
         dark-night-mode
