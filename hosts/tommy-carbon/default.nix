@@ -3,11 +3,13 @@
 {
   imports = [ ./hardware-configuration.nix ];
 
-  networking.hostName = "tommy-carbon"; # Define your hostname.
+  networking.hostName = "tommy-carbon";
+
   # TODOs:
   # put password in lib/secrets.nix
   # Add 'tommy' to 'lib/secrets.nix'
 
+  ## Modules
   modules = {
     desktop = {
       xmonad.enable = true;
@@ -62,29 +64,7 @@
   };
 
   services.xserver.xkbVariant = "colemak";
-
-  environment.systemPackages = with pkgs; [
-    feh
-    haskellPackages.libmpd
-    haskellPackages.xmobar
-    lxqt.lxqt-notificationd
-    trayer
-    xbrightness
-    scrot
-    xcompmgr
-    xorg.xrandr
-    xscreensaver
-    xsettingsd
-    wget
-    sshfs
-    tree
-    pavucontrol
-    fzf
-    dzen2
-    htop
-    gimp
-    pcmanfm
-  ];
+  environment.systemPackages = with pkgs; [ tree htop pcmanfm ];
 
   systemd.services.upower.enable = true;
   system.stateVersion = "20.09";

@@ -16,11 +16,24 @@ in {
       windowManager.xmonad = {
         enable = true;
         enableContribAndExtras = true;
-        extraPackages = haskellPackages: [
+        extraPackages = [
+          haskellPackages.libmpd
+          haskellPackages.xmobar
+          xbrightness
+          lxqt.lxqt-notificationd
+          feh
+          scrot
+          trayer
+          dzen2
+          xcompmgr
+          xorg.xrandr
+          xscreensaver
+          xsettingsd
+        ] ++ (haskellPackages: [
           haskellPackages.xmonad-contrib
           haskellPackages.xmonad-extras
           haskellPackages.xmonad
-        ];
+        ]);
       };
     };
   };
