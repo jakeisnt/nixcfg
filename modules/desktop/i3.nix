@@ -15,10 +15,14 @@ in {
       redshift = { enable = true; };
       xserver = {
         enable = true;
+        dpi = 200;
         layout = "us";
         xkbOptions = "caps:swapescape";
         libinput.enable = true; # enable touchpad
-        displayManager.defaultSession = "none+i3";
+        displayManager = {
+          sddm.enableHidpi = true;
+          defaultSession = "none+i3";
+        };
         windowManager.i3 = {
           enable = true;
           extraPackages = with pkgs; [
@@ -61,7 +65,7 @@ in {
           '')
           (concatMapStringsSep "\n" readFile [ "${configDir}/i3/config" ])
         ];
-      "dunst/config".text = with colors; ''
+      "dunst/dunstrc".text = with colors; ''
         sort=-time
         layer=overlay
         max-visible=-1
