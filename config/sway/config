@@ -7,7 +7,7 @@ set $right l
 
 set $term alacritty
 
-set $menu dmenu_path | dmenu -b | xargs swaymsg exec --
+set $menu launch
 
 output * bg #434C5E solid_color
 output eDP1 resolution 3840x2160 position 0,0

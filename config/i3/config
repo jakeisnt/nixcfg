@@ -6,7 +6,7 @@ set $up k
 set $right l
 
 set $term alacritty
-set $menu --no-startup-id dmenu_run
+set $menu launch
 
 # output eDP1 resolution 3840x2160 position 0,0
 
