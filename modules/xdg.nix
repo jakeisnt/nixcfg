@@ -16,11 +16,15 @@
       XDG_CONFIG_HOME = "$HOME/.config";
       XDG_DATA_HOME = "$HOME/.local/share";
       XDG_BIN_HOME = "$HOME/.local/bin";
+
+      # Prevent auto-creation of ~/Desktop. The trailing slash is necessary; see
+      # https://bugzilla.mozilla.org/show_bug.cgi?id=1082717
       XDG_DESKTOP_DIR = "$HOME/";
       XDG_DOWNLOAD_DIR = "$HOME/";
       XDG_PICTURES_DIR = "$HOME/pics/";
       XDG_MUSIC_DIR = "$HOME/music/";
-      XDG_SESSION_TYPE = "wayland";
+      XDG_SESSION_TYPE =
+        if config.services.xserver.enable then "x" else "wayland";
     };
     variables = {
       # Conform more programs to XDG conventions. The rest are handled by their

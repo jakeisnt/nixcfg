@@ -7,7 +7,7 @@ let
   # TODO: add anti tracking policies at build time
   # https://wiki.kairaven.de/open/app/firefox in german : (
   firefoxWrapped = pkgs.wrapFirefox pkgs.firefox-unwrapped {
-    forceWayland = true;
+    forceWayland = config.modules.desktop.sway.enable;
     extraPolicies = {
       CaptivePortal = false;
       DisableFirefoxStudies = true;
@@ -58,15 +58,7 @@ in {
       })
     ];
 
-    # Prevent auto-creation of ~/Desktop. The trailing slash is necessary; see
-    # https://bugzilla.mozilla.org/show_bug.cgi?id=1082717
-    env = {
-      XDG_DESKTOP_DIR = "$HOME/";
-      XDG_DOWNLOAD_DIR = "$HOME/";
-      XDG_PICTURES_DIR = "$HOME/pics/";
-      XDG_MUSIC_DIR = "$HOME/music/";
-      MOZ_ENABLE_WAYLAND = "1";
-    };
+    env.MOZ_ENABLE_WAYLAND = if config.modules.desktop.sway then "1" else "0";
 
     # find extensions here:
     # https://gitlab.com/rycee/nur-expressions/-/blob/master/pkgs/firefox-addons/generated-firefox-addons.nix
