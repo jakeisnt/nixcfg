@@ -69,6 +69,8 @@ in {
       [
         bitwarden
         tridactyl
+        # has some good ideas like built in vim, but does not have the same tab switching
+        # as vimium and tridactyl + it has hardcoded google which im not a fan of. clearly a fork of vimium
         surfingkeys
         buster-captcha-solver
         clearurls
