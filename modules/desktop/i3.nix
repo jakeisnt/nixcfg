@@ -9,7 +9,7 @@ in {
   options.modules.desktop.i3 = { enable = mkBoolOpt false; };
 
   config = mkIf cfg.enable {
-    modules.desktop.rofi.enable = true;
+    modules.desktop.apps.rofi.enable = true;
     services = {
       picom.enable = true;
       redshift = { enable = true; };

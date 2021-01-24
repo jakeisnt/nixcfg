@@ -9,7 +9,7 @@ in {
   options.modules.desktop.sway = { enable = mkBoolOpt false; };
 
   config = mkIf cfg.enable {
-    modules.desktop.rofi.enable = true;
+    modules.desktop.apps.rofi.enable = true;
     programs.sway = {
       enable = true;
       extraPackages = with pkgs; [
