@@ -69,6 +69,7 @@ in {
       [
         bitwarden
         tridactyl
+        surfingkeys
         buster-captcha-solver
         clearurls
         dark-night-mode
