@@ -58,7 +58,7 @@ in {
       })
     ];
 
-    env.MOZ_ENABLE_WAYLAND = if config.modules.desktop.sway then "1" else "0";
+    env.MOZ_ENABLE_WAYLAND = mkIf config.modules.desktop.sway.enable "1";
 
     # find extensions here:
     # https://gitlab.com/rycee/nur-expressions/-/blob/master/pkgs/firefox-addons/generated-firefox-addons.nix

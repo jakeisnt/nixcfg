@@ -18,10 +18,10 @@ in {
         layout = "us";
         xkbOptions = "caps:swapescape";
         libinput.enable = true; # enable touchpad
-        displayManager.defaultSession = "none+bspwm";
+        displayManager.defaultSession = "none+i3";
         windowManager.i3 = {
           enable = true;
-          extraPackages = [
+          extraPackages = with pkgs; [
             # notifications
             dunst
             libnotify
