@@ -8,14 +8,13 @@ set $right l
 set $term alacritty
 set $menu --no-startup-id dmenu_run
 
-output * bg #434C5E solid_color
-output eDP1 resolution 3840x2160 position 0,0
+# output eDP1 resolution 3840x2160 position 0,0
 
 # Basic navigation
 bindsym $mod+Return exec $term
 bindsym $mod+Shift+q kill
-bindsym $mod+Space exec $menu
-floating_modifier $mod normal
+bindsym $mod+space exec $menu
+# floating_modifier $mod normal
 
 # Exit and reload
 bindsym $mod+Shift+e exec 'i3-msg exit'

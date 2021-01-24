@@ -25,6 +25,7 @@ in {
             # notifications
             dunst
             libnotify
+            dmenu
           ];
         };
 
