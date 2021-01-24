@@ -9,6 +9,7 @@ in {
   options.modules.desktop.sway = { enable = mkBoolOpt false; };
 
   config = mkIf cfg.enable {
+    modules.desktop.apps.rofi.enable = true;
     programs.sway = {
       enable = true;
       extraPackages = with pkgs; [
@@ -19,7 +20,6 @@ in {
         mako
         kanshi
         wl-clipboard
-        dmenu
         sway-contrib.grimshot
         wf-recorder
       ];
