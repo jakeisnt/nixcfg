@@ -22,6 +22,7 @@
       XDG_DESKTOP_DIR = "$HOME/";
       XDG_DOWNLOAD_DIR = "$HOME/";
       XDG_PICTURES_DIR = "$HOME/pics/";
+      XDG_WORK_DIR = "$HOME/pics/";
       XDG_MUSIC_DIR = "$HOME/music/";
       XDG_SESSION_TYPE =
         if config.services.xserver.enable then "x" else "wayland";
