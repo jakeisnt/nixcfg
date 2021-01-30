@@ -29,7 +29,7 @@ with lib.my;
         registration = false;
         mail = false;
       };
-      jitsi.enable = true;
+      cal.enable = true;
       nginx.enable = true;
     };
     theme.active = "nordic";
