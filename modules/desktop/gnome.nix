@@ -9,7 +9,7 @@ in {
   options.modules.desktop.gnome = { enable = mkBoolOpt false; };
 
   config = mkIf cfg.enable {
-    security.pam.services.gdm.enableGnomeKeyring = true;
+    # security.pam.services.gdm.enableGnomeKeyring = true;
     # security.pam.services = with pkgs.gnome3; [{
     #   name = "gnome_keyring";
     #   text = ''

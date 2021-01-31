@@ -9,6 +9,7 @@ in {
   options.modules.desktop.sway = { enable = mkBoolOpt false; };
 
   config = mkIf cfg.enable {
+    env.XDG_SESSION_TYPE = "wayland";
     modules.desktop.apps.rofi.enable = true;
     programs.sway = {
       enable = true;
