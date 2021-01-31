@@ -22,7 +22,7 @@ in {
         libinput.enable = true; # enable touchpad
         desktopManager.xterm.enable = true;
         displayManager = {
-          sddm.enableHidpi = true;
+          startx.enable = true;
           defaultSession = "none+i3";
         };
         windowManager.i3 = {
@@ -31,6 +31,12 @@ in {
             # notifications
             dunst
             libnotify
+
+            # xorg things, may not be necessary
+            xorg.xf86inputevdev
+            xorg.xf86videointel
+            xorg.xf86inputsynaptics
+            xorg.xorgserver
           ];
         };
 
