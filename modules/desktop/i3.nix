@@ -19,10 +19,7 @@ in {
         layout = "us";
         xkbOptions = "caps:swapescape";
         libinput.enable = true; # enable touchpad
-        displayManager = {
-          sddm.enableHidpi = true;
-          defaultSession = "none+i3";
-        };
+        displayManager.sddm.enableHidpi = true;
         windowManager.i3 = {
           enable = true;
           extraPackages = with pkgs; [
