@@ -10,6 +10,7 @@ in {
 
   config = mkIf cfg.enable {
     modules.desktop.apps.rofi.enable = true;
+    environment.pathsToLink = ["/libexec"];
     services = {
       picom.enable = true;
       redshift = { enable = true; };
@@ -19,7 +20,11 @@ in {
         layout = "us";
         xkbOptions = "caps:swapescape";
         libinput.enable = true; # enable touchpad
-        displayManager.sddm.enableHidpi = true;
+        desktopManager.xterm.enable = false;
+        displayManager = {
+          sddm.enableHidpi = true;
+          defaultSession = "none+i3";
+        };
         windowManager.i3 = {
           enable = true;
           extraPackages = with pkgs; [
@@ -45,7 +50,7 @@ in {
       serviceConfig.ExecStart = "${pkgs.dunst}/bin/dunst";
     };
 
-    env.XDG_CURRENT_DESKTOP = "i3";
+    # env.XDG_CURRENT_DESKTOP = "i3";
     home.configFile = {
       "i3/config".text = with colors;
         concatStrings [
