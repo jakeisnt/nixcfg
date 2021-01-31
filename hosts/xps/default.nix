@@ -12,8 +12,8 @@
   modules = {
     desktop = {
       # i3.enable = true;
-      # sway.enable = true;
-      gnome.enable = true;
+      sway.enable = true;
+      # gnome.enable = true;
       browsers = {
         default = "firefox";
         firefox.enable = true;

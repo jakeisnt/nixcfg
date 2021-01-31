@@ -15,17 +15,17 @@
         "xhci_pci"
         "nvme"
         "rtsx_pci_sdmmc"
-        "usb_storage"
+        # "usb_storage"
         # force power savings when possible
-        "iwlwifi.power_save=Y"
-        "pcie_aspm=force"
+        # "iwlwifi.power_save=Y"
+        # "pcie_aspm=force"
 
         # Optimize xps battery; causes framebuffer issues on some devices
-        "i915.semaphores=1"
-        "i915.enable_fbc=1"
-        "i915.enable_psr=2"
-        "i915.enable_rc6=7"
-        "i915.lvds_downclock=1"
+        # "i915.semaphores=1"
+        # "i915.enable_fbc=1"
+        # "i915.enable_psr=2"
+        # "i915.enable_rc6=7"
+        # "i915.lvds_downclock=1"
       ];
       kernelModules = [ "dm-snapshot" "i915 " ];
       checkJournalingFS = true;
