@@ -12,17 +12,14 @@ in {
     services = {
       xserver = {
         enable = true;
-        dpi = 200;
-        layout = "us";
         xkbOptions = "caps:swapescape";
-        libinput.enable = true; # enable touchpad
         displayManager.gdm.enable = true;
         desktopManager.gnome3.enable = true;
 
         # todo: device-specific
-        monitorSection = ''
-          DisplaySize 508 285
-        '';
+        # monitorSection = ''
+        #   DisplaySize 508 285
+        # '';
       };
     };
   };

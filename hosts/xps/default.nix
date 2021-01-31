@@ -12,8 +12,8 @@
   modules = {
     desktop = {
       # i3.enable = true;
-      # sway.enable = true;
-      gnome.enable = true;
+      sway.enable = true;
+      # gnome.enable = true;
       browsers = {
         default = "firefox";
         firefox.enable = true;
@@ -97,7 +97,7 @@
 
   programs.ssh.startAgent = true;
   services.openssh.startWhenNeeded = true;
-  # services.mingetty.autologinUser = "jake";
+  services.mingetty.autologinUser = "jake";
 
   user.packages = with pkgs; [ bitwarden-cli ];
 

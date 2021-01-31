@@ -14,7 +14,7 @@
       availableKernelModules = [
         "xhci_pci"
         "nvme"
-        "rtsx_pci_sdmmc"
+        # "rtsx_pci_sdmmc"
         # "usb_storage"
         # force power savings when possible
         # "iwlwifi.power_save=Y"
