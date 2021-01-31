@@ -1,0 +1,9 @@
+#!/usr/bin/env nix-shell -i
+
+# packages to install:
+- libmtp
+
+use mtp-connect --sendfile ${directory on your device} ${number of directory on target device}
+
+number can be retrieved with `mtp-folders` command
+there are other ways to do things but this is easy plugin
