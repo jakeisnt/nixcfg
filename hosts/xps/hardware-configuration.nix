@@ -121,12 +121,12 @@
   # Note that this is incredibly device specific.
   # If you're copying this config, there is no guarantee
   # that you'll be able to get away with these values.
-  services.undervolt = {
-    enable = true;
-    coreOffset = -80;
-    gpuOffset = -80;
-    uncoreOffset = -80;
-  };
+  # services.undervolt = {
+  #   enable = true;
+  #   coreOffset = -80;
+  #   gpuOffset = -80;
+  #   uncoreOffset = -80;
+  # };
 
   services = {
     # https://github.com/NixOS/nixos-hardware/pull/127
