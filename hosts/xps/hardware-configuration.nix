@@ -58,13 +58,13 @@
       # 4k video config
       "video=eDP-1:3840x2160@60"
       # fast quiet boot
-      "quiet"
-      "splash"
-      "vga=current"
-      "i915.fastboot=1"
-      "loglevel=3"
-      "systemd.show_status=auto"
-      "udev.log_priority=3"
+      # "quiet"
+      # "splash"
+      # "vga=current"
+      # "i915.fastboot=1"
+      # "loglevel=3"
+      # "systemd.show_status=auto"
+      # "udev.log_priority=3"
     ];
   };
 
