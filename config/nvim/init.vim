@@ -33,6 +33,7 @@ Plug 'fannheyward/coc-rust-analyzer'
 " Navigation
 Plug 'scrooloose/nerdtree', {'tag': 'v6.9.11'} " directory navigation
 Plug 'Xuyuanp/nerdtree-git-plugin'             " git integration for nerdtree 
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'                        " fuzzy file finding
 Plug 'justinmk/vim-sneak', {'tag': 'v1.9'}     " hunt with two chars
 Plug 'majutsushi/tagbar', {'tag': 'v2.7'}      " browse tags of current file
