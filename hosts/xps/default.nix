@@ -12,9 +12,9 @@
   modules = {
     desktop = {
       # i3.enable = true;
-      # sway.enable = true;
+      sway.enable = true;
       # gnome.enable = true;
-      xfce.enable = true;
+      # xfce.enable = true;
       browsers = {
         default = "firefox";
         firefox.enable = true;
@@ -98,9 +98,13 @@
 
   programs.ssh.startAgent = true;
   services.openssh.startWhenNeeded = true;
-  services.getty.autologinUser = "jake"; 
+  services.getty.autologinUser = "jake";
 
-  user.packages = with pkgs; [ bitwarden-cli ];
+  user.packages = with pkgs; [ 
+    bitwarden-cli 
+    rnix-lsp 
+    clojure-lsp
+  ];
 
   networking.networkmanager = {
     enable = true;
@@ -119,7 +123,7 @@
   #   if (subject.isInGroup("wheel")) {
   #       return polkit.Result.YES;
   #   }
-  #   });	
+  #   });
   # '';
 
   # services = {
