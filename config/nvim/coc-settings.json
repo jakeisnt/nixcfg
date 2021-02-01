@@ -1,5 +1,6 @@
 {
     "eslint.autoFixOnSave": true,
+    "eslint.packageManager": "yarn",
     "coc.preferences.formatOnSaveFiletypes": [
         "css",
         "markdown",
@@ -13,7 +14,8 @@
     "languageserver": {
         "nix": {
             "command": "rnix-lsp",
-            "filetypes": ["nix"]
+            "filetypes": ["nix"],
+            "rootPatterns": ["*.nix"]
         },
         "haskell": {
             "command": "hie-wrapper",

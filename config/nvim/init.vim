@@ -23,6 +23,7 @@ Plug 'neoclide/coc-snippets'
 Plug 'neoclide/coc-eslint'
 Plug 'neoclide/coc-css'
 Plug 'neoclide/coc-json'
+Plug 'neoclide/coc-git'
 Plug 'neoclide/coc-clangd'  " C/C++/Objective-C
 Plug 'neoclide/coc-sh'      " shell scripting
 Plug 'neoclide/coc-lists' 
@@ -160,21 +161,13 @@ filetype plugin indent on      " file type detection
 set cursorline                 " current line is visible
 set showmatch                  " show matching braces
 syntax enable                  " enable syntax highlighting
+set termguicolors
 set background=dark
 highlight Comment gui=italic | " make comments italic
 set foldmethod=indent
 
 let g:limelight_conceal_ctermfg = 'Gray'
 let g:gitgutter_sign_column_always=1 " always display gutter
-
-if (empty($TMUX))
-    if (has('nvim'))
-        " $NVIM_TUI_ENABLE_TRUE_COLOR=1
-    endif
-    if (has('termguicolors'))
-        set termguicolors
-    endif
-endif
 
 " NERDTree settings
 let g:NERDTreeIgnore = ["^.git$", "^node_modules$","^__pycache__$", "^venv$", "^.vscode$"]
@@ -327,6 +320,8 @@ endif
 
 
 " Coc settings
+let g:coc_global_extensions = ['coc-conjure', 'coc-rust-analyzer', 'coc-json', 'coc-clangd', 'coc-eslint', 'coc-sh', 'coc-git']
+
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
