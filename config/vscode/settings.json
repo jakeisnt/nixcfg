@@ -3,6 +3,8 @@
     "keyboard.dispatch": "keyCode",
     "editor.lineNumbers": "relative" ,
     "editor.minimap.enable": false,
+    "update.mode": "none",
     "editor.scrollbar.horizontal": "hidden",
     "editor.scrollbar.vertical": "hidden",
+    "workbench.colorTheme": "Nord"
 }

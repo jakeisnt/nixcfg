@@ -54,5 +54,8 @@ in {
 
   config = mkIf cfg.enable {
     user.packages = with pkgs; [ vscodium-with-extensions ];
+    home.configFile = {
+      "VSCodium/User/settings.json". source = "${configDir}/vscode";
+    };
   };
 }
