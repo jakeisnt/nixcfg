@@ -1,5 +1,9 @@
 # I don't actively use VSCode, but it's good to have a configuration handy
 # because it's become the industry standard for text editors.
+#
+# It was a pain to get these hashes working.
+# I retrieved the real URL from https://github.com/NixOS/nixpkgs/blob/master/pkgs/misc/vscode-extensions/mktplcExtRefToFetchArgs.nix
+# and wrote a quick bash script to fetch the hash provided the url - go check it out in the bin/ folder
 
 { config, options, lib, pkgs, ... }:
 

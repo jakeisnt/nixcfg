@@ -6,5 +6,6 @@
     "update.mode": "none",
     "editor.scrollbar.horizontal": "hidden",
     "editor.scrollbar.vertical": "hidden",
-    "workbench.colorTheme": "Nord"
+    "workbench.colorTheme": "Nord",
+    "workbench.startupEditor": "newUntitledFile"
 }
