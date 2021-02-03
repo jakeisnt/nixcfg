@@ -54,7 +54,7 @@ with inputs; {
   # Use the latest kernel
   boot.kernelPackages = pkgs.linuxPackages_5_10;
 
-  boot.loader = {
+    boot.loader = {
     efi.canTouchEfiVariables = true;
     systemd-boot.configurationLimit = 10;
     systemd-boot.enable = mkDefault true;

@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+
+# format: 
+# first argument is publisher
+# second argument is name
+# third argument is version
+
+wget "https://$1.gallery.vsassets.io/_apis/public/gallery/publisher/$1/extension/$2/$3/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage"
+
+mv ./Microsoft.VisualStudio.Services.VSIXPackage "./$1-$2.zip"
+
+nix-hash --flat --base32 --type sha256 "./$1-$2.zip"
+rm "./$1-$2.zip"
