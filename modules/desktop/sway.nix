@@ -5,6 +5,19 @@ with lib.my;
 let
   cfg = config.modules.desktop.sway;
   colors = config.modules.theme.color;
+  startsway = (pkgs.writeTextFile {
+          name = "startsway";
+          destination = "/bin/startsway";
+          executable = true;
+          text = ''
+            #! ${pkgs.bash}/bin/bash
+
+            # first import environment variables from the login manager
+            systemctl --user import-environment
+            # then start the service
+            exec systemctl --user start sway.service
+          '';
+        });
 in {
   options.modules.desktop.sway = { enable = mkBoolOpt false; };
 
@@ -85,22 +98,7 @@ in {
       '';
     };
 
-    environment.systemPackages = with pkgs;
-      [
-        (pkgs.writeTextFile {
-          name = "startsway";
-          destination = "/bin/startsway";
-          executable = true;
-          text = ''
-            #! ${pkgs.bash}/bin/bash
-
-            # first import environment variables from the login manager
-            systemctl --user import-environment
-            # then start the service
-            exec systemctl --user start sway.service
-          '';
-        })
-      ];
+    environment.systemPackages = with pkgs; [ startsway ];
     systemd.user.targets.sway-session = {
       description = "Sway compositor session";
       documentation = [ "man:systemd.special(7)" ];
@@ -136,6 +134,12 @@ in {
     };
 
     programs.waybar.enable = true;
+
+    modules.shell.zsh.rcInit = ''
+      if [ -z $DISPLAY ] && [ "$(tty)" == "/dev/tty1" ]; then 
+        startsway
+      fi
+    '';
 
     systemd.user.services.kanshi = {
       description = "Kanshi output autoconfig ";
