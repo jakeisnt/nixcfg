@@ -29,6 +29,9 @@ Plug 'neoclide/coc-sh'      " shell scripting
 Plug 'neoclide/coc-lists' 
 Plug 'neoclide/coc-highlight'
 Plug 'fannheyward/coc-rust-analyzer'
+Plug 'fannheyward/coc-styled-components' " interface for styled js components
+Plug 'neoclide/coc-tabnine' " all language autocompleter
+Plug 'neoclide/coc-yank'
 
 " Navigation
 Plug 'scrooloose/nerdtree', {'tag': 'v6.9.11'} " directory navigation
@@ -37,6 +40,7 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'                        " fuzzy file finding
 Plug 'justinmk/vim-sneak', {'tag': 'v1.9'}     " hunt with two chars
 Plug 'majutsushi/tagbar', {'tag': 'v2.7'}      " browse tags of current file
+Plug 'wakatime/vim-wakatime'
 Plug 'vim-scripts/utl.vim'                     " text linking
 
 " Appearance
@@ -56,12 +60,18 @@ Plug 'rbong/vim-flog', {'tag': 'v1.2.0'}    " git branch viewer
 Plug 'farmergreg/vim-lastplace' " save place in file
 Plug 'wincent/terminus'         " better terminal integration
 Plug 'direnv/direnv.vim'        " direnv support
+Plug 'SirVer/ultisnips'         " snippets support 
+Plug 'honza/vim-snippets'       " snippets
 
 " file type support
 Plug 'axvr/org.vim'             " orgm ode support
 Plug 'inkarkat/vim-SyntaxRange' " syntax for just part of file
 Plug 'reedes/vim-pencil'        " writing
+Plug 'LnL7/vim-nix'             " actually good nix support
+Plug 'peitalin/vim-jsx-typescript' " typescriptreact syntax highlighting
 call plug#end()
+
+autocmd BufNewFile,BufRead *.tsx set filetype=typescriptreact
 
 " --- Vim Settings ---
 " folddigest
@@ -89,10 +99,36 @@ let g:fzf_colors = {
 let g:fzf_preview_window = 'right:60%'
 let g:fzf_buffers_jump = 1
 
-" utilsnips TODO
+" UltiSnips
 " let g:UltiSnipsExpandTrigger='<tab>'
 " let g:UltiSnipsJumpForwardTrigger='<c-b>'
 " let g:UltiSnipsJumpBackwardTrigger='<c-z>'
+" let g:UltiSnipsEditSplit="vertical"
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+let g:coc_snippet_next = '<tab>'
+
+" Use <C-l> for trigger snippet expand.
+imap <C-l> <Plug>(coc-snippets-expand)
+" Use <C-j> for select text for visual placeholder of snippet.
+vmap <C-j> <Plug>(coc-snippets-select)
+" Use <C-j> for jump to next placeholder, it's default of coc.nvim
+let g:coc_snippet_next = '<c-j>'
+" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
+let g:coc_snippet_prev = '<c-k>'
+" Use <C-j> for both expand and jump (make expand higher priority.)
+imap <C-j> <Plug>(coc-snippets-expand-jump)
+" Use <leader>x for convert visual selected code to snippet
+xmap <leader>x  <Plug>(coc-convert-snippet)
 
 " autoformat
 " au BufWrite * :Autoformat
@@ -450,4 +486,4 @@ nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
-
+nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr>
