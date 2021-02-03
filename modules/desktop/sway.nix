@@ -23,6 +23,10 @@ in {
         wl-clipboard
         sway-contrib.grimshot
         wf-recorder
+
+        # due to overlay, these are now wayland
+        xclip 
+        xsel
       ];
       wrapperFeatures.gtk = true;
     };
