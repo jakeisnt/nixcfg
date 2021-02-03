@@ -23,6 +23,7 @@ in {
         wl-clipboard
         sway-contrib.grimshot
         wf-recorder
+        xdg-desktop-portal-wlr
       ];
       wrapperFeatures.gtk = true;
     };
