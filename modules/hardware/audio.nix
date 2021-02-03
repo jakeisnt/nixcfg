@@ -8,6 +8,14 @@ in {
 
   config = mkIf cfg.enable {
     sound.enable = true;
+    xdg.portal = mkIf config.modules.desktop.sway.enable {
+      enable = true;
+      gtkUsePortal = true;
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-wlr
+      ];
+    };
+
     hardware.pulseaudio.enable = mkForce false;
     services.pipewire = {
       enable = true;
@@ -15,7 +23,5 @@ in {
       pulse.enable = true;
       jack.enable = true;
     };
-
-    user.extraGroups = [ "audio" ];
   };
 }
