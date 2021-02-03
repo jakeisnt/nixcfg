@@ -13,28 +13,45 @@ let
   cfg = config.modules.editors.vscode;
   extensions = with pkgs.vscode-extensions;
     ([ bbenoist.Nix vscodevim.vim ]
+    # ++ [pkgs.vscode-utils.buildVscodeExtension {
+    #     name = "";
+    #     src = "";
+    #     vscodeExtUniqueId = "WakaTime-vscode-wakatime-4.0.10";
+    #     buildInputs = [
+    #     ];
+    # }]
       ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-         {
+        {
           name = "nord-visual-studio-code";
           publisher = "arcticicestudio";
           version = "0.15.0";
           sha256 = "066rqj8sf910n71g5njbp5g8advzqkd3g2lsg12wai902735i78c";
         }
-         {
+        {
           name = "vscode-direnv";
           publisher = "Rubymaniac";
           version = "0.0.2";
           sha256 = "1gml41bc77qlydnvk1rkaiv95rwprzqgj895kxllqy4ps8ly6nsd";
         }
+        {
+          name = "vscode-wakatime";
+          publisher = "WakaTime";
+          version = "5.0.0";
+          sha256 = "1ggsfigl19wni9wfbhxh73bifpn7r4ccd42qv6nvk6rqxxldi0k0";
+        }
+        {
+          name = "leadermode";
+          publisher = "michaelgriscom";
+          version = "0.2.0";
+          sha256 = "184b8g0rgfasippvfvr6bslaxfm34bqa2mgzr0y0dphj26fyw2wn";
+        }
       ] ++ (if config.modules.dev.node.enable then
-        pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-          {
-              name = "vscode-eslint";
-              publisher = "dbaeumer";
-              version = "2.1.14";
-              sha256 = "113w2iis4zi4z3sqc3vd2apyrh52hbh2gvmxjr5yvjpmrsksclbd";
-          }
-        ]
+        pkgs.vscode-utils.extensionsFromVscodeMarketplace [{
+          name = "vscode-eslint";
+          publisher = "dbaeumer";
+          version = "2.1.14";
+          sha256 = "113w2iis4zi4z3sqc3vd2apyrh52hbh2gvmxjr5yvjpmrsksclbd";
+        }]
       else
         [ ]) ++ (if config.modules.dev.cc.enable then [
           xaver.clang-format
@@ -59,7 +76,8 @@ in {
   config = mkIf cfg.enable {
     user.packages = with pkgs; [ vscodium-with-extensions ];
     home.configFile = {
-      "VSCodium/User/settings.json".source = "${configDir}/vscode/settings.json";
+      "VSCodium/User/settings.json".source =
+        "${configDir}/vscode/settings.json";
     };
   };
 }

@@ -10,3 +10,4 @@ wget "https://$1.gallery.vsassets.io/_apis/public/gallery/publisher/$1/extension
 mv ./Microsoft.VisualStudio.Services.VSIXPackage "./$1-$2.zip"
 
 nix-hash --flat --base32 --type sha256 "./$1-$2.zip"
+rm "./$1-$2.zip"
