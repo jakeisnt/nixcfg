@@ -8,31 +8,20 @@ in {
 
   config = mkIf cfg.enable {
     sound.enable = true;
-    hardware.pulseaudio = {
+    xdg.portal = mkIf config.modules.desktop.sway.enable {
       enable = true;
-      daemon.config = { default-sample-rate = 48000; };
-      support32Bit = true;
-
-      extraConfig = ''
-        load-module module-switch-on-connect
-      '';
-
-      # load-module module-native-protocol-tcp auth-ip-acl=127.0.0.1
-      # HACK Prevents ~/.esd_auth files by disabling the esound protocol module
-      #      for pulseaudio, which I likely don't need. Is there a better way?
-      # configFile =
-      #   let inherit (pkgs) runCommand pulseaudio;
-      #       paConfigFile =
-      #         runCommand "disablePulseaudioEsoundModule"
-      #           { buildInputs = [ pulseaudio ]; } ''
-      #           mkdir "$out"
-      #           cp ${pulseaudio}/etc/pulse/default.pa "$out/default.pa"
-      #           sed -i -e 's|load-module module-esound-protocol-unix|# ...|' "$out/default.pa"
-      #         '';
-      #   in mkIf config.hardware.pulseaudio.enable
-      #     "${paConfigFile}/default.pa";
+      gtkUsePortal = true;
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-wlr
+      ];
     };
 
-    user.extraGroups = [ "audio" ];
+    hardware.pulseaudio.enable = mkForce false;
+    services.pipewire = {
+      enable = true;
+      alsa.enable = true;
+      pulse.enable = true;
+      jack.enable = true;
+    };
   };
 }
