@@ -6,18 +6,18 @@ let
   cfg = config.modules.desktop.sway;
   colors = config.modules.theme.color;
   startsway = (pkgs.writeTextFile {
-          name = "startsway";
-          destination = "/bin/startsway";
-          executable = true;
-          text = ''
+    name = "startsway";
+    destination = "/bin/startsway";
+    executable = true;
+    text = ''
             #! ${pkgs.bash}/bin/bash
 
             # first import environment variables from the login manager
             systemctl --user import-environment
             # then start the service
             exec systemctl --user start sway.service
-          '';
-        });
+    '';
+  });
 in {
   options.modules.desktop.sway = { enable = mkBoolOpt false; };
 
@@ -36,8 +36,8 @@ in {
         wl-clipboard
         sway-contrib.grimshot
         wf-recorder
-
-        # due to overlay, these are now wayland
+        # due to overlay, 
+        # these are now wayland clipboard interoperable
         xclip 
         xsel
       ];
@@ -46,21 +46,56 @@ in {
 
     env.XDG_CURRENT_DESKTOP = "sway";
 
+    environment.systemPackages = with pkgs; [ startsway ];
+    systemd.user.targets.sway-session = {
+      description = "Sway compositor session";
+      documentation = [ "man:systemd.special(7)" ];
+      bindsTo = [ "graphical-session.target" ];
+      wants = [ "graphical-session-pre.target" ];
+      after = [ "graphical-session-pre.target" ];
+    };
+
+    systemd.user.services.sway = {
+      description = "Sway - Wayland window manager";
+      documentation = [ "man:sway(5)" ];
+      bindsTo = [ "graphical-session.target" ];
+      wants = [ "graphical-session-pre.target" ];
+      after = [ "graphical-session-pre.target" ];
+      # We explicitly unset PATH here, as we want it to be set by
+      # systemctl --user import-environment in startsway
+      environment.PATH = lib.mkForce null;
+      serviceConfig = {
+        Type = "simple";
+        ExecStart = ''
+          ${pkgs.dbus}/bin/dbus-run-session ${pkgs.sway}/bin/sway --debug
+        '';
+        Restart = "on-failure";
+        RestartSec = 1;
+        TimeoutStopSec = 10;
+      };
+    };
+
+    modules.shell.zsh.rcInit = ''
+      if [ -z $DISPLAY ] && [ "$(tty)" == "/dev/tty1" ]; then 
+        startsway
+      fi
+    '';
+
     home.configFile = {
       "sway/config".text = with colors;
-        concatStrings [
-          (''
-            set $foreground #${foreground}
-            set $background #${background}
-            set $lighterbg  #${fadeColor}
-            set $urgent #${urgent}
-            set $urgenttext #F8F8F2
-            set $inactiveback #44475A
-            set $pholdback #282A36
-            set $focusedback #6f757d
-          '')
-          (concatMapStringsSep "\n" readFile [ "${configDir}/sway/config" ])
-        ];
+      concatStrings [
+        (''
+          set $foreground #${foreground}
+          set $background #${background}
+          set $lighterbg  #${fadeColor}
+          set $urgent #${urgent}
+          set $urgenttext #F8F8F2
+          set $inactiveback #44475A
+          set $pholdback #282A36
+          set $focusedback #6f757d
+        '')
+        (concatMapStringsSep "\n" readFile [ "${configDir}/sway/config" ])
+      ];
       "mako/config".text = with colors; ''
         sort=-time
         layer=overlay
@@ -96,64 +131,6 @@ in {
         default-timeout=2000
         group-by=category
       '';
-    };
-
-    environment.systemPackages = with pkgs; [ startsway ];
-    systemd.user.targets.sway-session = {
-      description = "Sway compositor session";
-      documentation = [ "man:systemd.special(7)" ];
-      bindsTo = [ "graphical-session.target" ];
-      wants = [ "graphical-session-pre.target" ];
-      after = [ "graphical-session-pre.target" ];
-    };
-
-    systemd.user.services.sway = {
-      description = "Sway - Wayland window manager";
-      documentation = [ "man:sway(5)" ];
-      bindsTo = [ "graphical-session.target" ];
-      wants = [ "graphical-session-pre.target" ];
-      after = [ "graphical-session-pre.target" ];
-      # We explicitly unset PATH here, as we want it to be set by
-      # systemctl --user import-environment in startsway
-      environment.PATH = lib.mkForce null;
-      serviceConfig = {
-        Type = "simple";
-        ExecStart = ''
-          ${pkgs.dbus}/bin/dbus-run-session ${pkgs.sway}/bin/sway --debug
-        '';
-        Restart = "on-failure";
-        RestartSec = 1;
-        TimeoutStopSec = 10;
-      };
-    };
-
-    services.redshift = {
-      enable = true;
-      # package = pkgs.redshift-wlr;
-      extraOptions = [ "-m" "wayland" ];
-    };
-
-    programs.waybar.enable = true;
-
-    modules.shell.zsh.rcInit = ''
-      if [ -z $DISPLAY ] && [ "$(tty)" == "/dev/tty1" ]; then 
-        startsway
-      fi
-    '';
-
-    systemd.user.services.kanshi = {
-      description = "Kanshi output autoconfig ";
-      wantedBy = [ "graphical-session.target" ];
-      partOf = [ "graphical-session.target" ];
-      serviceConfig = {
-        # kanshi doesn't have an option to specify config file yet, so it looks
-        # at .config/kanshi/config
-        ExecStart = ''
-          ${pkgs.kanshi}/bin/kanshi
-        '';
-      };
-      # RestartSec = 5;
-      # Restart = "always";
     };
   };
 }
