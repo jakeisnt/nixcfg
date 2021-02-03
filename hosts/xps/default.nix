@@ -97,7 +97,7 @@
 
   programs.ssh.startAgent = true;
   services.openssh.startWhenNeeded = true;
-  services.getty.autologinUser = "jake";
+  # services.getty.autologinUser = "jake";
 
   user.packages = with pkgs; [ 
     bitwarden-cli 
