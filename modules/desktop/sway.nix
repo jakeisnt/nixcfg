@@ -101,31 +101,54 @@ in {
           '';
         })
       ];
-    systemd.user.targets.sway-session = {
-      description = "Sway compositor session";
-      documentation = [ "man:systemd.special(7)" ];
-      bindsTo = [ "graphical-session.target" ];
-      wants = [ "graphical-session-pre.target" ];
-      after = [ "graphical-session-pre.target" ];
-    };
 
-    systemd.user.services.sway = {
+    # systemd.user.targets.sway-session = {
+    #   description = "Sway compositor session";
+    #   documentation = [ "man:systemd.special(7)" ];
+    #   bindsTo = [ "graphical-session.target" ];
+    #   wants = [ "graphical-session-pre.target" ];
+    #   after = [ "graphical-session-pre.target" ];
+    # };
+
+    systemd.services.sway = {
       description = "Sway - Wayland window manager";
       documentation = [ "man:sway(5)" ];
-      bindsTo = [ "graphical-session.target" ];
-      wants = [ "graphical-session-pre.target" ];
-      after = [ "graphical-session-pre.target" ];
+      # bindsTo = [ "graphical-session.target" ];
+      # wants = [ "graphical-session-pre.target" ];
+      # after = [ "graphical-session-pre.target" ];
+      wantedBy = ["graphical.target"];
+      aliases = ["display-manager.service"];
       # We explicitly unset PATH here, as we want it to be set by
       # systemctl --user import-environment in startsway
-      environment.PATH = lib.mkForce null;
+      # environment.PATH = lib.mkForce null;
       serviceConfig = {
         Type = "simple";
         ExecStart = ''
-          ${pkgs.dbus}/bin/dbus-run-session ${pkgs.sway}/bin/sway --debug
+          ${pkgs.dbus}/bin/dbus-launch --exit-with-session ${pkgs.sway}/bin/sway
         '';
-        Restart = "on-failure";
-        RestartSec = 1;
-        TimeoutStopSec = 10;
+        TTYPath="/dev/tty1";
+        TTYReset="yes";
+        TTYVHangup="yes";
+        TTYVTDisallocate="yes";
+        PAMName="login";
+        User="${secrets.username}";
+        WorkingDirectory="/home/${secrets.username}";
+        Environment=[
+          "XDG_RUNTIME_DIR=/run/user/1000"
+          "QT_WAYLAND_FORCE_DPI=100"
+          "QT_QPA_PLATFORM=wayland"
+          "QT_AUTO_SCREEN_SCALE_FACTOR=0"
+          "QT_QPA_PLATFORMTHEME=gtk3"
+          "QT_WAYLAND_DISABLE_WINDOWDECORATION=\"1\""
+          "GDK_BACKEND=wayland"
+        ];
+        StandardInput = "tty";
+        StandardError = "journal";
+        StandardOutput = "journal";
+        Nice="-5";
+
+        Restart = "always";
+        RestartSec = 2;
       };
     };
 
