@@ -33,6 +33,7 @@ in {
           gtk = {
             theme = "Nordic";
             iconTheme = "Zafiro-icons";
+            cursorTheme = "Numix-Cursor";
           };
           color = with colorscheme; {
             foreground = nord4;
@@ -79,7 +80,7 @@ in {
 
     # Desktop theming
     {
-      user.packages = with pkgs; [ nordic zafiro-icons ];
+      user.packages = with pkgs; [ nordic zafiro-icons numix-cursor-theme ];
       fonts = {
         fonts = with pkgs; [
           fira-code
