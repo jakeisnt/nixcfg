@@ -26,6 +26,7 @@
 	ranked-authors = !git authors | sort | uniq -c | sort -n
 	emails = !git log --format="%aE" | sort -u
 	email-domains = !git log --format="%aE" | awk -F'@' '{print $2}' | sort -u
+    count-lines = !git ls-files | xargs wc -l
 [diff]
 	algorithm = patience
 [filter "lfs"]
