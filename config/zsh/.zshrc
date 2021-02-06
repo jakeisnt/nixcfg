@@ -6,6 +6,7 @@ if ! zgen saved; then
   zgen load zsh-users/zsh-history-substring-search
   zgen load zdharma/history-search-multi-word
   zgen load zsh-users/zsh-completions src
+  zgen load wbingli/zsh-wakatime
   zgen load junegunn/fzf shell
   [ -z "$SSH_CONNECTION" ] && zgen load zdharma/fast-syntax-highlighting
   zgen save
@@ -45,11 +46,8 @@ if [[ $TERM != dumb ]]; then
   ##
   autoload -Uz compinit && compinit -u -d $ZSH_CACHE/zcompdump
 
+  export ZSH_WAKATIME_PROJECT_DETECTION=true
+
   # If you have host-local configuration, this is where you'd put it
   [ -f ~/.zshrc ] && source ~/.zshrc
 fi
-
-# start sway on login if not in tty1
-# if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
-#   exec sway
-# fi
