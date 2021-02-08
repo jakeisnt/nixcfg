@@ -4,6 +4,8 @@
 	signingkey = AFF8C0623B1CE493
 [commit]
 	gpgsign = true
+[init]
+    defaultBranch = main
 [core]
 	whitespace = trailing-space
 [github]
