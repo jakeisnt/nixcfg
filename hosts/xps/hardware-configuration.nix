@@ -17,6 +17,7 @@
       # enable ipv6 privacy extensions and prefer using temp addresses
       "net.ipv6.conf.all.use_tempaddr" = 2;
       "max_user_instances" = 8192;
+      "max_user_watches" = 16834;
     };
     kernelParams = [
       # disable spectre and meltdown fixes
