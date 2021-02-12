@@ -11,6 +11,7 @@ set $menu launch
 
 output * bg #434C5E solid_color
 output eDP1 resolution 3840x2160 position 0,0
+output DP-2 scale 2
 
 ### Input configuration
 input type:touchpad {
