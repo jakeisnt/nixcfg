@@ -171,6 +171,6 @@ window#waybar.PCSX2 #window {
 	margin-bottom: 0;
 	border-radius: 26px;
 	transition: none;
-	color: @urgenttext;
+	color: @fgalt;
 	background: @background;
 }

@@ -20,7 +20,7 @@ let
   });
   lock = (pkgs.writeScriptBin "lock" ''
     #!${pkgs.stdenv.shell}
-    exec ${pkgs.swaylock-effects}/bin/swaylock --grace 60 --screenshots --fade-in 0.15 --effect-pixelate 20 --indicator-radius 50 --ring-color ${colors.background} --inside-color ${colors.background} --line-color ${colors.background} --separator-color ${colors.foreground} --key-hl-color ${colors.foreground} --ring-wrong-color ${colors.urgent} --ring-ver-color ${colors.background} --inside-ver-color ${colors.background} --inside-wrong-color ${colors.urgent} --line-ver-color ${colors.background} --line-wrong-color ${colors.background}
+    exec ${pkgs.swaylock-effects}/bin/swaylock
   '');
 in {
   options.modules.desktop.sway = {
@@ -112,6 +112,27 @@ in {
     '';
 
     home.configFile = {
+      "swaylock/config".text = (mkIf cfg.fancy (with colors; ''
+        line-color=${colors.background}
+        inside-color=${colors.background}
+        ring-color=${background}
+        separator-color=${colors.foreground}
+        key-hl-color=${colors.foreground}
+
+        line-wrong-color=${colors.background}
+        inside-wrong-color=${colors.urgent}
+        ring-wrong-color=${colors.urgent}
+
+        line-ver-color=${colors.background}
+        inside-ver-color=${colors.background}
+        ring-ver-color=${colors.background}
+
+        grace=30
+        screenshots
+        fade-in=0.15
+        effect-pixelate=20
+        indicator-radius=50
+      ''));
       "waybar/config" =
         mkIf cfg.fancy { source = "${configDir}/waybar/config"; };
       "waybar/style.css".text = mkIf cfg.fancy (with colors;
@@ -119,9 +140,8 @@ in {
           ''
             @define-color foreground #4d4d4d;
             @define-color background #282a36;
-            @define-color fgalt #f8f8f2;
+            @define-color fgalt #${fgAlt};
             @define-color bgalt #e6e6e6;
-            @define-color urgenttext #f8f8f2;
             @define-color cyan #ff6e67;
             @define-color green #5af78e;
             @define-color yellow #f1fa8c;
@@ -139,7 +159,7 @@ in {
             set $background #${background}
             set $lighterbg  #${fadeColor}
             set $urgent #${urgent}
-            set $urgenttext #F8F8F2
+            set $urgenttext #${fgAlt}
             set $inactiveback #44475A
             set $pholdback #282A36
             set $focusedback #6f757d
