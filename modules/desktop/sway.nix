@@ -20,7 +20,7 @@ let
   });
   lock = (pkgs.writeScriptBin "lock" ''
           #!${pkgs.stdenv.shell}
-          exec ${pkgs.swaylock-effects}/bin/swaylock --screenshots --fade-in 0.15 --effect-pixelate 20 --indicator-radius 50 --ring-color ${colors.background} --inside-color ${colors.background} --line-color ${colors.background} --separator-color ${colors.foreground} --key-hl-color ${colors.foreground}
+          exec ${pkgs.swaylock-effects}/bin/swaylock --grace 60 --screenshots --fade-in 0.15 --effect-pixelate 20 --indicator-radius 50 --ring-color ${colors.background} --inside-color ${colors.background} --line-color ${colors.background} --separator-color ${colors.foreground} --key-hl-color ${colors.foreground} --ring-wrong-color ${colors.urgent} --ring-ver-color ${colors.background} --inside-ver-color ${colors.background} --inside-wrong-color ${colors.urgent} --line-ver-color ${colors.background} --line-wrong-color ${colors.background}
           '');
 in {
   options.modules.desktop.sway = { 
@@ -43,6 +43,8 @@ in {
         wl-clipboard
         sway-contrib.grimshot
         wf-recorder
+        lock
+
         # due to overlay, 
         # these are now wayland clipboard interoperable
         xclip 
