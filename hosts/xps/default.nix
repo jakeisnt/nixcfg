@@ -77,7 +77,11 @@
     };
     shell = {
       git.enable = true;
-      gnupg.enable = true;
+      gnupg = {
+        enable = true;
+        gui = true;
+        cacheTTL = 60480000;
+      };
       # pass.enable = true;
       direnv = {
         enable = true;

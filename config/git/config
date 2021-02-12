@@ -2,6 +2,8 @@
 	name = Jacob Chvatal
 	email = jake@isnt.online
 	signingkey = AFF8C0623B1CE493
+[gpg]
+    program = gpg2
 [commit]
 	gpgsign = true
 [init]
