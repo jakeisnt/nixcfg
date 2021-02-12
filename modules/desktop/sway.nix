@@ -21,42 +21,42 @@ let
   lock = (pkgs.writeScriptBin "lock" ''
           #!${pkgs.stdenv.shell}
           exec ${pkgs.swaylock-effects}/bin/swaylock --grace 60 --screenshots --fade-in 0.15 --effect-pixelate 20 --indicator-radius 50 --ring-color ${colors.background} --inside-color ${colors.background} --line-color ${colors.background} --separator-color ${colors.foreground} --key-hl-color ${colors.foreground} --ring-wrong-color ${colors.urgent} --ring-ver-color ${colors.background} --inside-ver-color ${colors.background} --inside-wrong-color ${colors.urgent} --line-ver-color ${colors.background} --line-wrong-color ${colors.background}
-          '');
+  '');
 in {
   options.modules.desktop.sway = { 
     enable = mkBoolOpt false; # practical and basic
     fancy = mkBoolOpt false; # fancy and pretty config
-};
+  };
 
   config = mkIf cfg.enable {
     env.XDG_SESSION_TYPE = "wayland";
-    modules.desktop.apps.rofi.enable = true;
+    modules.desktop.apps.wofi.enable = true;
+
     programs.sway = {
       enable = true;
       extraPackages = with pkgs; [
-        swaylock-effects
-        swayidle
         xwayland
-        waybar
         mako
         kanshi
         wl-clipboard
         sway-contrib.grimshot
         wf-recorder
-        lock
 
         # due to overlay, 
         # these are now wayland clipboard interoperable
         xclip 
         xsel
-
+      ] ++ (if cfg.fancy then [
         # extra
+        waybar
+        swaylock-effects
+        swayidle
+        lock
         autotiling
-      ];
+      ] else []) ;
       wrapperFeatures.gtk = true;
     };
-  
-    programs.waybar.enable = true;
+
     env.XDG_CURRENT_DESKTOP = "sway";
 
     environment.systemPackages = with pkgs; [ startsway ];
@@ -88,7 +88,7 @@ in {
       };
     };
 
-   systemd.user.services.swayidle = {
+    systemd.user.services.swayidle = mkIf cfg.fancy {
       description = "Idle Manager for Wayland";
       documentation = [ "man:swayidle(1)" ];
       wantedBy = [ "sway-session.target" ];
@@ -96,7 +96,7 @@ in {
       path = [ pkgs.bash ];
       serviceConfig = {
         ExecStart = '' ${pkgs.swayidle}/bin/swayidle -w -d \
-          timeout 300 '${lock} && ${pkgs.sway}/bin/swaymsg "output * dpms off"' \
+          timeout 300 '${lock}/bin/lock && ${pkgs.sway}/bin/swaymsg "output * dpms off"' \
           resume '${pkgs.sway}/bin/swaymsg "output * dpms on"'
         '';
       };
@@ -121,8 +121,38 @@ in {
           set $pholdback #282A36
           set $focusedback #6f757d
 
-          exec ${pkgs.autotiling}/bin/autotiling
         '')
+
+        (if cfg.fancy then 
+
+        ''
+            gaps outer 8
+            gaps inner 5
+
+            exec ${pkgs.waybar}/bin/waybar
+            exec ${pkgs.autotiling}/bin/autotiling
+        ''
+        else 
+        ''
+          bar {
+            position bottom
+            # When the status_command prints a new line to stdout, swaybar updates.
+            # The default just shows the current date and time.
+            status_command while date +'%Y-%m-%d %H:%M'; do sleep 1; done
+            colors {
+              background  $background
+              statusline  $foreground
+              separator   $background
+
+              #Type               border      background  font
+              focused_workspace   $lighterbg  $lighterbg  $foreground
+              active_workspace    $background $background $foreground
+              inactive_workspace  $background $background $foreground
+              urgent_workspace    $background $background $foreground
+            }
+          }
+        '' 
+        )
         (concatMapStringsSep "\n" readFile [ "${configDir}/sway/config" ])
       ];
       "mako/config".text = with colors; ''

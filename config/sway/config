@@ -143,9 +143,6 @@ mode "resize" {
 
 default_border pixel 2
 
-gaps outer 10
-gaps inner 5
-
 # class                 border        backgr        text        indicator       child_border
 client.focused          $focusedback  $focusedback  $foreground $focusedback    $focusedback
 client.focused_inactive $inactiveback $inactiveback $foreground $inactiveback   $inactiveback
