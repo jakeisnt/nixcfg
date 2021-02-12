@@ -9,7 +9,7 @@ in {
   options.modules.desktop.i3 = { enable = mkBoolOpt false; };
 
   config = mkIf cfg.enable {
-    modules.desktop.apps.rofi.enable = true;
+    # modules.desktop.apps.rofi.enable = true;
     environment.pathsToLink = ["/libexec"];
     services = {
       picom.enable = true;

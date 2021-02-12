@@ -1,5 +1,3 @@
-# modules/themes/alucard/default.nix --- a regal dracula-inspired theme
-
 { options, config, lib, pkgs, ... }:
 
 with lib;
@@ -39,6 +37,9 @@ in {
             foreground = nord4;
             background = nord0;
             fadeColor = nord3;
+            fgAlt = "f8f8f2";
+            bgAlt = "";
+
             color0 = nord1;
             color1 = nord11;
             color2 = nord14;

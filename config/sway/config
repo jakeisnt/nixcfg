@@ -11,7 +11,7 @@ set $menu launch
 
 output * bg #434C5E solid_color
 output eDP1 resolution 3840x2160 position 0,0
-output DP-2 scale 2
+output DP-2 scale 1.5
 
 ### Input configuration
 input type:touchpad {
@@ -39,6 +39,9 @@ input "1:1:AT_Translated_Set_2_keyboard" {
 bindsym $mod+Return exec $term
 bindsym $mod+Shift+q kill
 bindsym $mod+Space exec $menu
+bindsym XF86Search exec $menu
+bindsym Print exec 'grimshot save area'
+bindsym $mod+Shift+d exec 'lock'
 floating_modifier $mod normal
 
 # Exit and reload
@@ -136,24 +139,6 @@ mode "resize" {
   bindsym $right resize grow width 10px
   
   bindsym Escape mode "default"
-}
-
-bar {
-  position bottom
-  # When the status_command prints a new line to stdout, swaybar updates.
-  # The default just shows the current date and time.
-  status_command while date +'%Y-%m-%d %H:%M'; do sleep 1; done
-  colors {
-    background  $background
-    statusline  $foreground
-    separator   $background
-
-    #Type               border      background  font
-    focused_workspace   $lighterbg  $lighterbg  $foreground
-    active_workspace    $background $background $foreground
-    inactive_workspace  $background $background $foreground
-    urgent_workspace    $background $background $foreground
-  }
 }
 
 default_border pixel 2

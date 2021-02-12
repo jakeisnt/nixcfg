@@ -26,6 +26,8 @@ in {
     color = {
       foreground = mkOpt str "";
       background = mkOpt str "";
+      fgAlt = mkOpt str "";
+      bgAlt = mkOpt str "";
       fadeColor = mkOpt str "";
       color0 = mkOpt str "";
       color1 = mkOpt str "";
