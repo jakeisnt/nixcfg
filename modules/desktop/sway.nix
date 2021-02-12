@@ -55,7 +55,8 @@ in {
       ];
       wrapperFeatures.gtk = true;
     };
-
+  
+    programs.waybar.enable = true;
     env.XDG_CURRENT_DESKTOP = "sway";
 
     environment.systemPackages = with pkgs; [ startsway ];
