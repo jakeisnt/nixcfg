@@ -9,8 +9,8 @@ A fork of [hlissner's dotfiles](https://github.com/hlissner/dotfiles) with subst
 Feel free to poke around and contact me if you have any questions : )
 
 
-
 ## Installation
+
 Follow the default NixOS install instructions; formatting the disk and what
 have you. These steps are detailed in the NixOS install instructions.
 
