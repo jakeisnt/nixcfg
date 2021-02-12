@@ -18,8 +18,15 @@ let
             exec systemctl --user start sway.service
     '';
   });
+  lock = (pkgs.writeScriptBin "lock" ''
+          #!${pkgs.stdenv.shell}
+          exec ${pkgs.swaylock-effects}/bin/swaylock --screenshots --fade-in 0.15 --effect-pixelate 20 --indicator-radius 50 --ring-color ${colors.background} --inside-color ${colors.background} --line-color ${colors.background} --separator-color ${colors.foreground} --key-hl-color ${colors.foreground}
+          '');
 in {
-  options.modules.desktop.sway = { enable = mkBoolOpt false; };
+  options.modules.desktop.sway = { 
+    enable = mkBoolOpt false; # practical and basic
+    fancy = mkBoolOpt false; # fancy and pretty config
+};
 
   config = mkIf cfg.enable {
     env.XDG_SESSION_TYPE = "wayland";
@@ -27,7 +34,7 @@ in {
     programs.sway = {
       enable = true;
       extraPackages = with pkgs; [
-        swaylock
+        swaylock-effects
         swayidle
         xwayland
         waybar
@@ -40,6 +47,9 @@ in {
         # these are now wayland clipboard interoperable
         xclip 
         xsel
+
+        # extra
+        autotiling
       ];
       wrapperFeatures.gtk = true;
     };
@@ -75,6 +85,20 @@ in {
       };
     };
 
+   systemd.user.services.swayidle = {
+      description = "Idle Manager for Wayland";
+      documentation = [ "man:swayidle(1)" ];
+      wantedBy = [ "sway-session.target" ];
+      partOf = [ "graphical-session.target" ];
+      path = [ pkgs.bash ];
+      serviceConfig = {
+        ExecStart = '' ${pkgs.swayidle}/bin/swayidle -w -d \
+          timeout 300 '${lock} && ${pkgs.sway}/bin/swaymsg "output * dpms off"' \
+          resume '${pkgs.sway}/bin/swaymsg "output * dpms on"'
+        '';
+      };
+    };
+
     modules.shell.zsh.rcInit = ''
       if [ -z $DISPLAY ] && [ "$(tty)" == "/dev/tty1" ]; then 
         startsway
@@ -93,6 +117,8 @@ in {
           set $inactiveback #44475A
           set $pholdback #282A36
           set $focusedback #6f757d
+
+          exec ${pkgs.autotiling}/bin/autotiling
         '')
         (concatMapStringsSep "\n" readFile [ "${configDir}/sway/config" ])
       ];
