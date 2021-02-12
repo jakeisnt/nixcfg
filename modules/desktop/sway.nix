@@ -10,20 +10,20 @@ let
     destination = "/bin/startsway";
     executable = true;
     text = ''
-            #! ${pkgs.bash}/bin/bash
+      #! ${pkgs.bash}/bin/bash
 
-            # first import environment variables from the login manager
-            systemctl --user import-environment
-            # then start the service
-            exec systemctl --user start sway.service
+      # first import environment variables from the login manager
+      systemctl --user import-environment
+      # then start the service
+      exec systemctl --user start sway.service
     '';
   });
   lock = (pkgs.writeScriptBin "lock" ''
-          #!${pkgs.stdenv.shell}
-          exec ${pkgs.swaylock-effects}/bin/swaylock --grace 60 --screenshots --fade-in 0.15 --effect-pixelate 20 --indicator-radius 50 --ring-color ${colors.background} --inside-color ${colors.background} --line-color ${colors.background} --separator-color ${colors.foreground} --key-hl-color ${colors.foreground} --ring-wrong-color ${colors.urgent} --ring-ver-color ${colors.background} --inside-ver-color ${colors.background} --inside-wrong-color ${colors.urgent} --line-ver-color ${colors.background} --line-wrong-color ${colors.background}
+    #!${pkgs.stdenv.shell}
+    exec ${pkgs.swaylock-effects}/bin/swaylock --grace 60 --screenshots --fade-in 0.15 --effect-pixelate 20 --indicator-radius 50 --ring-color ${colors.background} --inside-color ${colors.background} --line-color ${colors.background} --separator-color ${colors.foreground} --key-hl-color ${colors.foreground} --ring-wrong-color ${colors.urgent} --ring-ver-color ${colors.background} --inside-ver-color ${colors.background} --inside-wrong-color ${colors.urgent} --line-ver-color ${colors.background} --line-wrong-color ${colors.background}
   '');
 in {
-  options.modules.desktop.sway = { 
+  options.modules.desktop.sway = {
     enable = mkBoolOpt false; # practical and basic
     fancy = mkBoolOpt false; # fancy and pretty config
   };
@@ -34,26 +34,28 @@ in {
 
     programs.sway = {
       enable = true;
-      extraPackages = with pkgs; [
-        xwayland
-        mako
-        kanshi
-        wl-clipboard
-        sway-contrib.grimshot
-        wf-recorder
+      extraPackages = with pkgs;
+        [
+          xwayland
+          mako
+          kanshi
+          wl-clipboard
+          sway-contrib.grimshot
+          wf-recorder
 
-        # due to overlay, 
-        # these are now wayland clipboard interoperable
-        xclip 
-        xsel
-      ] ++ (if cfg.fancy then [
-        # extra
-        waybar
-        swaylock-effects
-        swayidle
-        lock
-        autotiling
-      ] else []) ;
+          # due to overlay,
+          # these are now wayland clipboard interoperable
+          xclip
+          xsel
+        ] ++ (if cfg.fancy then [
+          # extra
+          waybar
+          swaylock-effects
+          swayidle
+          lock
+          autotiling
+        ] else
+          [ ]);
       wrapperFeatures.gtk = true;
     };
 
@@ -95,10 +97,11 @@ in {
       partOf = [ "graphical-session.target" ];
       path = [ pkgs.bash ];
       serviceConfig = {
-        ExecStart = '' ${pkgs.swayidle}/bin/swayidle -w -d \
-          timeout 300 '${lock}/bin/lock && ${pkgs.sway}/bin/swaymsg "output * dpms off"' \
-          resume '${pkgs.sway}/bin/swaymsg "output * dpms on"'
-        '';
+        ExecStart = ''
+          ${pkgs.swayidle}/bin/swayidle -w -d \
+                   timeout 300 '${lock}/bin/lock && ${pkgs.sway}/bin/swaymsg "output * dpms off"' \
+                   resume '${pkgs.sway}/bin/swaymsg "output * dpms on"'
+                 '';
       };
     };
 
@@ -109,52 +112,68 @@ in {
     '';
 
     home.configFile = {
+      "waybar/config" =
+        mkIf cfg.fancy { source = "${configDir}/waybar/config"; };
+      "waybar/style.css".text = mkIf cfg.fancy (with colors;
+        concatStrings [
+          ''
+            @define-color foreground #4d4d4d;
+            @define-color background #282a36;
+            @define-color fgalt #f8f8f2;
+            @define-color bgalt #e6e6e6;
+            @define-color urgenttext #f8f8f2;
+            @define-color cyan #ff6e67;
+            @define-color green #5af78e;
+            @define-color yellow #f1fa8c;
+            @define-color blue #9aedfe;
+            @define-color purple #bd93f9;
+            @define-color buttonhover #ff79c6;
+          ''
+          (concatMapStringsSep "\n" readFile
+            [ "${configDir}/waybar/style.css" ])
+        ]);
       "sway/config".text = with colors;
-      concatStrings [
-        (''
-          set $foreground #${foreground}
-          set $background #${background}
-          set $lighterbg  #${fadeColor}
-          set $urgent #${urgent}
-          set $urgenttext #F8F8F2
-          set $inactiveback #44475A
-          set $pholdback #282A36
-          set $focusedback #6f757d
+        concatStrings [
+          (''
+            set $foreground #${foreground}
+            set $background #${background}
+            set $lighterbg  #${fadeColor}
+            set $urgent #${urgent}
+            set $urgenttext #F8F8F2
+            set $inactiveback #44475A
+            set $pholdback #282A36
+            set $focusedback #6f757d
+          '')
 
-        '')
+          (if cfg.fancy then
 
-        (if cfg.fancy then 
-
-        ''
+          ''
             gaps outer 8
             gaps inner 5
 
             exec ${pkgs.waybar}/bin/waybar
             exec ${pkgs.autotiling}/bin/autotiling
-        ''
-        else 
-        ''
-          bar {
-            position bottom
-            # When the status_command prints a new line to stdout, swaybar updates.
-            # The default just shows the current date and time.
-            status_command while date +'%Y-%m-%d %H:%M'; do sleep 1; done
-            colors {
-              background  $background
-              statusline  $foreground
-              separator   $background
+          '' else ''
+            bar {
+              position bottom
+              # When the status_command prints a new line to stdout, swaybar updates.
+              # The default just shows the current date and time.
+              status_command while date +'%Y-%m-%d %H:%M'; do sleep 1; done
+              colors {
+                background  $background
+                statusline  $foreground
+                separator   $background
 
-              #Type               border      background  font
-              focused_workspace   $lighterbg  $lighterbg  $foreground
-              active_workspace    $background $background $foreground
-              inactive_workspace  $background $background $foreground
-              urgent_workspace    $background $background $foreground
+                #Type               border      background  font
+                focused_workspace   $lighterbg  $lighterbg  $foreground
+                active_workspace    $background $background $foreground
+                inactive_workspace  $background $background $foreground
+                urgent_workspace    $background $background $foreground
+              }
             }
-          }
-        '' 
-        )
-        (concatMapStringsSep "\n" readFile [ "${configDir}/sway/config" ])
-      ];
+          '')
+          (concatMapStringsSep "\n" readFile [ "${configDir}/sway/config" ])
+        ];
       "mako/config".text = with colors; ''
         sort=-time
         layer=overlay
