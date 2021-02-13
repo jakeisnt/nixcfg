@@ -20,7 +20,7 @@ with lib.my;
       mailserver.enable = true;
       ssh.enable = true;
       matrix = {
-        enable = true;
+        enable = false;
         registration = false;  
         element = true;
       };
