@@ -15,12 +15,17 @@ window#waybar.hidden {
 	opacity: 0.2;
 }
 
-#window {
-    margin-top: 8px;
-    padding-left: 16px;
-    padding-right: 16px;
+#workspaces, #mode, #window, #mpd, #network, #pulseaudio, #temperature, #cpu, #memory, #battery, #clock {
+	margin-top: 8px;
+	margin-left: 8px;
+	padding-left: 16px;
+	padding-right: 16px;
+	margin-bottom: 0;
 	border-radius: 26px;
 	transition: none;
+}
+
+#window {
     color: transparent;
 	background: transparent;
 }
@@ -34,23 +39,9 @@ window#waybar.PCSX2 #window {
 }
 
 #workspaces {
-	margin-top: 8px;
+	/* as the leftmost element, this needs extra padding */
 	margin-left: 12px;
-	margin-bottom: 0;
-	border-radius: 26px;
 	background: @background;
-	transition: none;
-}
-
-#mode {
-	margin-top: 8px;
-	margin-left: 12px;
-	padding-left: 16px;
-	padding-right: 16px;
-	margin-bottom: 0;
-	border-radius: 26px;
-	background: @background;
-	transition: none;
 }
 
 #workspaces button {
@@ -71,15 +62,11 @@ window#waybar.PCSX2 #window {
 	color: @buttonhover;
 }
 
-#mpd {
-	margin-top: 8px;
-	margin-left: 8px;
-	padding-left: 16px;
-	padding-right: 16px;
-	margin-bottom: 0;
-	border-radius: 26px;
+#mode {
 	background: @background;
-	transition: none;
+}
+
+#mpd {
 	color: @foreground;
 	background: @green;
 }
@@ -91,86 +78,38 @@ window#waybar.PCSX2 #window {
 }
 
 #network {
-	margin-top: 8px;
-	margin-left: 8px;
-	padding-left: 16px;
-	padding-right: 16px;
-	margin-bottom: 0;
-	border-radius: 26px;
-	transition: none;
 	color: @foreground;
 	background: @purple;
 }
 
 #pulseaudio {
-	margin-top: 8px;
-	margin-left: 8px;
-	padding-left: 16px;
-	padding-right: 16px;
-	margin-bottom: 0;
-	border-radius: 26px;
-	transition: none;
 	color: @foreground;
 	background: @blue;
 }
 
 #temperature {
-	margin-top: 8px;
-	margin-left: 8px;
-	padding-left: 16px;
-	padding-right: 16px;
-	margin-bottom: 0;
-	border-radius: 26px;
-	transition: none;
 	color: @foreground;
 	background: @green;
 }
 
 #cpu {
-	margin-top: 8px;
-	margin-left: 8px;
-	padding-left: 16px;
-	padding-right: 16px;
-	margin-bottom: 0;
-	border-radius: 26px;
-	transition: none;
 	color: @foreground;
 	background: @yellow;
 }
 
 #memory {
-	margin-top: 8px;
-	margin-left: 8px;
-	padding-left: 16px;
-	padding-right: 16px;
-	margin-bottom: 0;
-	border-radius: 26px;
-	transition: none;
 	color: @foreground;
 	background: @cyan;
 }
 
 #battery {
-	margin-top: 8px;
-	margin-left: 8px;
-	padding-left: 16px;
-	padding-right: 16px;
-	margin-bottom: 0;
-	border-radius: 26px;
-	transition: none;
 	color: @foreground;
-	background: @cyan;
+	background: @green;
 }
 
 #clock {
-	margin-top: 8px;
-	margin-left: 8px;
+	/* As the last element, this needs right padding */
 	margin-right: 12px;
-	padding-left: 16px;
-	padding-right: 16px;
-	margin-bottom: 0;
-	border-radius: 26px;
-	transition: none;
 	color: @fgalt;
 	background: @background;
 }
