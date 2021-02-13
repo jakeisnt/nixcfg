@@ -24,6 +24,7 @@ in {
           {
             domain = "https://bitwarden.${domain}";
             signupsAllowed = cfg.registration;
+            # invitationsAllowed = true;
             webVaultFolder =
               "${pkgs.bitwarden_rs-vault}/share/bitwarden_rs/vault";
             webVaultEnabled = true;

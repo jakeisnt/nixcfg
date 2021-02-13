@@ -59,6 +59,7 @@ function main {
 
   function _rebuild {
     # Move to $DOTFILES to prevent polluting the system with result links
+    # https://github.com/hlissner/dotfiles/commit/82ee5bef6a878fb189d773ad16647dec7b9b6f8a is worth looking into
     pushd $DOTFILES >/dev/null
     _do sudo nixos-rebuild --flake ".#$HOST" ${@:-build}
     popd >/dev/null
@@ -146,6 +147,8 @@ function main {
     swap)        _swap $@                       ;;
     gc)          _gc "$@"                       ;;
     push)
+      # build on the local machine, then push rather than building on the other machine
+      # check hlissner's dotfiles out if/when this gets more use
       rsync -avzh ./ "$1:$REMOTE/"
       ssh -t -l "$USERNAME" "$1" "$REMOTE/bin/hey re" "${@[2,-1]}"
       ;;
