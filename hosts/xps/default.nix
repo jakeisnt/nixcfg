@@ -63,8 +63,8 @@
     };
     dev = {
       node.enable = true;
-      android.enable = true;
       cc.enable = true;
+      # android.enable = true;
       # rust.enable = true;
       # lua.enable = true;
       # lua.love2d.enable = true;
