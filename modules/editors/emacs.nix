@@ -31,11 +31,6 @@ in {
       binutils # native-comp needs 'as', provided by this
       emacsPgtkGcc # 28 + pgtk + native-comp
 
-      # time tracking: emacs config
-      wakatime
-      # wakatime requires python
-      python
-
       ## Doom dependencies
       git
       (ripgrep.override { withPCRE2 = true; })
