@@ -54,6 +54,7 @@
         };
       });
     in {
+      lib = lib.my;
       overlay = final: prev: {
         unstable = uPkgs;
         my = self.packages."${system}";
@@ -68,5 +69,25 @@
       } // mapModulesRec ./modules import;
 
       nixosConfigurations = mapHosts ./hosts { inherit system; };
+
+      devShell."${system}" = import ./shell.nix { inherit pkgs; };
+
+      templates = {
+        full = {
+          path = ./.;
+          description = "A grossly incandescent nixos config";
+        };
+        minimal = {
+          path = ./templates/minimal;
+          description = "A grossly incandescent and minimal nixos config";
+        };
+      };
+
+      defaultTemplate = self.templates.minimal;
+
+      defaultApp."${system}" = {
+        type = "app";
+        program = ./bin/hey;
+      };
     };
 }
