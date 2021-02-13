@@ -30,10 +30,6 @@ with inputs; {
     ];
     binaryCaches = [
       "https://cache.nixos.org/"
-      "https://nix-cfg.cachix.org"
-    ];
-    binaryCachePublicKeys = [
-      "nix-cfg.cachix.org-1:K5log6+7FTtbqKDRwAhcJvFEdOiavE0aIUWBsYfns4Y="
     ];
     registry = {
       nixos.flake = nixpkgs;
