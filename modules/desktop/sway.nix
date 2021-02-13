@@ -164,14 +164,19 @@ in {
             set $pholdback #282A36
             set $focusedback #6f757d
           '')
-
+          (concatMapStringsSep "\n" readFile [ "${configDir}/sway/config" ])
           (if cfg.fancy then
 
           ''
             gaps outer 8
             gaps inner 5
 
-            exec ${pkgs.waybar}/bin/waybar
+            bindsym $mod+d exec 'pkill -SIGUSR1 waybar'
+
+            bar {
+                swaybar_command ${pkgs.waybar}/bin/waybar
+            }
+
             exec ${pkgs.autotiling}/bin/autotiling
           '' else ''
             bar {
@@ -192,7 +197,6 @@ in {
               }
             }
           '')
-          (concatMapStringsSep "\n" readFile [ "${configDir}/sway/config" ])
         ];
       "mako/config".text = with colors; ''
         sort=-time
