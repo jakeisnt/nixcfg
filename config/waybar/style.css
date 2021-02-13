@@ -41,6 +41,8 @@ window#waybar.PCSX2 #window {
 #workspaces {
 	/* as the leftmost element, this needs extra padding */
 	margin-left: 12px;
+	padding-left: 0;
+	padding-right: 0;
 	background: @background;
 }
 
