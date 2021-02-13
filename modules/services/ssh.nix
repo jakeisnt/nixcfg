@@ -16,8 +16,7 @@ in {
     services.openssh = {
       enable = true;
       challengeResponseAuthentication = false;
-      passwordAuthentication =
-        true; # TODO: configure SSH keys properly and make this false
+      passwordAuthentication = false;
     };
 
     # Allow SSHing through firewall
