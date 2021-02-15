@@ -1,0 +1,24 @@
+#!/usr/bin/env sh
+
+# assume running from home directory and submodule name is $1
+# also assume that git is installed
+
+# i hope you don't have anything named "active =" in your .git/config..."
+
+# remove the submodule from gitmodules
+sed -i '/'$1'/d' .gitmodules
+
+git add .gitmodules
+
+# remove from .git/config
+sed -i '/'$1'/d' .git/config
+# this could be dangerous!!!! be careful.
+sed -i '/active = /d' .git/config
+
+# remove from cached
+git rm --cached $1/
+
+echo "Committing removal of submodule "$1
+git commit -m "Removed submodule "$1
+
+rm -rf $1/
