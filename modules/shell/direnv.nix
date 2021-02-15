@@ -35,4 +35,11 @@ in {
       };
     };
   };
+
+  home.configFile = {
+    "direnv" = {
+      source = "${configDir}/direnv";
+      recursive = true;
+    };
+  };
 }
