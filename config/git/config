@@ -26,6 +26,7 @@
 	orphan = checkout --orphan
 	unadd = reset HEAD
 	undo-commit = reset --soft "HEAD^"
+	rm-submodule = rm-submodule # this should really be git only
 	# data analysis
 	ranked-authors = !git authors | sort | uniq -c | sort -n
 	emails = !git log --format="%aE" | sort -u
