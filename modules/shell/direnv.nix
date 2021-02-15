@@ -34,12 +34,12 @@ in {
         StopWhenUnneeded = true;
       };
     };
-  };
 
-  home.configFile = {
-    "direnv" = {
-      source = "${configDir}/direnv";
-      recursive = true;
+    home.configFile = {
+      "direnv" = {
+        source = "${configDir}/direnv";
+        recursive = true;
+      };
     };
   };
 }
