@@ -19,6 +19,14 @@ in {
         "cjpalhdlnbpafiamejdnhcphjbkeiagm" # ublock origin
         "kkkjlfejijcjgjllecmnejhogpbcigdc" # org-capture
         "dbepggeogbaibhgnhhndojpepiihcmeb" # vimium
+        "abehfkkfjlplnjadfcjiflnejblfmmpj" # nord theme
+        "ddehdnnhjimbggeeenghijehnpakijod" # remove scrollbar
+
+        # custom css;
+        # ::-webkit-scrollbar {
+        #   display: none;
+        # }
+        # must be added to Rescroller extension
       ];
 
       # add more options when using chromium !!
@@ -32,6 +40,7 @@ in {
         "ReportSafeBrowsingData" = false;
         "AllowDinosaurEasterEgg" = false; # : (
         "AllowOutdatedPlugins" = true;
+        "DefaultBrowserSettingEnabled" = false;
 
         # voice assistant
         "VoiceInteractionContextEnabled" = false;
@@ -39,5 +48,6 @@ in {
         "VoiceInteractionQuickAnswersEnabled" = false;
       };
     };
+    user.packages = with pkgs; [ google-chrome-dev ];
   };
 }
