@@ -20,6 +20,8 @@
       browsers = {
         default = "firefox";
         firefox.enable = true;
+        brave.enable = true;
+        chrome.enable = true;
         # netsurf.enable = true;
       };
       media = {
@@ -106,11 +108,7 @@
   services.openssh.startWhenNeeded = true;
   services.getty.autologinUser = "jake";
 
-  user.packages = with pkgs; [ 
-    bitwarden-cli 
-    rnix-lsp 
-    clojure-lsp
-  ];
+  user.packages = with pkgs; [ bitwarden-cli rnix-lsp clojure-lsp ];
 
   networking.networkmanager = {
     enable = true;

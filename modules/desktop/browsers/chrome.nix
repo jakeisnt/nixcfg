@@ -5,6 +5,7 @@ with lib.my;
 let cfg = config.modules.desktop.browsers.chrome;
 in {
   options.modules.desktop.browsers.chrome = { enable = mkBoolOpt false; };
-  config =
-    mkIf cfg.enable { user.packages = with pkgs; [ ungoogled-chromium ]; };
+  config = mkIf cfg.enable {
+    user.packages = with pkgs; [ ungoogled-chromium google-chrome ];
+  };
 }
