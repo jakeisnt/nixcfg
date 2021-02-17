@@ -47,7 +47,8 @@ Plug 'vim-scripts/utl.vim'                     " text linking
 Plug 'vim-airline/vim-airline', {'tag': 'v0.11'} " status bar
 Plug 'junegunn/goyo.vim', {'tag': 'v1.6.0'}      " minimalist vim
 Plug 'junegunn/limelight.vim'                    " highlight current paragraph
-Plug 'arcticicestudio/nord-vim', {'tag': 'v0.15.0'}     
+Plug 'arcticicestudio/nord-vim', {'tag': 'v0.15.0'}
+Plug 'b4skyx/serenade'
 Plug 'jlesquembre/coc-conjure'
 Plug 'Olical/conjure'
 

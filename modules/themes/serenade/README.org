@@ -1,0 +1,5 @@
+#+TITLE:  Nordic
+#+AUTHOR: Jacob Chvatal
+#+DATE:   December 28, 2020
+
+The classic nordic theme. It probably isn't complete if you're readin this.
