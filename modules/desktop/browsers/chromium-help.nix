@@ -6,7 +6,9 @@ with lib;
 with lib.my;
 let cfg = config.modules.desktop.browsers.chromium-help;
 in {
-  options.modules.desktop.browsers.chrome = { enable = mkBoolOpt false; };
+  options.modules.desktop.browsers.chromium-help = {
+    enable = mkBoolOpt false;
+  };
   config = mkIf cfg.enable {
     programs.chromium = {
       enable = true;
