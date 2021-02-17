@@ -101,7 +101,7 @@
       ssh.enable = true;
       backup.enable = true;
     };
-    theme.active = "nordic";
+    theme.active = "serenade";
   };
 
   programs.ssh.startAgent = true;
