@@ -21,7 +21,7 @@ in {
       modules = {
         theme = {
           gtk = {
-            theme = "serenade";
+            theme = "Gruvbox-Dark";
             iconTheme = "Papirus-Dark";
             cursorTheme = "capitaine-cursors";
           };
@@ -31,7 +31,10 @@ in {
             fadeColor = "2a2f33";
             fgAlt = "f8f8f2";
             urgent = "FF5555";
-            bgAlt = "";
+            bgAlt = "2a2f33";
+            inactiveBack = "2a2f33";
+            pHoldBack = "282A36";
+            focusedBack = "6f757d";
 
             color0 = black;
             color1 = red;
@@ -59,6 +62,16 @@ in {
               cyan = cyan;
               white = white;
             };
+            main = {
+              black = black;
+              red = red;
+              green = green;
+              yellow = yellow;
+              blue = blue;
+              magenta = magenta;
+              cyan = cyan;
+              white = white;
+            };
           };
         };
 
@@ -72,7 +85,11 @@ in {
     }
     # Desktop theming
     {
-      user.packages = with pkgs; [ papirus-icon-theme capitaine-cursors ];
+      user.packages = with pkgs; [
+        gruvbox-dark-gtk
+        papirus-icon-theme
+        capitaine-cursors
+      ];
       fonts = {
         fonts = with pkgs; [
           sarasa-gothic

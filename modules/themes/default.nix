@@ -29,6 +29,9 @@ in {
       fgAlt = mkOpt str "";
       bgAlt = mkOpt str "";
       fadeColor = mkOpt str "";
+      inactiveBack = mkOpt str "";
+      pHoldBack = mkOpt str "";
+      focusedBack = mkOpt str "";
       color0 = mkOpt str "";
       color1 = mkOpt str "";
       color2 = mkOpt str "";
@@ -48,6 +51,16 @@ in {
       # currently used for alacritty,
       # it may be better to switch to this over numbers
       dim = {
+        black = mkOpt str "";
+        red = mkOpt str "";
+        green = mkOpt str "";
+        yellow = mkOpt str "";
+        blue = mkOpt str "";
+        magenta = mkOpt str "";
+        cyan = mkOpt str "";
+        white = mkOpt str "";
+      };
+      main = {
         black = mkOpt str "";
         red = mkOpt str "";
         green = mkOpt str "";

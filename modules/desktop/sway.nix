@@ -135,21 +135,21 @@ in {
       ''));
       "waybar/config" =
         mkIf cfg.fancy { source = "${configDir}/waybar/config"; };
-     
-     # waybar inspiration credit goes to github.com/jakehamilton!
-     "waybar/style.css".text = mkIf cfg.fancy (with colors;
+
+      # waybar inspiration credit goes to github.com/jakehamilton!
+      "waybar/style.css".text = mkIf cfg.fancy (with colors;
         concatStrings [
           ''
-            @define-color foreground #4d4d4d;
-            @define-color background #282a36;
+            @define-color foreground #${foreground};
+            @define-color background #${pHoldBack};
             @define-color fgalt #${fgAlt};
-            @define-color bgalt #e6e6e6;
-            @define-color cyan #ff6e67;
-            @define-color green #5af78e;
-            @define-color yellow #f1fa8c;
-            @define-color blue #9aedfe;
-            @define-color purple #bd93f9;
-            @define-color buttonhover #ff79c6;
+            @define-color bgalt #${bgAlt};
+            @define-color cyan #${main.cyan};
+            @define-color green #${main.green};
+            @define-color yellow #${main.yellow};
+            @define-color blue #${main.blue};
+            @define-color purple #${main.magenta};
+            @define-color buttonhover #${main.red};
           ''
           (concatMapStringsSep "\n" readFile
             [ "${configDir}/waybar/style.css" ])
@@ -162,14 +162,15 @@ in {
             set $lighterbg  #${fadeColor}
             set $urgent #${urgent}
             set $urgenttext #${fgAlt}
-            set $inactiveback #44475A
-            set $pholdback #282A36
-            set $focusedback #6f757d
+            set $inactiveback #${inactiveBack}
+            set $pholdback #${pHoldBack}
+            set $focusedback #${focusedBack}
           '')
           (concatMapStringsSep "\n" readFile [ "${configDir}/sway/config" ])
           (if cfg.fancy then
 
           ''
+            output * bg #${bgAlt} solid_color
             gaps outer 8
             gaps inner 5
 

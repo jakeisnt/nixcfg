@@ -38,8 +38,10 @@ in {
             background = nord0;
             fadeColor = nord3;
             fgAlt = "f8f8f2";
-            bgAlt = "";
-
+            bgAlt = nord2;
+            inactiveBack = "44475A";
+            pHoldBack = "282A36";
+            focusedBack = "6f757d";
             color0 = nord1;
             color1 = nord11;
             color2 = nord14;
@@ -64,6 +66,17 @@ in {
               blue = "68809a";
               magenta = "8c738c";
               cyan = "6d96a5";
+              white = "aeb3bb";
+            };
+            # TODO: taken from an old waybar config. may want something more cohesive.
+            main = {
+              black = "373e4d";
+              red = "ff79c6";
+              green = "5af78e";
+              yellow = "f1fa8c";
+              blue = "9aedfe";
+              magenta = "bd93f9";
+              cyan = "ff6e67";
               white = "aeb3bb";
             };
             urgent = "FF5555";
