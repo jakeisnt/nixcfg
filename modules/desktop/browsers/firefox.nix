@@ -82,7 +82,7 @@ in {
 
     modules.desktop.browsers.firefox.settings = {
       "devtools.theme" = "dark";
-      "widget.content.gtk-theme-override" = "Nordic";
+      # "widget.content.gtk-theme-override" = "Nordic";
       # Enable userContent.css and userChrome.css for our theme modules
       "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
       # Don't use the built-in password manager; a nixos user is more likely

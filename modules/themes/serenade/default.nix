@@ -1,5 +1,6 @@
 { options, config, lib, pkgs, ... }:
 
+# inspired by https://github.com/b4skyx/dotfiles : )
 with lib;
 with lib.my;
 let
@@ -26,14 +27,14 @@ in {
             cursorTheme = "capitaine-cursors";
           };
           color = with colorscheme; {
-            foreground = white;
+            foreground = black;
             background = "2a2f33";
             fadeColor = "2a2f33";
             fgAlt = "f8f8f2";
             urgent = "FF5555";
             bgAlt = "2a2f33";
-            inactiveBack = "2a2f33";
-            pHoldBack = "282A36";
+            inactiveBack = "282A36";
+            pHoldBack = "2a2f33";
             focusedBack = "6f757d";
 
             color0 = black;
