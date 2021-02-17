@@ -21,9 +21,9 @@ in {
       modules = {
         theme = {
           gtk = {
-            theme = "Nordic";
-            iconTheme = "Zafiro-icons";
-            cursorTheme = "Numix-Cursor";
+            theme = "serenade";
+            iconTheme = "Papirus-Dark";
+            cursorTheme = "capitaine-cursors";
           };
           color = with colorscheme; {
             foreground = white;
@@ -33,7 +33,7 @@ in {
             urgent = "FF5555";
             bgAlt = "";
 
-            color0 = black; 
+            color0 = black;
             color1 = red;
             color2 = green;
             color3 = yellow;
@@ -66,15 +66,16 @@ in {
         shell.tmux.rcFiles = [ ./config/tmux.conf ];
         desktop.browsers = {
           firefox.userChrome = concatMapStringsSep "\n" readFile
-          [ ./config/firefox/userChrome.css ];
+            [ ./config/firefox/userChrome.css ];
         };
       };
     }
     # Desktop theming
     {
-      user.packages = with pkgs; [ zafiro-icons numix-cursor-theme ];
+      user.packages = with pkgs; [ papirus-icon-theme capitaine-cursors ];
       fonts = {
         fonts = with pkgs; [
+          sarasa-gothic
           fira-code
           fira-code-symbols
           jetbrains-mono
@@ -83,20 +84,21 @@ in {
         ];
         fontconfig.defaultFonts = {
           sansSerif = [ "Fira Sans" ];
-          monospace = [ "Fira Code" ];
+          monospace = [ "sarasa" ];
         };
       };
 
       home.configFile = with config.modules;
-      mkMerge [
-        (mkIf desktop.media.graphics.vector.enable {
-          "inkscape/templates/default.svg".source =
-          ./config/inkscape/default-template.svg;
+        mkMerge [
+          (mkIf desktop.media.graphics.vector.enable {
+            "inkscape/templates/default.svg".source =
+              ./config/inkscape/default-template.svg;
           })
           (mkIf editors.vim.enable {
-          "nvim/theme.vim" = { source = ./config/theme.vim; };
+            "nvim/theme.vim" = { source = ./config/theme.vim; };
           })
-          ];
-          }
-          ]);
-          }
+          { "gtk-3.0/gtk.css".source = ./config/gtk/gtk.css; }
+        ];
+    }
+  ]);
+}

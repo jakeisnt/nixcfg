@@ -65,7 +65,7 @@ Plug 'SirVer/ultisnips'         " snippets support
 Plug 'honza/vim-snippets'       " snippets
 
 " file type support
-Plug 'axvr/org.vim'             " orgm ode support
+Plug 'axvr/org.vim'             " org mode support
 Plug 'inkarkat/vim-SyntaxRange' " syntax for just part of file
 Plug 'reedes/vim-pencil'        " writing
 Plug 'LnL7/vim-nix'             " actually good nix support

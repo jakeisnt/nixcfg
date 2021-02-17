@@ -135,6 +135,8 @@ in {
         "gtk-cursor-theme-name=${cfg.gtk.cursorTheme}"}
         gtk-fallback-icon-theme=gnome
         gtk-application-prefer-dark-theme=true
+        gtk-button-images=1
+        gtk-menu-images=1
         gtk-xft-hinting=1
         gtk-xft-hintstyle=hintfull
         gtk-xft-rgba=none
