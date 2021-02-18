@@ -25,9 +25,13 @@
     nixos-hardware.url = "github:nixos/nixos-hardware";
     simple-nixos-mailserver.url =
       "gitlab:simple-nixos-mailserver/nixos-mailserver";
+    spicetify-nix = {
+      url = "github:jakeisnt/spicetify-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, ... }:
+  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, spicetify-nix, ... }:
     let
       inherit (lib) attrValues;
       inherit (lib.my) mapModules mapModulesRec mapHosts;
@@ -58,6 +62,7 @@
       overlay = final: prev: {
         unstable = uPkgs;
         my = self.packages."${system}";
+        extras = { inherit spicetify-nix; };
       };
 
       overlays = mapModules ./overlays import;

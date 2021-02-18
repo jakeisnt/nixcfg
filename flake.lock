@@ -120,7 +120,8 @@
         "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nur": "nur",
-        "simple-nixos-mailserver": "simple-nixos-mailserver"
+        "simple-nixos-mailserver": "simple-nixos-mailserver",
+        "spicetify-nix": "spicetify-nix"
       }
     },
     "simple-nixos-mailserver": {
@@ -140,6 +141,43 @@
         "owner": "simple-nixos-mailserver",
         "repo": "nixos-mailserver",
         "type": "gitlab"
+      }
+    },
+    "spicetify-nix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "spicetify-themes": "spicetify-themes"
+      },
+      "locked": {
+        "lastModified": 1613691052,
+        "narHash": "sha256-Oqqatg/9j4ZkEKWgDeGFZjzkkTk6V9JU7aPwJdHOFJk=",
+        "owner": "jakeisnt",
+        "repo": "spicetify-nix",
+        "rev": "fc3dc8ea577b88f828667f8cf678077ecbb3bfad",
+        "type": "github"
+      },
+      "original": {
+        "owner": "jakeisnt",
+        "repo": "spicetify-nix",
+        "type": "github"
+      }
+    },
+    "spicetify-themes": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1610676077,
+        "narHash": "sha256-TmlI8LWMJwAVtuJUrxwxZPjF/w4+mkYm2BkiZ9K/9k0=",
+        "owner": "morpheusthewhite",
+        "repo": "spicetify-themes",
+        "rev": "4cea2498cd00d07571e053afe96fe88f20e76a10",
+        "type": "github"
+      },
+      "original": {
+        "owner": "morpheusthewhite",
+        "repo": "spicetify-themes",
+        "type": "github"
       }
     },
     "utils": {
