@@ -18,6 +18,8 @@ let
       exec systemctl --user start sway.service
     '';
   });
+  latitude = "45.5";
+  longitude = "-122.65";
   lock = (pkgs.writeScriptBin "lock" ''
     #!${pkgs.stdenv.shell}
     exec ${pkgs.swaylock-effects}/bin/swaylock
@@ -90,12 +92,22 @@ in {
       };
     };
 
+    systemd.user.services.wlsunset = mkIf cfg.fancy {
+      description = "Idle Manager for Wayland";
+      documentation = [ "man:swayidle(1)" ];
+      wantedBy = [ "sway-session.target" ];
+      partOf = [ "graphical-session.target" ];
+      serviceConfig = {
+        ExecStart =
+          "${pkgs.wlsunset}/bin/wlsunset -l ${latitude} -L ${longitude}";
+      };
+    };
+
     systemd.user.services.swayidle = mkIf cfg.fancy {
       description = "Idle Manager for Wayland";
       documentation = [ "man:swayidle(1)" ];
       wantedBy = [ "sway-session.target" ];
       partOf = [ "graphical-session.target" ];
-      path = [ pkgs.bash ];
       serviceConfig = {
         ExecStart = ''
           ${pkgs.swayidle}/bin/swayidle -w -d \
@@ -107,7 +119,7 @@ in {
 
     modules.shell.zsh.rcInit = ''
       if [ -z $DISPLAY ] && [ "$(tty)" == "/dev/tty1" ]; then 
-        startsway
+        exec startsway
       fi
     '';
 
