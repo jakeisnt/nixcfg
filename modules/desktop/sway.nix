@@ -135,9 +135,9 @@ in {
       ''));
       "waybar/config" =
         mkIf cfg.fancy { source = "${configDir}/waybar/config"; };
-     
-     # waybar inspiration credit goes to github.com/jakehamilton!
-     "waybar/style.css".text = mkIf cfg.fancy (with colors;
+
+      # waybar inspiration credit goes to github.com/jakehamilton!
+      "waybar/style.css".text = mkIf cfg.fancy (with colors;
         concatStrings [
           ''
             @define-color foreground #4d4d4d;
