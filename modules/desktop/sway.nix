@@ -92,16 +92,16 @@ in {
       };
     };
 
-    systemd.user.services.wlsunset = mkIf cfg.fancy {
-      description = "Idle Manager for Wayland";
-      documentation = [ "man:swayidle(1)" ];
-      wantedBy = [ "sway-session.target" ];
-      partOf = [ "graphical-session.target" ];
-      serviceConfig = {
-        ExecStart =
-          "${pkgs.wlsunset}/bin/wlsunset -l ${latitude} -L ${longitude}";
-      };
-    };
+    # systemd.user.services.wlsunset = mkIf cfg.fancy {
+    #   description = "Idle Manager for Wayland";
+    #   documentation = [ "man:swayidle(1)" ];
+    #   wantedBy = [ "sway-session.target" ];
+    #   partOf = [ "graphical-session.target" ];
+    #   serviceConfig = {
+    #     ExecStart =
+    #       "${pkgs.wlsunset}/bin/wlsunset -l ${latitude} -L ${longitude}";
+    #   };
+    # };
 
     systemd.user.services.swayidle = mkIf cfg.fancy {
       description = "Idle Manager for Wayland";
