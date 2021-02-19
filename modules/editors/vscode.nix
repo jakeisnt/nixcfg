@@ -13,14 +13,13 @@ let
   cfg = config.modules.editors.vscode;
   extensions = with pkgs.vscode-extensions;
     ([ bbenoist.Nix vscodevim.vim ]
-    # ++ [pkgs.vscode-utils.buildVscodeExtension {
-    #     name = "";
-    #     src = "";
-    #     vscodeExtUniqueId = "WakaTime-vscode-wakatime-4.0.10";
-    #     buildInputs = [
-    #     ];
-    # }]
       ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+        {
+          name = "vscode-wakatime";
+          publisher = "WakaTime";
+          version = "5.0.1";
+          sha256 = "0wahh7kmrdzcrcp2lj71qxsxbmgdq97k60aw2jxxqlmdfy407nnh";
+        }
         {
           name = "nord-visual-studio-code";
           publisher = "arcticicestudio";
