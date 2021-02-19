@@ -81,7 +81,12 @@ in {
 
     # Desktop theming
     {
-      user.packages = with pkgs; [ nordic zafiro-icons numix-cursor-theme ];
+      user.packages = with pkgs;
+        [ nordic zafiro-icons numix-cursor-theme ]
+        ++ (if config.modules.desktop.media.spotify.enable then
+          [ extras.spicetify-nix.packages.x86_64-linux.nord ]
+        else
+          [ ]);
       fonts = {
         fonts = with pkgs; [
           fira-code

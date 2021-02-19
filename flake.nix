@@ -29,6 +29,7 @@
       url = "github:jakeisnt/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixpkgs-wayland.url = "github:colemickens/nixpkgs-wayland";
   };
 
   outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, spicetify-nix, ... }:
@@ -48,8 +49,8 @@
           overlays = extraOverlays ++ (attrValues self.overlays);
         };
 
-      pkgs = mkPkgs nixpkgs [ self.overlay ];
-      uPkgs = mkPkgs nixpkgs-unstable [ ];
+      pkgs = mkPkgs nixpkgs [ self.overlay inputs.nixpkgs-wayland.overlay ];
+      uPkgs = mkPkgs nixpkgs-unstable [ inputs.nixpkgs-wayland.overlay ];
 
       lib = nixpkgs.lib.extend (self: super: {
         my = import ./lib {
