@@ -25,7 +25,7 @@ in {
         "dbepggeogbaibhgnhhndojpepiihcmeb" # vimium
         "abehfkkfjlplnjadfcjiflnejblfmmpj" # nord theme
         "ddehdnnhjimbggeeenghijehnpakijod" # remove scrollbar
-
+        "ikdgincnppajmpmnhfheflannaiapmlm" # ampie: social interaction with webpages
         # custom css;
         # ::-webkit-scrollbar {
         #   display: none;
