@@ -15,10 +15,10 @@ in {
   config = mkIf cfg.enable {
     user.packages = with pkgs;
       [
+        extras.spicetify-nix.packages.x86_64-linux.nord
         # spotify-tui is fine for selecting and playing music, but incomplete. We
         # still occasionally need the official client for more sophisticated
         # search and the "made for you" playlists.
-        spotify
 
         # # services.spotifyd doesn't work so we'll have to roll our own spotifyd +
         # # spotify-tui solution. The dbus interface doesn't work, though, so we
