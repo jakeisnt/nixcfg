@@ -27,7 +27,7 @@ in {
     env.XDG_SESSION_TYPE = "wayland";
     modules.desktop.apps.wofi.enable = true;
 
-    user.packages = [
+    user.packages = with pkgs; [
       wayfire
       xwayland
       mako
