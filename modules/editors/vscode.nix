@@ -33,12 +33,6 @@ let
           sha256 = "1gml41bc77qlydnvk1rkaiv95rwprzqgj895kxllqy4ps8ly6nsd";
         }
         {
-          name = "vscode-wakatime";
-          publisher = "WakaTime";
-          version = "5.0.0";
-          sha256 = "1ggsfigl19wni9wfbhxh73bifpn7r4ccd42qv6nvk6rqxxldi0k0";
-        }
-        {
           name = "leadermode";
           publisher = "michaelgriscom";
           version = "0.2.0";
