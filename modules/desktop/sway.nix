@@ -119,7 +119,7 @@ in {
 
     modules.shell.zsh.rcInit = ''
       if [ -z $DISPLAY ] && [ "$(tty)" == "/dev/tty1" ]; then 
-        exec startsway
+        startsway
       fi
     '';
 
