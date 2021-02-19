@@ -92,7 +92,7 @@ in {
     '';
 
     home.configFile = {
-      "swaylock/config".text = (mkIf cfg.fancy (with colors; ''
+      "swaylock/config".text = (with colors; ''
         line-color=${colors.background}
         inside-color=${colors.background}
         ring-color=${background}
@@ -112,74 +112,7 @@ in {
         fade-in=0.15
         effect-pixelate=20
         indicator-radius=50
-      ''));
-      "waybar/config" =
-        mkIf cfg.fancy { source = "${configDir}/waybar/config"; };
-
-      # waybar inspiration credit goes to github.com/jakehamilton!
-      "waybar/style.css".text = mkIf cfg.fancy (with colors;
-        concatStrings [
-          ''
-            @define-color foreground #4d4d4d;
-            @define-color background #282a36;
-            @define-color fgalt #${fgAlt};
-            @define-color bgalt #e6e6e6;
-            @define-color cyan #ff6e67;
-            @define-color green #5af78e;
-            @define-color yellow #f1fa8c;
-            @define-color blue #9aedfe;
-            @define-color purple #bd93f9;
-            @define-color buttonhover #ff79c6;
-          ''
-          (concatMapStringsSep "\n" readFile
-            [ "${configDir}/waybar/style.css" ])
-        ]);
-      "sway/config".text = with colors;
-        concatStrings [
-          (''
-            set $foreground #${foreground}
-            set $background #${background}
-            set $lighterbg  #${fadeColor}
-            set $urgent #${urgent}
-            set $urgenttext #${fgAlt}
-            set $inactiveback #44475A
-            set $pholdback #282A36
-            set $focusedback #6f757d
-          '')
-          (concatMapStringsSep "\n" readFile [ "${configDir}/sway/config" ])
-          (if cfg.fancy then
-
-          ''
-            gaps outer 8
-            gaps inner 5
-
-            bindsym $mod+d exec 'pkill -SIGUSR1 waybar'
-
-            bar {
-                swaybar_command ${pkgs.waybar}/bin/waybar
-            }
-
-            exec ${pkgs.autotiling}/bin/autotiling
-          '' else ''
-            bar {
-              position bottom
-              # When the status_command prints a new line to stdout, swaybar updates.
-              # The default just shows the current date and time.
-              status_command while date +'%Y-%m-%d %H:%M'; do sleep 1; done
-              colors {
-                background  $background
-                statusline  $foreground
-                separator   $background
-
-                #Type               border      background  font
-                focused_workspace   $lighterbg  $lighterbg  $foreground
-                active_workspace    $background $background $foreground
-                inactive_workspace  $background $background $foreground
-                urgent_workspace    $background $background $foreground
-              }
-            }
-          '')
-        ];
+      '');
       "mako/config".text = with colors; ''
         sort=-time
         layer=overlay
