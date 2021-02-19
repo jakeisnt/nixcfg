@@ -151,11 +151,11 @@
         "spicetify-themes": "spicetify-themes"
       },
       "locked": {
-        "lastModified": 1613691052,
-        "narHash": "sha256-Oqqatg/9j4ZkEKWgDeGFZjzkkTk6V9JU7aPwJdHOFJk=",
+        "lastModified": 1613712936,
+        "narHash": "sha256-do4VHA5x8T7uuqXFRLSA4SpbjJjgF6MGS0rg7I+yKwY=",
         "owner": "jakeisnt",
         "repo": "spicetify-nix",
-        "rev": "fc3dc8ea577b88f828667f8cf678077ecbb3bfad",
+        "rev": "57f1733572797a2f44f3b9542ef6405e9ecf1231",
         "type": "github"
       },
       "original": {
