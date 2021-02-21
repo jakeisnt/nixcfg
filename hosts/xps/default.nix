@@ -20,8 +20,8 @@
       browsers = {
         default = "firefox";
         firefox.enable = true;
-        brave.enable = true;
-        chrome.enable = true;
+        # brave.enable = true;
+        # chrome.enable = true;
         # netsurf.enable = true;
       };
       media = {
