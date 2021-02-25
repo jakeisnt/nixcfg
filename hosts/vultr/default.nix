@@ -12,7 +12,7 @@ with lib.my;
     };
     shell = {
       git.enable = true;
-      ranger.enable = true;
+      lf.enable = true;
       zsh.enable = true;
       gnupg.enable = true;
     };
