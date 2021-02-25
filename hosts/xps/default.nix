@@ -93,7 +93,7 @@
         preventGC = true;
       };
       # tmux.enable = true;
-      ranger.enable = true;
+      lf.enable = true;
       zsh.enable = true;
     };
     services = {
