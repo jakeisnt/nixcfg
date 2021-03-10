@@ -14,6 +14,7 @@ in {
       w3m # w3m image preview
       poppler_utils # pdf preview
       ffmpegthumbnailer # video thumbnails
+      xdg_utils # xdg-open is used a lot by lf
     ];
 
     home.configFile = {
