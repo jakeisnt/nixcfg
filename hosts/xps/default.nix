@@ -97,7 +97,7 @@
       zsh.enable = true;
     };
     services = {
-      # syncthing.enable = true;
+      syncthing.enable = true;
       ssh.enable = true;
       backup.enable = true;
     };
