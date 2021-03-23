@@ -38,8 +38,7 @@ in {
             background = nord0;
             fadeColor = nord3;
             fgAlt = "f8f8f2";
-            bgAlt = "";
-
+            bgAlt = "282a36";
             color0 = nord1;
             color1 = nord11;
             color2 = nord14;
@@ -56,6 +55,26 @@ in {
             color13 = nord15;
             color14 = nord7;
             color15 = nord6;
+            normal = {
+              black = nord1;
+              red = nord11;
+              green = nord14;
+              yellow = nord13;
+              blue = nord9;
+              magenta = nord15;
+              cyan = nord8;
+              white = nord5;
+            };
+            alt = {
+              black = nord3;
+              red = nord11;
+              green = nord14;
+              yellow = nord13;
+              blue = nord9;
+              magenta = nord15;
+              cyan = nord7;
+              white = nord6;
+            };
             dim = {
               black = "373e4d";
               red = "94545d";

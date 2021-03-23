@@ -21,8 +21,9 @@ window#waybar.hidden {
 	padding-left: 16px;
 	padding-right: 16px;
 	margin-bottom: 0;
-	border-radius: 26px;
 	transition: none;
+	border-style: solid;
+	border-width: 2px;
 }
 
 #window {
@@ -44,6 +45,7 @@ window#waybar.PCSX2 #window {
 	padding-left: 0;
 	padding-right: 0;
 	background: @background;
+	border-color: @bgalt;
 }
 
 #workspaces button {
@@ -66,47 +68,56 @@ window#waybar.PCSX2 #window {
 
 #mode {
 	background: @background;
+	border-color: @bgalt;
 }
 
 #mpd {
 	color: @foreground;
 	background: @green;
+	border-color: @greenalt;
 }
 
 #mpd.disconnected,
 #mpd.stopped {
 	color: @fgalt;
 	background: @background;
+	border-color: @bgAlt;
 }
 
 #network {
 	color: @foreground;
 	background: @purple;
+	border-color: @purplealt;
 }
 
 #pulseaudio {
 	color: @foreground;
 	background: @blue;
+	border-color: @bluealt;
 }
 
 #temperature {
 	color: @foreground;
 	background: @green;
+	border-color: @greenalt;
 }
 
 #cpu {
 	color: @foreground;
-	background: @yellow;
+	background: @purple;
+	border-color: @purplealt;
 }
 
 #memory {
 	color: @foreground;
 	background: @cyan;
+	border-color: @cyanalt;
 }
 
 #battery {
 	color: @foreground;
 	background: @green;
+	border-color: @greenalt;
 }
 
 #clock {
@@ -114,4 +125,5 @@ window#waybar.PCSX2 #window {
 	margin-right: 12px;
 	color: @fgalt;
 	background: @background;
+	border-color: @bgalt;
 }

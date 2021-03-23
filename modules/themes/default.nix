@@ -45,8 +45,28 @@ in {
       color13 = mkOpt str "";
       color14 = mkOpt str "";
       color15 = mkOpt str "";
-      # currently used for alacritty,
-      # it may be better to switch to this over numbers
+
+      # alternative colors for schemes not using the 0-15 color convention
+      normal = {
+        black = mkOpt str "";
+        red = mkOpt str "";
+        green = mkOpt str "";
+        yellow = mkOpt str "";
+        blue = mkOpt str "";
+        magenta = mkOpt str "";
+        cyan = mkOpt str "";
+        white = mkOpt str "";
+      };
+      alt = {
+        black = mkOpt str "";
+        red = mkOpt str "";
+        green = mkOpt str "";
+        yellow = mkOpt str "";
+        blue = mkOpt str "";
+        magenta = mkOpt str "";
+        cyan = mkOpt str "";
+        white = mkOpt str "";
+      };
       dim = {
         black = mkOpt str "";
         red = mkOpt str "";
