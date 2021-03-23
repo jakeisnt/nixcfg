@@ -28,6 +28,17 @@ let
       lockPref("security.identityblock.show_extended_validation", true);
     '';
   };
+  # TODO: figure out a better way to do this.
+  searchJson = "${configDir}/firefox/firefox.search.json";
+  searchJsonMozlz4 = pkgs.stdenv.mkDerivation {
+    pname = "search-json-mozlz4";
+    version = "latest";
+    src = ./.;
+    phases = "installPhase";
+    installPhase = ''
+      ${pkgs.mozlz4a}/bin/mozlz4a ${searchJson} $out
+    '';
+  };
 in {
   options.modules.desktop.browsers.firefox = with types; {
     enable = mkBoolOpt false;
@@ -179,7 +190,7 @@ in {
         StartWithLastProfile=1
         Version=2
       '';
-
+      "${cfgPath}/default/search.json/mozlz4".source = searchJsonMozlz4;
       "${cfgPath}/${cfg.profileName}.default/user.js" =
         mkIf (cfg.settings != { } || cfg.extraConfig != "") {
           text = ''
