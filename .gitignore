@@ -1,1 +1,4 @@
 result
+
+.direnv/*
+!.direnv/.git-keep
