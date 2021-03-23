@@ -152,16 +152,21 @@ in {
       "waybar/style.css".text = mkIf cfg.fancy (with colors;
         concatStrings [
           ''
-            @define-color foreground #4d4d4d;
-            @define-color background #282a36;
+            @define-color foreground #${fgAlt};
+            @define-color background #${background};
+            @define-color buttonhover #${urgent};
             @define-color fgalt #${fgAlt};
-            @define-color bgalt #e6e6e6;
-            @define-color cyan #ff6e67;
-            @define-color green #5af78e;
-            @define-color yellow #f1fa8c;
-            @define-color blue #9aedfe;
-            @define-color purple #bd93f9;
-            @define-color buttonhover #ff79c6;
+            @define-color bgalt #${bgAlt};
+            @define-color cyan #${normal.cyan};
+            @define-color green #${normal.green};
+            @define-color yellow #${normal.yellow};
+            @define-color blue #${normal.blue};
+            @define-color purple #${normal.magenta};
+            @define-color cyanalt #${dim.cyan};
+            @define-color greenalt #${dim.green};
+            @define-color yellowalt #${dim.yellow};
+            @define-color bluealt #${dim.blue};
+            @define-color purplealt #${dim.magenta};
           ''
           (concatMapStringsSep "\n" readFile
             [ "${configDir}/waybar/style.css" ])
