@@ -26,11 +26,15 @@ in {
         "abehfkkfjlplnjadfcjiflnejblfmmpj" # nord theme
         "ddehdnnhjimbggeeenghijehnpakijod" # remove scrollbar
         "ikdgincnppajmpmnhfheflannaiapmlm" # ampie: social interaction with webpages
+        "hhinaapppaileiechjoiifaancjggfjm" # lastfm web scrobbler
+
         # custom css;
         # ::-webkit-scrollbar {
         #   display: none;
         # }
         # must be added to Rescroller extension
+
+        # must also sign into lastfm web scrobbler
       ];
 
       # add more options when using chromium !!
