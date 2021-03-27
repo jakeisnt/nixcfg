@@ -52,15 +52,9 @@ in {
       editorconfig-core-c # per-project style config
       # :tools lookup & :lang org +roam
       sqlite
-      # :lang cc
-      ccls
-      # :lang javascript
-      nodePackages.javascript-typescript-langserver
       # :lang latex & :lang org (latex previews)
       texlive.combined.scheme-medium
       # :lang rust
-      rustfmt
-      unstable.rust-analyzer
       # org +gnuplot
       gnuplot
       # org +pandoc
