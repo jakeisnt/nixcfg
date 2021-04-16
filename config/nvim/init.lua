@@ -6,7 +6,7 @@ local bo = vim.bo
 local g = vim.g
 local cmd = vim.cmd
 
-u = require("utils")
+-- u = require("./utils")
 
 -- editing
 o.expandtab = true
@@ -110,6 +110,15 @@ map('n', '<leader>ws', ':sp<CR>', options)
 map('n', '<leader>wv', ':vsp<CR>', options)
 map('n', '<leader>wc', '<C-W>c', options)
 
+-- packer mappings
+map('n', '<leader>ff', ':Telescope find_files<cr>', options)
+map('n', '<leader>fg', ':Telescope live_grep<cr>', options)
+map('n', '<leader>fb', ':Telescope buffers<cr>', options)
+map('n', '<leader>fh', ':Telescope help_tags<cr>', options)
+-- match emacs
+map('n', '<leader>sp', ':Telescope live_grep<cr>', options)
+map('n', '<leader>,', ':Telescope buffers<cr>', options)
+
 -- lsp
 
 -- vim.lsp.set_log_level 'debug'
@@ -131,8 +140,12 @@ return require('packer').startup(function()
   use 'tpope/vim-repeat'
   use 'tpope/vim-unimpaired'
   use 'wellle/targets.vim'
-  use 'junegunn/fzf'
-  use 'junegunn/fzf.vim'
+  use {
+    'nvim-telescope/telescope.nvim',
+    requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
+  }
+
+  use 'nvim-treesitter/nvim-treesitter'
   use 'justinmk/vim-sneak'
 
   -- metrics
