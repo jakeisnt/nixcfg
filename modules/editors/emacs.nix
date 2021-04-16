@@ -18,7 +18,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    nixpkgs.overlays = [ inputs.emacs-overlay.overlay inputs.nur.overlay ];
+    nixpkgs.overlays = with inputs; [ emacs-overlay.overlay nur.overlay ];
 
     services.emacs = mkIf cfg.daemon {
       enable = true;

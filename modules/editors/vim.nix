@@ -1,4 +1,4 @@
-{ config, options, lib, pkgs, ... }:
+{ config, options, lib, pkgs, inputs, ... }:
 
 # If I ever want to improve my Vim configuration,
 # https://github.com/gvolpe/nix-config/tree/master/home/programs/neovim
@@ -11,7 +11,9 @@ in {
   options.modules.editors.vim = { enable = mkBoolOpt false; };
 
   config = mkIf cfg.enable {
-    user.packages = with pkgs; [ editorconfig-core-c neovim ];
+
+    nixpkgs.overlays = with inputs; [ neovim-nightly-overlay.overlay ];
+    user.packages = with pkgs; [ editorconfig-core-c neovim-nightly ];
 
     env = {
       VIMINIT =
