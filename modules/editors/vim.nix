@@ -13,7 +13,12 @@ in {
   config = mkIf cfg.enable {
 
     nixpkgs.overlays = with inputs; [ neovim-nightly-overlay.overlay ];
-    user.packages = with pkgs; [ editorconfig-core-c neovim-nightly ];
+    user.packages = with pkgs; [
+      neovim-nightly
+      editorconfig-core-c
+      python3
+      nodePackages.neovim
+    ];
 
     env = {
       VIMINIT =

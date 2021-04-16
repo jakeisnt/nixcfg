@@ -60,7 +60,6 @@ Plug 'rbong/vim-flog', {'tag': 'v1.2.0'}    " git branch viewer
 Plug 'farmergreg/vim-lastplace' " save place in file
 Plug 'wincent/terminus'         " better terminal integration
 Plug 'direnv/direnv.vim'        " direnv support
-Plug 'SirVer/ultisnips'         " snippets support 
 Plug 'honza/vim-snippets'       " snippets
 
 " file type support
