@@ -15,6 +15,7 @@ in {
   };
 
   config = mkIf cfg.enable {
+    users.users.duplicati.isNormalUser = true;
     services.duplicati = {
       enable = true;
       user = "jake";
