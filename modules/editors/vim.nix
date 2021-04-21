@@ -11,19 +11,21 @@ in {
   options.modules.editors.vim = { enable = mkBoolOpt false; };
 
   config = mkIf cfg.enable {
-
     nixpkgs.overlays = with inputs; [ neovim-nightly-overlay.overlay ];
     user.packages = with pkgs; [
       neovim-nightly
       editorconfig-core-c
       python3
       nodePackages.neovim
+      # for editing vim configuration
+      sumneko-lua-language-server
     ];
 
     env = {
-      VIMINIT =
-        "let \\$MYVIMRC='\\$XDG_CONFIG_HOME/nvim/init.vim' | source \\$MYVIMRC";
+      LUA_INIT = "${configDir}/nvim";
+      # VIMINIT = "let \\$MYVIMRC='\\$XDG_CONFIG_HOME/nvim/init.lua' | source \\$MYVIMRC";
     };
+
     environment.shellAliases = {
       vim = "nvim";
       vi = "nvim";

@@ -18,6 +18,9 @@ in {
 
       # :lang javascript
       nodePackages.javascript-typescript-langserver
+      # web development general utils
+      nodePackages.vscode-css-languageserver-bin
+      nodePackages.vscode-html-languageserver-bin
     ];
 
     env.NPM_CONFIG_USERCONFIG = "$XDG_CONFIG_HOME/npm/config";
