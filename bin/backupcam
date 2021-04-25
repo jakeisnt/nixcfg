@@ -5,7 +5,7 @@ set -i
 mkdir /home/jake/xxx
 sudo mount /dev/mmcblk0p1 /home/jake/xxx
 mkdir $1
-cp -r /home/jake/xxx/* $1
+cp -r -v /home/jake/xxx/* $1
 
 mv $1 /home/jake/pics/Darktable/
 
