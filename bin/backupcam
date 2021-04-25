@@ -1,0 +1,15 @@
+#!/usr/bin/env zsh
+
+set -i
+
+mkdir xxx
+sudo mount /dev/mmcblk0p1 xxx
+mkdir $1
+cp -r xxx/* $1
+
+mv $1 /home/jake/pics/Darktable/
+
+sudo umount xxx
+rm -rf xxx
+
+
