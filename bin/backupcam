@@ -10,6 +10,6 @@ cp -r xxx/* $1
 mv $1 /home/jake/pics/Darktable/
 
 sudo umount xxx
-rm -rf xxx
+rm -r xxx
 
 
