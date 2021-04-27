@@ -1,7 +1,5 @@
 #!/usr/bin/env zsh
 
-set -i
-
 mkdir /home/jake/xxx
 sudo mount /dev/mmcblk0p1 /home/jake/xxx
 mkdir $1
