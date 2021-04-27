@@ -23,7 +23,7 @@ in {
 
   config = mkIf cfg.enable {
     user.packages = with pkgs;
-      (if cfg.tools.enable then [
+      [ vlc ] ++ (if cfg.tools.enable then [
         font-manager # so many damned fonts...
         imagemagick # for image manipulation from the shell
       ] else
