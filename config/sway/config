@@ -149,3 +149,7 @@ client.focused_inactive $inactiveback $inactiveback $foreground $inactiveback   
 client.unfocused        $inactiveback $inactiveback $urgenttext $inactiveback   $inactiveback
 client.urgent           $urgent       $urgent       $foreground $urgent         $urgent
 client.placeholder      $pholdback    $pholdback    $urgenttext $pholdback      $pholdback
+
+# after sway changed default for WAYLAND_DISPLAY, may need additional configuration:
+exec dbus-update-activation-environment WAYLAND_DISPLAY
+exec systemctl --user import-environment WAYLAND_DISPLAY
