@@ -14,7 +14,9 @@ in {
     yubikey = mkBoolOpt false;
   };
 
+
   config = mkIf cfg.enable {
+  users.users.duplicati.isNormalUser = true;
     services.duplicati = {
       enable = true;
       user = "jake";
