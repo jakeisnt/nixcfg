@@ -72,6 +72,7 @@
       # lua.love2d.enable = true;
     };
     hardware = {
+      remarkable.enable = true;
       extraHosts.enable = true;
       audio.enable = true;
       bluetooth.enable = true;
