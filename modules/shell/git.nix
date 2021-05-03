@@ -9,6 +9,7 @@ in {
   config = mkIf cfg.enable {
     user.packages = with pkgs; [
       git
+      gitflow
       gitAndTools.gh
       gitAndTools.git-open
       gitAndTools.diff-so-fancy
