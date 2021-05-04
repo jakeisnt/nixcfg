@@ -3,6 +3,13 @@
 
 A fork of [hlissner's dotfiles](https://github.com/hlissner/dotfiles) with substantial modifications - most notably the addition of Wayland and the Nord theme - for my own usage.
 
+## Screenshots 
+### Full Configuration
+<img src="/../screenshots/nordic/neofetch-desktop.png" width="100%" />
+<img src="/../screenshots/nordic/emacs-workspace.png" width="100%" />
+<img src="/../screenshots/nordic/spotify-scrot.png" width="100%" />
+
+### Minimal Configuration
 <img src="/../screenshots/nordic/sway-1.jpg" width="100%" />
 <img src="/../screenshots/nordic/sway-2.jpg" width="100%" />
 
