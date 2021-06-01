@@ -48,9 +48,7 @@
     messengers = {
       rss.enable = true;
       matrix.enable = true;
-      discord.enable = true;
-      slack.enable = true;
-      # signal.enable = true;
+      signal.enable = true;
       email.enable = true;
       # deltachat.enable = true;
     };
@@ -73,7 +71,10 @@
     };
     hardware = {
       remarkable.enable = true;
-      extraHosts.enable = true;
+      extraHosts = {
+        enable = true;
+        allowSocial = false;
+      };
       audio.enable = true;
       bluetooth.enable = true;
       fs = {
