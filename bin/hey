@@ -72,7 +72,7 @@ function main {
         _do nix flake update --update-input "$flake" "$DOTFILES"
       done
     else
-      _do nix flake update --recreate-lock-file "$DOTFILES"
+      _do nix flake update "$DOTFILES"
     fi
   }
 

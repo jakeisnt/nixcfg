@@ -16,8 +16,8 @@
     kernel.sysctl = {
       # enable ipv6 privacy extensions and prefer using temp addresses
       "net.ipv6.conf.all.use_tempaddr" = 2;
-      "max_user_instances" = 8192;
-      "max_user_watches" = 16834;
+      "fs.inotify.max_user_instances" = 8192;
+      "fs.inotify.max_user_watches" = 16834;
     };
     kernelParams = [
       # disable spectre and meltdown fixes
@@ -49,7 +49,7 @@
     sane.enable = true;
     opengl.enable = true;
     # enable machine check exception error logs
-    mcelog.enable = true;
+    # mcelog.enable = true;
   };
 
   # CPU
