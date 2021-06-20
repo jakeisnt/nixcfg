@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# nix-shell -p gphoto2 ffmpeg
+
+# use a DSLR as a webcam via USB
+gphoto2 --stdout --capture-movie | ffmpeg -i - -vcodec rawvideo -pix_fmt yuv420p -threads 0 -f v4l2 /dev/video8
+
+# make sure the camera is plugged into your device and has a consistent power source (the USB bus may not be enough)
+
+# if having issues:
+# - make sure that the camera has adequete power - USB bus power might not be enough
+# run gphoto2 --auto-detect to make sure that your camera can be seen. can retrieve logs with another gphoto2 tag as well

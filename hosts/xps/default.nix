@@ -110,7 +110,13 @@
   services.openssh.startWhenNeeded = true;
   services.getty.autologinUser = "jake";
 
-  user.packages = with pkgs; [ bitwarden-cli rnix-lsp clojure-lsp ];
+  user.packages = with pkgs; [
+    rnix-lsp
+    clojure-lsp
+    # TODO: move these into the hash bang of the webcam script?
+    gphoto2
+    ffmpeg
+  ];
 
   networking.networkmanager = {
     enable = true;
