@@ -121,12 +121,13 @@
   networking.networkmanager = {
     enable = true;
 
-    # TODO: doesn't work yet!
-    # wifi = {
-    #   backend = "iwd";
-    #   # powersave = true;
-    #   # macAddress = "random";
-    # };
+    wifi = {
+      # TODO: switch to IWD once it's ready. It should provide better performance
+      # backend = "iwd";
+      # powersave = true; # may be good?
+      # we need to do our best to prevent fingerprinting. not working?
+      # macAddress = "random";
+    };
   };
 
   # Approve polkit access for those in wheel group by default
