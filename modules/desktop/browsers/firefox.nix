@@ -78,6 +78,7 @@ in {
         decentraleyes
         org-capture
         ublock-origin
+        lastfm-scrobbler
       ] ++ (if config.modules.dev.node.enable then [ react-devtools ] else [ ]);
 
     modules.desktop.browsers.firefox.settings = {
