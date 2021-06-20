@@ -26,64 +26,53 @@ in {
       '';
       "wofi/style.css".text = with colors; ''
         window {
-            location: center;
-            anchor:   center;
-            padding: 10px;
-            border:  0px;
+            margin: 0px;
+            border-width: 0px;
             border-radius: 6px;
-
-            spacing: 0;
-            children:  [mainbox];
-            orientation: horizontal;
         }
 
         #input {
             color: #${color6};
-            padding: 11px;
+            padding: 8px;
             background-color: #${color0};
-
-            border: 1px;
+            border-width: 1px;
             border-radius:  6px 6px 0px 0px;
             border-color: #${color10};
         }
 
         #inner-box {
-          padding: 8px;
           border-radius: 0px 0px 6px 6px;
           border-color: #${color10};
-          border: 0px 1px 1px 1px;
+          border-width: 0px 1px 1px 1px;
           background-color: rgba(46,52,64,0.9);
-          dynamic: false;
         }
 
         #outer-box {
+          border: none;
         }
 
         #scroll {
-          display: none;
+          margin: 0px;
+          border: none;
         }
 
         #text {
-            color: ${color0};
-            padding: 5;
-            border-color: ${foreground};
-            border:  0px 2px 2px 2px;
-            background-color: ${color7};
+          color: #${color0};
+          padding: 5px;
+          border: none;
         }
 
         button {
             padding: 6px;
             color: #${foreground};
-            horizontal-align: 0.5;
-
-            border: 2px 0px 2px 2px;
+            border-width: 2px 0px 2px 2px;
             border-radius: 4px 0px 0px 4px;
             border-color: #${foreground};
         }
 
         button selected normal {
-            border: 2px 0px 2px 2px;
-            border-color: ${foreground};
+            border-width: 2px 0px 2px 2px;
+            border-color: #${foreground};
         }
       '';
     };
