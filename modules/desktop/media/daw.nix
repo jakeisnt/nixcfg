@@ -1,6 +1,5 @@
 # modules/desktop/media/daw.nix
-#
-# I make music for my games. LMMS is my DAW; or will be, once I've weened myself
+
 # off of Fruityloops. When I'm in the mood for a quicky I fire up sunvox
 # instead. It runs absolutely anywhere, even on my ipad and phone. As if I'd
 # ever need to.
@@ -15,10 +14,10 @@ in {
 
   config = mkIf cfg.enable {
     user.packages = with pkgs; [
-      lmms # for making music
+      ardour
       audacity # for recording and remastering audio
-      # sunvox     # for making music (where LMMS is overkill)
-      orca-c # powers sunvox
+      # sunvox # chill synth for making music (where LMMS is overkill)
+      # orca-c # powers sunvox
     ];
   };
 }

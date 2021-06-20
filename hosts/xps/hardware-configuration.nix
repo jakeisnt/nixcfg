@@ -41,6 +41,9 @@
       "i915.enable_psr=2"
       "i915.enable_rc6=7"
       "i915.lvds_downclock=1"
+
+      # significant amount of usb issues without this
+      "usbcore.autosuspend=-1"
     ];
   };
 

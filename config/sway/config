@@ -32,6 +32,15 @@ input type:keyboard {
 # Add an identifier for your default keyboard name
 # Caps lock is in the wrong place > : (
 input "1:1:AT_Translated_Set_2_keyboard" {
+  xkb_options caps:swapescape 
+}
+
+# Anne Pro 2 keyboard
+input "1241:41618:OBINS_OBINS_AnnePro2" {
+  xkb_options caps:swapescape 
+}
+
+input "1121:16:NOVATEK_USB_Keyboard" {
   xkb_options caps:swapescape
 }
 
