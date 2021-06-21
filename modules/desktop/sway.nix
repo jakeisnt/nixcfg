@@ -47,6 +47,9 @@ in {
           sway-contrib.grimshot
           wf-recorder
 
+          # greeter
+          greetd.tuigreet
+
           # due to overlay these are now wayland clipboard interoperable
           xclip
           xsel
@@ -122,6 +125,21 @@ in {
                  '';
       };
     };
+
+    services.greetd = {
+      enable = true;
+      restart = true;
+      vt = 2;
+      settings = {
+        default_session = {
+          command =
+            "${pkgs.greetd.tuigreet}/bin/tuigreet --remember --asterisks --time --cmd ${startsway}/bin/startsway";
+          user = "greeter";
+        };
+      };
+    };
+
+    security.pam.services.greetd.enableGnomeKeyring = true;
 
     modules.shell.zsh.rcInit = ''
       if [ -z $DISPLAY ] && [ "$(tty)" == "/dev/tty1" ]; then

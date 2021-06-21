@@ -62,7 +62,7 @@ with lib.my; {
 
     users.users.${config.user.name} = mkAliasDefinitions options.user;
 
-    nix = let users = [ "root" config.user.name ];
+    nix = let users = [ "root" config.user.name "greeter" ];
     in {
       trustedUsers = users;
       allowedUsers = users;
