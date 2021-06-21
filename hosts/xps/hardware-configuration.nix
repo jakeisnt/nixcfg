@@ -81,7 +81,10 @@
   # scanning
   hardware = {
     sane.enable = true;
-    opengl.enable = true;
+    opengl = {
+      enable = true;
+      extraPackages = with pkgs; [ vaapiIntel vaapiVdpau libvdpau-va-gl ];
+    };
     # enable machine check exception error logs
     # mcelog.enable = true;
   };

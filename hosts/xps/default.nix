@@ -118,16 +118,35 @@
     ffmpeg
   ];
 
-  networking.networkmanager = {
+  networking = {
+    networkmanager = {
+      enable = true;
+
+      wifi = {
+        powersave = false; # wifi beast mode
+        # TODO: switch to IWD once it's ready. It should provide better performance
+        # backend = "iwd";
+        # we need to do our best to prevent fingerprinting. not working?
+        # macAddress = "random";
+      };
+    };
+  };
+
+  # use dnsmasq to cache dns
+  # might want to port this over to other things
+  services.dnsmasq = {
     enable = true;
 
-    wifi = {
-      # TODO: switch to IWD once it's ready. It should provide better performance
-      # backend = "iwd";
-      # powersave = true; # may be good?
-      # we need to do our best to prevent fingerprinting. not working?
-      # macAddress = "random";
-    };
+    servers = [ "8.8.8.8" "8.8.4.4" ];
+
+    extraConfig = ''
+      interface=lo
+      bind-interfaces
+      listen-address=127.0.0.1
+      cache-size=1000
+
+      no-negcache
+    '';
   };
 
   # Approve polkit access for those in wheel group by default
