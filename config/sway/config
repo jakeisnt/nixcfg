@@ -160,5 +160,8 @@ client.urgent           $urgent       $urgent       $foreground $urgent         
 client.placeholder      $pholdback    $pholdback    $urgenttext $pholdback      $pholdback
 
 # after sway changed default for WAYLAND_DISPLAY, may need additional configuration:
-exec dbus-update-activation-environment WAYLAND_DISPLAY
-exec systemctl --user import-environment WAYLAND_DISPLAY
+# exec dbus-update-activation-environment WAYLAND_DISPLAY
+# exec systemctl --user import-environment WAYLAND_DISPLAY
+
+# start the sway session so other things can listen for the sway session systemd unit
+exec "dbus-update-activation-environment WAYLAND_DISPLAY; systemctl --user import-environment WAYLAND_DISPLAY; systemctl --user start sway-session.target"

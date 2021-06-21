@@ -38,15 +38,16 @@ in {
       enable = true;
       extraPackages = with pkgs;
         [
+          startsway
           xwayland
+          qt5.qtwayland
           mako
           kanshi
           wl-clipboard
           sway-contrib.grimshot
           wf-recorder
 
-          # due to overlay,
-          # these are now wayland clipboard interoperable
+          # due to overlay these are now wayland clipboard interoperable
           xclip
           xsel
         ] ++ (if cfg.fancy then [
@@ -74,12 +75,11 @@ in {
 
     env.XDG_CURRENT_DESKTOP = "sway";
 
-    environment.systemPackages = with pkgs; [ startsway ];
-
     systemd.user.targets.sway-session = {
       enable = true;
       description = "Sway compositor session";
       documentation = [ "man:systemd.special(7)" ];
+
       bindsTo = [ "graphical-session.target" ];
       wants = [ "graphical-session-pre.target" ];
       after = [ "graphical-session-pre.target" ];
@@ -88,6 +88,7 @@ in {
     };
 
     systemd.user.services.sway = {
+      enable = true;
       description = "Sway - Wayland window manager";
       documentation = [ "man:sway(5)" ];
       bindsTo = [ "graphical-session.target" ];
@@ -107,20 +108,8 @@ in {
       };
     };
 
-    systemd.user.services.wlsunset = mkIf cfg.fancy {
-      enable = true;
-      description = "Idle Manager for Wayland";
-      documentation = [ "man:swayidle(1)" ];
-      wantedBy = [ "sway-session.target" ];
-      partOf = [ "graphical-session.target" ];
-      serviceConfig = {
-        ExecStart =
-          "${pkgs.wlsunset}/bin/wlsunset -l ${latitude} -L ${longitude}";
-      };
-    };
-
     systemd.user.services.swayidle = mkIf cfg.fancy {
-      enable = true;
+      # enable = true;
       description = "Idle Manager for Wayland";
       documentation = [ "man:swayidle(1)" ];
       wantedBy = [ "sway-session.target" ];
@@ -128,14 +117,14 @@ in {
       serviceConfig = {
         ExecStart = ''
           ${pkgs.swayidle}/bin/swayidle -w -d \
-                   timeout 300 '${lock}/bin/lock && ${pkgs.sway}/bin/swaymsg "output * dpms off"' \
+                   timeout 5 '${lock}/bin/lock && ${pkgs.sway}/bin/swaymsg "output * dpms off"' \
                    resume '${pkgs.sway}/bin/swaymsg "output * dpms on"'
                  '';
       };
     };
 
     modules.shell.zsh.rcInit = ''
-      if [ -z $DISPLAY ] && [ "$(tty)" == "/dev/tty1" ]; then 
+      if [ -z $DISPLAY ] && [ "$(tty)" == "/dev/tty1" ]; then
         startsway
       fi
     '';
