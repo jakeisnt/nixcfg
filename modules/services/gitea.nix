@@ -2,12 +2,13 @@
 
 with lib;
 with lib.my;
-let cfg = config.modules.services.gitea;
-    domain = config.networking.domain;
+let
+  cfg = config.modules.services.gitea;
+  domain = config.networking.domain;
 in {
-  options.modules.services.gitea = { 
+  options.modules.services.gitea = {
     enable = mkBoolOpt false;
-    registration = mkBoolOpt false; 
+    registration = mkBoolOpt false;
     mail = mkBoolOpt false;
   };
 
@@ -64,6 +65,7 @@ in {
           "git.${domain}" = {
             forceSSL = true;
             enableACME = true;
+            root = "/srv/www/git.${domain}";
             locations."/" = { proxyPass = "http://127.0.0.1:3000"; };
           };
         };

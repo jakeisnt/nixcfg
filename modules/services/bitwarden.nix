@@ -61,6 +61,7 @@ in {
           "bitwarden.${domain}" = {
             forceSSL = true;
             enableACME = true;
+            root = "/srv/www/bitwarden.${domain}";
             locations."/" = {
               proxyPass =
                 "http://localhost:8812"; # changed the default rocket port due to some conflict

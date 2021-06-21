@@ -25,6 +25,7 @@ in {
         "syncthing.${domain}" = {
           forceSSL = true;
           enableACME = true;
+          root = "/srv/www/syncthing.${domain}";
           locations."/" = {
             proxyPass = "http://localhost:8384";
             proxyWebsockets = true;

@@ -9,14 +9,10 @@ let
   domain = config.networking.domain;
   mailAccounts = config.mailserver.loginAccounts;
   htpasswd = pkgs.writeText "radicale.users" (concatStrings
-    (flip mapAttrsToList mailAccounts (mail: user:
-      mail + ":" + secrets.email.hashedPassword + "\n"
-      ))
-    );
+    (flip mapAttrsToList mailAccounts
+      (mail: user: mail + ":" + secrets.email.hashedPassword + "\n")));
 in {
-  options.modules.services.cal = {
-    enable = mkBoolOpt false;
-  };
+  options.modules.services.cal = { enable = mkBoolOpt false; };
 
   config = mkIf cfg.enable {
     services.radicale = {
@@ -35,6 +31,7 @@ in {
         "cal.${domain}" = {
           forceSSL = true;
           enableACME = true;
+          root = "/srv/www/cal.${domain}";
           locations."/" = {
             proxyPass = "http://localhost:5232/";
             extraConfig = ''

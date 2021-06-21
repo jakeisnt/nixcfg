@@ -2,10 +2,11 @@
 
 with lib;
 with lib.my;
-let cfg = config.modules.services.matrix;
-    domain = config.networking.domain;
+let
+  cfg = config.modules.services.matrix;
+  domain = config.networking.domain;
 in {
-  options.modules.services.matrix = { 
+  options.modules.services.matrix = {
     enable = mkBoolOpt false;
     registration = mkBoolOpt false;
     element = mkBoolOpt false;
@@ -24,7 +25,6 @@ in {
         nginx.virtualHosts."element.${domain}" = {
           enableACME = true;
           forceSSL = true;
-
           root = pkgs.element-web.override {
             conf = {
               default_server_config."m.homeserver" = {
@@ -32,7 +32,8 @@ in {
                 "server_name" = "${domain}";
               };
 
-              jitsi.preferredDomain = mkIf config.modules.services.jitsi.enable "jitsi.${domain}";
+              jitsi.preferredDomain =
+                mkIf config.modules.services.jitsi.enable "jitsi.${domain}";
             };
           };
         };
@@ -51,22 +52,18 @@ in {
           database_type = "psycopg2";
           database_args = { database = "matrix-synapse"; };
 
-          listeners = [
-            { # federation
-              bind_address = "::1";
-              port = 8008;
-              resources = [
-                {
-                  compress = true;
-                  names = [ "client" "federation" ];
-                }
-              ];
+          listeners = [{ # federation
+            bind_address = "::1";
+            port = 8008;
+            resources = [{
+              compress = true;
+              names = [ "client" "federation" ];
+            }];
 
-              tls = false;
-              type = "http";
-              x_forwarded = false;
-            }
-          ];
+            tls = false;
+            type = "http";
+            x_forwarded = false;
+          }];
 
           extraConfig = ''
             max_upload_size: "100M"
@@ -90,25 +87,23 @@ in {
         nginx = {
           virtualHosts = {
             "${domain}" = {
-              locations."= /.well-known/matrix/server".extraConfig =
-                let
-                  # use 443 instead of the default 8448 port
-                  server = { "m.server" = "matrix.${domain}:443"; };
-                in ''
-                  add_header Content-Type application/json;
-                  return 200 '${builtins.toJSON server}';
-                '';
-              locations."= /.well-known/matrix/client".extraConfig =
-                let
-                  client = {
-                    "m.homeserver" =  { "base_url" = "https://matrix.${domain}"; };
-                    "m.identity_server" =  { "base_url" = "https://vector.im"; };
-                  };
-                in ''
-                  add_header Content-Type application/json;
-                  add_header Access-Control-Allow-Origin *;
-                  return 200 '${builtins.toJSON client}';
-                '';
+              locations."= /.well-known/matrix/server".extraConfig = let
+                # use 443 instead of the default 8448 port
+                server = { "m.server" = "matrix.${domain}:443"; };
+              in ''
+                add_header Content-Type application/json;
+                return 200 '${builtins.toJSON server}';
+              '';
+              locations."= /.well-known/matrix/client".extraConfig = let
+                client = {
+                  "m.homeserver" = { "base_url" = "https://matrix.${domain}"; };
+                  "m.identity_server" = { "base_url" = "https://vector.im"; };
+                };
+              in ''
+                add_header Content-Type application/json;
+                add_header Access-Control-Allow-Origin *;
+                return 200 '${builtins.toJSON client}';
+              '';
             };
 
             "matrix.${domain}" = {
@@ -119,9 +114,7 @@ in {
                 return 404;
               '';
 
-              locations."/_matrix" = {
-                proxyPass = "http://[::1]:8008";
-              };
+              locations."/_matrix" = { proxyPass = "http://[::1]:8008"; };
             };
           };
         };
