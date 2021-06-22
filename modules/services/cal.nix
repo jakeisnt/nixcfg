@@ -25,13 +25,6 @@ in {
           htpasswd_encryption = "bcrypt";
         };
       };
-
-      config = ''
-        [auth]
-        type = htpasswd
-        htpasswd_filename = ${htpasswd}
-        htpasswd_encryption = bcrypt
-      '';
     };
 
     services.nginx = {
