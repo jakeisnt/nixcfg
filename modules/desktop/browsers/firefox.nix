@@ -28,6 +28,21 @@ let
       lockPref("security.identityblock.show_extended_validation", true);
     '';
   };
+
+  # TODO: figure out a better way to do this.
+  searchJson = readFile "${configDir}/firefox/firefox.search.json";
+  searchJsonMozlz4 = pkgs.stdenv.mkDerivation {
+    pname = "search-json-mozlz4";
+    version = "latest";
+    src = dotFilesDir;
+    phases = "installPhase";
+    installPhase = ''
+      cat > ./firefox.search.json << EOL
+      ${searchJson}
+      EOL
+      ${pkgs.mozlz4a}/bin/mozlz4a ./firefox.search.json $out
+    '';
+  };
 in {
   options.modules.desktop.browsers.firefox = with types; {
     enable = mkBoolOpt false;
@@ -62,8 +77,6 @@ in {
 
     # find extensions here:
     # https://gitlab.com/rycee/nur-expressions/-/blob/master/pkgs/firefox-addons/generated-firefox-addons.nix
-    # TODO request that redux-devtools is added:
-    # https://addons.mozilla.org/en-US/firefox/addon/reduxdevtools/
     home-manager.users.jake.programs.firefox.extensions =
       with pkgs.nur.repos.rycee.firefox-addons;
       [
@@ -79,6 +92,7 @@ in {
         org-capture
         ublock-origin
         lastfm-scrobbler
+        redux-devtools
       ] ++ (if config.modules.dev.node.enable then [ react-devtools ] else [ ]);
 
     modules.desktop.browsers.firefox.settings = {
@@ -179,7 +193,7 @@ in {
         StartWithLastProfile=1
         Version=2
       '';
-
+      "${cfgPath}/default/search.json/mozlz4".source = searchJsonMozlz4;
       "${cfgPath}/${cfg.profileName}.default/user.js" =
         mkIf (cfg.settings != { } || cfg.extraConfig != "") {
           text = ''
