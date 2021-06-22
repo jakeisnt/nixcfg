@@ -8,6 +8,8 @@ in {
 
   config = mkIf cfg.enable {
     user.packages = with pkgs; [
+      # image viewer
+      imv
       mpv-with-scripts
       mpvc # CLI controller for mpv
       (mkIf config.programs.sway.enable celluloid) # nice GTK GUI for mpv
