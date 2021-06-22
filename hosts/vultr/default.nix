@@ -1,6 +1,5 @@
 { config, pkgs, lib, ... }:
-with lib.my;
-{
+with lib.my; {
   imports = [ ./hardware-configuration.nix ../personal.nix ];
 
   networking.hostName = "vultr";
@@ -10,18 +9,20 @@ with lib.my;
       default = "nvim";
       vim.enable = true;
     };
+    dev = { node.enable = true; };
     shell = {
       git.enable = true;
       lf.enable = true;
       zsh.enable = true;
       gnupg.enable = true;
+      direnv.enable = true;
     };
     services = {
       mailserver.enable = true;
       ssh.enable = true;
       matrix = {
         enable = false;
-        registration = false;  
+        registration = false;
         element = true;
       };
       bitwarden = {
@@ -49,5 +50,5 @@ with lib.my;
     useDHCP = false;
     interfaces.ens3.useDHCP = true;
   };
-  
+
 }
