@@ -16,6 +16,8 @@ in {
     user.packages = with pkgs; [
       ardour
       audacity # for recording and remastering audio
+      calf # nice open source audio plugins and synths!!
+      vcv-rack # rack simulation thing (start it by running Rack!)
       # sunvox # chill synth for making music (where LMMS is overkill)
       # orca-c # powers sunvox
     ];
