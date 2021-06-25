@@ -20,10 +20,6 @@ let
   });
   latitude = "45.5";
   longitude = "-122.65";
-  lock = (pkgs.writeScriptBin "lock" ''
-    #!${pkgs.stdenv.shell}
-    exec ${pkgs.swaylock-effects}/bin/swaylock
-  '');
 in {
   options.modules.desktop.sway = {
     enable = mkBoolOpt false; # practical and basic
@@ -31,39 +27,17 @@ in {
   };
 
   config = mkIf cfg.enable {
-    env.XDG_SESSION_TYPE = "wayland";
+    modules.wayland.enable = true;
     modules.desktop.apps.wofi.enable = true;
-
-    # users.extraGroups = [ "sway" ];
+    modules.wayland.mako.enable = true;
+    modules.wayland.swaylock.enable = cfg.fancy;
+    modules.wayland.waybar.enable = cfg.fancy;
 
     programs.sway = {
       enable = true;
       extraPackages = with pkgs;
-        [
-          startsway
-          xwayland
-          qt5.qtwayland
-          mako
-          kanshi
-          wl-clipboard
-          sway-contrib.grimshot
-          wf-recorder
-
-          # due to overlay these are now wayland clipboard interoperable
-          xclip
-          xsel
-        ] ++ (if cfg.fancy then [
-          # extra
-          (waybar.override { pulseSupport = true; })
-
-          swaylock-effects
-          swayidle
-          lock
-          autotiling
-        ] else
-          [ ]);
+        [ startsway ] ++ (if cfg.fancy then [ autotiling ] else [ ]);
       wrapperFeatures.gtk = true;
-
       extraSessionCommands = ''
         export SDL_VIDEODRIVER=wayland
         # needs qt5.qtwayland in systemPackages
@@ -110,21 +84,6 @@ in {
       };
     };
 
-    systemd.user.services.swayidle = mkIf cfg.fancy {
-      # enable = true;
-      description = "Idle Manager for Wayland";
-      documentation = [ "man:swayidle(1)" ];
-      wantedBy = [ "sway-session.target" ];
-      partOf = [ "graphical-session.target" ];
-      serviceConfig = {
-        ExecStart = ''
-          ${pkgs.swayidle}/bin/swayidle -w -d \
-                   timeout 5 '${lock}/bin/lock && ${pkgs.sway}/bin/swaymsg "output * dpms off"' \
-                   resume '${pkgs.sway}/bin/swaymsg "output * dpms on"'
-                 '';
-      };
-    };
-
     modules.shell.zsh.rcInit = ''
       if [ -z $DISPLAY ] && [ "$(tty)" == "/dev/tty1" ]; then
         startsway
@@ -132,53 +91,6 @@ in {
     '';
 
     home.configFile = {
-      "swaylock/config".text = (mkIf cfg.fancy (with colors; ''
-        line-color=${colors.background}
-        inside-color=${colors.background}
-        ring-color=${background}
-        separator-color=${colors.foreground}
-        key-hl-color=${colors.foreground}
-
-        line-wrong-color=${colors.background}
-        inside-wrong-color=${colors.urgent}
-        ring-wrong-color=${colors.urgent}
-
-        line-ver-color=${colors.background}
-        inside-ver-color=${colors.background}
-        ring-ver-color=${colors.background}
-
-        grace=30
-        screenshots
-        fade-in=0.15
-        effect-pixelate=20
-        indicator-radius=50
-      ''));
-      "waybar/config" =
-        mkIf cfg.fancy { source = "${configDir}/waybar/config"; };
-
-      # waybar inspiration credit goes to github.com/jakehamilton!
-      "waybar/style.css".text = mkIf cfg.fancy (with colors;
-        concatStrings [
-          ''
-            @define-color foreground #${fgAlt};
-            @define-color background #${background};
-            @define-color buttonhover #${urgent};
-            @define-color fgalt #${fgAlt};
-            @define-color bgalt #44475A;
-            @define-color cyan #${normal.cyan};
-            @define-color green #${normal.green};
-            @define-color yellow #${normal.yellow};
-            @define-color blue #${normal.blue};
-            @define-color purple #${normal.magenta};
-            @define-color cyanalt #${dim.cyan};
-            @define-color greenalt #${dim.green};
-            @define-color yellowalt #${dim.yellow};
-            @define-color bluealt #${dim.blue};
-            @define-color purplealt #${dim.magenta};
-          ''
-          (concatMapStringsSep "\n" readFile
-            [ "${configDir}/waybar/style.css" ])
-        ]);
       "sway/config".text = with colors;
         concatStrings [
           (''
@@ -225,41 +137,6 @@ in {
             }
           '')
         ];
-      "mako/config".text = with colors; ''
-        sort=-time
-        layer=overlay
-        max-visible=-1
-        background-color=#${background}
-        border-color=#${color0}
-        text-color=#${foreground}
-        width=300
-        height=110
-        border-size=1
-        default-timeout=5000
-        ignore-timeout=1
-        margin=10,12
-
-        [urgency=low]
-        background-color=#${background}
-        border-color=#${color0}
-
-        [urgency=normal]
-        background-color=#${background}
-        border-color=#${color0}
-
-        [urgency=high]
-        background-color=#${urgent}
-        border-color=#${urgent}
-        default-timeout=0
-
-        [category=mpd]
-        default-timeout=2000
-        group-by=category
-
-        [category=spotify]
-        default-timeout=2000
-        group-by=category
-      '';
     };
   };
 }
