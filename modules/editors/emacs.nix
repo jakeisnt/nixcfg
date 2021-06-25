@@ -23,7 +23,7 @@ in {
     services.emacs = mkIf cfg.daemon {
       enable = true;
       package = pkgs.emacsPgtkGcc;
-      defaultEditor = true;
+      defaultEditor = false; # configured elsewhere
     };
 
     user.packages = with pkgs; [
