@@ -34,35 +34,10 @@ autocmd BufNewFile,BufRead *.tsx set filetype=typescriptreact
 let g:folddigest_options = 'vertical, flexnumwidth'
 let g:folddigest_size = 30
 
-
-" FZF
-" match fzf colors with vim scheme
-let g:fzf_colors = {
-      \ 'fg':      ['fg', 'Normal'],
-      \ 'bg':      ['bg', 'Normal'],
-      \ 'hl':      ['fg', 'Comment'],
-      \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-      \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-      \ 'hl+':     ['fg', 'Statement'],
-      \ 'info':    ['fg', 'PreProc'],
-      \ 'border':  ['fg', 'Ignore'],
-      \ 'prompt':  ['fg', 'Conditional'],
-      \ 'pointer': ['fg', 'Exception'],
-      \ 'marker':  ['fg', 'Keyword'],
-      \ 'spinner': ['fg', 'Label'],
-      \ 'header':  ['fg', 'Comment'] }
-
-let g:fzf_preview_window = 'right:60%'
-let g:fzf_buffers_jump = 1
-
-
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
-
-let g:coc_snippet_next = '<tab>'
-
 
 " autoformat
 " au BufWrite * :Autoformat
@@ -70,11 +45,6 @@ let g:autoformat_autoindent = 0
 let g:autoformat_retab = 0
 let g:autoformat_remove_trailing_spaces = 0
 
-" show hidden characters and linewraps
-" https://github.com/dm3/cygwin-config/blob/master/.vimrc
-set list
-set listchars=tab:▸\ ,extends:❯,precedes:❮
-set showbreak=↪
 set completeopt=longest,menu,menuone
 "               |       |    +-- Show popup even with one match
 "               |       +------- Use popup menu with completions
@@ -83,25 +53,10 @@ set wildmode=longest:full,list:full
 "            |            +-- List matches, complete first match
 "            +--------------- Complete longest prefix, use wildmenu
 
-set splitbelow  " sensible splits
-set splitright
-
 
 " visual
-set cmdheight=1                " one line for commands
 set shortmess+=c               " add to search
 set signcolumn=yes             " always show sign column
-syntax on                      " syntax highlighting
-filetype plugin indent on      " file type detection
-set cursorline                 " current line is visible
-set showmatch                  " show matching braces
-syntax enable                  " enable syntax highlighting
-set background=dark
-highlight Comment gui=italic | " make comments italic
-set foldmethod=indent
-
-let g:limelight_conceal_ctermfg = 'Gray'
-let g:gitgutter_sign_column_always=1 " always display gutter
 
 " NERDTree settings
 let g:NERDTreeIgnore = ["^.git$", "^node_modules$","^__pycache__$", "^venv$", "^.vscode$"]
@@ -130,21 +85,6 @@ let g:airline#extensions#tabline#right_sep    = '█'
 let g:airline#extensions#tabline#left_alt_sep = ' '
 
 
-" --- Text Navigation ---
-" travel by visible lines
-map j gj
-map k gk
-
-" avoid pressing shift
-nnoremap ; :
-
-" Browser-similar tab navigation
-nnoremap <C-T> :tabnew<CR>
-nnoremap <C-W> :tabclose<CR>
-nnoremap <C-J> :tabprev<CR>
-nnoremap <C-K> :tabnext<CR>
-nnoremap <silent> <Tab> :bnext<CR>
-nnoremap <silent> <S-Tab> :bprevious<CR>
 
 " http://karolis.koncevicius.lt/posts/porn_zen_and_vimrc/
 " make n always search forward and N backward
@@ -171,16 +111,9 @@ xmap <BS> x
 vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
 vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
 
-" cancel search with esc
-nnoremap <silent> <Esc> :nohlsearch<Bar>:echo<CR>
-
 " text alignment
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
-
-" --- Vim Navigation ---
-" toggle folds
-nnoremap <leader><tab> za
 
 " f :: Find
 nmap <leader>fw     :Windows<CR>

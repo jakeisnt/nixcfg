@@ -71,6 +71,14 @@ cmd 'set history=1000'
 cmd 'set scrolloff=3'
 cmd 'set backspace=2'
 
+cmd 'highlight Comment gui=italic'
+cmd 'set foldmethod=indent'
+cmd 'set cursorline'
+
+-- show hidden characters and linewraps
+-- https://github.com/dm3/cygwin-config/blob/master/.vimrc
+cmd 'set listchars=tab:▸\\ ,extends:❯,precedes:❮'
+cmd 'set showbreak=↪'
 
 -------- mappings --------
 g.mapleader = " "
@@ -99,6 +107,8 @@ map('n', '<leader>fl', ':Telescope live_grep<cr>')
 map('n', '<leader>ft', ':NvimTreeFindFile<CR>')
 map('n', '<leader>fk', ':Telescope file_browser hidden=true<cr>')
 
+
+
 -- split the window
 map('n', '<leader>wh', '<C-W>h')
 map('n', '<leader>wj', '<C-W>j')
@@ -108,6 +118,16 @@ map('n', '<leader>ws', ':sp<CR>')
 map('n', '<leader>wv', ':vsp<CR>')
 map('n', '<leader>wc', '<C-W>c')
 
+-- tab navigation
+map('n', '<C-T>', ':tabnew<cr>')
+map('n', '<C-W>', ':tabclose<cr>')
+map('n', '<C-J>', ':tabprev<cr>')
+map('n', '<C-K>', ':tabnext<cr>')
+map('n', '<silent> <Tab>', ':bnext<cr>')
+map('n', '<silent> <S-Tab>', ':bprevious<cr>')
+
+-- cancel search with esc
+map('n', '<silent> <Esc>', ':nohlsearch<Bar>:echo<CR>')
 
 -- TODO easier way of getting to normal mode from terminal mode
 -- map('t', '<c-<leader>>', '<c-\\><c-n><leader>')
