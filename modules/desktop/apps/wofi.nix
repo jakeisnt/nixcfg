@@ -23,6 +23,7 @@ in {
         lines=6
         allow_images=true
         insensitive=true
+        mode=drun
       '';
       "wofi/style.css".text = with colors; ''
         window {
