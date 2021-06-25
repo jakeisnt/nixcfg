@@ -43,7 +43,9 @@ opt('o', 'undofile', true)
 opt('w', 'wrap', true)
 
 opt('o', 'scrolloff', 4)
-opt('o', 'completeopt', 'menuone,noinsert,noselect')
+opt('o', 'completeopt', 'longest,menu,menuone')
+opt('o', 'wildmenu', 'longest:full,list:full')
+
 opt('o', 'sidescrolloff', 8)
 opt('o', 'shiftround', true)
 opt('o', 'splitbelow', true)
@@ -74,6 +76,8 @@ cmd 'set backspace=2'
 cmd 'highlight Comment gui=italic'
 cmd 'set foldmethod=indent'
 cmd 'set cursorline'
+cmd 'set shortmess+=c'
+cmd 'signcolumn=yes'
 
 -- show hidden characters and linewraps
 -- https://github.com/dm3/cygwin-config/blob/master/.vimrc
@@ -100,6 +104,29 @@ map('n', ';', ':')
 map('n', '<leader>.', ':NvimTreeToggle<CR>')
 map('n', '<leader><leader>', ':e#<CR>')
 
+-- Y behavior consistent with C and D
+map('n', 'Y', 'y$')
+-- select whole file
+map('n', '<leader>V', 'ggVG')
+-- select last insertion
+map('n', 'gV', '`[v`]')
+
+-- format para
+map('n', 'Q', 'gqap')
+map('v', 'Q', 'gq')
+
+-- backspace deletes selected text
+map('x', '<BS>', 'x')
+
+-- http://karolis.koncevicius.lt/posts/porn_zen_and_vimrc/
+-- make n always search forward and N backward
+map('n', '<expr> n', '\'Nn\'[v:searchforward]')
+map('n', '<expr> N', '\'nN\'[v:searchforward]')
+
+" search for current selection in visual mode
+map('v', '<silent> *', ':<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>')
+map('v', '<silent> #', ':<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>')
+
 -- f: find a file
 map('n', '<leader>ff', ':Telescope find_files<cr>')
 map('n', '<leader>fb', ':Telescope buffers<cr>')
@@ -107,6 +134,9 @@ map('n', '<leader>fl', ':Telescope live_grep<cr>')
 map('n', '<leader>ft', ':NvimTreeFindFile<CR>')
 map('n', '<leader>fk', ':Telescope file_browser hidden=true<cr>')
 
+" make ; always "find" forward and , backward
+map('n', '<expr> ;', 'getcharsearch().forward ? \';\' : \',\'')
+map('n', '<expr> ,', 'getcharsearch().forward ? \',\' : \';\'')
 
 -- split the window
 map('n', '<leader>wh', '<C-W>h')
@@ -161,6 +191,36 @@ for _, server in pairs(servers) do
   }
 end
 
+-- useful ideas
+-- vim.api.nvim_exec([[
+-- augroup mygroup
+--   autocmd!
+--   " Setup formatexpr specified filetype(s).
+--   autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+--   " Update signature help on jump placeholder.
+--   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+--   -- Highlight the symbol and its references when holding the cursor.
+--   autocmd CursorHold * silent call CocActionAsync('highlight')
+-- augroup end
+-- ]])
+
+
+-- -- Symbol renaming.
+-- nmap <leader>rn <Plug>(coc-rename)
+--
+-- " Formatting selected code.
+-- xmap <leader>f  <Plug>(coc-format-selected)
+-- nmap <leader>f  <Plug>(coc-format-selected)
+
+
+-- vim often has trouble recognizing typescript react files
+vim.api.nvim_exec([[
+  autocmd BufNewFile,BufRead *.tsx set filetype=typescriptreact
+  autocmd BufEnter * lcd %:p:h -- nerdtree opens in current dir
+  autocmd FocusLost * :wa -- save file when focus is lost
+]])
+
+
 map('n', '<leader>l,', '<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>')
 map('n', '<leader>l;', '<cmd>lua vim.lsp.diagnostic.goto_next()<cr>')
 map('n', '<leader>la', '<cmd>lua vim.lsp.buf.code_action()<cr>')
@@ -198,3 +258,7 @@ nvim_lsp.sumneko_lua.setup {
       },
   },
 }
+
+-- " text alignment
+--xmap ga <Plug>(EasyAlign)
+--nmap ga <Plug>(EasyAlign)
