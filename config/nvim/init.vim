@@ -1,13 +1,3 @@
-" Install vim-plug if not already installed
-if empty(glob('$XDG_CONFIG_HOME/nvim/autoload/plug.vim'))
-    silent !curl -fLo $XDG_CONFIG_HOME/nvim/autoload/plug.vim --create-dirs
-                \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    autocmd VimEnter * PlugInstall
-endif
-
-" --- Plugins ---
-call plug#begin('$XDG_CONFIG_HOME/nvim/plugged')
-" editing
 Plug 'tpope/vim-surround', {'tag': 'v2.1'}         " close parens
 Plug 'junegunn/vim-easy-align', {'tag': 'v2.10.0'} " align text
 Plug 'matze/vim-move', {'tag': 'v1.4'}             " move lines without cut-paste
@@ -17,59 +7,25 @@ Plug 'tpope/vim-unimpaired', {'tag': 'v2.0'}       " bracket mapping
 Plug 'chrisbra/NrrwRgn', {'tag': 'v0.33'}          " narrow region for editing file in new buffer
 Plug 'wellle/targets.vim', {'tag': 'v0.5.0'}       " better targets
 
-" Language server support
-Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
-Plug 'neoclide/coc-snippets' 
-Plug 'neoclide/coc-eslint'
-Plug 'neoclide/coc-css'
-Plug 'neoclide/coc-json'
-Plug 'neoclide/coc-git'
-Plug 'neoclide/coc-clangd'  " C/C++/Objective-C
-Plug 'neoclide/coc-sh'      " shell scripting
-Plug 'neoclide/coc-lists' 
-Plug 'neoclide/coc-highlight'
-Plug 'fannheyward/coc-rust-analyzer'
-Plug 'fannheyward/coc-styled-components' " interface for styled js components
-Plug 'neoclide/coc-tabnine' " all language autocompleter
-Plug 'neoclide/coc-yank'
-
 " Navigation
-Plug 'scrooloose/nerdtree', {'tag': 'v6.9.11'} " directory navigation
-Plug 'Xuyuanp/nerdtree-git-plugin'             " git integration for nerdtree 
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'                        " fuzzy file finding
 Plug 'justinmk/vim-sneak', {'tag': 'v1.9'}     " hunt with two chars
-Plug 'majutsushi/tagbar', {'tag': 'v2.7'}      " browse tags of current file
-Plug 'wakatime/vim-wakatime'
 Plug 'vim-scripts/utl.vim'                     " text linking
 
 " Appearance
-Plug 'vim-airline/vim-airline', {'tag': 'v0.11'} " status bar
 Plug 'junegunn/goyo.vim', {'tag': 'v1.6.0'}      " minimalist vim
 Plug 'junegunn/limelight.vim'                    " highlight current paragraph
-Plug 'arcticicestudio/nord-vim', {'tag': 'v0.15.0'}     
 Plug 'jlesquembre/coc-conjure'
 Plug 'Olical/conjure'
 
 " git
-Plug 'airblade/vim-gitgutter'               " displays git diff info 
 Plug 'tpope/vim-fugitive', {'tag': 'v3.2'}  " git convenience functions
 Plug 'rbong/vim-flog', {'tag': 'v1.2.0'}    " git branch viewer
 
 " tools
 Plug 'farmergreg/vim-lastplace' " save place in file
-Plug 'wincent/terminus'         " better terminal integration
-Plug 'direnv/direnv.vim'        " direnv support
-Plug 'SirVer/ultisnips'         " snippets support 
-Plug 'honza/vim-snippets'       " snippets
 
-" file type support
-Plug 'axvr/org.vim'             " orgm ode support
 Plug 'inkarkat/vim-SyntaxRange' " syntax for just part of file
 Plug 'reedes/vim-pencil'        " writing
-Plug 'LnL7/vim-nix'             " actually good nix support
-Plug 'peitalin/vim-jsx-typescript' " typescriptreact syntax highlighting
-call plug#end()
 
 autocmd BufNewFile,BufRead *.tsx set filetype=typescriptreact
 
@@ -99,16 +55,6 @@ let g:fzf_colors = {
 let g:fzf_preview_window = 'right:60%'
 let g:fzf_buffers_jump = 1
 
-" UltiSnips
-" let g:UltiSnipsExpandTrigger='<tab>'
-" let g:UltiSnipsJumpForwardTrigger='<c-b>'
-" let g:UltiSnipsJumpBackwardTrigger='<c-z>'
-" let g:UltiSnipsEditSplit="vertical"
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? coc#_select_confirm() :
-      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -117,18 +63,6 @@ endfunction
 
 let g:coc_snippet_next = '<tab>'
 
-" Use <C-l> for trigger snippet expand.
-imap <C-l> <Plug>(coc-snippets-expand)
-" Use <C-j> for select text for visual placeholder of snippet.
-vmap <C-j> <Plug>(coc-snippets-select)
-" Use <C-j> for jump to next placeholder, it's default of coc.nvim
-let g:coc_snippet_next = '<c-j>'
-" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
-let g:coc_snippet_prev = '<c-k>'
-" Use <C-j> for both expand and jump (make expand higher priority.)
-imap <C-j> <Plug>(coc-snippets-expand-jump)
-" Use <leader>x for convert visual selected code to snippet
-xmap <leader>x  <Plug>(coc-convert-snippet)
 
 " autoformat
 " au BufWrite * :Autoformat
@@ -136,27 +70,8 @@ let g:autoformat_autoindent = 0
 let g:autoformat_retab = 0
 let g:autoformat_remove_trailing_spaces = 0
 
-" editing
-set expandtab             " expand tabs to spaces
-set tabstop=4             " tabs are 4 spaces
-set shiftwidth=4          " reindents are 4 spaces
-set smartindent           " determines indentation with context
-set magic                 " enable regex
-set formatoptions+=j      " delete comment character when joining lines
-set clipboard=unnamedplus " shared system clipboard
-set textwidth=0           " line wrap
-set wrapmargin=0
-set undofile              " undo history persists across sessions
-
-" search
-set incsearch " highlight as characters are entered
-set hlsearch  " persistent highlight of prev search
-set smartcase " ignore case if search all lowercase
-set wildmenu  " show menu of suggestions with tab-complete
 
 " folding
-set foldenable        " turn on folding
-set foldmethod=marker " marker indicates folds TODO use markers?
 set foldlevelstart=10
 set modelines=1 " use modeline to configure marker
 " vim:foldmethod=marker:foldlevel=0 (put at bottom of file for fold configuraion)
@@ -198,7 +113,6 @@ filetype plugin indent on      " file type detection
 set cursorline                 " current line is visible
 set showmatch                  " show matching braces
 syntax enable                  " enable syntax highlighting
-set termguicolors
 set background=dark
 highlight Comment gui=italic | " make comments italic
 set foldmethod=indent
@@ -232,9 +146,6 @@ let g:airline#extensions#tabline#left_sep     = '█'
 let g:airline#extensions#tabline#right_sep    = '█'
 let g:airline#extensions#tabline#left_alt_sep = ' '
 
-
-" --- Key Mappings ---
-let mapleader=" "
 
 " --- Text Navigation ---
 " travel by visible lines
@@ -285,27 +196,19 @@ xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
 " --- Vim Navigation ---
-nnoremap <leader>.    :NERDTreeToggle<CR>
 " toggle folds
 nnoremap <leader><tab> za
-" toggle with previous file
-nnoremap <Leader><Leader> :e#<CR>
 
 " f :: Find
-" TODO: file path completion in edit mode
-nmap <leader>ff     :Files<CR>
 nmap <leader>fw     :Windows<CR>
 nmap <leader>fh     :History<CR>
 nmap <leader>ft     :Tags<CR>
 nmap <leader>fc     :Commits<CR>
-nmap <leader>fl     :Lines<CR>
-nmap <leader>fb     :Buffers<CR>
 nmap <leader>fg     :GFiles<CR>
 nmap <leader>fm     :Marks<CR> 
 nmap <leader>fs     :Snippets<CR> 
 nmap <leader>fc     :Commands<CR>
 nmap <leader>fm     :Maps<CR>
-nmap <leader>ft     :NERDTreeFind<CR>
 
 " g :: Git
 nmap <leader>gg    :Gstatus<CR>
@@ -330,16 +233,6 @@ map <leader>vp :VimuxPromptCommand<CR>
 map <leader>vl :VimuxRunLastCommand<CR>
 map <leader>vi :VimuxInspectRunner<CR>
 map <leader>vz :VimuxZoomRunner<CR>
-
-" w :: (split) Window
-" commonly used shortcuts
-nnoremap <leader>wh <C-W>h
-nnoremap <leader>wj <C-W>j
-nnoremap <leader>wk <C-W>k
-nnoremap <leader>wl <C-W>l
-nnoremap <leader>ws  :sp<CR>
-nnoremap <leader>wv  :vsp<CR>
-nnoremap <leader>wc  <C-W>c
 
 " --- Event Listeners ---
 autocmd BufEnter * lcd %:p:h | " nerdtree opens in current dir
@@ -420,70 +313,3 @@ augroup mygroup
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
 
-" Applying codeAction to the selected region.
-" Example: `<leader>aap` for current paragraph
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
-
-" Remap keys for applying codeAction to the current buffer.
-nmap <leader>ac  <Plug>(coc-codeaction)
-" Apply AutoFix to problem on the current line.
-nmap <leader>qf  <Plug>(coc-fix-current)
-
-" Map function and class text objects
-" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
-xmap if <Plug>(coc-funcobj-i)
-omap if <Plug>(coc-funcobj-i)
-xmap af <Plug>(coc-funcobj-a)
-omap af <Plug>(coc-funcobj-a)
-xmap ic <Plug>(coc-classobj-i)
-omap ic <Plug>(coc-classobj-i)
-xmap ac <Plug>(coc-classobj-a)
-omap ac <Plug>(coc-classobj-a)
-
-" Remap <C-f> and <C-b> for scroll float windows/popups.
-nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
-vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-
-" Use CTRL-S for selections ranges.
-" Requires 'textDocument/selectionRange' support of language server.
-nmap <silent> <C-s> <Plug>(coc-range-select)
-xmap <silent> <C-s> <Plug>(coc-range-select)
-
-" Add `:Format` command to format current buffer.
-command! -nargs=0 Format :call CocAction('format')
-
-" Add `:Fold` command to fold current buffer.
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
-
-" Add `:OR` command for organize imports of the current buffer.
-command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
-
-" Add (Neo)Vim's native statusline support.
-" NOTE: Please see `:h coc-status` for integrations with external plugins that
-" provide custom statusline: lightline.vim, vim-airline.
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
-
-" Mappings for CoCList
-" Show all diagnostics.
-nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
-" Manage extensions.
-nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
-" Show commands.
-nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
-" Find symbol of current document.
-nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
-" Search workspace symbols.
-nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
-" Do default action for next item.
-nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
-" Do default action for previous item.
-nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
-" Resume latest coc list.
-nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
-
-nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr>

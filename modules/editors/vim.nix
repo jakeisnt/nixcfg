@@ -12,18 +12,22 @@ in {
 
   config = mkIf cfg.enable {
     nixpkgs.overlays = with inputs; [ neovim-nightly-overlay.overlay ];
-    user.packages = with pkgs; [ editorconfig-core-c ];
+    user.packages = with pkgs; [
+      editorconfig-core-c
+      tree-sitter
+      # for nvim config file
+      sumneko-lua-language-server
+    ];
 
     programs.neovim = {
       package = pkgs.neovim-nightly;
       enable = true;
       defaultEditor = false; # this is configured by me elsewhere
-      # viAlias = true;
-      # vimAlias = true;
 
       configure = {
         customRC = ''
           lua require('init')
+          colorscheme nord
         '';
 
         packages.myPlugins = with pkgs.vimPlugins; {
@@ -37,32 +41,20 @@ in {
             telescope-nvim
             popup-nvim
             plenary-nvim
-            onedark-vim
+            nord-nvim
             lualine-nvim
             which-key-nvim
             neogit
             vim-gitgutter
             auto-pairs
+
+            nvim-tree-lua
+            # vim-wakatime
+            direnv-vim
+            snippets-nvim
           ];
         };
       };
-
-      # plugins = with pkgs.vimPlugins; [
-      #   vim-polyglot
-      #   vim-commentary
-      #   nvim-treesitter
-      #   nvim-lspconfig
-      #   completion-nvim
-      #   telescope-nvim
-      #   popup-nvim
-      #   plenary-nvim
-      #   onedark-vim
-      #   lualine-nvim
-      #   which-key-nvim
-      #   neogit
-      #   vim-gitgutter
-      #   auto-pairs
-      # ];
     };
 
     env = {

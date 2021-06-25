@@ -14,11 +14,9 @@ local function map(mode, lhs, rhs, opts)
 end
 
 -------- plugin configuration --------
-
 require'which-key'.setup {}
 require'neogit'.setup {}
 
-cmd 'colorscheme onedark'
 require'lualine'.setup {
   options = {
     theme = 'auto',
@@ -34,11 +32,18 @@ opt('b', 'expandtab', true)
 opt('b', 'shiftwidth', indent_width)
 opt('b', 'tabstop', indent_width)
 opt('b', 'smartindent', true)
-opt('o', 'completeopt', 'menuone,noinsert,noselect')
 opt('o', 'hidden', true)
 opt('o', 'ignorecase', true)
 opt('o', 'smartcase', true)
+opt('o', 'magic', true)
+opt('o', 'wildmenu', true)
+opt('o', 'incsearch', true)
+opt('o', 'hlsearch', true)
+opt('o', 'undofile', true)
+opt('w', 'wrap', true)
+
 opt('o', 'scrolloff', 4)
+opt('o', 'completeopt', 'menuone,noinsert,noselect')
 opt('o', 'sidescrolloff', 8)
 opt('o', 'shiftround', true)
 opt('o', 'splitbelow', true)
@@ -47,10 +52,16 @@ opt('o', 'termguicolors', true)
 opt('w', 'list', true)
 opt('w', 'number', true)
 opt('w', 'relativenumber', true)
-opt('w', 'wrap', false)
 cmd 'set clipboard=unnamedplus'
 cmd 'set mouse=a'
 cmd 'set timeoutlen=500'
+cmd 'set foldenable'
+cmd 'set foldmethod=marker'
+cmd 'set foldlevelstart=10'
+cmd 'set textwidth=0'
+cmd 'set wrapmargin=0'
+cmd 'set formatoptions+=j' -- delete comment char when joining lines
+
 
 -------- mappings --------
 g.mapleader = " "
@@ -62,6 +73,32 @@ map('n', '<leader>w', ':w<cr>')
 map('n', '<leader>q', ':q<cr>')
 map('n', '<leader>kb', ':bw<cr>')
 map('n', '<leader>g', ':Neogit<cr>')
+
+-- travel by visible lines
+map('n', 'j', 'gj')
+map('n', 'k', 'gk')
+-- avoid pressing shift
+map('n', ';', ':')
+
+map('n', '<leader>.', ':NvimTreeToggle<CR>')
+map('n', '<leader><leader>', ':e#<CR>')
+
+-- f: find a file
+map('n', '<leader>ff', ':Telescope find_files<cr>')
+map('n', '<leader>fb', ':Telescope buffers<cr>')
+map('n', '<leader>fl', ':Telescope live_grep<cr>')
+map('n', '<leader>ft', ':NvimTreeFindFile<CR>')
+map('n', '<leader>fk', ':Telescope file_browser hidden=true<cr>')
+
+-- split the window
+map('n', '<leader>wh', '<C-W>h')
+map('n', '<leader>wj', '<C-W>j')
+map('n', '<leader>wk', '<C-W>k')
+map('n', '<leader>wl', '<C-W>l')
+map('n', '<leader>ws', ':sp<CR>')
+map('n', '<leader>wv', ':vsp<CR>')
+map('n', '<leader>wc', '<C-W>c')
+
 
 -- TODO easier way of getting to normal mode from terminal mode
 -- map('t', '<c-<leader>>', '<c-\\><c-n><leader>')
@@ -76,26 +113,10 @@ map('i', '<A-down>', '<Esc><c-w>j')
 map('i', '<A-up>', '<Esc><c-w>k')
 map('i', '<A-right>', '<Esc><c-w>l')
 
-map('n', '<A-left>', '<c-w>h')
-map('n', '<A-down>', '<c-w>j')
-map('n', '<A-up>', '<c-w>k')
-map('n', '<A-right>', '<c-w>l')
-
-map('v', '<A-left>', '<Esc><c-w>h')
-map('v', '<A-down>', '<Esc><c-w>j')
-map('v', '<A-up>', '<Esc><c-w>k')
-map('v', '<A-right>', '<Esc><c-w>l')
-
--------- telescope -------- TODO find more functions?
-map('n', '<leader>fj', ':Telescope find_files<cr>')
-map('n', '<leader>fk', ':Telescope file_browser hidden=true<cr>')
-map('n', '<leader>fl', ':Telescope buffers<cr>')
-map('n', '<leader>fp', ':Telescope live_grep<cr>')
-
 -------- tree-sitter --------
 -- TODO not sure this works given vim-polyglot being active
 local ts = require'nvim-treesitter.configs'
-ts.setup = {ensure_installed = 'maintained', highlight = {enable = true}}
+ts.setup = {ensure_installed = 'maintained', highlight = {enable = true}} 
 
 ------------ lsp --------
 local nvim_lsp = require 'lspconfig'
@@ -105,7 +126,7 @@ local on_attach = function()
   vim.cmd([[inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"]])
 end
 
-local servers = { 'solargraph', 'rust_analyzer', 'ccls', 'pyright', 'sumneko_lua', 'hls', 'ocamllsp'}
+local servers = { 'solargraph', 'rust_analyzer', 'clangd', 'pyright', 'sumneko_lua', 'hls', 'ocamllsp', 'zls', 'tsserver' }
 for _, server in pairs(servers) do
   nvim_lsp[server].setup {
     on_attach = on_attach,
