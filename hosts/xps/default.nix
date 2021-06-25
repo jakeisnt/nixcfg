@@ -171,7 +171,8 @@
   # automatic firmware update
   services.fwupd.enable = true;
   services.xserver.libinput.enable = true;
-  users.users.jake.extraGroups = [ "networkmanager" ];
+  # TODO move these to their corresponding modules instead
+  users.users.jake.extraGroups = [ "networkmanager" "sway" "mopidy" ];
 
   # Select internationalisation properties.
   console = { keyMap = "us"; };

@@ -34,7 +34,7 @@ in {
     env.XDG_SESSION_TYPE = "wayland";
     modules.desktop.apps.wofi.enable = true;
 
-    users.extraGroups = [ "sway" ];
+    # users.extraGroups = [ "sway" ];
 
     programs.sway = {
       enable = true;
