@@ -8,7 +8,5 @@ in {
 
   config = mkIf cfg.enable {
     user.packages = with pkgs; [ weechat ];
-
-    env = { WEECHAT_HOME = "${configDir}/weechat"; };
   };
 }

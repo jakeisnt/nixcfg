@@ -50,6 +50,7 @@
       matrix.enable = true;
       signal.enable = true;
       email.enable = true;
+      weechat.enable = true;
       # deltachat.enable = true;
     };
     editors = {
