@@ -121,7 +121,7 @@ in {
       fi
     '';
 
-    modules.desktop.browsers.firefox.userContent = ''
+    modules.browsers.firefox.userContent = ''
       @import url("userChrome.css");
 
       /* Hide scrollbar */

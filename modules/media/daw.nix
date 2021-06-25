@@ -8,9 +8,9 @@
 
 with lib;
 with lib.my;
-let cfg = config.modules.desktop.media.daw;
+let cfg = config.modules.media.daw;
 in {
-  options.modules.desktop.media.daw = { enable = mkBoolOpt false; };
+  options.modules.media.daw = { enable = mkBoolOpt false; };
 
   config = mkIf cfg.enable {
     user.packages = with pkgs; [

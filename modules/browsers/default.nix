@@ -2,9 +2,9 @@
 
 with lib;
 with lib.my;
-let cfg = config.modules.desktop.browsers;
+let cfg = config.modules.browsers;
 in {
-  options.modules.desktop.browsers = {
+  options.modules.browsers = {
     default = mkOpt (with types; nullOr str) null;
   };
 

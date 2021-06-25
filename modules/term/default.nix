@@ -2,9 +2,9 @@
 
 with lib;
 with lib.my;
-let cfg = config.modules.desktop.term;
+let cfg = config.modules.term;
 in {
-  options.modules.desktop.term = {
+  options.modules.term = {
     default = mkOpt types.str "xterm";
   };
 

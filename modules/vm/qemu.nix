@@ -2,9 +2,9 @@
 
 with lib;
 with lib.my;
-let cfg = config.modules.desktop.vm.qemu;
+let cfg = config.modules.vm.qemu;
 in {
-  options.modules.desktop.vm.qemu = {
+  options.modules.vm.qemu = {
     enable = mkBoolOpt false;
   };
 

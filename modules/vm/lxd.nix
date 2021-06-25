@@ -4,9 +4,9 @@
 
 with lib;
 with lib.my;
-let cfg = config.modules.desktop.vm.lxd;
+let cfg = config.modules.vm.lxd;
 in {
-  options.modules.desktop.vm.lxd = {
+  options.modules.vm.lxd = {
     enable = mkBoolOpt false;
   };
 

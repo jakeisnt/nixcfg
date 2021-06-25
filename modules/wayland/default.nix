@@ -11,7 +11,7 @@ in {
   config = mkIf cfg.enable {
     env.XDG_SESSION_TYPE = "wayland";
 
-    modules.desktop.apps.wofi.enable = true;
+    modules.wayland.wofi.enable = true;
 
     user.packages = with pkgs; [
       xwayland

@@ -10,35 +10,24 @@
 
   ## Modules
   modules = {
-    desktop = {
-      # i3.enable = true;
-      sway = {
-        enable = true;
-        fancy = true;
-      };
-      # wayfire.enable = true;
-      # gnome.enable = true;
-      browsers = {
-        default = "firefox";
-        firefox.enable = true;
-        # brave.enable = true;
-        # chrome.enable = true;
-        # netsurf.enable = true;
-      };
-      media = {
-        daw.enable = true;
-        documents.enable = true;
-        graphics.enable = true;
-        recording.enable = true;
-        spotify.enable = true;
-      };
-      term = {
-        default = "alacritty";
-        alacritty.enable = true;
-      };
-      vm = {
-        # virtualbox.enable = true;
-      };
+    desktop.sway = {
+      enable = true;
+      fancy = true;
+    };
+    browsers = {
+      default = "firefox";
+      firefox.enable = true;
+    };
+    media = {
+      daw.enable = true;
+      documents.enable = true;
+      graphics.enable = true;
+      recording.enable = true;
+      spotify.enable = true;
+    };
+    term = {
+      default = "alacritty";
+      alacritty.enable = true;
     };
 
     media = {
@@ -116,7 +105,6 @@
 
   user.packages = with pkgs; [
     rnix-lsp
-    clojure-lsp
     # TODO: move these into the hash bang of the webcam script?
     gphoto2
     ffmpeg

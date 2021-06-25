@@ -4,9 +4,9 @@
 
 with lib;
 with lib.my;
-let cfg = config.modules.desktop.browsers.chromium-help;
+let cfg = config.modules.browsers.chromium-help;
 in {
-  options.modules.desktop.browsers.chromium-help = {
+  options.modules.browsers.chromium-help = {
     enable = mkBoolOpt false;
   };
   config = mkIf cfg.enable {

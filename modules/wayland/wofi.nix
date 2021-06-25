@@ -3,10 +3,10 @@
 with lib;
 with lib.my;
 let
-  cfg = config.modules.desktop.apps.wofi;
+  cfg = config.modules.wayland.wofi;
   colors = config.modules.theme.color;
 in {
-  options.modules.desktop.apps.wofi = { enable = mkBoolOpt false; };
+  options.modules.wayland.wofi = { enable = mkBoolOpt false; };
 
   config = mkIf cfg.enable {
     user.packages = with pkgs; [
