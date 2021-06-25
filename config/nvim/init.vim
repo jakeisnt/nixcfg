@@ -1,32 +1,3 @@
-Plug 'tpope/vim-surround', {'tag': 'v2.1'}         " close parens
-Plug 'junegunn/vim-easy-align', {'tag': 'v2.10.0'} " align text
-Plug 'matze/vim-move', {'tag': 'v1.4'}             " move lines without cut-paste
-Plug 'tomtom/tcomment_vim', {'tag': 'v3.08.1'}     " autocomment support
-Plug 'tpope/vim-repeat', {'tag': 'v1.2'}           " improves repeats
-Plug 'tpope/vim-unimpaired', {'tag': 'v2.0'}       " bracket mapping
-Plug 'chrisbra/NrrwRgn', {'tag': 'v0.33'}          " narrow region for editing file in new buffer
-Plug 'wellle/targets.vim', {'tag': 'v0.5.0'}       " better targets
-
-" Navigation
-Plug 'justinmk/vim-sneak', {'tag': 'v1.9'}     " hunt with two chars
-Plug 'vim-scripts/utl.vim'                     " text linking
-
-" Appearance
-Plug 'junegunn/goyo.vim', {'tag': 'v1.6.0'}      " minimalist vim
-Plug 'junegunn/limelight.vim'                    " highlight current paragraph
-Plug 'jlesquembre/coc-conjure'
-Plug 'Olical/conjure'
-
-" git
-Plug 'tpope/vim-fugitive', {'tag': 'v3.2'}  " git convenience functions
-Plug 'rbong/vim-flog', {'tag': 'v1.2.0'}    " git branch viewer
-
-" tools
-Plug 'farmergreg/vim-lastplace' " save place in file
-
-Plug 'inkarkat/vim-SyntaxRange' " syntax for just part of file
-Plug 'reedes/vim-pencil'        " writing
-
 autocmd BufNewFile,BufRead *.tsx set filetype=typescriptreact
 
 " --- Vim Settings ---

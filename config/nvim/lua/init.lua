@@ -108,7 +108,6 @@ map('n', '<leader>ft', ':NvimTreeFindFile<CR>')
 map('n', '<leader>fk', ':Telescope file_browser hidden=true<cr>')
 
 
-
 -- split the window
 map('n', '<leader>wh', '<C-W>h')
 map('n', '<leader>wj', '<C-W>j')
