@@ -44,7 +44,7 @@ opt('w', 'wrap', true)
 
 opt('o', 'scrolloff', 4)
 opt('o', 'completeopt', 'longest,menu,menuone')
-opt('o', 'wildmenu', 'longest:full,list:full')
+opt('o', 'wildmode', 'longest:full,list:full')
 
 opt('o', 'sidescrolloff', 8)
 opt('o', 'shiftround', true)
@@ -77,7 +77,7 @@ cmd 'highlight Comment gui=italic'
 cmd 'set foldmethod=indent'
 cmd 'set cursorline'
 cmd 'set shortmess+=c'
-cmd 'signcolumn=yes'
+cmd 'set signcolumn=yes'
 
 -- show hidden characters and linewraps
 -- https://github.com/dm3/cygwin-config/blob/master/.vimrc
@@ -123,9 +123,9 @@ map('x', '<BS>', 'x')
 map('n', '<expr> n', '\'Nn\'[v:searchforward]')
 map('n', '<expr> N', '\'nN\'[v:searchforward]')
 
-" search for current selection in visual mode
-map('v', '<silent> *', ':<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>')
-map('v', '<silent> #', ':<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>')
+-- search for current selection in visual mode
+map('v', '<silent> *', ':<C-u>call VisualSelection(\'\', \'\')<CR>/<C-R>=@/<CR><CR>')
+map('v', '<silent> #', ':<C-u>call VisualSelection(\'\', \'\')<CR>?<C-R>=@/<CR><CR>')
 
 -- f: find a file
 map('n', '<leader>ff', ':Telescope find_files<cr>')
@@ -134,7 +134,7 @@ map('n', '<leader>fl', ':Telescope live_grep<cr>')
 map('n', '<leader>ft', ':NvimTreeFindFile<CR>')
 map('n', '<leader>fk', ':Telescope file_browser hidden=true<cr>')
 
-" make ; always "find" forward and , backward
+-- make ; always "find" forward and , backward
 map('n', '<expr> ;', 'getcharsearch().forward ? \';\' : \',\'')
 map('n', '<expr> ,', 'getcharsearch().forward ? \',\' : \';\'')
 
@@ -214,11 +214,13 @@ end
 
 
 -- vim often has trouble recognizing typescript react files
+  -- nerdtree opens in current dir
+-- save file when focus is lost
 vim.api.nvim_exec([[
   autocmd BufNewFile,BufRead *.tsx set filetype=typescriptreact
-  autocmd BufEnter * lcd %:p:h -- nerdtree opens in current dir
-  autocmd FocusLost * :wa -- save file when focus is lost
-]])
+  autocmd BufEnter * lcd %:p:h
+  autocmd FocusLost * :wa
+]], false)
 
 
 map('n', '<leader>l,', '<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>')
