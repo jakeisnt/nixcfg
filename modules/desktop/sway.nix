@@ -32,6 +32,7 @@ in {
     modules.wayland.mako.enable = true;
     modules.wayland.swaylock.enable = cfg.fancy;
     modules.wayland.waybar.enable = cfg.fancy;
+    modules.wayland.kanshi.enable = cfg.fancy;
 
     programs.sway = {
       enable = true;
@@ -118,23 +119,26 @@ in {
 
             exec ${pkgs.autotiling}/bin/autotiling
           '' else ''
-            bar {
-              position bottom
-              # When the status_command prints a new line to stdout, swaybar updates.
-              # The default just shows the current date and time.
-              status_command while date +'%Y-%m-%d %H:%M'; do sleep 1; done
-              colors {
-                background  $background
-                statusline  $foreground
-                separator   $background
+            output eDP1 resolution 3840x2160 position 0,0
+            output DP-2 scale 1.5
 
-                #Type               border      background  font
-                focused_workspace   $lighterbg  $lighterbg  $foreground
-                active_workspace    $background $background $foreground
-                inactive_workspace  $background $background $foreground
-                urgent_workspace    $background $background $foreground
+              bar {
+                position bottom
+                # When the status_command prints a new line to stdout, swaybar updates.
+                # The default just shows the current date and time.
+                status_command while date +'%Y-%m-%d %H:%M'; do sleep 1; done
+                colors {
+                  background  $background
+                  statusline  $foreground
+                  separator   $background
+
+                  #Type               border      background  font
+                  focused_workspace   $lighterbg  $lighterbg  $foreground
+                  active_workspace    $background $background $foreground
+                  inactive_workspace  $background $background $foreground
+                  urgent_workspace    $background $background $foreground
+                }
               }
-            }
           '')
         ];
     };

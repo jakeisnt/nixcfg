@@ -16,7 +16,6 @@ in {
     user.packages = with pkgs; [
       xwayland
       qt5.qtwayland
-      kanshi
       wl-clipboard
       sway-contrib.grimshot
       wf-recorder
