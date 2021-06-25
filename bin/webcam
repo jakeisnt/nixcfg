@@ -1,5 +1,5 @@
-#!/usr/bin/env cached-nix-shell
-# nix-shell -p gphoto2 ffmpeg
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash -p gphoto2 ffmpeg
 
 # use a DSLR as a webcam via USB
 gphoto2 --stdout --capture-movie | ffmpeg -i - -vcodec rawvideo -pix_fmt yuv420p -threads 0 -f v4l2 /dev/video8

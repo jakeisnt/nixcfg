@@ -60,7 +60,6 @@ with inputs; {
   environment.systemPackages = with pkgs; [
     # nix tools
     nixpkgs-fmt
-    cached-nix-shell
     # linux good to haves
     coreutils
     wget
