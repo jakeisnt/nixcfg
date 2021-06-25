@@ -73,7 +73,7 @@
       remarkable.enable = true;
       extraHosts = {
         enable = true;
-        allowSocial = false;
+        allowSocial = true;
       };
       audio.enable = true;
       bluetooth.enable = true;
