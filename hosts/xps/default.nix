@@ -78,6 +78,7 @@
       };
       audio.enable = true;
       bluetooth.enable = true;
+      scanner.enable = true;
       fs = {
         enable = true;
         ssd.enable = true;
@@ -134,10 +135,9 @@
   };
 
   # use dnsmasq to cache dns
-  # might want to port this over to other things
+  # TODO: add this to some networking module?
   services.dnsmasq = {
     enable = true;
-
     servers = [ "8.8.8.8" "8.8.4.4" ];
 
     extraConfig = ''
@@ -145,7 +145,6 @@
       bind-interfaces
       listen-address=127.0.0.1
       cache-size=1000
-
       no-negcache
     '';
   };
@@ -172,7 +171,7 @@
   # automatic firmware update
   services.fwupd.enable = true;
   services.xserver.libinput.enable = true;
-  users.users.jake.extraGroups = [ "networkmanager" "sway" "mopidy" ];
+  users.users.jake.extraGroups = [ "networkmanager" ];
 
   # Select internationalisation properties.
   console = { keyMap = "us"; };

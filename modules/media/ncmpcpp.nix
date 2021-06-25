@@ -40,6 +40,8 @@ in {
       mus = "mpd & ncmpcpp";
     };
 
+    user.extraGroups = [ "mopidy" ];
+
     # as a systemd service, mopidy can't properly connect to pulseaudio
     # so this is on hold until that's figured out.
     # systemd.services.mopidy = {
