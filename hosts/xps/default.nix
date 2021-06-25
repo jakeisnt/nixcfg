@@ -79,6 +79,7 @@
       audio.enable = true;
       bluetooth.enable = true;
       scanner.enable = true;
+      printer.enable = true;
       fs = {
         enable = true;
         ssd.enable = true;
@@ -159,8 +160,6 @@
   # '';
 
   # services = {
-  #   # detect devices over DNS
-  #   avahi.enable = true;
   #   # knot resolver TODO learn more about this
   #   kresd = {
   #     enable = true;
