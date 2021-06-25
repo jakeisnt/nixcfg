@@ -60,6 +60,7 @@ with inputs; {
   environment.systemPackages = with pkgs; [
     # nix tools
     nixpkgs-fmt
+    resholve
     # linux good to haves
     coreutils
     wget
@@ -69,5 +70,7 @@ with inputs; {
     # offer some convenience as needed
     unzip
     cmake
+
+    guilauncher
   ];
 }
