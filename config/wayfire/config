@@ -5,20 +5,15 @@
 # https://github.com/WayfireWM/wayfire/wiki/Configuration
 
 # Input configuration ──────────────────────────────────────────────────────────
-
-# Example configuration:
-#
 # [input]
-# xkb_layout = us,fr
-# xkb_variant = dvorak,bepo
-#
+xkb_layout = us
+xkb_variant = qwerty
+
 # See Input options for a complete reference.
 # https://github.com/WayfireWM/wayfire/wiki/Configuration#input
 
 # Output configuration ─────────────────────────────────────────────────────────
 
-# Example configuration:
-#
 # [output:eDP-1]
 # mode = 1920x1080@60000
 # layout = 0,0
@@ -62,12 +57,7 @@ plugins = \
   window-rules \
   wobbly \
   wrot \
-  zoom blur
-
-# Note: [blur] is not enabled by default, because it can be resource-intensive.
-# Feel free to add it to the list if you want it.
-# You can find its documentation here:
-# https://github.com/WayfireWM/wayfire/wiki/Configuration#blur
+  zoom
 
 # Close focused window.
 close_top_view = <super> KEY_Q | <alt> KEY_F4
@@ -125,9 +115,6 @@ autostart_wf_shell = true
 # Output configuration
 # https://wayland.emersion.fr/kanshi/
 outputs = kanshi
-
-# Notifications
-# https://wayland.emersion.fr/mako/
 notifications = mako
 
 # Screen color temperature
@@ -162,17 +149,12 @@ binding_terminal = <super> KEY_ENTER
 command_terminal = alacritty
 
 # Start your launcher
-binding_launcher = <super> <shift> KEY_ENTER
+binding_launcher = <super> <space>
 command_launcher = wofi
 
 # Screen locker
 binding_lock = <super> <shift> KEY_ESC
 command_lock = swaylock
-
-# Logout
-# https://github.com/ArtsyMacaw/wlogout
-binding_logout = <super> KEY_ESC
-command_logout = wlogout
 
 # Screenshots
 # https://wayland.emersion.fr/grim/
