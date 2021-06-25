@@ -62,6 +62,15 @@ cmd 'set textwidth=0'
 cmd 'set wrapmargin=0'
 cmd 'set formatoptions+=j' -- delete comment char when joining lines
 
+cmd 'set lazyredraw'
+cmd 'set nobackup'
+cmd 'set nowritebackup'
+cmd 'set noswapfile'
+cmd 'set hidden'
+cmd 'set history=1000'
+cmd 'set scrolloff=3'
+cmd 'set backspace=2'
+
 
 -------- mappings --------
 g.mapleader = " "

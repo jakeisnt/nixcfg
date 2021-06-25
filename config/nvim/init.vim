@@ -38,19 +38,19 @@ let g:folddigest_size = 30
 " FZF
 " match fzf colors with vim scheme
 let g:fzf_colors = {
-            \ 'fg':      ['fg', 'Normal'],
-            \ 'bg':      ['bg', 'Normal'],
-            \ 'hl':      ['fg', 'Comment'],
-            \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-            \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-            \ 'hl+':     ['fg', 'Statement'],
-            \ 'info':    ['fg', 'PreProc'],
-            \ 'border':  ['fg', 'Ignore'],
-            \ 'prompt':  ['fg', 'Conditional'],
-            \ 'pointer': ['fg', 'Exception'],
-            \ 'marker':  ['fg', 'Keyword'],
-            \ 'spinner': ['fg', 'Label'],
-            \ 'header':  ['fg', 'Comment'] }
+      \ 'fg':      ['fg', 'Normal'],
+      \ 'bg':      ['bg', 'Normal'],
+      \ 'hl':      ['fg', 'Comment'],
+      \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+      \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+      \ 'hl+':     ['fg', 'Statement'],
+      \ 'info':    ['fg', 'PreProc'],
+      \ 'border':  ['fg', 'Ignore'],
+      \ 'prompt':  ['fg', 'Conditional'],
+      \ 'pointer': ['fg', 'Exception'],
+      \ 'marker':  ['fg', 'Keyword'],
+      \ 'spinner': ['fg', 'Label'],
+      \ 'header':  ['fg', 'Comment'] }
 
 let g:fzf_preview_window = 'right:60%'
 let g:fzf_buffers_jump = 1
@@ -69,23 +69,6 @@ let g:coc_snippet_next = '<tab>'
 let g:autoformat_autoindent = 0
 let g:autoformat_retab = 0
 let g:autoformat_remove_trailing_spaces = 0
-
-
-" folding
-set foldlevelstart=10
-set modelines=1 " use modeline to configure marker
-" vim:foldmethod=marker:foldlevel=0 (put at bottom of file for fold configuraion)
-
-" performance
-set lazyredraw   " only redraw components on change
-set nobackup     " remove backups
-set nowritebackup
-set noswapfile
-set hidden       " cache more
-set history=1000 " default is 20
-set complete-=5  " limit autocomplete
-set scrolloff=3  " scroll 3l in advance of window
-set backspace=2  " backspace is normal
 
 " show hidden characters and linewraps
 " https://github.com/dm3/cygwin-config/blob/master/.vimrc
@@ -210,9 +193,6 @@ nmap <leader>fs     :Snippets<CR>
 nmap <leader>fc     :Commands<CR>
 nmap <leader>fm     :Maps<CR>
 
-" g :: Git
-nmap <leader>gg    :Gstatus<CR>
-
 " m :: Mode
 map <leader>mf      :Goyo<CR>
 autocmd! User GoyoEnter Limelight  | set cursorline!
@@ -225,15 +205,6 @@ nmap <leader>ob    :TagbarToggle<CR>
 " open visual selection in new window
 vmap o :NR<CR>
 
-" u :: Undo
-map <leader>ut     :UndotreeToggle<CR>
-
-" v :: Vimux (Tmux Vim Interaction)
-map <leader>vp :VimuxPromptCommand<CR>
-map <leader>vl :VimuxRunLastCommand<CR>
-map <leader>vi :VimuxInspectRunner<CR>
-map <leader>vz :VimuxZoomRunner<CR>
-
 " --- Event Listeners ---
 autocmd BufEnter * lcd %:p:h | " nerdtree opens in current dir
 autocmd FocusLost * :wa | " save file when focus is lost
@@ -241,25 +212,14 @@ autocmd FocusLost * :wa | " save file when focus is lost
 " remove trailing whitespace on save
 " https://gitlab.com/kmidkiff/vim-configuration/-/blob/master/vimrc
 function! RemoveWhitespace()
-    :%s/\s\+$//e
+  :%s/\s\+$//e
 endfunction
-
-if !empty(glob("$XDG_CONFIG_HOME/nvim/theme.vim"))
-  source $XDG_CONFIG_HOME/nvim/theme.vim
-endif
-
-
-" Coc settings
-let g:coc_global_extensions = ['coc-conjure', 'coc-rust-analyzer', 'coc-json', 'coc-clangd', 'coc-eslint', 'coc-sh', 'coc-git']
 
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-" Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -269,18 +229,8 @@ endfunction
 " Make <CR> auto-select the first completion item and notify coc.nvim to
 " format on enter, <cr> could be remapped by other vim plugin
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+      \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
-" Use `[g` and `]g` to navigate diagnostics
-" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
-" GoTo code navigation.
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
 
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
