@@ -1,14 +1,10 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ # Include the results of the hardware scan.
-    ./hardware-configuration.nix
-    ../personal.nix
-  ];
+  imports = [ ./hardware-configuration.nix ../personal.nix ];
 
   networking.hostName = "xps";
 
-  ## Modules
   modules = {
     desktop.sway = {
       enable = true;
@@ -29,19 +25,16 @@
       default = "alacritty";
       alacritty.enable = true;
     };
-
     media = {
       mpv.enable = true;
       ncmpcpp.enable = true;
     };
-
     messengers = {
       rss.enable = true;
       matrix.enable = true;
       signal.enable = true;
       email.enable = true;
       weechat.enable = true;
-      # deltachat.enable = true;
     };
     editors = {
       default = "nvim";
@@ -55,10 +48,7 @@
     dev = {
       node.enable = true;
       cc.enable = true;
-      # android.enable = true;
-      # rust.enable = true;
-      # lua.enable = true;
-      # lua.love2d.enable = true;
+      rust.enable = true;
     };
     hardware = {
       remarkable.enable = true;
@@ -82,12 +72,10 @@
         gui = true;
         cacheTTL = 60480000;
       };
-      # pass.enable = true;
       direnv = {
         enable = true;
         preventGC = true;
       };
-      # tmux.enable = true;
       lf.enable = true;
       zsh.enable = true;
     };
@@ -95,6 +83,7 @@
       syncthing.enable = true;
       ssh.enable = true;
       backup.enable = true;
+      dnsmasq.enable = true;
     };
     theme.active = "nordic";
   };
@@ -103,65 +92,17 @@
   services.openssh.startWhenNeeded = true;
   services.getty.autologinUser = "jake";
 
-  user.packages = with pkgs; [
-    rnix-lsp
-    # TODO: move these into the hash bang of the webcam script?
-    gphoto2
-    ffmpeg
-  ];
-
   networking = {
     networkmanager = {
       enable = true;
-
       wifi = {
         powersave = false; # wifi beast mode
-        # TODO: switch to IWD once it's ready. It should provide better performance
-        # backend = "iwd";
-        # we need to do our best to prevent fingerprinting. not working?
-        # macAddress = "random";
       };
     };
   };
 
-  # use dnsmasq to cache dns
-  # TODO: add this to some networking module?
-  services.dnsmasq = {
-    enable = true;
-    servers = [ "8.8.8.8" "8.8.4.4" ];
+  users.users.jake.extraGroups = [ "networkmanager" ];
 
-    extraConfig = ''
-      interface=lo
-      bind-interfaces
-      listen-address=127.0.0.1
-      cache-size=1000
-      no-negcache
-    '';
-  };
-
-  # Approve polkit access for those in wheel group by default
-  # security.polkit.extraConfig = ''
-  #   polkit.addRule(function(action, subject) {
-  #   if (subject.isInGroup("wheel")) {
-  #       return polkit.Result.YES;
-  #   }
-  #   });
-  # '';
-
-  # services = {
-  #   # knot resolver TODO learn more about this
-  #   kresd = {
-  #     enable = true;
-  #     extraConfig = "verbose(true)";
-  #   };
-  # };
-
-  # automatic firmware update
   services.fwupd.enable = true;
   services.xserver.libinput.enable = true;
-  # TODO move these to their corresponding modules instead
-  users.users.jake.extraGroups = [ "networkmanager" "sway" "mopidy" ];
-
-  # Select internationalisation properties.
-  console = { keyMap = "us"; };
 }

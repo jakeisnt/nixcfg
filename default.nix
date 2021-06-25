@@ -59,16 +59,14 @@ with inputs; {
   # let's get started!
   environment.systemPackages = with pkgs; [
     # nix tools
-    nixfmt
     nixpkgs-fmt
-
+    cached-nix-shell
     # linux good to haves
     coreutils
     wget
     file # check type of files
     h # fun program
     gnumake
-
     # offer some convenience as needed
     unzip
     cmake

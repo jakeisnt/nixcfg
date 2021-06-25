@@ -7,8 +7,7 @@ with lib.my; {
 
   console = {
     earlySetup = true;
-    # keyMap = "colemak"; TODO custom key map, as I wish
-    # colors = []; can define colors here!
+    keyMap = "us";
   };
 
   # Only allow user creation through Nix

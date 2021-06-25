@@ -33,6 +33,8 @@ in {
     modules.wayland.waybar.enable = cfg.fancy;
     modules.wayland.kanshi.enable = false;
 
+    user.extraGroups = [ "sway" ];
+
     programs.sway = {
       enable = true;
       extraPackages = with pkgs;

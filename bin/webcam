@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env cached-nix-shell
 # nix-shell -p gphoto2 ffmpeg
 
 # use a DSLR as a webcam via USB
