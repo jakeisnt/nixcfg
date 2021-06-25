@@ -91,7 +91,7 @@ in {
 
         shell.zsh.rcFiles = [ ./config/zsh/prompt.zsh ];
         shell.tmux.rcFiles = [ ./config/tmux.conf ];
-        desktop.browsers = {
+        browsers = {
           firefox.userChrome = concatMapStringsSep "\n" readFile
             [ ./config/firefox/userChrome.css ];
         };
@@ -102,7 +102,7 @@ in {
     {
       user.packages = with pkgs;
         [ nordic zafiro-icons numix-cursor-theme ]
-        ++ (if config.modules.desktop.media.spotify.enable then
+        ++ (if config.modules.media.spotify.enable then
           [ extras.spicetify-nix.packages.x86_64-linux.nord ]
         else
           [ ]);
@@ -122,7 +122,7 @@ in {
 
       home.configFile = with config.modules;
         mkMerge [
-          (mkIf desktop.media.graphics.vector.enable {
+          (mkIf media.graphics.vector.enable {
             "inkscape/templates/default.svg".source =
               ./config/inkscape/default-template.svg;
           })

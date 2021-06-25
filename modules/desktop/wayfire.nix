@@ -23,7 +23,6 @@ in {
 
   config = mkIf cfg.enable {
     modules.wayland.enable = true;
-    modules.desktop.apps.wofi.enable = true;
     modules.wayland.mako.enable = true;
     modules.wayland.swaylock.enable = true;
     modules.wayland.waybar.enable = true;

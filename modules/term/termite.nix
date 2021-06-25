@@ -2,9 +2,9 @@
 
 with lib;
 with lib.my;
-let cfg = config.modules.desktop.term.termite;
+let cfg = config.modules.term.termite;
 in {
-  options.modules.desktop.term.termite = { enable = mkBoolOpt false; };
+    options.modules.term.termite = { enable = mkBoolOpt false; };
   config = mkIf cfg.enable {
     user.packages = with pkgs; [ termite ];
     home.configFile = { "termite" = { source = "${configDir}/termite"; }; };

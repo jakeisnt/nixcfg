@@ -7,9 +7,9 @@
 
 with lib;
 with lib.my;
-let cfg = config.modules.desktop.vm.virtualbox;
+let cfg = config.modules.vm.virtualbox;
 in {
-  options.modules.desktop.vm.virtualbox = {
+  options.modules.vm.virtualbox = {
     enable = mkBoolOpt false;
   };
 

@@ -3,10 +3,10 @@
 with lib;
 with lib.my;
 let
-  cfg = config.modules.desktop.term.alacritty;
+  cfg = config.modules.term.alacritty;
   colors = config.modules.theme.color;
 in {
-  options.modules.desktop.term.alacritty = { enable = mkBoolOpt false; };
+  options.modules.term.alacritty = { enable = mkBoolOpt false; };
   config = mkIf cfg.enable {
     user.packages = with pkgs; [ alacritty ];
     home.configFile = {

@@ -6,7 +6,7 @@ let
     ${nixFlakes}/bin/nix --option experimental-features "nix-command flakes" "$@"
   '';
 in mkShell {
-  buildInputs = [ git nix-zsh-completions ];
+  buildInputs = [ git nix-zsh-completions rnix-lsp ];
   shellHook = ''
     export FLAKE="$(pwd)"
     export PATH="$FLAKE/bin:${nixBin}/bin:$PATH"

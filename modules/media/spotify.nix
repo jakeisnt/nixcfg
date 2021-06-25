@@ -5,9 +5,9 @@
 
 with lib;
 with lib.my;
-let cfg = config.modules.desktop.media.spotify;
+let cfg = config.modules.media.spotify;
 in {
-  options.modules.desktop.media.spotify = {
+  options.modules.media.spotify = {
     enable = mkBoolOpt false;
     tui.enable = mkBoolOpt false; # TODO
   };

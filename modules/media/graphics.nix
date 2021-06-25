@@ -8,11 +8,11 @@ with builtins;
 with lib;
 with lib.my;
 let
-  cfg = config.modules.desktop.media.graphics;
+  cfg = config.modules.media.graphics;
   username = let name = getEnv "username";
   in if elem name [ "" "root" ] then secrets.username else name;
 in {
-  options.modules.desktop.media.graphics = {
+  options.modules.media.graphics = {
     enable = mkBoolOpt false;
     tools.enable = mkBoolOpt true;
     raster.enable = mkBoolOpt true;

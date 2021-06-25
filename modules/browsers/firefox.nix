@@ -2,12 +2,12 @@
 with lib;
 with lib.my;
 let
-  cfg = config.modules.desktop.browsers.firefox;
+  cfg = config.modules.browsers.firefox;
   # use a custom build of firefox
   # TODO: add anti tracking policies at build time
   # https://wiki.kairaven.de/open/app/firefox in german : (
   firefoxWrapped = pkgs.wrapFirefox pkgs.firefox-unwrapped {
-    forceWayland = config.modules.desktop.sway.enable;
+    forceWayland = config.modules.wayland.enable;
     extraPolicies = {
       CaptivePortal = false;
       DisableFirefoxStudies = true;
@@ -44,7 +44,7 @@ let
     '';
   };
 in {
-  options.modules.desktop.browsers.firefox = with types; {
+  options.modules.browsers.firefox = with types; {
     enable = mkBoolOpt false;
     profileName = mkOpt types.str config.user.name;
 
@@ -73,7 +73,7 @@ in {
       })
     ];
 
-    env.MOZ_ENABLE_WAYLAND = mkIf config.modules.desktop.sway.enable "1";
+    env.MOZ_ENABLE_WAYLAND = mkIf config.modules.wayland.enable "1";
 
     # find extensions here:
     # https://gitlab.com/rycee/nur-expressions/-/blob/master/pkgs/firefox-addons/generated-firefox-addons.nix
@@ -95,7 +95,7 @@ in {
         redux-devtools
       ] ++ (if config.modules.dev.node.enable then [ react-devtools ] else [ ]);
 
-    modules.desktop.browsers.firefox.settings = {
+    modules.browsers.firefox.settings = {
       "devtools.theme" = "dark";
       "widget.content.gtk-theme-override" = "Nordic";
       # Enable userContent.css and userChrome.css for our theme modules
