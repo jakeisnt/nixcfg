@@ -27,6 +27,7 @@ in {
     modules.wayland.mako.enable = true;
     modules.wayland.swaylock.enable = true;
     modules.wayland.waybar.enable = true;
+    modules.wayland.kanshi.enable = true;
 
     user.packages = with pkgs; [ wayfire ];
 
