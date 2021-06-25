@@ -26,19 +26,7 @@ in {
       };
     };
     home.configFile = {
-      "kanshi/config" = {
-        text = ''
-          profile workdesk {
-            output eDP-1 enable scale 2 mode 3840x2160 position 0,0
-            output DP-2 enable scale 1.5
-            exec ${pkgs.sway}/bin/swaymsg workspace 1, move workspace to DP-2
-          }
-
-          profile laptop {
-            output eDP-1 enable mode 3840x2160 position 0,0
-          }
-        '';
-      };
+      "kanshi/config" = { source = "${configDir}/kanshi/config"; };
     };
   };
 }
