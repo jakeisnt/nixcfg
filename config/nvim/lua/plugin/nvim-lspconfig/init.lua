@@ -46,7 +46,7 @@ local servers = {
 }
 
 local function setup_servers()
-  local installed = { 'solargraph', 'rust_analyzer', 'clangd', 'pyright', 'sumneko_lua', 'hls', 'ocamllsp', 'zls', 'tsserver' }
+  local installed = { 'rust_analyzer', 'clangd', 'pyright', 'sumneko_lua', 'hls', 'ocamllsp', 'zls', 'tsserver' }
   for _, server in pairs(installed) do
     local config = servers[server] or {root_dir = lspconfig.util.root_pattern({'.git/', '.'})}
     config.on_attach = on_attach

@@ -4,12 +4,12 @@ local cmd = vim.cmd
 -- Appearance
 o.cmdheight = 1
 o.cursorline = true
-o.foldenable = true
 o.foldmethod = 'marker'
 o.number = true
 o.relativenumber = true
 o.ruler = false -- My statusline take care of that
 o.showmode = false
+o.showmatch = true
 o.signcolumn = 'yes'
 o.termguicolors = true
 o.wrap = true
@@ -19,6 +19,7 @@ o.sidescrolloff = 8
 o.backup = false
 o.writebackup = false
 o.swapfile = false
+o.undofile = true
 o.history = 1000
 
 -- Completion
@@ -38,16 +39,20 @@ o.timeoutlen = 1000
 o.updatetime = 100
 o.virtualedit = 'block'
 o.iskeyword = o.iskeyword + '-'
+o.smartindent = true
 
 -- Performance
 o.lazyredraw = true
 
 -- Search
+o.incsearch = true
+o.hlsearch = true
 o.inccommand = 'nosplit' -- show substitutions incrementally
 o.ignorecase = true
 o.smartcase = true
 o.wildignore = '.git,**/node_modules/**';
 o.wildignorecase = true
+o.wildmenu = true
 
 -- Tabs
 o.expandtab = true

@@ -29,6 +29,8 @@ nmap('<leader><leader>', ':e#<CR>')
 nmap('<leader>V', 'ggVG')
 -- select last insertion
 nmap('gV', '`[v`]')
+-- cancel search with esc
+nmap('<silent> <Esc>', ':nohlsearch<Bar>:echo<CR>')
 
 -- http://karolis.koncevicius.lt/posts/porn_zen_and_vimrc/
 -- make n always search forward and N backward
@@ -83,6 +85,8 @@ xmap('J', ':move \'>+1<CR>gv-gv')
 -- backspace deletes selected text
 xmap('<BS>', 'x')
 xmap('Q', 'gq')
+xmap('<silent> *', ':<C-u>call VisualSelection(\'\', \'\')<CR>/<C-R>=@/<CR><CR>')
+xmap('<silent> #', ':<C-u>call VisualSelection(\'\', \'\')<CR>?<C-R>=@/<CR><CR>')
 
 -- Terminal
 -- tmap('<C-w>h', '<cmd>wincmd h<CR>')
@@ -118,6 +122,7 @@ nmap('<space>ft', ':NvimTreeFindFile<CR>')
 
 -- Tree
 nmap('<space>.', '<cmd>NvimTreeToggle<CR>')
+
 
 -- Vim surround ( noremap need to be false to work)
 nmap('ds', '<Plug>Dsurround', {noremap = false})

@@ -20,12 +20,13 @@ local function mappings()
   lua_nmap('gd', 'vim.lsp.buf.definition()')
   lua_nmap('gD', 'vim.lsp.buf.declaration()')
   lua_nmap('gi', 'vim.lsp.buf.implementation()')
-  lua_jmap('gr', 'vim.lsp.buf.references()')
+  lua_nmap('gr', 'vim.lsp.buf.references()')
   lua_nmap('ca', 'vim.lsp.buf.code_action()')
   lua_nmap('<space>gh', 'vim.lsp.buf.signature_help()')
   lua_nmap('<space>rn', 'require("lspsaga.rename").rename()')
   lua_nmap('[d', 'require"lspsaga.diagnostic".lsp_jump_diagnostic_prev()')
   lua_nmap(']d', 'require"lspsaga.diagnostic".lsp_jump_diagnostic_next()')
+
 end
 
 -- TODO: Implement this
@@ -37,7 +38,6 @@ end
 
 return function(client)
   -- vim.bo.omnifunc = 'v:lua.vim.lsp.omnifuncloc'
-  require'completion'.on_attach()
   mappings()
   if client.name ~= 'efm' then client.resolved_capabilities.document_formatting = false end
 

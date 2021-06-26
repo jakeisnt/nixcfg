@@ -17,6 +17,10 @@ in {
       tree-sitter
       # for nvim config file
       sumneko-lua-language-server
+      luaformatter
+
+      nodePackages.prettier
+      nodePackages.eslint_d
     ];
 
     programs.neovim = {
@@ -43,16 +47,18 @@ in {
             popup-nvim
             plenary-nvim
             nord-nvim
-            lualine-nvim
             which-key-nvim
             neogit
-            vim-gitgutter
+            gitsigns-nvim
             auto-pairs
-
             nvim-tree-lua
-            # vim-wakatime
             direnv-vim
             snippets-nvim
+
+            nvim-autopairs # trial run
+            nvim-colorizer-lua
+            galaxyline-nvim
+            lush-nvim
           ];
         };
       };
