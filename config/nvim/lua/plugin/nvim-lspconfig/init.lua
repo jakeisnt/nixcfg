@@ -1,5 +1,4 @@
 local lspconfig = require('lspconfig')
-local lspinstall = require('lspinstall')
 local languages = require('plugin.nvim-lspconfig.format')
 local on_attach = require('plugin.nvim-lspconfig.on-attach')
 
@@ -9,6 +8,30 @@ local servers = {
     root_dir = lspconfig.util.root_pattern({'.git/', '.'}),
     filetypes = vim.tbl_keys(languages),
     settings = {languages = languages, log_level = 1, log_file = '~/efm.log'},
+  },
+  sumneko_lua = {
+    cmd = {"lua-language-server"},
+    on_attach = on_attach,
+    settings = {
+      Lua = {
+        runtime = {
+          version = 'LuaJIT',
+          path = vim.split(package.path, ';'),
+        },
+        diagnostics = {
+          globals = {'vim'},
+        },
+        workspace = {
+          library = {
+            [vim.fn.expand('$VIMRUNTIME/lua')] = true,
+            [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
+          },
+        },
+        telemetry = {
+          enable = false,
+        },
+      },
+    },
   },
   lua = {
     settings = {
@@ -23,8 +46,7 @@ local servers = {
 }
 
 local function setup_servers()
-  lspinstall.setup()
-  local installed = lspinstall.installed_servers()
+  local installed = { 'solargraph', 'rust_analyzer', 'clangd', 'pyright', 'sumneko_lua', 'hls', 'ocamllsp', 'zls', 'tsserver' }
   for _, server in pairs(installed) do
     local config = servers[server] or {root_dir = lspconfig.util.root_pattern({'.git/', '.'})}
     config.on_attach = on_attach

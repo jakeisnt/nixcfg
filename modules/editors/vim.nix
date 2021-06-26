@@ -38,6 +38,7 @@ in {
             nvim-treesitter
             nvim-lspconfig
             completion-nvim
+            nvim-compe
             telescope-nvim
             popup-nvim
             plenary-nvim

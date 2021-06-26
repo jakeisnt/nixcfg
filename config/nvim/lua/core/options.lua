@@ -1,21 +1,25 @@
 local o = vim.opt
+local cmd = vim.cmd
 
 -- Appearance
 o.cmdheight = 1
 o.cursorline = true
--- opt.foldmethod = 'marker'
+o.foldenable = true
+o.foldmethod = 'marker'
 o.number = true
 o.relativenumber = true
 o.ruler = false -- My statusline take care of that
 o.showmode = false
 o.signcolumn = 'yes'
 o.termguicolors = true
-o.wrap = false
+o.wrap = true
+o.sidescrolloff = 8
 
 -- Backups
 o.backup = false
 o.writebackup = false
 o.swapfile = false
+o.history = 1000
 
 -- Completion
 o.completeopt = 'menuone,noselect'
@@ -27,7 +31,7 @@ o.clipboard = 'unnamedplus'
 o.hidden = true
 o.joinspaces = false
 o.mouse = 'a'
-o.scrolloff = 8
+o.scrolloff = 4
 o.splitbelow = true
 o.splitright = true
 o.timeoutlen = 1000
@@ -53,6 +57,8 @@ o.shiftwidth = 4
 
 -- Shortmess
 o.shortmess = o.shortmess + 'A' + 'c' + 'I' + 'W'
+
+cmd 'highlight Comment gui=italic'
 
 -- Format options
 o.formatoptions = o.formatoptions + 'j' -- Auto-remove comments when combining lines ( <C-J> )
