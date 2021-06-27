@@ -26,7 +26,6 @@ local function mappings()
   lua_nmap('<space>rn', 'require("lspsaga.rename").rename()')
   lua_nmap('[d', 'require"lspsaga.diagnostic".lsp_jump_diagnostic_prev()')
   lua_nmap(']d', 'require"lspsaga.diagnostic".lsp_jump_diagnostic_next()')
-
 end
 
 -- TODO: Implement this
@@ -45,7 +44,7 @@ return function(client)
     lua_nmap('<space>cc', 'U.term_wrapper("g++ %s && ./a.out", vim.fn.expand("%"))')
   end
 
-  if client.resolved_capabilities.document_formatting then
-    vim.cmd [[autocmd! BufWritePre <buffer> lua vim.lsp.buf.formatting_sync(nil, 1000)]]
-  end
+  -- if client.resolved_capabilities.document_formatting then
+  vim.cmd [[autocmd! BufWritePre <buffer> lua vim.lsp.buf.formatting_sync(nil, 1000)]]
+  -- end
 end

@@ -1,9 +1,5 @@
 { config, options, lib, pkgs, inputs, ... }:
 
-# If I ever want to improve my Vim configuration,
-# https://github.com/gvolpe/nix-config/tree/master/home/programs/neovim
-# is a great source.
-
 with lib;
 with lib.my;
 let cfg = config.modules.editors.vim;
@@ -59,6 +55,7 @@ in {
             nvim-colorizer-lua
             galaxyline-nvim
             lush-nvim
+            diagnostic-nvim
           ];
         };
       };
