@@ -5,8 +5,7 @@ U.nvim_create_augroup({
     {'TermOpen', 'term://*', 'setl nornu nonu nocul so=0 scl=no'},
   },
   on_save = {
-    -- {'BufWritePre', '*', '%s/\s\+$//e'},            -- Remove whitespace on save
-    -- {'BufWritePre', '*', '%s/\s\+$//e'},            -- Remove whitespace on save
+    {'BufWritePre', '*', '%s/\\s\\+$//e'},            -- Remove whitespace on save
     {'BufWritePost', '*.vim,*.lua', 'source %'},
   },
   general = {
