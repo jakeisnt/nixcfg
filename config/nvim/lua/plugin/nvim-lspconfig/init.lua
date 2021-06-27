@@ -3,12 +3,13 @@ local languages = require('plugin.nvim-lspconfig.format')
 local on_attach = require('plugin.nvim-lspconfig.on-attach')
 
 local servers = {
-  efm = {
-    init_options = {documentFormatting = true, codeAction = true},
-    root_dir = lspconfig.util.root_pattern({'.git/', '.'}),
-    filetypes = vim.tbl_keys(languages),
-    settings = {languages = languages, log_level = 1, log_file = '~/efm.log'},
-  },
+  -- TODO make proper use of diagnosticls or efm language server
+  -- diagnosticls = {
+  --   init_options = {documentFormatting = true, codeAction = true},
+  --   root_dir = lspconfig.util.root_pattern({'.git/', '.'}),
+  --   filetypes = vim.tbl_keys(languages),
+  --   settings = {languages = languages, log_level = 1, log_file = '~/diagnosticls.log'},
+  -- },
   sumneko_lua = {
     cmd = {"lua-language-server"},
     on_attach = on_attach,
@@ -46,7 +47,7 @@ local servers = {
 }
 
 local function setup_servers()
-  local installed = { 'rust_analyzer', 'clangd', 'pyright', 'sumneko_lua', 'hls', 'ocamllsp', 'zls', 'tsserver' }
+  local installed = { 'rust_analyzer', 'clangd', 'pyright', 'sumneko_lua', 'hls', 'ocamllsp', 'zls', 'tsserver', 'diagnosticls' }
   for _, server in pairs(installed) do
     local config = servers[server] or {root_dir = lspconfig.util.root_pattern({'.git/', '.'})}
     config.on_attach = on_attach

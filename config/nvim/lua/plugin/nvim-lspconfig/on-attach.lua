@@ -38,13 +38,13 @@ end
 return function(client)
   -- vim.bo.omnifunc = 'v:lua.vim.lsp.omnifuncloc'
   mappings()
-  if client.name ~= 'efm' then client.resolved_capabilities.document_formatting = false end
+  -- if client.name ~= 'efm' then client.resolved_capabilities.document_formatting = false end
 
   if client.name == 'cpp' then
     lua_nmap('<space>cc', 'U.term_wrapper("g++ %s && ./a.out", vim.fn.expand("%"))')
   end
 
-  -- if client.resolved_capabilities.document_formatting then
+  if client.resolved_capabilities.document_formatting then
   vim.cmd [[autocmd! BufWritePre <buffer> lua vim.lsp.buf.formatting_sync(nil, 1000)]]
-  -- end
+  end
 end

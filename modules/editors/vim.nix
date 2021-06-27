@@ -17,6 +17,7 @@ in {
 
       nodePackages.prettier
       nodePackages.eslint_d
+      nodePackages.diagnostic-languageserver
     ];
 
     programs.neovim = {
@@ -56,6 +57,7 @@ in {
             galaxyline-nvim
             lush-nvim
             diagnostic-nvim
+            lspsaga-nvim
           ];
         };
       };
