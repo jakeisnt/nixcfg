@@ -2,6 +2,8 @@ local lspconfig = require('lspconfig')
 local languages = require('plugin.nvim-lspconfig.format')
 local on_attach = require('plugin.nvim-lspconfig.on-attach')
 
+local installed = { 'clangd', 'pyright', 'sumneko_lua', 'hls', 'ocamllsp', 'zls', 'tsserver', 'rnix', 'racket_langserver' }
+
 local servers = {
   -- TODO make proper use of diagnosticls or efm language server
   -- diagnosticls = {
@@ -47,7 +49,6 @@ local servers = {
 }
 
 local function setup_servers()
-  local installed = { 'clangd', 'pyright', 'sumneko_lua', 'hls', 'ocamllsp', 'zls', 'tsserver', 'rnix' }
   for _, server in pairs(installed) do
     local config = servers[server] or {root_dir = lspconfig.util.root_pattern({'.git/', '.'})}
     config.on_attach = on_attach
