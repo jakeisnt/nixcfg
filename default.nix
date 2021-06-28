@@ -69,5 +69,9 @@ with inputs; {
     # offer some convenience as needed
     unzip
     cmake
+
+    # nice nttworking utils
+    httpie
+    curlie
   ];
 }

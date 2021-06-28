@@ -63,6 +63,9 @@ in
             lspsaga-nvim
             rust-tools-nvim
 
+            vim-racket
+            conjure
+
             # lightspeed-nvim not in master yet
           ];
         };
