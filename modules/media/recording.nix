@@ -8,8 +8,10 @@
 
 with lib;
 with lib.my;
-let cfg = config.modules.media.recording;
-in {
+let
+  cfg = config.modules.media.recording;
+in
+{
   options.modules.media.recording = {
     enable = mkBoolOpt false;
     audio.enable = mkBoolOpt true;
@@ -18,9 +20,8 @@ in {
 
   config = mkIf cfg.enable {
     user.packages = with pkgs;
-    # for recording and remastering audio
-      (if cfg.audio.enable then [ audacity ] else [ ]) ++
-      # for longer term streaming/recording the screen
-      (if cfg.video.enable then [ obs-studio obs-wlrobs handbrake ] else [ ]);
+      # for recording and remastering audio
+      (if cfg.audio.enable then [ audacity ] else []) ++ # for longer term streaming/recording the screen
+      (if cfg.video.enable then [ obs-studio obs-wlrobs handbrake ] else []);
   };
 }

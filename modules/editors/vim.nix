@@ -2,8 +2,10 @@
 
 with lib;
 with lib.my;
-let cfg = config.modules.editors.vim;
-in {
+let
+  cfg = config.modules.editors.vim;
+in
+{
   options.modules.editors.vim = { enable = mkBoolOpt false; };
 
   config = mkIf cfg.enable {
@@ -52,13 +54,16 @@ in {
             nvim-tree-lua
             direnv-vim
             snippets-nvim
+            lualine-nvim
 
             nvim-autopairs # trial run
             nvim-colorizer-lua
-            galaxyline-nvim
             lush-nvim
             diagnostic-nvim
             lspsaga-nvim
+            rust-tools-nvim
+
+            # lightspeed-nvim not in master yet
           ];
         };
       };

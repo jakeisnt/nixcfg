@@ -50,50 +50,53 @@
         };
 
       pkgs = mkPkgs nixpkgs [ self.overlay ];
-      uPkgs = mkPkgs nixpkgs-unstable [ ];
+      uPkgs = mkPkgs nixpkgs-unstable [];
 
-      lib = nixpkgs.lib.extend (self: super: {
-        my = import ./lib {
-          inherit pkgs inputs;
-          lib = self;
+      lib = nixpkgs.lib.extend (
+        self: super: {
+          my = import ./lib {
+            inherit pkgs inputs;
+            lib = self;
+          };
+        }
+      );
+    in
+      {
+        lib = lib.my;
+        overlay = final: prev: {
+          unstable = uPkgs;
+          my = self.packages."${system}";
+          extras = { inherit spicetify-nix; };
         };
-      });
-    in {
-      lib = lib.my;
-      overlay = final: prev: {
-        unstable = uPkgs;
-        my = self.packages."${system}";
-        extras = { inherit spicetify-nix; };
-      };
 
-      overlays = mapModules ./overlays import;
+        overlays = mapModules ./overlays import;
 
-      packages."${system}" = mapModules ./packages (p: pkgs.callPackage p { });
+        packages."${system}" = mapModules ./packages (p: pkgs.callPackage p {});
 
-      nixosModules = {
-        dotfiles = import ./.;
-      } // mapModulesRec ./modules import;
+        nixosModules = {
+          dotfiles = import ./.;
+        } // mapModulesRec ./modules import;
 
-      nixosConfigurations = mapHosts ./hosts { inherit system; };
+        nixosConfigurations = mapHosts ./hosts { inherit system; };
 
-      devShell."${system}" = import ./shell.nix { inherit pkgs; };
+        devShell."${system}" = import ./shell.nix { inherit pkgs; };
 
-      templates = {
-        full = {
-          path = ./.;
-          description = "A grossly incandescent nixos config";
+        templates = {
+          full = {
+            path = ./.;
+            description = "A grossly incandescent nixos config";
+          };
+          minimal = {
+            path = ./templates/minimal;
+            description = "A grossly incandescent and minimal nixos config";
+          };
         };
-        minimal = {
-          path = ./templates/minimal;
-          description = "A grossly incandescent and minimal nixos config";
+
+        defaultTemplate = self.templates.minimal;
+
+        defaultApp."${system}" = {
+          type = "app";
+          program = ./bin/hey;
         };
       };
-
-      defaultTemplate = self.templates.minimal;
-
-      defaultApp."${system}" = {
-        type = "app";
-        program = ./bin/hey;
-      };
-    };
 }
