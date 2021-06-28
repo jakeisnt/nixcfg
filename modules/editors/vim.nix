@@ -46,6 +46,7 @@ in {
             nord-nvim
             which-key-nvim
             neogit
+            diffview-nvim
             gitsigns-nvim
             auto-pairs
             nvim-tree-lua

@@ -110,6 +110,10 @@ cmap('<C-f>', '<C-R>=expand("%:p")<CR>')
 
 -- Git
 nmap('<leader>gg', ':Neogit<cr>')
+nmap('<leader>gl', ':Neogit log<cr>')
+nmap('<leader>gp', ':Neogit push<cr>')
+nmap('<leader>gd', ':DiffviewOpen<cr>')
+nmap('<leader>gD', ':DiffviewOpen main<cr>')
 -- Telescope
 nmap('<space>ff', '<cmd>lua require("plugin.telescope").project_files()<CR>')
 nmap('<space>fb', '<cmd>Telescope buffers<CR>')
