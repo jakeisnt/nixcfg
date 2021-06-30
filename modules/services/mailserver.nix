@@ -2,8 +2,9 @@
 
 with lib;
 with lib.my;
-let cfg = config.modules.services.mailserver;
-    domain = config.networking.domain;
+let 
+  cfg = config.modules.services.mailserver;
+  domain = config.networking.domain;
 in {
   options.modules.services.mailserver = { enable = mkBoolOpt false; };
 
@@ -28,6 +29,12 @@ in {
       loginAccounts = {
         "jake@${domain}" = {
           hashedPassword = secrets.email.hashedPassword;
+          aliases = [ ];
+          catchAll = [ domain ];
+        };
+
+        "tommy@${domain}" = {
+          hashedPassword = secrets.email.hashedPasswordT;
           aliases = [ ];
           catchAll = [ domain ];
         };
