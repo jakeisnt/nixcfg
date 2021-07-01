@@ -13,6 +13,7 @@ in
     user.packages = with pkgs; [
       editorconfig-core-c
       tree-sitter
+      gcc
       # for nvim config file
       sumneko-lua-language-server
       luaformatter
