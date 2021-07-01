@@ -3,7 +3,9 @@
 
 A fork of [hlissner's dotfiles](https://github.com/hlissner/dotfiles) with substantial modifications - most notably the addition of Wayland and the Nord theme - for my own usage.
 
-## Screenshots 
+tt
+
+## Screenshots
 ### Full Configuration
 <img src="/../screenshots/nordic/neofetch-desktop.png" width="100%" />
 <img src="/../screenshots/nordic/emacs-workspace.png" width="100%" />
@@ -21,8 +23,8 @@ Feel free to poke around and contact me if you have any questions : )
 Follow the default NixOS install instructions; formatting the disk and what
 have you. These steps are detailed in the NixOS install instructions.
 
-When formatting your disks, make sure to label your root partition 'nixos'. 
-`default.nix` needs all systems to have the same disk label to properly test rebuilds of all flakes. 
+When formatting your disks, make sure to label your root partition 'nixos'.
+`default.nix` needs all systems to have the same disk label to properly test rebuilds of all flakes.
 
 I prefer to `chown /etc/nixos` so that you can control it without being a
 root user, but this is down to personal preference.
@@ -45,7 +47,7 @@ If that built successfully, you should now have flakes available on your system.
 Clone this repository.
 Make a new folder in `hosts/` with the name of your system (change the name
 to something other than `nixos`, preferably!) and put your
-`configuration.nix` and `hardware-configuration.nix` in it. 
+`configuration.nix` and `hardware-configuration.nix` in it.
 Rename `hosts/${hostname}/configuration.nix` to `default.nix`.
 
 In the new `default.nix`, copy the structure of one of the other
