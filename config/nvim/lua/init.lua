@@ -20,8 +20,10 @@ local function disable_default_plugins()
 end
 
 disable_default_plugins()
-require('core.utils')
-require('core.options')
-require('core.keymaps')
-require('core.autocmds')
-require('plugin')
+require'core.utils'
+require'core.options'
+require'core.keymaps'
+require'core.autocmds'
+
+vim.cmd [[runtime plugin/direnv.vim]]
+require'plugin'
