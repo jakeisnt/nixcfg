@@ -26,5 +26,4 @@ require'core.keymaps'
 require'core.autocmds'
 
 vim.cmd [[runtime plugin/direnv.vim]]
-vim.cmd [[runtime plugin/vim-racket.vim]]
 require'plugin'
