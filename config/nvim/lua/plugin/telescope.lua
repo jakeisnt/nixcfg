@@ -6,7 +6,6 @@ require('telescope').setup {
     layout_strategy = 'horizontal',
     prompt_prefix = '❯ ',
     selection_caret = '❯ ',
-    prompt_position = 'bottom',
     sorting_strategy = 'descending',
     mappings = {
       i = {['<C-j>'] = actions.move_selection_next, ['<C-k>'] = actions.move_selection_previous},
