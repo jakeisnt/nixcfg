@@ -26,6 +26,11 @@ in
           # audacity
         ] else []
       ) ++ # for longer term streaming/recording the screen
-      (if cfg.video.enable then [ obs-studio obs-wlrobs handbrake ] else []);
+      (if cfg.video.enable then [(wrapOBS {
+      plugins = with obs-studio-plugins; [
+        wlrobs
+      ];
+    })
+ handbrake ] else []);
   };
 }
