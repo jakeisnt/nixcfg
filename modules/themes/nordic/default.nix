@@ -31,7 +31,7 @@ in {
           gtk = {
             theme = "Nordic";
             iconTheme = "Zafiro-icons";
-            cursorTheme = "Numix-Cursor";
+            cursorTheme = "openzone-cursors";
           };
           color = with colorscheme; {
             foreground = nord4;
@@ -101,7 +101,7 @@ in {
     # Desktop theming
     {
       user.packages = with pkgs;
-        [ nordic zafiro-icons numix-cursor-theme ]
+        [ nordic zafiro-icons openzone-cursors ]
         ++ (if config.modules.media.spotify.enable then
           [ extras.spicetify-nix.packages.x86_64-linux.nord ]
         else
