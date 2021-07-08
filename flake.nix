@@ -22,6 +22,11 @@
 
     # Extras
     emacs-overlay.url = "github:nix-community/emacs-overlay";
+    nix-doom-emacs = {
+      url = "github:vlaci/nix-doom-emacs";
+      follows = "emacs-overlay";
+    };
+
     nixos-hardware.url = "github:nixos/nixos-hardware";
     simple-nixos-mailserver.url =
       "gitlab:simple-nixos-mailserver/nixos-mailserver";
@@ -32,7 +37,7 @@
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
   };
 
-  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, spicetify-nix, ... }:
+  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, spicetify-nix, nix-doom-emacs, ... }:
     let
       inherit (lib) attrValues;
       inherit (lib.my) mapModules mapModulesRec mapHosts;
