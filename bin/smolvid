@@ -1,0 +1,19 @@
+# USAGE:
+# smolvid yourmovie.mov
+#
+# SRC https://gist.github.com/tangert/65c16cd320a13ab45e1870bb0ffcc8b5
+
+# INSTALL:
+# add this to your .bashrc or .zshrc or wherever:
+# alias smolvid="bash path/to/smolvid.sh "$1""
+
+# SCRIPT:
+# input file
+INPUT="$1"
+
+# auto create a new output file name
+FILE_NAME=$(echo "$INPUT" | cut -f 1 -d '.')
+EXTENSION=$(echo "$INPUT" | cut -f 2 -d '.')
+OUTPUT="${FILE_NAME}-new.${EXTENSION}"
+
+# run it through ffmpeg
