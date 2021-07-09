@@ -2,10 +2,19 @@
 #!nix-shell -i bash -p gphoto2 ffmpeg
 
 # use a DSLR as a webcam via USB
-gphoto2 --stdout --capture-movie | ffmpeg -i - -vcodec rawvideo -pix_fmt yuv420p -threads 0 -f v4l2 /dev/video8
-
+gphoto2 --stdout --capture-movie | ffmpeg -i - -vf format=yuv420p -f v4l2 /dev/video8
+ # -threads 0
 # make sure the camera is plugged into your device and has a consistent power source (the USB bus may not be enough)
 
 # if having issues:
 # - make sure that the camera has adequete power - USB bus power might not be enough
 # run gphoto2 --auto-detect to make sure that your camera can be seen. can retrieve logs with another gphoto2 tag as well
+#
+# streaming setup:
+# - obs studio
+# - install ffplay with ffmpeg-full package
+# - start this script
+# - start ffplay at /dev/video8 to pick up rawvideo off fuji and have separate window
+#
+# join twitch chat with irc:
+# - open weechat window, /connect twitch, /join #jakeissnt
