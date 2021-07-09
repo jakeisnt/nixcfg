@@ -49,6 +49,7 @@
       "i915.enable_psr=2"
       "i915.enable_rc6=7"
       "i915.lvds_downclock=1"
+      "i915.perf_stream_paranoid=0"
 
       # significant amount of usb issues without this
       "usbcore.autosuspend=-1"
