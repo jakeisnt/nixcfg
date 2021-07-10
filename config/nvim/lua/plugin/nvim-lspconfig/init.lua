@@ -56,42 +56,43 @@ local function setup_servers()
   end
 end
 
-lspconfig.diagnosticls.setup {
-    filetypes = {"javascript", "typescript"},
-    init_options = {
-        linters = {
-            eslint = {
-                command = "./node_modules/.bin/eslint",
-                rootPatterns = {".git"},
-                debounce = 100,
-                args = {
-                    "--stdin",
-                    "--stdin-filename",
-                    "%filepath",
-                    "--format",
-                    "json"
-                },
-                sourceName = "eslint",
-                parseJson = {
-                    errorsRoot = "[0].messages",
-                    line = "line",
-                    column = "column",
-                    endLine = "endLine",
-                    endColumn = "endColumn",
-                    message = "${message} [${ruleId}]",
-                    security = "severity"
-                },
-                securities = {
-                    [2] = "error",
-                    [1] = "warning"
-                }
-            },
-        filetypes = {
-            javascript = "eslint",
-            typescript = "eslint"
-        }
-    }
-}
-}
+-- TODO use eslint alongside tsserver?
+-- lspconfig.diagnosticls.setup {
+--   filetypes = {"javascript", "typescript"},
+--   init_options = {
+--     linters = {
+--       eslint = {
+--         command = "./node_modules/.bin/eslint",
+--         rootPatterns = {".git"},
+--         debounce = 100,
+--         args = {
+--           "--stdin",
+--           "--stdin-filename",
+--           "%filepath",
+--           "--format",
+--           "json"
+--         },
+--         sourceName = "eslint",
+--         parseJson = {
+--           errorsRoot = "[0].messages",
+--           line = "line",
+--           column = "column",
+--           endLine = "endLine",
+--           endColumn = "endColumn",
+--           message = "${message} [${ruleId}]",
+--           security = "severity"
+--         },
+--         securities = {
+--           [2] = "error",
+--           [1] = "warning"
+--         }
+--       },
+--       filetypes = {
+--         javascript = "eslint",
+--         typescript = "eslint"
+--       }
+--     }
+--   }
+-- }
 
 setup_servers()
