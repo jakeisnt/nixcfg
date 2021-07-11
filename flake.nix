@@ -24,7 +24,6 @@
     emacs-overlay.url = "github:nix-community/emacs-overlay";
     nix-doom-emacs = {
       url = "github:vlaci/nix-doom-emacs";
-      follows = "emacs-overlay";
     };
 
     nixos-hardware.url = "github:nixos/nixos-hardware";

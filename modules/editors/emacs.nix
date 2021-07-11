@@ -6,8 +6,17 @@
 
 with lib;
 with lib.my;
-let cfg = config.modules.editors.emacs;
-in {
+let
+  cfg = config.modules.editors.emacs;
+  doom-emacs = pkgs.callPackage
+    inputs.nix-doom-emacs
+    {
+      doomPrivateDir = ./doom.d;
+      dependencyOverrides = inputs.nix-doom-emacs.inputs;
+      # emacsPackage = pkgs.emacsPgtkGcc;
+    };
+in
+{
   options.modules.editors.emacs = {
     enable = mkBoolOpt false;
     daemon = mkBoolOpt false;
@@ -20,16 +29,19 @@ in {
   config = mkIf cfg.enable {
     nixpkgs.overlays = [ inputs.emacs-overlay.overlay inputs.nur.overlay ];
 
+    boot.isContainer = true;
+
     services.emacs = mkIf cfg.daemon {
       enable = true;
-      package = pkgs.emacsPgtkGcc;
+      package = doom-emacs;
       defaultEditor = false; # configured elsewhere
     };
 
     user.packages = with pkgs; [
       ## Emacs itself
       binutils # native-comp needs 'as', provided by this
-      emacsPgtkGcc # 28 + pgtk + native-comp
+      # emacsPgtkGcc # 28 + pgtk + native-comp
+      # doom-emacs
 
       ## Doom dependencies
       git
@@ -39,8 +51,10 @@ in {
       ## Optional dependencies
       fd # faster projectile indexing
       imagemagick # for image-dired
-      (mkIf (config.programs.gnupg.agent.enable)
-        pinentry_emacs) # in-emacs gnupg prompts
+      (
+        mkIf (config.programs.gnupg.agent.enable)
+          pinentry_emacs
+      ) # in-emacs gnupg prompts
       zstd # for undo-fu-session/undo-tree compression
 
       ## Module dependencies
@@ -67,24 +81,6 @@ in {
       [ "$(nix-build -E 'import <nixpkgs>' -A 'gcc.cc.lib')/lib64" ];
 
     modules.shell.zsh.rcFiles = [ "${configDir}/emacs/aliases.zsh" ];
-
     fonts.fonts = [ pkgs.emacs-all-the-icons-fonts ];
-
-    # init.doomEmacs = mkIf cfg.doom.enable ''
-    #   if [ -d $HOME/.config/emacs ]; then
-    #      ${
-    #        optionalString cfg.doom.fromSSH ''
-    #          git clone git@github.com:hlissner/doom-emacs.git $HOME/.config/emacs
-    #          git clone git@github.com:jakeisnt/doom.d.git $HOME/.config/doom
-    #        ''
-    #      }
-    #      ${
-    #        optionalString (cfg.doom.fromSSH == false) ''
-    #          git clone https://github.com/hlissner/doom-emacs $HOME/.config/emacs
-    #          git clone https://github.com/jakeisnt/doom.d $HOME/.config/doom
-    #        ''
-    #      }
-    #   fi
-    # '';
   };
 }
