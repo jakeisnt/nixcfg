@@ -1,0 +1,27 @@
+#!/usr/bin/env sh
+
+# fetch my nix flake template for starting a project
+
+# TODO: expand with https://zserge.com/posts/luash/ or some other fun scripting language! maybe try moonscript
+# https://github.com/lusis/lua-github
+
+git clone git@github.com:jakeisnt/nix-flake-template.git $1
+
+cd $1
+rm -rf .git
+rm README.org
+touch README.org
+git init
+
+repotype="$2"
+
+case "$repotype" in
+  rust) cargo init ;;
+  *) echo "No repo type provided. Using defaults."
+  ;;
+esac
+
+gh repo create
+git add .
+git commit -m "Initial commit"
+git push origin main
