@@ -20,7 +20,6 @@ o.backup = false
 o.writebackup = false
 o.swapfile = false
 o.undofile = true
-o.history = 1000
 
 -- Completion
 o.completeopt = 'menuone,noselect'
@@ -45,14 +44,11 @@ o.smartindent = true
 o.lazyredraw = true
 
 -- Search
-o.incsearch = true
-o.hlsearch = true
 o.inccommand = 'nosplit' -- show substitutions incrementally
 o.ignorecase = true
 o.smartcase = true
 o.wildignore = '.git,**/node_modules/**';
 o.wildignorecase = true
-o.wildmenu = true
 
 -- Tabs
 o.expandtab = true
