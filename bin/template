@@ -4,6 +4,8 @@
 
 # TODO: expand with https://zserge.com/posts/luash/ or some other fun scripting language! maybe try moonscript
 # https://github.com/lusis/lua-github
+
+# i really need to redo this in a more onsistent and suportive scripting language thansh....................
 git="existing"
 tmpfolder="tmpfldrxxx"
 
