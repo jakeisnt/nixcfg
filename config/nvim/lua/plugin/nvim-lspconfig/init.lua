@@ -2,7 +2,7 @@ local lspconfig = require('lspconfig')
 local languages = require('plugin.nvim-lspconfig.format')
 local on_attach = require('plugin.nvim-lspconfig.on-attach')
 
-local installed = { 'clangd', 'pyright', 'sumneko_lua', 'hls', 'ocamllsp', 'zls', 'tsserver', 'rnix', 'racket_langserver' }
+local installed = { 'clangd', 'pyright', 'sumneko_lua', 'hls', 'ocamllsp', 'zls', 'tsserver', 'rnix', 'racket_langserver', 'clojure_lsp'}
 
 local servers = {
   -- TODO make proper use of diagnosticls or efm language server
