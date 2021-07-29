@@ -5,23 +5,57 @@
 # TODO: expand with https://zserge.com/posts/luash/ or some other fun scripting language! maybe try moonscript
 # https://github.com/lusis/lua-github
 
-git clone git@github.com:jakeisnt/nix-flake-template.git $1
+# i really need to redo this in a more onsistent and suportive scripting language thansh....................
+git="existing"
+tmpfolder="tmpfldrxxx"
 
-cd $1
-rm -rf .git
-rm README.org
-touch README.org
-git init
+# sets sh option to mv dotfiles
+shopt -s dotglob
 
-repotype="$2"
+if [ $1 == $git ]
+then
+  echo "adding nix flake config to existing repo..."
+  git clone $2 $tmpfolder # assume that the second link provided is url of existing git repo
+  cd $tmpfolder
+  reponame=$(basename `git rev-parse --show-toplevel`)
+  cd ..
+  echo "is this the mv?"
+  pwd
+  echo $tmpfolder
+  echo $reponame
 
-case "$repotype" in
-  rust) cargo init ;;
-  *) echo "No repo type provided. Using defaults."
-  ;;
-esac
+  mv $tmpfolder $reponame
+  cd $reponame
+  git clone git@github.com:jakeisnt/nix-flake-template.git nix-flake-tmp
+  cd nix-flake-tmp
+  rm README.org
+  # okay for .gitignore and .envrc to exist, assume no other files are shared (overwrite them).
+  cat .gitignore >> ../.gitignore
+  cat .envrc >> ../.envrc
+  rm .gitignore
+  rm .envrc
+  rm -rf .git
+  mv * ..
 
-gh repo create
-git add .
-git commit -m "Initial commit"
-git push origin main
+else
+  echo "creating new repository..."
+  git clone git@github.com:jakeisnt/nix-flake-template.git $1
+  cd $1
+  rm -rf .git
+  rm README.org
+  touch README.org
+  git init
+
+  repotype="$2"
+
+  case "$repotype" in
+    rust) cargo init ;;
+    *) echo "No repo type provided. Using defaults."
+    ;;
+  esac
+
+  gh repo create
+  git add .
+  git commit -m "Initial commit"
+  git push origin main
+fi
