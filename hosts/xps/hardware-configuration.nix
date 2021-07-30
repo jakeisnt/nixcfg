@@ -82,6 +82,7 @@
   # scanning
   hardware = {
     sane.enable = true;
+    keyboard.zsa.enable = true;
     opengl = {
       enable = true;
       extraPackages = with pkgs; [ vaapiIntel vaapiVdpau libvdpau-va-gl ];
