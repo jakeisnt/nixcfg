@@ -101,7 +101,7 @@
     };
   };
 
-  users.users.jake.extraGroups = [ "networkmanager" ];
+  users.users.jake.extraGroups = [ "networkmanager" "plugdev"];
 
   services.fwupd.enable = true;
   services.xserver.libinput.enable = true;
