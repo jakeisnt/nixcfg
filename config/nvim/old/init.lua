@@ -30,14 +30,16 @@ end
 -- configuration if it's set.
 vim.g["aniseed#env"] = {module = "magic.init"}
 
--- Now head to fnl/magic/init.fnl to continue your journey.
--- Try pressing gf on the file path to [g]o to the [f]ile.
+require'aniseed'.init()
 
-disable_default_plugins()
-require'core.utils'
-require'core.options'
-require'core.keymaps'
-require'core.autocmds'
+-- -- Now head to fnl/magic/init.fnl to continue your journey.
+-- -- Try pressing gf on the file path to [g]o to the [f]ile.
 
-vim.cmd [[runtime plugin/direnv.vim]]
-require'plugin'
+-- disable_default_plugins()
+-- require'core.utils'
+-- require'core.options'
+-- require'core.keymaps'
+-- require'core.autocmds'
+
+-- vim.cmd [[runtime plugin/direnv.vim]]
+-- require'plugin'
