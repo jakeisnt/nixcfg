@@ -67,6 +67,8 @@ in
             vim-racket
             conjure
 
+            aniseed #fennel!!
+
             # lightspeed-nvim not in master yet
           ];
         };
