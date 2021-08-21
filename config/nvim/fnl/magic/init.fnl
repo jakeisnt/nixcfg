@@ -17,7 +17,7 @@
 
 ;;; Generic configuration
 
-(set nvim.o.termguicolors true)
+(set nvim.o.termguicolors false)
 (set nvim.o.mouse "a")
 (set nvim.o.number true)
 (set nvim.o.updatetime 500)
