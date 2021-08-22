@@ -1,16 +1,9 @@
-local npairs = require('nvim-autopairs')
+require'nvim-autopairs.completion.compe'.setup({
+  map_complete = true,
+  map_cr = true,
+  auto_select = false,
+})
 
-vim.g.completion_confirm_key = ''
-function U.completion_confirm()
-  if vim.fn.pumvisible() ~= 0 then
-    if vim.fn.complete_info()['selected'] ~= -1 then
-      return vim.fn['compe#confirm'](npairs.esc('<cr>'))
-    else
-      return npairs.esc('<CR>')
-    end
-  else
-    return npairs.autopairs_cr()
-  end
-end
-
-npairs.setup({})
+require'nvim-autopairs'.setup({
+  check_ts = true,
+})

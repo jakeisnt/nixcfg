@@ -40,6 +40,7 @@ in
             vim-polyglot
             vim-commentary
             nvim-treesitter
+            nvim-treesitter-textobjects
             nvim-lspconfig
             completion-nvim
             nvim-compe
@@ -52,10 +53,10 @@ in
             diffview-nvim
             gitsigns-nvim
             auto-pairs
-            nvim-tree-lua
             direnv-vim
             snippets-nvim
             lualine-nvim
+            nvim-web-devicons
 
             nvim-autopairs # trial run
             nvim-colorizer-lua
@@ -67,7 +68,7 @@ in
             vim-racket
             conjure
 
-            # lightspeed-nvim not in master yet
+            lightspeed-nvim
           ];
         };
       };
