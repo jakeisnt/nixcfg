@@ -2,7 +2,7 @@
 
 with lib;
 with lib.my; {
-  time.timeZone = mkDefault "America/Los_Angeles";
+  time.timeZone = mkDefault "America/New_York";
   i18n.defaultLocale = mkDefault "en_US.UTF-8";
 
   console = {
