@@ -1,5 +1,6 @@
 {
 	"layer": "top",
+    "output": ["eDP-1"],
 	"modules-left": ["sway/workspaces", "sway/mode"],
 	"modules-center": [],
 	"modules-right": ["network", "pulseaudio", "temperature", "cpu", "memory", "battery", "clock"],
