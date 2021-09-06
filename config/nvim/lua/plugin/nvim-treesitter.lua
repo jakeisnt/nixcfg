@@ -6,6 +6,16 @@ require'nvim-treesitter.configs'.setup {
   rainbow = {enable = true},
   autotag = {enable = true},
   context_commentstring = {enable = true},
+  refactor = {
+    keymaps = {
+      smart_rename = "grr",
+    },
+    highlight_definitions = { enable = true },
+    highlight_current_scope = { enable = true },
+    smart_rename = {
+      enable = true,
+    },
+  },
   textobjects = {
     lsp_interop = {
       enable = true,

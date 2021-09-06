@@ -12,7 +12,8 @@ with lib.my;
 let
   cfg = config.modules.editors.vscode;
   extensions = with pkgs.vscode-extensions;
-    ([ bbenoist.Nix vscodevim.vim ]
+    (
+      [ bbenoist.nix vscodevim.vim ]
       ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
         {
           name = "vscode-wakatime";
@@ -38,32 +39,44 @@ let
           version = "0.2.0";
           sha256 = "184b8g0rgfasippvfvr6bslaxfm34bqa2mgzr0y0dphj26fyw2wn";
         }
-      ] ++ (if config.modules.dev.node.enable then
-        pkgs.vscode-utils.extensionsFromVscodeMarketplace [{
-          name = "vscode-eslint";
-          publisher = "dbaeumer";
-          version = "2.1.14";
-          sha256 = "113w2iis4zi4z3sqc3vd2apyrh52hbh2gvmxjr5yvjpmrsksclbd";
-        }]
-      else
-        [ ]) ++ (if config.modules.dev.cc.enable then [
+      ] ++ (
+        if config.modules.dev.node.enable then
+          pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+            {
+              name = "vscode-eslint";
+              publisher = "dbaeumer";
+              version = "2.1.14";
+              sha256 = "113w2iis4zi4z3sqc3vd2apyrh52hbh2gvmxjr5yvjpmrsksclbd";
+            }
+          ]
+        else
+          []
+      ) ++ (
+        if config.modules.dev.cc.enable then [
           xaver.clang-format
           ms-vscode.cpptools
         ] else
-          [ ]) ++ (if config.modules.dev.rust.enable then
-            [ matklad.rust-analyzer ]
-          else
-            [ ])) ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [{
-              name = "remote-ssh-edit";
-              publisher = "ms-vscode-remote";
-              version = "0.47.2";
-              sha256 = "1hp6gjh4xp2m1xlm1jsdzxw9d8frkiidhph6nvl24d0h8z34w49g";
-            }];
+          []
+      ) ++ (
+        if config.modules.dev.rust.enable then
+          [ matklad.rust-analyzer ]
+        else
+          []
+      )
+    ) ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+      {
+        name = "remote-ssh-edit";
+        publisher = "ms-vscode-remote";
+        version = "0.47.2";
+        sha256 = "1hp6gjh4xp2m1xlm1jsdzxw9d8frkiidhph6nvl24d0h8z34w49g";
+      }
+    ];
   vscodium-with-extensions = pkgs.vscode-with-extensions.override {
     vscode = pkgs.vscodium;
     vscodeExtensions = extensions;
   };
-in {
+in
+{
   options.modules.editors.vscode = { enable = mkBoolOpt false; };
 
   config = mkIf cfg.enable {

@@ -25,6 +25,12 @@ input type:keyboard {
   repeat_rate 45
 }
 
+input type:touch {
+  dwt disabled
+  tap disabled
+  drag disabled
+}
+
 # Default laptop keyboard
 # (assume external keyboards are programmed with sanity)
 # Add an identifier for your default keyboard name
@@ -35,7 +41,7 @@ input "1:1:AT_Translated_Set_2_keyboard" {
 
 # Anne Pro 2 keyboard
 input "1241:41618:OBINS_OBINS_AnnePro2" {
-  xkb_options caps:swapescape 
+  xkb_options caps:swapescape
 }
 
 input "1121:16:NOVATEK_USB_Keyboard" {
@@ -144,7 +150,7 @@ mode "resize" {
   bindsym $down resize grow height 10px
   bindsym $up resize shrink height 10px
   bindsym $right resize grow width 10px
-  
+
   bindsym Escape mode "default"
 }
 
