@@ -13,7 +13,7 @@ in {
       wofi
       (writeScriptBin "launch" ''
         #!${stdenv.shell}
-        exec ${wofi}/bin/wofi --modi drun --show drun
+        exec ${wofi}/bin/wofi --show drun
       '')
     ];
 
