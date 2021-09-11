@@ -12,6 +12,14 @@ set $menu launch
 output * bg #434C5E solid_color
 
 ### Input configuration
+input type:touchpad {
+  dwt enabled
+  tap enabled # enable tap to click for broken touchpad
+  drag enabled
+  tap_button_map lrm
+  middle_emulation enabled
+}
+
 input type:keyboard {
   repeat_delay 250
   repeat_rate 45
@@ -21,12 +29,15 @@ input type:touch {
   dwt disabled
   tap disabled
   drag disabled
+  events disabled
 }
+
 
 input type:touchpad {
   dwt disabled
   tap disabled
   drag disabled
+  events disabled
 }
 
 # Default laptop keyboard
