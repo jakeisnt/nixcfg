@@ -9,8 +9,8 @@ let
 in
 mkShell {
   buildInputs = [ git nix-zsh-completions rnix-lsp nixpkgs-fmt ];
-  shellHook = ''
-    export FLAKE="$(pwd)"
-    export PATH="$FLAKE/bin:${nixBin}/bin:$PATH"
-  '';
+  # shellHook = ''
+  #   export FLAKE="$(pwd)"
+  #   export PATH="$FLAKE/bin:${nixBin}/bin:$PATH"
+  # '';
 }

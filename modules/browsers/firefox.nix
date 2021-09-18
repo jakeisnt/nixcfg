@@ -30,19 +30,19 @@ let
   };
 
   # TODO: figure out a better way to do this.
-  searchJson = readFile "${configDir}/firefox/firefox.search.json";
-  searchJsonMozlz4 = pkgs.stdenv.mkDerivation {
-    pname = "search-json-mozlz4";
-    version = "latest";
-    src = dotFilesDir;
-    phases = "installPhase";
-    installPhase = ''
-      cat > ./firefox.search.json << EOL
-      ${searchJson}
-      EOL
-      ${pkgs.mozlz4a}/bin/mozlz4a ./firefox.search.json $out
-    '';
-  };
+  # searchJson = readFile "${configDir}/firefox/firefox.search.json";
+  # searchJsonMozlz4 = pkgs.stdenv.mkDerivation {
+  #   pname = "search-json-mozlz4";
+  #   version = "latest";
+  #   src = dotFilesDir;
+  #   phases = "installPhase";
+  #   installPhase = ''
+  #     cat > ./firefox.search.json << EOL
+  #     ${searchJson}
+  #     EOL
+  #     ${pkgs.mozlz4a}/bin/mozlz4a ./firefox.search.json $out
+  #   '';
+  # };
 in {
   options.modules.browsers.firefox = with types; {
     enable = mkBoolOpt false;
@@ -193,7 +193,7 @@ in {
         StartWithLastProfile=1
         Version=2
       '';
-      "${cfgPath}/default/search.json/mozlz4".source = searchJsonMozlz4;
+      # "${cfgPath}/default/search.json/mozlz4".source = searchJsonMozlz4;
       "${cfgPath}/${cfg.profileName}.default/user.js" =
         mkIf (cfg.settings != { } || cfg.extraConfig != "") {
           text = ''

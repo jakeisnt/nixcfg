@@ -61,6 +61,10 @@ in {
       pandoc
       # better syntax highlighting
       tree-sitter
+
+      # for vterm
+      libvterm
+      libtool
     ];
 
     env.PATH = [ "$XDG_CONFIG_HOME/emacs/bin" ];

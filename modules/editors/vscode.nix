@@ -13,7 +13,7 @@ let
   cfg = config.modules.editors.vscode;
   extensions = with pkgs.vscode-extensions;
     (
-      [ bbenoist.nix vscodevim.vim ]
+      [ bbenoist.nix vscodevim.vim eugleo.magic-racket ]
       ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
         {
           name = "vscode-wakatime";

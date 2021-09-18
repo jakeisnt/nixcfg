@@ -34,7 +34,7 @@ in {
 
       # Replaces photoshop
       (if cfg.raster.enable then [
-        krita
+        # krita
         gimp
         # gimpPlugins.resynthesizer2 # content-aware scaling in gimp
       ] else
