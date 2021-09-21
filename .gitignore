@@ -2,3 +2,4 @@ result
 
 .direnv/*
 !.direnv/.git-keep
+lib/secrets.nix
