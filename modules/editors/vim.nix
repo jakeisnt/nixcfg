@@ -9,7 +9,7 @@ in
   options.modules.editors.vim = { enable = mkBoolOpt false; };
 
   config = mkIf cfg.enable {
-    nixpkgs.overlays = with inputs; [ neovim-nightly-overlay.overlay ];
+    # nixpkgs.overlays = with inputs; [ neovim-nightly-overlay.overlay ];
     user.packages = with pkgs; [
       editorconfig-core-c
       tree-sitter
@@ -24,7 +24,7 @@ in
     ];
 
     programs.neovim = {
-      package = with pkgs; neovim; # switch from (neovim-nightly)
+      package = pkgs.neovim; # switch from (neovim-nightly)
       enable = true;
       defaultEditor = false; # this is configured by me elsewhere
 
