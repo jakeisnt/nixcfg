@@ -65,6 +65,9 @@ in {
       # for vterm
       libvterm
       libtool
+
+      # for org-roam graph
+      graphviz
     ];
 
     env.PATH = [ "$XDG_CONFIG_HOME/emacs/bin" ];

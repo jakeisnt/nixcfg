@@ -24,7 +24,7 @@ in
     ];
 
     programs.neovim = {
-      package = pkgs.neovim; # switch from (neovim-nightly)
+      package = pkgs.neovim-unwrapped; # switch from (neovim-nightly)
       enable = true;
       defaultEditor = false; # this is configured by me elsewhere
 
