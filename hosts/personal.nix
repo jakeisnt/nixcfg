@@ -12,8 +12,8 @@ with lib.my; {
 
   # Only allow user creation through Nix
   users.mutableUsers = false;
-  users.users.root.password = secrets.password;
-  users.users.${secrets.username}.password = secrets.password;
+  users.users.root.password = sops.secrets.password;
+  users.users.${secrets.username}.password = sops.secrets.password;
 
   location = (if config.time.timeZone == "America/Los_Angeles" then {
     latitude = 43.70011;

@@ -29,10 +29,15 @@
       url = "github:jakeisnt/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     # neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+    # broken too frequently for me to be able to live on the bleeding edge...
   };
 
-  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, spicetify-nix, ... }:
+  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, spicetify-nix, sops-nix, ... }:
     let
       inherit (lib) attrValues;
       inherit (lib.my) mapModules mapModulesRec mapHosts;
@@ -46,7 +51,8 @@
             android_sdk.accept_license = true;
             allowUnfree = true; # forgive me Stallman senpai
           };
-          overlays = extraOverlays ++ (attrValues self.overlays);
+          overlays = extraOverlays ++ (attrValues self.overlays)
+          ++ [ sops-nix.overlay ];
         };
 
       pkgs = mkPkgs nixpkgs [ self.overlay ];

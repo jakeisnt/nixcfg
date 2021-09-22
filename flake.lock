@@ -152,6 +152,7 @@
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nur": "nur",
         "simple-nixos-mailserver": "simple-nixos-mailserver",
+        "sops-nix": "sops-nix",
         "spicetify-nix": "spicetify-nix"
       }
     },
@@ -174,6 +175,26 @@
         "owner": "simple-nixos-mailserver",
         "repo": "nixos-mailserver",
         "type": "gitlab"
+      }
+    },
+    "sops-nix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1631947413,
+        "narHash": "sha256-3SNkyah7LsZnO5dDToKb81BtuaClorZB8CEyPToSRT0=",
+        "owner": "Mic92",
+        "repo": "sops-nix",
+        "rev": "9d47d2e3e4ab5e7d8907e2ea977b69afab7312d5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Mic92",
+        "repo": "sops-nix",
+        "type": "github"
       }
     },
     "spicetify-nix": {

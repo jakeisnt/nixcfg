@@ -8,6 +8,7 @@ with inputs; {
     [
       home-manager.nixosModules.home-manager
       simple-nixos-mailserver.nixosModules.mailserver
+      sops-nix.nixosModules.sops
     ]
     # All my personal modules
     ++ (mapModulesRec' (toString ./modules) import);
@@ -28,12 +29,16 @@ with inputs; {
       "nixpkgs-overlays=${dotFilesDir}/overlays"
       "dotfiles=${dotFilesDir}"
     ];
-    binaryCaches = [ "https://cache.nixos.org/"
-                     "https://hydra.iohk.io"
-                     "https://nix-community.cachix.org" ];
+    binaryCaches = [
+      "https://cache.nixos.org/"
+      "https://hydra.iohk.io"
+      "https://nix-community.cachix.org"
+    ];
     binaryCachePublicKeys =
-      [ "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
-        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=" ];
+      [
+        "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
+        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      ];
     registry = {
       nixos.flake = nixpkgs;
       nixpkgs.flake = nixpkgs-unstable;
@@ -58,6 +63,9 @@ with inputs; {
     systemd-boot.configurationLimit = 10;
     systemd-boot.enable = mkDefault true;
   };
+
+  sops.defaultSopsFile = ./secrets.yaml;
+  sops.secrets.example-key = {};
 
   # let's get started!
   environment.systemPackages = with pkgs; [
