@@ -101,11 +101,11 @@ in {
     # Desktop theming
     {
       user.packages = with pkgs;
-        [ nordic zafiro-icons openzone-cursors ]
-        ++ (if config.modules.media.spotify.enable then
-          [ extras.spicetify-nix.packages.x86_64-linux.nord ]
-        else
-          [ ]);
+        [ nordic zafiro-icons openzone-cursors ];
+        # ++ (if config.modules.media.spotify.enable then
+        #   [ extras.spicetify-nix.packages.x86_64-linux.nord ]
+        # else
+          # [ ]);
       fonts = {
         fonts = with pkgs; [
           fira-code

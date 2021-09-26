@@ -29,7 +29,7 @@ function U.term_wrapper(command, argument)
 end
 
 -- Autocmds
-function U.nvim_create_augroup(definitions) -- {{{1
+function U.nvim_create_augroup(definitions)
   for group_name, definition in pairs(definitions) do
     vim.cmd('augroup ' .. group_name)
     vim.cmd('autocmd!')
@@ -79,3 +79,4 @@ end
 function U.keymap.cmap(lhs, rhs)
   return make_map('c', lhs, rhs, {silent = false, noremap = false})
 end
+

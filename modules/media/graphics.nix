@@ -9,8 +9,8 @@ with lib;
 with lib.my;
 let
   cfg = config.modules.media.graphics;
-  username = let name = getEnv "username";
-  in if elem name [ "" "root" ] then secrets.username else name;
+  # username = let name = getEnv "username";
+  #            in if elem name [ "" "root" ] then username else name;
 in {
   options.modules.media.graphics = {
     enable = mkBoolOpt false;
@@ -34,7 +34,7 @@ in {
 
       # Replaces photoshop
       (if cfg.raster.enable then [
-        krita
+        # krita
         gimp
         # gimpPlugins.resynthesizer2 # content-aware scaling in gimp
       ] else

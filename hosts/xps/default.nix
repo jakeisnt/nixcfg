@@ -1,5 +1,7 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
+with lib;
+with lib.my;
 {
   imports = [ ./hardware-configuration.nix ../personal.nix ];
 
@@ -27,13 +29,13 @@
     };
     media = {
       mpv.enable = true;
-      ncmpcpp.enable = true;
+      # ncmpcpp.enable = true; needs fixing, not used
     };
     messengers = {
       rss.enable = true;
       matrix.enable = true;
       signal.enable = true;
-      email.enable = true;
+      # email.enable = true;
       weechat.enable = true;
     };
     editors = {
@@ -88,7 +90,11 @@
     theme.active = "nordic";
   };
 
-  programs.ssh.startAgent = true;
+  programs.ssh = {
+    startAgent = true;
+    forwardX11 = true;
+  };
+
   services.openssh.startWhenNeeded = true;
   services.getty.autologinUser = "jake";
 
@@ -101,7 +107,10 @@
     };
   };
 
+  sops.secrets.password = {};
+
   users.users.jake.extraGroups = [ "networkmanager" ];
+  users.users.jake.packages = with pkgs; [thunderbird];
 
   services.fwupd.enable = true;
   services.xserver.libinput.enable = true;

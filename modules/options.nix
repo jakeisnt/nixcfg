@@ -1,7 +1,8 @@
 { config, options, lib, home-manager, ... }:
 
 with lib;
-with lib.my; {
+with lib.my;
+{
   options = with types; {
     user = mkOpt attrs { };
 
@@ -29,7 +30,7 @@ with lib.my; {
       extraGroups = [ "wheel" ];
       isNormalUser = true;
       name = let name = builtins.getEnv "USER";
-      in if elem name [ "" "root" ] then secrets.username else name;
+      in if elem name [ "jake" "root" ] then username else name;
       uid = 1000;
     };
 

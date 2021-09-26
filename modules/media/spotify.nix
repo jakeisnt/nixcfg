@@ -14,8 +14,10 @@ in {
 
   config = mkIf cfg.enable {
     user.packages = with pkgs;
-      [
-        extras.spicetify-nix.packages.x86_64-linux.nord
+    [
+      spotify
+        # extras.spicetify-nix.packages.x86_64-linux.nord : TODO: fix!
+
         # spotify-tui is fine for selecting and playing music, but incomplete. We
         # still occasionally need the official client for more sophisticated
         # search and the "made for you" playlists.

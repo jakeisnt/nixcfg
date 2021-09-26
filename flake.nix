@@ -29,10 +29,19 @@
       url = "github:jakeisnt/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nix-remarkable = {
+      url = "github:siraben/nix-remarkable";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    # neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+    # broken too frequently for me to be able to live on the bleeding edge...
   };
 
-  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, spicetify-nix, ... }:
+  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, spicetify-nix, sops-nix, ... }:
     let
       inherit (lib) attrValues;
       inherit (lib.my) mapModules mapModulesRec mapHosts;
@@ -75,11 +84,12 @@
 
         nixosModules = {
           dotfiles = import ./.;
+          # sops = sops-nix.nixosModules.sops;
         } // mapModulesRec ./modules import;
 
         nixosConfigurations = mapHosts ./hosts { inherit system; };
 
-        devShell."${system}" = import ./shell.nix { inherit pkgs; };
+        devShell."${system}" = import ./shell.nix { inherit pkgs sops-nix; };
 
         templates = {
           full = {

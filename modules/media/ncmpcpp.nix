@@ -25,6 +25,10 @@ in {
     # mopidy.enable = mkBoolOpt false;
   };
 
+  # TODO: update to work with SOPS-NIX
+  # there doesn't seem to be a way to read passwords from files,
+  # so I might have to encrypt the whole configuration file : (
+
   config = mkIf cfg.enable {
     user.packages = with pkgs; [
       ncmpcpp
@@ -34,6 +38,8 @@ in {
         exec ${mopidyEnv}/bin/mopidy &> /dev/null & disown
       '')
     ];
+
+    sops.secrets."ncmpcpp" = {};
 
     environment.shellAliases = {
       music = "mpd & ncmpcpp";
@@ -50,7 +56,7 @@ in {
     #   description = "mopidy music player daemon";
     #   serviceConfig = {
     #     ExecStart = "${mopidyEnv}/bin/mopidy";
-    #     User = ${secrets.username};
+    #     User = ${username};
     #   };
     # };
 

@@ -28,15 +28,24 @@ with inputs; {
       "nixpkgs-overlays=${dotFilesDir}/overlays"
       "dotfiles=${dotFilesDir}"
     ];
-    binaryCaches = [ "https://cache.nixos.org/" "https://hydra.iohk.io" ];
+    binaryCaches = [
+      "https://cache.nixos.org/"
+      "https://hydra.iohk.io"
+      "https://nix-community.cachix.org"
+      "https://nix-remarkable.cachix.org"
+    ];
     binaryCachePublicKeys =
-      [ "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ=" ];
+      [
+        "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
+        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+        "nix-remarkable.cachix.org-1:1VrbWNGmWFgi0Wu6iJl7m/RkO8SUqLdryfzLbQQ5Tqc="
+      ];
     registry = {
       nixos.flake = nixpkgs;
       nixpkgs.flake = nixpkgs-unstable;
     };
     useSandbox = true;
-    trustedUsers = [ secrets.username ];
+    trustedUsers = [ username ];
     gc.automatic = false; # never automatically garbage collect
   };
   system.configurationRevision = mkIf (self ? rev) self.rev;
@@ -46,6 +55,10 @@ with inputs; {
   # This is here to appease 'nix flake check' for generic hosts with no
   # hardware-configuration.nix or fileSystem config.
   fileSystems."/".device = mkDefault "/dev/disk/by-label/nixos";
+
+
+  sops.defaultSopsFile = ./secrets.yaml;
+  sops.sshKeyPaths = [ "/home/jake/.ssh/id_rsa" ];
 
   # Use the latest kernel
   boot.kernelPackages = pkgs.linuxPackages_5_10;

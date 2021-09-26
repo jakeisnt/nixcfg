@@ -4,7 +4,7 @@ local cmd = vim.cmd
 -- Appearance
 o.cmdheight = 1
 o.cursorline = true
-o.foldmethod = 'marker'
+o.foldenable = false
 o.number = true
 o.relativenumber = true
 o.ruler = false -- My statusline take care of that

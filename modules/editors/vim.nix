@@ -9,7 +9,7 @@ in
   options.modules.editors.vim = { enable = mkBoolOpt false; };
 
   config = mkIf cfg.enable {
-    nixpkgs.overlays = with inputs; [ neovim-nightly-overlay.overlay ];
+    # nixpkgs.overlays = with inputs; [ neovim-nightly-overlay.overlay ];
     user.packages = with pkgs; [
       editorconfig-core-c
       tree-sitter
@@ -24,7 +24,7 @@ in
     ];
 
     programs.neovim = {
-      package = pkgs.neovim-nightly;
+      package = pkgs.neovim-unwrapped; # switch from (neovim-nightly)
       enable = true;
       defaultEditor = false; # this is configured by me elsewhere
 
@@ -40,6 +40,7 @@ in
             vim-polyglot
             vim-commentary
             nvim-treesitter
+            nvim-treesitter-textobjects
             nvim-lspconfig
             completion-nvim
             nvim-compe
@@ -52,10 +53,10 @@ in
             diffview-nvim
             gitsigns-nvim
             auto-pairs
-            nvim-tree-lua
             direnv-vim
             snippets-nvim
             lualine-nvim
+            nvim-web-devicons
 
             nvim-autopairs # trial run
             nvim-colorizer-lua
@@ -67,7 +68,7 @@ in
             vim-racket
             conjure
 
-            # lightspeed-nvim not in master yet
+            lightspeed-nvim
           ];
         };
       };

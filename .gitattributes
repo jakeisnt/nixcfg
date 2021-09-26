@@ -1,2 +1,0 @@
-*.key filter=git-crypt diff=git-crypt
-lib/secrets.nix filter=git-crypt diff=git-crypt

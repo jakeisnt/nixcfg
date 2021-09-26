@@ -11,7 +11,7 @@ let
 
   mylib = makeExtensible (self:
     with self; mapModules ./.
-      (file: import file { inherit self lib pkgs inputs; }));
+      (file: import file { inherit self lib pkgs inputs modules; }));
 in
 mylib.extend
   (self: super:
