@@ -33,6 +33,10 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-remarkable = {
+      url = "github:siraben/nix-remarkable";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     # neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     # broken too frequently for me to be able to live on the bleeding edge...
   };

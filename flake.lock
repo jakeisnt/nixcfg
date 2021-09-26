@@ -31,6 +31,23 @@
         "type": "github"
       }
     },
+    "gst-libvncclient-rfbsrc": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1588455169,
+        "narHash": "sha256-P/s0RhY04BCHmUIHamKWgAIGxlHYUf99Im/8j0s2DUY=",
+        "owner": "peter-sa",
+        "repo": "gst-libvncclient-rfbsrc",
+        "rev": "399c634cf5cd7afc649df15861fe9f463c4249e0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "peter-sa",
+        "ref": "v0.0.1",
+        "repo": "gst-libvncclient-rfbsrc",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -49,6 +66,46 @@
         "owner": "rycee",
         "ref": "master",
         "repo": "home-manager",
+        "type": "github"
+      }
+    },
+    "mxc_epdc_fb_damage": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1588455209,
+        "narHash": "sha256-ewvHqQz5HMTMPAysYQYdeCCKlgqqFQz1x1Mnnlzyvd4=",
+        "owner": "peter-sa",
+        "repo": "mxc_epdc_fb_damage",
+        "rev": "8b9405a924bf105c0d3e3b51ed47128f66521f50",
+        "type": "github"
+      },
+      "original": {
+        "owner": "peter-sa",
+        "ref": "v0.0.1",
+        "repo": "mxc_epdc_fb_damage",
+        "type": "github"
+      }
+    },
+    "nix-remarkable": {
+      "inputs": {
+        "gst-libvncclient-rfbsrc": "gst-libvncclient-rfbsrc",
+        "mxc_epdc_fb_damage": "mxc_epdc_fb_damage",
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "rM-vnc-server": "rM-vnc-server"
+      },
+      "locked": {
+        "lastModified": 1609349745,
+        "narHash": "sha256-0taikTr1OtS1yYu7keL3Wsz0wTES5HVGgYTeHDDl1fw=",
+        "owner": "siraben",
+        "repo": "nix-remarkable",
+        "rev": "da545190d1280a715f4a4bfe0edf3cec17be2be2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "siraben",
+        "repo": "nix-remarkable",
         "type": "github"
       }
     },
@@ -143,10 +200,28 @@
         "type": "github"
       }
     },
+    "rM-vnc-server": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1588455269,
+        "narHash": "sha256-Y1z69KvOFsBLHe0ixbYlyILV09kSGaJ+ooDE/dlT2Sw=",
+        "owner": "peter-sa",
+        "repo": "rM-vnc-server",
+        "rev": "3beb2988062c939c1e84c3c3b780e209d22cccab",
+        "type": "github"
+      },
+      "original": {
+        "owner": "peter-sa",
+        "ref": "v0.0.1",
+        "repo": "rM-vnc-server",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "emacs-overlay": "emacs-overlay",
         "home-manager": "home-manager",
+        "nix-remarkable": "nix-remarkable",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable",

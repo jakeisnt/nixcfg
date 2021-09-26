@@ -32,11 +32,13 @@ with inputs; {
       "https://cache.nixos.org/"
       "https://hydra.iohk.io"
       "https://nix-community.cachix.org"
+      "https://nix-remarkable.cachix.org"
     ];
     binaryCachePublicKeys =
       [
         "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+        "nix-remarkable.cachix.org-1:1VrbWNGmWFgi0Wu6iJl7m/RkO8SUqLdryfzLbQQ5Tqc="
       ];
     registry = {
       nixos.flake = nixpkgs;
