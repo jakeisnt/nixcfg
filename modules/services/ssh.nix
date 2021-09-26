@@ -15,6 +15,7 @@ in {
   config = mkIf cfg.enable {
     services.openssh = {
       enable = true;
+      forwardX11 = true;
       challengeResponseAuthentication = false;
       passwordAuthentication = false;
     };
