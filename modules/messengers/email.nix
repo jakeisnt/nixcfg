@@ -4,7 +4,10 @@ with lib;
 with lib.my;
 let cfg = config.modules.messengers.email;
 in {
-  options.modules.messengers.email = { enable = mkBoolOpt false; };
+  options.modules.messengers.email = {
+    enable = mkBoolOpt false;
+    gui = mkBoolOpt false;
+  };
 
   config = mkIf cfg.enable {
     user.packages = with pkgs; [ w3m mutt neomutt offlineimap msmtp notmuch thunderbird ];
@@ -20,7 +23,20 @@ in {
       m = "neomutt";
     };
 
+    sops.secrets.email_host = {};
+    sops.secrets.email_password = {};
+
     home.configFile = {
+      "offlineimap/.offlineimap.py".text = ''
+        #!/usr/bin/env python
+
+        import os
+
+        def get_password(path):
+          file = open(path, "r")
+          return file.read()
+
+      '';
       "offlineimap/config".text = ''
         [general]
         ui = ttyui
@@ -37,9 +53,9 @@ in {
 
         [Repository isnt-remote]
         type = IMAP
-        remotehost = ${secrets.email.host}
-        remoteuser = ${secrets.email.user}
-        remotepass = ${secrets.email.password}
+        remotehost = get_password(${sops.secrets.email_host.path})
+        remoteuser = get_password(${sops.secrets.email_user.path})
+        remotepass = get_password(${sops.secrets.email_password.path})
         realdelete = no
         maxconnections = 3
         sslcacertfile = /etc/ssl/certs/ca-certificates.crt
@@ -78,7 +94,7 @@ in {
 
 
         # main options
-        set realname   = "${secrets.name}"
+        set realname   = "${username}"
         set from       = "${secrets.email.user}"
         set mail_check = 0
         set envelope_from
@@ -146,7 +162,7 @@ in {
         auth on
         from ${secrets.email.user}
         user ${secrets.email.user}
-        passwordeval "echo ${secrets.email.password}"
+        passwordeval "cat ${sops.email_password}"
         tls on
         tls_nocertcheck
       '';

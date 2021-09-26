@@ -9,8 +9,8 @@ with lib;
 with lib.my;
 let
   cfg = config.modules.media.graphics;
-  username = let name = getEnv "username";
-  in if elem name [ "" "root" ] then secrets.username else name;
+  # username = let name = getEnv "username";
+  #            in if elem name [ "" "root" ] then username else name;
 in {
   options.modules.media.graphics = {
     enable = mkBoolOpt false;

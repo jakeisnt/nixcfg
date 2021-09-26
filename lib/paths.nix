@@ -1,4 +1,4 @@
-{ self, lib, ... }:
+{ self, lib, modules, ... }:
 
 with builtins;
 with lib; rec {
@@ -9,12 +9,12 @@ with lib; rec {
   # secretsDir = "${dotFilesDir}/secrets";
   binDir = "${dotFilesDir}/bin";
   themesDir = "${modulesDir}/themes";
+  username = "jake";
   homeDir = "/home/${
   let
     name = getEnv "USERNAME";
   in
-    if elem name [ secrets.username "root" ] then
-      secrets.username
+    if elem name [ username "root" ] then username
     else
       name
   }";

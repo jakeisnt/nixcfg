@@ -1,7 +1,8 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 with lib;
-with lib.my; {
+with lib.my;
+{
   time.timeZone = mkDefault "America/New_York";
   i18n.defaultLocale = mkDefault "en_US.UTF-8";
 
@@ -12,8 +13,15 @@ with lib.my; {
 
   # Only allow user creation through Nix
   users.mutableUsers = false;
-  users.users.root.password = sops.secrets.password;
-  users.users.${secrets.username}.password = sops.secrets.password;
+
+  # TODO probably fix this, this seems bad..............
+  # currently an issue in sops that prevents setting root password on the fly,
+  # given nixos boot process and best way to manage secrets
+  users.users.root.password = "jake";
+  sops.secrets."password" = {};
+
+  users.users.${username}.password = "jake";
+  # users.users.${username}.passwordFile = config.sops.secrets."password".path;
 
   location = (if config.time.timeZone == "America/Los_Angeles" then {
     latitude = 43.70011;

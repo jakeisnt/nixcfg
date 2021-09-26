@@ -1,4 +1,4 @@
-{ config, options, lib, pkgs, ... }:
+{ config, options, lib, pkgs, sops, ... }:
 
 with lib;
 with lib.my;
@@ -11,13 +11,16 @@ in {
     user.packages = with pkgs; [
       # use wakatime for all editors
       wakatime
-      # some wakatime configurations are picky about python
+      # some wakatime configurations are picky about python availability
       python
     ];
 
+    sops.secrets."wakatime_apikey" = {};
+
     environment.shellAliases = {
-      wakatime =
-        "${pkgs.wakatime}/bin/wakatime --key ${secrets.wakatime.apiKey}";
+      # TODO restore wakatime
+      # wakatime =
+      #   "${pkgs.wakatime}/bin/wakatime --key \$(cat ${sops.secrets."wakatime_apikey".path})";
     };
   };
 }

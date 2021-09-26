@@ -49,7 +49,7 @@ in {
       in {
         work = rec {
           devices = [ "phone" "xps" "vultr" ];
-          path = "/home/${secrets.username}/work";
+          path = "/home/${username}/work";
           watch = true;
           rescanInterval = 3600 * 6;
           type = deviceType [ "xps" ];
@@ -57,7 +57,7 @@ in {
         };
         pics = rec {
           devices = [ "phone" "xps" "vultr" ];
-          path = "/home/${secrets.username}/pics";
+          path = "/home/${username}/pics";
           watch = true;
           rescanInterval = 3600 * 6;
           type = deviceType [ "xps" ];

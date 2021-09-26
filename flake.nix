@@ -51,8 +51,7 @@
             android_sdk.accept_license = true;
             allowUnfree = true; # forgive me Stallman senpai
           };
-          overlays = extraOverlays ++ (attrValues self.overlays)
-          ++ [ sops-nix.overlay ];
+          overlays = extraOverlays ++ (attrValues self.overlays);
         };
 
       pkgs = mkPkgs nixpkgs [ self.overlay ];
@@ -81,11 +80,12 @@
 
         nixosModules = {
           dotfiles = import ./.;
+          # sops = sops-nix.nixosModules.sops;
         } // mapModulesRec ./modules import;
 
         nixosConfigurations = mapHosts ./hosts { inherit system; };
 
-        devShell."${system}" = import ./shell.nix { inherit pkgs; };
+        devShell."${system}" = import ./shell.nix { inherit pkgs sops-nix; };
 
         templates = {
           full = {

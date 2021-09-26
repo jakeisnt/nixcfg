@@ -1,5 +1,5 @@
 keys:
-  - &admin 0D34C387EDA03AD69B856664AFF8C0623B1CE493
+  - &admin 253050e9e749f74b8a3dbb12dc500c2fa8c6c00b
 creation_rules:
   - path_regex: secrets.yaml$
     key_groups:

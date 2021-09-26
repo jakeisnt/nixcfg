@@ -23,15 +23,16 @@ in {
     networking.firewall.allowedTCPPorts = [ 22 ];
     user.openssh.authorizedKeys.keys = [ xpsKey ];
 
-    user.packages = with pkgs;
-      [
-        (writeScriptBin "ssh-key" ''
-          #!${stdenv.shell}
-          # Create SSH key
-          ${keygen} -t rsa -b 4096 -C "${secrets.username}@${secrets.domain}"
-          eval $(${ssh-agent} -s)
-          ${add} $HOME/.ssh/id_rsa
-        '')
-      ];
+    # user.packages = with pkgs;
+      # TODO restore
+      # [
+      #   (writeScriptBin "ssh-key" ''
+      #     #!${stdenv.shell}
+      #     # Create SSH key
+      #     ${keygen} -t rsa -b 4096 -C "${username}@${secrets.domain}"
+      #     eval $(${ssh-agent} -s)
+      #     ${add} $HOME/.ssh/id_rsa
+      #   '')
+      # ];
   };
 }

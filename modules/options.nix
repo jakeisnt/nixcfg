@@ -30,7 +30,7 @@ with lib.my;
       extraGroups = [ "wheel" ];
       isNormalUser = true;
       name = let name = builtins.getEnv "USER";
-      in if elem name [ "" "root" ] then secrets.username else name;
+      in if elem name [ "jake" "root" ] then username else name;
       uid = 1000;
     };
 
