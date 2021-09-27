@@ -6,7 +6,64 @@
 
 with lib;
 with lib.my;
-let cfg = config.modules.editors.emacs;
+let
+  myemacs = pkgs.emacsPgtkGcc;
+  cfg = config.modules.editors.emacs;
+  # from https://github.com/Mic92/dotfiles
+  treeSitterGrammars = pkgs.runCommandLocal "grammars" {} ''
+    mkdir -p $out/bin
+    ${lib.concatStringsSep "\n"
+      (lib.mapAttrsToList (name: src: "ln -s ${src}/parser $out/bin/${name}.so") pkgs.tree-sitter.builtGrammars)};
+  '';
+
+  # install doom emacs if not already configured!!
+  # ensure we have the write things in system path too!
+  daemonScript = pkgs.writeScriptBin "emacs-daemon" ''
+    #!${pkgs.zsh}/bin/zsh -l
+    export PATH=$PATH:${lib.makeBinPath [ pkgs.git pkgs.sqlite pkgs.unzip ]}
+    if [ ! -d $HOME/.emacs.d/.git ]; then
+      mkdir -p $HOME/.emacs.d
+      git -C $HOME/.emacs.d init
+    fi
+    if [ $(git -C $HOME/.emacs.d rev-parse HEAD) != ${pkgs.doomEmacsRevision} ]; then
+      git -C $HOME/.emacs.d fetch https://github.com/hlissner/doom-emacs.git || true
+      git -C $HOME/.emacs.d checkout ${pkgs.doomEmacsRevision} || true
+      $HOME/.emacs.d/bin/doom sync || true
+      YES=1 FORCE=1 $HOME/.emacs.d/bin/doom sync -u &
+    fi
+    exec ${myemacs}/bin/emacs --daemon
+  '';
+
+  langs = [
+    "agda"
+    "bash"
+    "c"
+    "c-sharp"
+    "cpp"
+    "css"
+    /*"elm" */
+    "fluent"
+    "go"
+    /*"hcl"*/
+    "html"
+    /*"janet-simple"*/
+    "java"
+    "javascript"
+    "jsdoc"
+    "json"
+    "ocaml"
+    "python"
+    "php"
+    /*"pgn"*/
+    "ruby"
+    "rust"
+    "scala"
+    "swift"
+    "typescript"
+  ];
+
+  grammars = lib.getAttrs (map (lang: "tree-sitter-${lang}") langs) pkgs.tree-sitter.builtGrammars;
+
 in {
   options.modules.editors.emacs = {
     enable = mkBoolOpt false;
@@ -18,11 +75,26 @@ in {
   };
 
   config = mkIf cfg.enable {
-    nixpkgs.overlays = [ inputs.emacs-overlay.overlay inputs.nur.overlay ];
+    nixpkgs.overlays = [
+      inputs.emacs-overlay.overlay
+      inputs.nur.overlay
+    ];
+
+
+    systemd.user.services.emacs-daemon = mkIf cfg.daemon {
+      serviceConfig = {
+        Type = "forking";
+        TimeoutStartSec = "10min";
+        Restart = "always";
+        ExecStart = toString daemonScript;
+        WantedBy = [ "default.target" ];
+      };
+    };
 
     services.emacs = mkIf cfg.daemon {
       enable = true;
-      package = pkgs.emacsPgtkGcc;
+      install = true;
+      package = daemonScript;
       defaultEditor = false; # configured elsewhere
     };
 
@@ -70,30 +142,14 @@ in {
       graphviz
     ];
 
+    home.file.".tree-sitter".source = (pkgs.runCommand "grammars" {} ''
+      mkdir -p $out/bin
+      ${lib.concatStringsSep "\n"
+        (lib.mapAttrsToList (name: src: "name=${name}; ln -s ${src}/parser $out/bin/\${name#tree-sitter-}.so") grammars)};
+    '');
+
     env.PATH = [ "$XDG_CONFIG_HOME/emacs/bin" ];
-    # for emacs tree-sitter
-    # env.LD_LIBRARY_PATH =
-    #   [ "$(nix-build -E 'import <nixpkgs>' -A 'gcc.cc.lib')/lib64" ];
-
     modules.shell.zsh.rcFiles = [ "${configDir}/emacs/aliases.zsh" ];
-
     fonts.fonts = [ pkgs.emacs-all-the-icons-fonts ];
-
-    # init.doomEmacs = mkIf cfg.doom.enable ''
-    #   if [ -d $HOME/.config/emacs ]; then
-    #      ${
-    #        optionalString cfg.doom.fromSSH ''
-    #          git clone git@github.com:hlissner/doom-emacs.git $HOME/.config/emacs
-    #          git clone git@github.com:jakeisnt/doom.d.git $HOME/.config/doom
-    #        ''
-    #      }
-    #      ${
-    #        optionalString (cfg.doom.fromSSH == false) ''
-    #          git clone https://github.com/hlissner/doom-emacs $HOME/.config/emacs
-    #          git clone https://github.com/jakeisnt/doom.d $HOME/.config/doom
-    #        ''
-    #      }
-    #   fi
-    # '';
   };
 }

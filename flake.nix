@@ -37,11 +37,15 @@
       url = "github:siraben/nix-remarkable";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    doom-emacs = {
+      url = "github:hlissner/doom-emacs/develop";
+      flake = false;
+    };
     # neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     # broken too frequently for me to be able to live on the bleeding edge...
   };
 
-  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, spicetify-nix, sops-nix, ... }:
+  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, spicetify-nix, sops-nix, doom-emacs, ... }:
     let
       inherit (lib) attrValues;
       inherit (lib.my) mapModules mapModulesRec mapHosts;
@@ -58,7 +62,10 @@
           overlays = extraOverlays ++ (attrValues self.overlays);
         };
 
-      pkgs = mkPkgs nixpkgs [ self.overlay ];
+      pkgs = mkPkgs nixpkgs [
+        self.overlay
+        (self: super: { doomEmacsRevision = doom-emacs.rev; })
+      ];
       uPkgs = mkPkgs nixpkgs-unstable [];
 
       lib = nixpkgs.lib.extend (
