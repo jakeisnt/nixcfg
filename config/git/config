@@ -12,6 +12,8 @@
 	whitespace = trailing-space
 [github]
 	user = jakeisnt
+[gitlab]
+	user = jakeisnt
 [rebase]
 	autosquash = true
 [pull]
