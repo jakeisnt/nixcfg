@@ -8,6 +8,9 @@ with lib.my;
   networking.hostName = "xps";
 
   modules = {
+    vm.virtualbox = {
+      enable = true;
+    };
     desktop.sway = {
       enable = true;
       fancy = true;
@@ -110,8 +113,9 @@ with lib.my;
   sops.secrets.password = {};
 
   users.users.jake.extraGroups = [ "networkmanager" ];
-  users.users.jake.packages = with pkgs; [thunderbird];
+  users.users.jake.packages = with pkgs; [ thunderbird openssl ]; # TODO may not be needed
 
   services.fwupd.enable = true;
   services.xserver.libinput.enable = true;
+
 }
