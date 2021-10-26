@@ -85,34 +85,11 @@ in {
       inputs.nur.overlay
     ];
 
-    # systemd.user.services.emacs = {
-    #   description = "Emacs: the extensible, self-documenting text editor";
-
-    #   serviceConfig = {
-    #     Type = "forking";
-    #     ExecStart = "${pkgs.bash}/bin/bash -c 'source ${config.system.build.setEnvironment}; exec ${daemonScript}'";
-    #     ExecStop = "${myemacs}/bin/emacsclient --eval (kill-emacs)";
-    #     Restart = "always";
-    #   };
-    #   wantedBy = [ "default.target" ];
-    # };
-
-    # systemd.user.services.emacs-daemon = mkIf cfg.daemon {
-    #   enable = true;
-    #   serviceConfig = {
-    #     Install.WantedBy = [ "default.target" ];
-    #     Type = "forking";
-    #     TimeoutStartSec = "10min";
-    #     Restart = "always";
-    #     ExecStart = toString daemonScript;
-    #   };
-    # };
-
     services.emacs = mkIf cfg.daemon {
       enable = true;
       install = true;
       package = daemonScript;
-      # defaultEditor = false; # configured elsewhere
+      defaultEditor = false; # configured elsewhere
     };
 
     user.packages = with pkgs; [
