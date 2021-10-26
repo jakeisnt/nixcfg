@@ -61,7 +61,7 @@ function main {
     # Move to $DOTFILES to prevent polluting the system with result links
     # https://github.com/hlissner/dotfiles/commit/82ee5bef6a878fb189d773ad16647dec7b9b6f8a is worth looking into
     pushd $DOTFILES >/dev/null
-    _do sudo nixos-rebuild --flake ".#$HOST" ${@:-build}
+    _do sudo nixos-rebuild --impure --flake ".#$HOST" ${@:-build}
     popd >/dev/null
   }
 
