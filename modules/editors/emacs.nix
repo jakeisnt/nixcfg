@@ -144,6 +144,8 @@ in {
 
       # for org-roam graph
       graphviz
+
+      pinentry-emacs
     ];
 
     home.file.".tree-sitter".source = (pkgs.runCommand "grammars" {} ''
