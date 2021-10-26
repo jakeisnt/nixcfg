@@ -42,7 +42,7 @@ with lib.my;
       weechat.enable = true;
     };
     editors = {
-      default = "emacs";
+      default = "emacsclient -c";
       emacs = {
         enable = true;
         daemon = true;
