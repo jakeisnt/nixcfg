@@ -28,10 +28,15 @@ in {
     #      is cleaner than overriding the systemd unit.
     # pinentry-program ${pkgs.pinentry.curses}/bin/pinentry
     # TODO: this may not line up with emacs
-    programs.gnupg.agent.pinentryFlavor = "gnome3";
+    programs.gnupg.agent.pinentryFlavor = "emacs";
+    home.configFile."gnupg/gpg.conf" = {
+      text = ''
+      pinentry-mode loopback
+     '';
+    };
     home.configFile."gnupg/gpg-agent.conf" = {
       text = ''
-        ${if config.modules.editors.emacs.enable then "allow-emacs-pinentry" else ""}
+        allow-emacs-pinentry
         allow-loopback-pinentry
         enable-ssh-support
         pinentry-program ${if config.modules.editors.emacs.enable then pkgs.pinentry-emacs else (if cfg.gui then pkgs.pinentry-gnome else pkgs.pinentry-curses)}/bin/pinentry
@@ -41,4 +46,3 @@ in {
     };
   };
 }
-

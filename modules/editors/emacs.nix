@@ -18,7 +18,8 @@ let
 
   # install doom emacs if not already configured!!
   # ensure we have the write things in system path too!
-  daemonScript = pkgs.writeScriptBin "emacs-daemon" ''
+  # yes this file name is legal, yes it is bad, but yes it lets us use the emacs service
+  daemonScript = pkgs.writeScriptBin "emacs" ''
     #!${pkgs.zsh}/bin/zsh -l
     export PATH=$PATH:${lib.makeBinPath [ pkgs.git pkgs.sqlite pkgs.unzip ]}
     if [ ! -d $HOME/.emacs.d/.git ]; then
@@ -84,28 +85,41 @@ in {
       inputs.nur.overlay
     ];
 
+    # systemd.user.services.emacs = {
+    #   description = "Emacs: the extensible, self-documenting text editor";
 
-    systemd.user.services.emacs-daemon = mkIf cfg.daemon {
-      serviceConfig = {
-        Type = "forking";
-        TimeoutStartSec = "10min";
-        Restart = "always";
-        ExecStart = toString daemonScript;
-        WantedBy = [ "default.target" ];
-      };
-    };
+    #   serviceConfig = {
+    #     Type = "forking";
+    #     ExecStart = "${pkgs.bash}/bin/bash -c 'source ${config.system.build.setEnvironment}; exec ${daemonScript}'";
+    #     ExecStop = "${myemacs}/bin/emacsclient --eval (kill-emacs)";
+    #     Restart = "always";
+    #   };
+    #   wantedBy = [ "default.target" ];
+    # };
+
+    # systemd.user.services.emacs-daemon = mkIf cfg.daemon {
+    #   enable = true;
+    #   serviceConfig = {
+    #     Install.WantedBy = [ "default.target" ];
+    #     Type = "forking";
+    #     TimeoutStartSec = "10min";
+    #     Restart = "always";
+    #     ExecStart = toString daemonScript;
+    #   };
+    # };
 
     services.emacs = mkIf cfg.daemon {
       enable = true;
       install = true;
       package = daemonScript;
-      defaultEditor = false; # configured elsewhere
+      # defaultEditor = false; # configured elsewhere
     };
 
     user.packages = with pkgs; [
       ## Emacs itself
       binutils # native-comp needs 'as', provided by this
-      emacsPgtkGcc # 28 + pgtk + native-comp
+      myemacs # 28 + pgtk + native-comp
+      daemonScript
 
       ## Doom dependencies
       git
