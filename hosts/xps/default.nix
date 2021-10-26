@@ -42,7 +42,7 @@ with lib.my;
       weechat.enable = true;
     };
     editors = {
-      default = "nvim";
+      default = "emacs";
       emacs = {
         enable = true;
         daemon = true;
