@@ -113,7 +113,7 @@ with lib.my;
   sops.secrets.password = {};
 
   users.users.jake.extraGroups = [ "networkmanager" ];
-  users.users.jake.packages = with pkgs; [ thunderbird openssl ]; # TODO may not be needed
+  users.users.jake.packages = with pkgs; [ thunderbird openssl z3 ]; # TODO may not be needed
 
   services.fwupd.enable = true;
   services.xserver.libinput.enable = true;
