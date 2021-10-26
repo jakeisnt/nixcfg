@@ -86,6 +86,7 @@
   # scanning
   hardware = {
     sane.enable = true;
+    keyboard.zsa.enable = true;
     opengl = {
       enable = true;
       extraPackages = with pkgs; [ vaapiIntel vaapiVdpau libvdpau-va-gl ];
@@ -105,7 +106,12 @@
   powerManagement.powertop.enable = true;
   # Monitor backlight control
   programs.light.enable = true;
-  user.extraGroups = [ "video" ];
+  user.extraGroups = [
+    # webcam setup
+    "video"
+    # ZSA keyboard support without root
+    "plugdev"
+  ];
 
   # high-resolution display
   hardware.video.hidpi.enable = lib.mkDefault true;
