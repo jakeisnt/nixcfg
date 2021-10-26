@@ -20,12 +20,5 @@ in
     #   vi = "nvim";
     #   v = "nvim";
     # };
-
-    home.configFile = {
-      "nvim" = {
-        source = "${configDir}/nvim";
-        recursive = true;
-      };
-    };
   };
 }
