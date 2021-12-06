@@ -110,6 +110,11 @@ with lib.my;
     };
   };
 
+  i18n.inputMethod = {
+    enabled = "ibus";
+    ibus.engines = with pkgs.ibus-engines; [ uniemoji m17n typing-booster ];
+  };
+
   sops.secrets.password = {};
 
   users.users.jake.extraGroups = [ "networkmanager" ];

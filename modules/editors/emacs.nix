@@ -7,7 +7,10 @@
 with lib;
 with lib.my;
 let
-  myemacs = pkgs.emacsPgtkGcc;
+  myemacs0 = pkgs.emacsPgtkGcc;
+  emacsWPkgs = (pkgs.emacsPackagesNgGen myemacs0).emacsWithPackages;
+  myemacs = emacsWPkgs (epkgs: (with epkgs; [ vterm pdf-tools ]));
+
   cfg = config.modules.editors.emacs;
   # from https://github.com/Mic92/dotfiles
   treeSitterGrammars = pkgs.runCommandLocal "grammars" {} ''
@@ -44,7 +47,7 @@ let
     "bash"
     "c"
     "c-sharp"
-    "cpp"
+    # "cpp"
     "css"
     /*"elm" */
     "fluent"
@@ -58,13 +61,14 @@ let
     "json"
     "ocaml"
     "python"
-    "php"
+    # "php"
     /*"pgn"*/
     "ruby"
     "rust"
     "scala"
-    "swift"
+    # "swift"
     "typescript"
+    # "commonlisp"
   ];
 
   grammars = lib.getAttrs (map (lang: "tree-sitter-${lang}") langs) pkgs.tree-sitter.builtGrammars;
