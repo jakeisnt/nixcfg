@@ -89,6 +89,7 @@ with lib.my;
       ssh.enable = true;
       backup.enable = true;
       dnsmasq.enable = true;
+      docker.enable = true;
     };
     theme.active = "nordic";
   };

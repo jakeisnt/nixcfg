@@ -11,6 +11,8 @@ in {
   config = mkIf cfg.enable {
     user.packages = with pkgs; [
       docker
+      arion
+      docker-client
       docker-compose
     ];
 
@@ -22,12 +24,18 @@ in {
     modules.shell.zsh.rcFiles = [ "${configDir}/docker/aliases.zsh" ];
 
     virtualisation = {
-      docker = {
+      podman = {
         enable = true;
+        dockerSocket.enable = true;
+        defaultNetwork.dnsname.enable = true;
+      };
+      docker = {
+        enable = false;
         autoPrune.enable = true;
         enableOnBoot = false;
         # listenOptions = [];
       };
     };
+    users.users.jake.extraGroups = [ "podman" ];
   };
 }
