@@ -10,7 +10,7 @@ in {
 
   config = mkIf cfg.enable {
     user.packages = with pkgs; [
-      docker
+      # docker
       arion
       docker-client
       docker-compose
@@ -26,13 +26,14 @@ in {
     virtualisation = {
       podman = {
         enable = true;
+        dockerCompat = true;
         dockerSocket.enable = true;
         defaultNetwork.dnsname.enable = true;
       };
       docker = {
         enable = false;
-        autoPrune.enable = true;
-        enableOnBoot = false;
+        # autoPrune.enable = true;
+        enableOnBoot = true;
         # listenOptions = [];
       };
     };
