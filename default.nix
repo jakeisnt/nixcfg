@@ -61,7 +61,7 @@ with inputs; {
   sops.sshKeyPaths = [ "/home/jake/.ssh/id_rsa" ];
 
   # Use the latest kernel
-  boot.kernelPackages = pkgs.linuxPackages_5_10;
+  # boot.kernelPackages = pkgs.linuxPackages_latest;
 
   boot.loader = {
     efi.canTouchEfiVariables = true;
