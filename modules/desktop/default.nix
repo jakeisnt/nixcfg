@@ -36,5 +36,10 @@ in {
       # GTK2_RC_FILES must be available to the display manager.
       export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc"
     '';
+
+    # set user dirs
+    home.configFile = {
+      "user-dirs.dirs".source = "${configDir}/xdg/user-dirs.dirs";
+    };
   };
 }

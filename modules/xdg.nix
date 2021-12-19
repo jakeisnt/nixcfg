@@ -2,7 +2,6 @@
 #
 # Set up and enforce XDG compliance. Other modules will take care of their own,
 # but this takes care of the general cases.
-
 { config, home-manager, ... }: {
   ### A tidy $HOME is a tidy mind
   home-manager.users.${config.user.name}.xdg.enable = true;
@@ -21,6 +20,7 @@
       # https://bugzilla.mozilla.org/show_bug.cgi?id=1082717
       XDG_DESKTOP_DIR = "$HOME/";
       XDG_DOWNLOAD_DIR = "$HOME/";
+      XDG_DOWNLOADS_DIR = "$HOME/";
       XDG_PICTURES_DIR = "$HOME/pics/";
       XDG_MUSIC_DIR = "$HOME/music/";
     };
@@ -52,5 +52,6 @@
       export XAUTHORITY=/tmp/Xauthority
       [ -e ~/.Xauthority ] && mv -f ~/.Xauthority "$XAUTHORITY"
     '';
+
   };
 }
