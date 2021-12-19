@@ -10,7 +10,6 @@ in {
   config = mkIf cfg.enable {
     user.packages = with pkgs; [
       lf # file browser
-      broot # another directory util
       w3m # w3m image preview
       poppler_utils # pdf preview
       ffmpegthumbnailer # video thumbnails
