@@ -24,6 +24,7 @@ in {
   options.modules.desktop.sway = {
     enable = mkBoolOpt false; # practical and basic
     fancy = mkBoolOpt false; # fancy and pretty config
+    disable-touch = mkBoolOpt false; # disable touchpad, touchscreen
   };
 
   config = mkIf cfg.enable {
@@ -111,6 +112,23 @@ in {
             output DP-2 resolution 1920x1080 scale 0.8
           '')
           (concatMapStringsSep "\n" readFile [ "${configDir}/sway/config" ])
+          (if cfg.disable-touch then
+            ''
+            input type:touch {
+            dwt disabled
+            tap disabled
+            drag disabled
+            events disabled
+            }
+
+            input type:touchpad {
+            dwt disabled
+            tap disabled
+            drag disabled
+            events disabled
+            }
+            '' else ""
+          )
           (if cfg.fancy then
 
           ''

@@ -11,7 +11,7 @@ in {
   options.modules.theme = with types; {
     active = mkOption {
       type = nullOr str;
-      default = null;
+      default = "nordic";
       apply = v:
         let theme = builtins.getEnv "THEME";
         in if theme != "" then theme else v;

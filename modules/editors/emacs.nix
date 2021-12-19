@@ -141,6 +141,9 @@ in {
       graphviz
 
       pinentry-emacs
+
+      # presumably to build emacs
+      gcc
     ];
 
     home.file.".tree-sitter".source = (pkgs.runCommand "grammars" {} ''
