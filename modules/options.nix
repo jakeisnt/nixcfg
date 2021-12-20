@@ -112,7 +112,6 @@ with lib.my;
                   "application/x-dvi"
                   "application/x-ext-dvi"
                   "application/x-gzdvi"
-                  "application/pdf"
                   "application/x-bzpdf"
                   "application/x-ext-pdf"
                   "application/x-gzpdf"
@@ -340,12 +339,15 @@ with lib.my;
                 ];
               in
                 {
-                  "x-scheme-handler/mailto" = [ "thunderbird.desktop" ];
-                } // (lib.genAttrs code (_: [ "emacs.desktop" ]))
-                // (lib.genAttrs images (_: [ "org.gnome.eog.desktop" ]))
+                  "x-scheme-handler/mailto" = [ "userapp-Thunderbird-F73ZX0.desktop" ];
+
+                  "application/pdf" = [ "org.pwmt.zathura-pdf-mupdf.desktop" ];
+                } // (lib.genAttrs code (_: [ "emacsclient.desktop" ]))
+                // (lib.genAttrs images (_: [ "imv.desktop" ]))
                 // (lib.genAttrs urls (_: [ "firefox.desktop" ]))
-                // (lib.genAttrs documents (_: [ "org.gnome.Evince.desktop" ]))
                 // (lib.genAttrs audioVideo (_: [ "mpv.desktop" ]))
+                # TODO the following are currently unused - install as needed
+                // (lib.genAttrs documents (_: [ "org.gnome.Evince.desktop" ]))
                 // (lib.genAttrs archives (_: [ "org.gnome.FileRoller.desktop" ]))
                 // (lib.genAttrs archives (_: [ "org.gnome.Nautilus.desktop" ]));
           };
