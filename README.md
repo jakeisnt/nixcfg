@@ -39,8 +39,8 @@ nixos-generate-config --root /mnt
 mv configuration.nix hosts/$HOSTNAME/default.nix
 mv hardware-configuration.nix hosts/$HOSTNAME/
 
-# reference previous configurations when rewriting `default.nix` to use the desired format.
-# do not mess this up; make sure you give yourself things like a window manager and internet access
+# Reference previous configurations when rewriting `default.nix` to use the desired format.
+# Do not mess this up; make sure you give yourself things like a window manager and internet access. remember to import ../personal.nix from `default.nix` in addition to the hardware configuration.
 
 # install the configuration:
 nixos-install --root /mnt --impure --flake .#$HOSTNAMAE

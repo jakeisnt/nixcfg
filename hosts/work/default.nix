@@ -1,13 +1,29 @@
-# framework laptop
+# Framework laptop!
+
 { config, pkgs, ... }:
+
 {
   imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ../personal.nix # TODO i kept screwing up bc i forgot this (and networking wheel perms!
-    ];
+    [./hardware-configuration.nix ../personal.nix];
 
   networking.hostName = "work";
+
+  services.getty.autologinUser = "jake";
+
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+
+  networking.useDHCP = false;
+  networking.interfaces.wlp170s0.useDHCP = true;
+
+  networking.networkmanager.enable = true;
+  services.xserver.libinput.enable = true;
+  services.openssh.startWhenNeeded = true;
+
+  programs.ssh = {
+    startAgent = true;
+    forwardX11 = true;
+  };
 
   modules = {
     desktop.sway = {
@@ -47,22 +63,5 @@
         preventGC = true;
       };
     };
-  };
-
-  services.getty.autologinUser = "jake";
-
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-
-  networking.useDHCP = false;
-  networking.interfaces.wlp170s0.useDHCP = true;
-
-  networking.networkmanager.enable = true;
-  services.xserver.libinput.enable = true;
-  services.openssh.startWhenNeeded = true;
-
-  programs.ssh = {
-    startAgent = true;
-    forwardX11 = true;
   };
 }
