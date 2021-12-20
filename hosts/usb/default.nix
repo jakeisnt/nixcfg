@@ -13,6 +13,9 @@ in
   ];
 
   isoImage = {
+    # if i don't want this to be an install disk:
+    # makeEfiBootable = true;
+    # makeUsbBootable = true;
     volumeID = lib.mkForce hostname;
     isoName = lib.mkForce "${hostname}.iso";
   };
