@@ -1,11 +1,10 @@
 {
-  # https://github.com/hlissner/dotfiles/blob/master/templates/minimal/flake.nix
   description = "A grossly incandescent nixos config.";
 
-  inputs = { dotfiles.url = "github:hlissner/dotfiles"; };
+  inputs = { nix-cfg.url = "github:jakeisnt/nix-cfg"; };
 
-  outputs = inputs@{ dotfiles, ... }: {
-    nixosConfigurations = dotfiles.lib.mapHosts ./hosts {
+  outputs = inputs@{ nix-cfg, ... }: {
+    nixosConfigurations = nix-cfg.lib.mapHosts ./hosts {
       imports = [
         # If this is a linode machine
         # "${dotfiles}/hosts/linode.nix"
