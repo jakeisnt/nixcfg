@@ -105,7 +105,6 @@
   environment.systemPackages = [ pkgs.acpi ];
   powerManagement.powertop.enable = true;
   # Monitor backlight control
-  programs.light.enable = true;
   user.extraGroups = [
     # ZSA keyboard support without root
     "plugdev"

@@ -1,6 +1,6 @@
-{ config, lib, pkgs, ... }:
+# Nice-to-haves for all Wayland compositors.
 
-# general settings for all wayland compositors
+{ config, lib, pkgs, ... }:
 
 with lib;
 with lib.my;
@@ -14,10 +14,11 @@ in {
     modules.wayland.wofi.enable = true;
 
     user.extraGroups = [
-      # permission to control video utilities
-      # needed for 'light' etc
+      # control video utilities
       "video"
     ];
+
+    programs.light.enable = true;
 
     user.packages = with pkgs; [
       xwayland
@@ -28,10 +29,6 @@ in {
       # due to overlay these are now wayland clipboard interoperable
       xclip
       xsel
-
-      # adjust screen brightness
-      light
     ];
-
   };
 }
