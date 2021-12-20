@@ -18,12 +18,12 @@ let
       exec systemctl --user start sway.service
     '';
   });
-  latitude = "45.5";
-  longitude = "-122.65";
 in {
+
   options.modules.desktop.sway = {
-    enable = mkBoolOpt false; # practical and basic
-    fancy = mkBoolOpt false; # fancy and pretty config
+    enable = mkBoolOpt false;        # practical and basic
+    fancy = mkBoolOpt false;         # fancy and pretty config
+    disable-touch = mkBoolOpt false; # disable touchpad, touchscreen
   };
 
   config = mkIf cfg.enable {
@@ -33,7 +33,7 @@ in {
     modules.wayland.waybar.enable = cfg.fancy;
     modules.wayland.kanshi.enable = false;
 
-    user.extraGroups = [ "sway" ];
+    user.extraGroups = ["sway"];
 
     programs.sway = {
       enable = true;
@@ -111,6 +111,28 @@ in {
             output DP-2 resolution 1920x1080 scale 0.8
           '')
           (concatMapStringsSep "\n" readFile [ "${configDir}/sway/config" ])
+          (if config.modules.hardware.audio.enable then ''
+            bindsym XF86AudioRaiseVolume exec 'pactl set-sink-volume @DEFAULT_SINK@ +5%'
+            bindsym XF86AudioLowerVolume exec 'pactl set-sink-volume @DEFAULT_SINK@ -5%'
+            bindsym XF86AudioMute exec 'pactl set-sink-mute @DEFAULT_SINK@ toggle'
+          '' else "")
+          (if cfg.disable-touch then
+            ''
+            input type:touch {
+            dwt disabled
+            tap disabled
+            drag disabled
+            events disabled
+            }
+
+            input type:touchpad {
+            dwt disabled
+            tap disabled
+            drag disabled
+            events disabled
+            }
+            '' else ""
+          )
           (if cfg.fancy then
 
           ''

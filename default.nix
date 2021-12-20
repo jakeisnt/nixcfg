@@ -56,9 +56,8 @@ with inputs; {
   # hardware-configuration.nix or fileSystem config.
   fileSystems."/".device = mkDefault "/dev/disk/by-label/nixos";
 
-
   sops.defaultSopsFile = ./secrets.yaml;
-  sops.sshKeyPaths = [ "/home/jake/.ssh/id_rsa" ];
+  sops.gnupg.sshKeyPaths = [ "/home/jake/.ssh/id_rsa" ];
 
   # Use the latest kernel
   # boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -82,7 +81,6 @@ with inputs; {
     # offer some convenience as needed
     unzip
     cmake
-
     # nice nttworking utils
     httpie
     curlie

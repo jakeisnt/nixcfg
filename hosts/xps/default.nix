@@ -1,3 +1,4 @@
+# My Dell XPS 9370: 4K monitor, malfunctioning screen and trackpad
 { config, pkgs, lib, ... }:
 
 with lib;
@@ -7,6 +8,27 @@ with lib.my;
 
   networking.hostName = "xps";
 
+  users.users.jake.packages = with pkgs; [ thunderbird openssl ];
+  services.fwupd.enable = true;
+  services.xserver.libinput.enable = true;
+
+  programs.ssh = {
+    startAgent = true;
+    forwardX11 = true;
+  };
+
+  services.openssh.startWhenNeeded = true;
+  services.getty.autologinUser = "jake";
+
+  networking = {
+    networkmanager = {
+      enable = true;
+      wifi = {
+        powersave = false; # wifi beast mode
+      };
+    };
+  };
+
   modules = {
     vm.virtualbox = {
       enable = true;
@@ -14,6 +36,7 @@ with lib.my;
     desktop.sway = {
       enable = true;
       fancy = true;
+      disable-touch = true;
     };
     browsers = {
       default = "firefox";
@@ -93,35 +116,4 @@ with lib.my;
     };
     theme.active = "nordic";
   };
-
-  programs.ssh = {
-    startAgent = true;
-    forwardX11 = true;
-  };
-
-  services.openssh.startWhenNeeded = true;
-  services.getty.autologinUser = "jake";
-
-  networking = {
-    networkmanager = {
-      enable = true;
-      wifi = {
-        powersave = false; # wifi beast mode
-      };
-    };
-  };
-
-  i18n.inputMethod = {
-    enabled = "ibus";
-    ibus.engines = with pkgs.ibus-engines; [ uniemoji m17n typing-booster ];
-  };
-
-  sops.secrets.password = {};
-
-  users.users.jake.extraGroups = [ "networkmanager" ];
-  users.users.jake.packages = with pkgs; [ thunderbird openssl z3 ]; # TODO may not be needed
-
-  services.fwupd.enable = true;
-  services.xserver.libinput.enable = true;
-
 }

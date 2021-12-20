@@ -105,10 +105,7 @@
   environment.systemPackages = [ pkgs.acpi ];
   powerManagement.powertop.enable = true;
   # Monitor backlight control
-  programs.light.enable = true;
   user.extraGroups = [
-    # webcam setup
-    "video"
     # ZSA keyboard support without root
     "plugdev"
   ];

@@ -1,6 +1,6 @@
-{ config, lib, pkgs, ... }:
+# Nice-to-haves for all Wayland compositors.
 
-# general settings for all wayland compositors
+{ config, lib, pkgs, ... }:
 
 with lib;
 with lib.my;
@@ -13,6 +13,13 @@ in {
 
     modules.wayland.wofi.enable = true;
 
+    user.extraGroups = [
+      # control video utilities
+      "video"
+    ];
+
+    programs.light.enable = true;
+
     user.packages = with pkgs; [
       xwayland
       qt5.qtwayland
@@ -23,6 +30,5 @@ in {
       xclip
       xsel
     ];
-
   };
 }

@@ -18,11 +18,15 @@ in {
     };
 
     hardware.pulseaudio.enable = mkForce false;
+
     services.pipewire = {
       enable = true;
       alsa.enable = true;
       pulse.enable = true;
       jack.enable = true;
     };
+
+    # communicate with pipewire via `pactl`
+    user.packages = with pkgs; [ pulseaudio ];
   };
 }

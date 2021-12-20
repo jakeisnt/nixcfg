@@ -1,9 +1,7 @@
 [![Made with Doom Emacs](https://img.shields.io/badge/Made_with-Doom_Emacs-blueviolet.svg?style=flat-square&logo=GNU%20Emacs&logoColor=white)](https://github.com/hlissner/doom-emacs)
 [![NixOS 20.09](https://img.shields.io/badge/NixOS-v20.09-blue.svg?style=flat-square&logo=NixOS&logoColor=white)](https://nixos.org)
 
-A fork of [hlissner's dotfiles](https://github.com/hlissner/dotfiles) with substantial modifications - most notably the addition of Wayland and the Nord theme - for my own usage.
-
-tt
+Started as a fork of [hlissner's dotfiles](https://github.com/hlissner/dotfiles), but different design decisions have been made to differentiate the two since.
 
 ## Screenshots
 ### Full Configuration
@@ -20,41 +18,33 @@ Feel free to poke around and contact me if you have any questions : )
 
 ## Installation
 
-Follow the default NixOS install instructions; formatting the disk and what
-have you. These steps are detailed in the NixOS install instructions.
+First, snag a copy of the newest version of NixOS by building it off of a previous machine from source.
 
-When formatting your disks, make sure to label your root partition 'nixos'.
-`default.nix` needs all systems to have the same disk label to properly test rebuilds of all flakes.
+It's often the case that older version of Linux don't have support for utilities you want,
+and it's nice to have access to a graphical installer for most of the process - which none of the nightly NixOS ISOs support.
 
-I prefer to `chown /etc/nixos` so that you can control it without being a
-root user, but this is down to personal preference.
+Move that ISO to a flash drive (`mv path/to/firmware.iso drive-address`) and make sure to `sync` afterwards.
 
-Now that you have a `configuration.nix`, enable flakes on your system (they
-aren't available by default as of 20.09). Add the following to your
-`configuration.nix` and rebuild:
-``` nix
-{ pkgs, ... }: {
-   nix = {
-    package = pkgs.nixFlakes;
-    extraOptions = ''
-      experimental-features = nix-command flakes
-    '';
-   };
-}
+After following the default NixOS install instructions off of that flash drive:
+
+``` sh
+# acquire necessary dependencies
+nix-shell -p git nixFlakes
+
+# clone this repository into the configuration (may have to chown)
+git clone https://github.com/jakeisnt/nix-cfg /mnt/boot/nixos
+
+# generate config for this machine (make sure you've mounted swap space so that it's autodetected)
+nixos-generate-config --root /mnt
+mv configuration.nix hosts/$HOSTNAME/default.nix
+mv hardware-configuration.nix hosts/$HOSTNAME/
+
+# Reference previous configurations when rewriting `default.nix` to use the desired format.
+# Do not mess this up; make sure you give yourself things like a window manager and internet access. remember to import ../personal.nix from `default.nix` in addition to the hardware configuration.
+
+# install the configuration:
+nixos-install --root /mnt --impure --flake .#$HOSTNAMAE
 ```
-If that built successfully, you should now have flakes available on your system.
 
-Clone this repository.
-Make a new folder in `hosts/` with the name of your system (change the name
-to something other than `nixos`, preferably!) and put your
-`configuration.nix` and `hardware-configuration.nix` in it.
-Rename `hosts/${hostname}/configuration.nix` to `default.nix`.
-
-In the new `default.nix`, copy the structure of one of the other
-`default.nix` files to enable the modules that you'd like to run.
-
-You should now be able to rebuild. If there are duplicate configuration
-options, preferentially remove those from your configuration, but not without
-making sure that you don't remove something important!
-
-You now have a working system with this configuration : )
+You should be set! Reboot into the machine you've just configured. 
+Make sure to commit back to this repository with that machine's configuration.
