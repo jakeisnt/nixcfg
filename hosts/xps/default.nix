@@ -114,6 +114,5 @@ with lib.my;
       dnsmasq.enable = true;
       docker.enable = true;
     };
-    theme.active = "nordic";
   };
 }

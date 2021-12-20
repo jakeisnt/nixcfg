@@ -5,6 +5,7 @@ with lib.my;
 let system = "x86_64-linux";
 in {
   mkHost = path: attrs @ { system ? system, ... }:
+    let hostname = (removeSuffix ".nix" (baseNameOf path)); in
     nixosSystem {
       inherit system;
       specialArgs = { inherit lib inputs; };
@@ -12,7 +13,7 @@ in {
         inputs.sops-nix.nixosModules.sops
         {
           nixpkgs.pkgs = pkgs;
-          networking.hostName = mkDefault (removeSuffix ".nix" (baseNameOf path));
+          networking.hostName = mkDefault hostname;
         }
         (filterAttrs (n: v: !elem n [ "system" ]) attrs)
         ../.
