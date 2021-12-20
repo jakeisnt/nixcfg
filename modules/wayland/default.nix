@@ -13,6 +13,12 @@ in {
 
     modules.wayland.wofi.enable = true;
 
+    user.extraGroups = [
+      # permission to control video utilities
+      # needed for 'light' etc
+      "video"
+    ];
+
     user.packages = with pkgs; [
       xwayland
       qt5.qtwayland
@@ -22,6 +28,9 @@ in {
       # due to overlay these are now wayland clipboard interoperable
       xclip
       xsel
+
+      # adjust screen brightness
+      light
     ];
 
   };
