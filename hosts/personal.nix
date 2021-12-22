@@ -25,6 +25,10 @@ with lib.my;
   users.users.${username}.password = "jake";
   # users.users.${username}.passwordFile = config.sops.secrets."password".path;
 
+  user.extraGroups = [
+    "networkmanager"
+  ];
+
   location = (if config.time.timeZone == "America/Los_Angeles" then {
     latitude = 43.70011;
     longitude = -79.4163;
