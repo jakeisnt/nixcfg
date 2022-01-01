@@ -1,4 +1,4 @@
-{ lib, config, pkgs, inputs, ... }:
+{ lib, config, pkgs, inputs, sops, ... }:
 
 with lib;
 with lib.my;
@@ -21,6 +21,10 @@ in {
       110  # POP3 with StartTLS
     ];
 
+    sops.secrets.email = {};
+    sops.secrets.email.hashedPassword = {};
+    sops.secrets.email.hashedPasswordT = {};
+
     mailserver = {
       enable = true;
       fqdn = "mx.${domain}";
@@ -28,19 +32,19 @@ in {
 
       loginAccounts = {
         "jake@${domain}" = {
-          hashedPassword = secrets.email.hashedPassword;
+          hashedPassword = sops.secrets.email.hashedPassword;
           aliases = [ ];
           catchAll = [ domain ];
         };
 
         "tommy@${domain}" = {
-          hashedPassword = secrets.email.hashedPasswordT;
+          hashedPassword = sops.secrets.email.hashedPasswordT;
           aliases = [ ];
           catchAll = [ domain ];
         };
 
         "admin@${domain}" = {
-          hashedPassword = secrets.email.hashedPassword;
+          hashedPassword = sops.secrets.email.hashedPassword;
           aliases = [ ];
         };
       };
