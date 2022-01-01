@@ -5,6 +5,7 @@ with lib.my;
 let 
   cfg = config.modules.services.mailserver;
   domain = config.networking.domain;
+  sops = config.sops;
 in {
   options.modules.services.mailserver = { enable = mkBoolOpt false; };
 
