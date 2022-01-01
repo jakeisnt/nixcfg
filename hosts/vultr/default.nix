@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, sops, ... }:
 with lib.my; {
   imports = [ ./hardware-configuration.nix ../personal.nix ];
 
@@ -40,8 +40,10 @@ with lib.my; {
   boot.loader.grub.version = 2;
   boot.loader.grub.device = "/dev/vda";
 
+  sops.secrets.domain = {};
+
   networking = {
-    domain = secrets.domain;
+    domain = "isnt.online";
     # The ports are configured in their respective services,
     # but the system should individually decide whether to enable the firewall
     firewall.enable = true;
