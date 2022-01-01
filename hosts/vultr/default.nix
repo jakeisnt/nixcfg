@@ -1,4 +1,4 @@
-{ config, pkgs, lib, sops, ... }:
+{ config, pkgs, lib, ... }:
 with lib.my; {
   imports = [ ./hardware-configuration.nix ../personal.nix ];
 

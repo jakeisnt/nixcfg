@@ -1,4 +1,4 @@
-{ lib, config, pkgs, inputs, sops, ... }:
+{ lib, config, pkgs, ... }:
 
 with lib;
 with lib.my;
