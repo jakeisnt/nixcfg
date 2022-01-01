@@ -40,8 +40,6 @@ with lib.my; {
   boot.loader.grub.version = 2;
   boot.loader.grub.device = "/dev/vda";
 
-  sops.secrets.domain = {};
-
   networking = {
     domain = "isnt.online";
     # The ports are configured in their respective services,

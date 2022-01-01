@@ -91,7 +91,7 @@
 
         nixosModules = {
           dotfiles = import ./.;
-          # sops = sops-nix.nixosModules.sops;
+          sops = sops-nix.nixosModules.sops;
         } // mapModulesRec ./modules import;
 
         nixosConfigurations = mapHosts ./hosts { inherit system; };

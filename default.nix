@@ -8,6 +8,7 @@ with inputs; {
     [
       home-manager.nixosModules.home-manager
       simple-nixos-mailserver.nixosModules.mailserver
+      sops-nix.nixosModules.sops
     ]
     # All my personal modules
     ++ (mapModulesRec' (toString ./modules) import);
