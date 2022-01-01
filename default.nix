@@ -57,9 +57,11 @@ with inputs; {
   # hardware-configuration.nix or fileSystem config.
   fileSystems."/".device = mkDefault "/dev/disk/by-label/nixos";
 
-  sops.defaultSopsFile = ./secrets.yaml;
-  sops.gnupg.sshKeyPaths = [ "/home/jake/.ssh/id_rsa" ];
-  sops.gnupg.home = "/var/lib/sops";
+  sops = {
+    defaultSopsFile = ./secrets.yaml;
+    gnupg.sshKeyPaths = [ "/home/jake/.ssh/id_rsa" ];
+    # gnupg.home = "/var/lib/sops";
+  };
 
   # Use the latest kernel
   # boot.kernelPackages = pkgs.linuxPackages_latest;
