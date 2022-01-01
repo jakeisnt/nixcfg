@@ -24,9 +24,8 @@ in {
     ];
 
     sops.secrets = {};
-    sops.secrets.email = {};
-    sops.secrets.email.hashedPassword = {};
-    sops.secrets.email.hashedPasswordT = {};
+    sops.secrets.email_hashed_password = {};
+    sops.secrets.email_hashed_password_t = {};
 
     mailserver = {
       enable = true;
@@ -35,19 +34,19 @@ in {
 
       loginAccounts = {
         "jake@${domain}" = {
-          hashedPassword = sops.secrets.email.hashedPassword;
+          hashedPassword = sops.secrets.email_hashed_password;
           aliases = [ ];
           catchAll = [ domain ];
         };
 
         "tommy@${domain}" = {
-          hashedPassword = sops.secrets.email.hashedPasswordT;
+          hashedPassword = sops.secrets.email_hashed_password_t;
           aliases = [ ];
           catchAll = [ domain ];
         };
 
         "admin@${domain}" = {
-          hashedPassword = sops.secrets.email.hashedPassword;
+          hashedPassword = sops.secrets.email_hashed_password;
           aliases = [ ];
         };
       };
