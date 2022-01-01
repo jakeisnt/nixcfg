@@ -59,6 +59,7 @@ with inputs; {
 
   sops.defaultSopsFile = ./secrets.yaml;
   sops.gnupg.sshKeyPaths = [ "/home/jake/.ssh/id_rsa" ];
+  sops.gnupg.home = "/var/lib/sops";
 
   # Use the latest kernel
   # boot.kernelPackages = pkgs.linuxPackages_latest;
