@@ -8,10 +8,6 @@ let
 in {
   options.modules.services.mailserver = { enable = mkBoolOpt false; };
 
-  sops.secrets = {};
-  sops.secrets.email = {};
-  sops.secrets.email.hashedPassword = {};
-  sops.secrets.email.hashedPasswordT = {};
 
   config = mkIf cfg.enable {
     modules.services.acme.enable = true;
@@ -26,6 +22,10 @@ in {
       110  # POP3 with StartTLS
     ];
 
+    sops.secrets = {};
+    sops.secrets.email = {};
+    sops.secrets.email.hashedPassword = {};
+    sops.secrets.email.hashedPasswordT = {};
 
     mailserver = {
       enable = true;
