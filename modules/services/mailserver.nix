@@ -34,19 +34,19 @@ in {
 
       loginAccounts = {
         "jake@${domain}" = {
-          hashedPassword = readFile sops.secrets.email_hashed_password;
+          hashedPassword = readFile sops.secrets.email_hashed_password.path;
           aliases = [ ];
           catchAll = [ domain ];
         };
 
         "tommy@${domain}" = {
-          hashedPassword = readFile sops.secrets.email_hashed_password_t;
+          hashedPassword = readFile sops.secrets.email_hashed_password_t.path;
           aliases = [ ];
           catchAll = [ domain ];
         };
 
         "admin@${domain}" = {
-          hashedPassword = readFile sops.secrets.email_hashed_password;
+          hashedPassword = readFile sops.secrets.email_hashed_password.path;
           aliases = [ ];
         };
       };
