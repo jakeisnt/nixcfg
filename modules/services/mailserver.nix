@@ -6,6 +6,9 @@ let
   cfg = config.modules.services.mailserver;
   domain = config.networking.domain;
 in {
+
+  imports = [ sops-nix.nixosModules.sops ];
+
   options.modules.services.mailserver = { enable = mkBoolOpt false; };
 
 
