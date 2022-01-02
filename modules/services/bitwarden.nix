@@ -54,23 +54,27 @@ in {
             forceSSL = true;
             enableACME = true;
             root = "/srv/www/bitwarden.${domain}";
-            locations."/" = {
-              proxyPass =
-                "http://localhost:8812"; # changed the default rocket port due to some conflict
-              proxyWebsockets = true;
-            };
-            locations."/notifications/hub" = {
-              proxyPass = "http://localhost:3012";
-              proxyWebsockets = true;
-            };
-            locations."/notifications/hub/negotiate" = {
-              proxyPass = "http://localhost:8812";
-              proxyWebsockets = true;
+            locations = {
+              "/" = {
+                proxyPass =
+                  "http://localhost:8812"; # changed the default rocket port due to some conflict
+                proxyWebsockets = true;
+              };
+              "/notifications/hub" = {
+                proxyPass = "http://localhost:3012";
+                proxyWebsockets = true;
+              };
+              "/notifications/hub/negotiate" = {
+                proxyPass = "http://localhost:8812";
+                proxyWebsockets = true;
+              };
             };
           };
         };
       };
     };
+
+    user.extraGroups = [ "vaultwarden" ];
     user.packages = with pkgs; [ bitwarden_rs-vault ];
   };
 }
