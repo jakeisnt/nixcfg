@@ -19,10 +19,10 @@ in {
     services = {
       vaultwarden = {
         enable = true;
-        signupsAllowed = cfg.registration;
-        invitationsAllowed = cfg.registration;
         config = mkMerge [
           {
+            signupsAllowed = cfg.registration;
+            invitationsAllowed = cfg.registration;
             domain = "https://bitwarden.${domain}";
             # logFile = "/var/log/bitwarden";
             websocketEnabled = true;
@@ -47,15 +47,15 @@ in {
 
       nginx = {
         virtualHosts."bitwarden.${domain}" = {
-            forceSSL = true;
-            enableACME = true;
-            root = "/srv/www/bitwarden.${domain}";
-            locations = {
-              "/".proxyPass =
-                  "http://localhost:8812"; # changed the default rocket port due to some conflict
-              "/notifications/hub".proxyWebsockets = true;
-              "/notifications/hub/negotiate".proxyWebsockets = true;
-            };
+          forceSSL = true;
+          enableACME = true;
+          root = "/srv/www/bitwarden.${domain}";
+          locations = {
+            "/".proxyPass =
+              "http://localhost:8812"; # changed the default rocket port due to some conflict
+            "/notifications/hub".proxyWebsockets = true;
+            "/notifications/hub/negotiate".proxyWebsockets = true;
+          };
         };
       };
     };
