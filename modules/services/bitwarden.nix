@@ -19,21 +19,18 @@ in {
     services = {
       vaultwarden = {
         enable = true;
+        signupsAllowed = cfg.registration;
+        invitationsAllowed = cfg.registration;
         config = mkMerge [
           {
             domain = "https://bitwarden.${domain}";
-            signupsAllowed = cfg.registration;
-            invitationsAllowed = cfg.registration;
-            webVaultFolder =
-              "${pkgs.vaultwarden-vault}/share/bitwarden_rs/vault";
-            webVaultEnabled = true;
-            logFile = "/var/log/bitwarden";
+            # logFile = "/var/log/bitwarden";
             websocketEnabled = true;
             websocketAddress = "0.0.0.0";
-            websocketPort = 3012;
+            # websocketPort = 3012;
             signupsVerify = true;
             adminToken = secrets.bitwarden.adminToken;
-            rocketPort = 8812;
+            # rocketPort = 8812;
           }
           (mkIf cfg.mail {
             smtpHost = "localhost";
@@ -54,25 +51,15 @@ in {
             enableACME = true;
             root = "/srv/www/bitwarden.${domain}";
             locations = {
-              "/" = {
-                proxyPass =
+              "/".proxyPass =
                   "http://localhost:8812"; # changed the default rocket port due to some conflict
-                proxyWebsockets = true;
-              };
-              "/notifications/hub" = {
-                proxyPass = "http://localhost:3012";
-                proxyWebsockets = true;
-              };
-              "/notifications/hub/negotiate" = {
-                proxyPass = "http://localhost:8812";
-                proxyWebsockets = true;
-              };
+              "/notifications/hub".proxyWebsockets = true;
+              "/notifications/hub/negotiate".proxyWebsockets = true;
             };
         };
       };
     };
 
     user.extraGroups = [ "vaultwarden" ];
-    user.packages = with pkgs; [ vaultwarden-vault ];
   };
 }
