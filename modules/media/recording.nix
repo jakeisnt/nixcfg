@@ -30,7 +30,6 @@ in
       plugins = with obs-studio-plugins; [
         wlrobs
       ];
-    })
- handbrake ] else []);
+    }) handbrake ] else []);
   };
 }

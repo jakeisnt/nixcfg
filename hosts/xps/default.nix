@@ -30,9 +30,6 @@ with lib.my;
   };
 
   modules = {
-    vm.virtualbox = {
-      enable = true;
-    };
     desktop.sway = {
       enable = true;
       fancy = true;
@@ -43,9 +40,12 @@ with lib.my;
       firefox.enable = true;
     };
     media = {
-      daw.enable = true;
       documents.enable = true;
-      graphics.enable = true;
+      graphics = {
+        vector.enable = false;
+        sprites.enable = false;
+        enable = true;
+      };
       recording.enable = true;
       spotify.enable = true;
     };
@@ -70,14 +70,17 @@ with lib.my;
         enable = true;
         daemon = true;
       };
-      vim.enable = true;
+      vim.enable = false;
       vscode.enable = true;
     };
+
+    # TODO consider deleting
     dev = {
       node.enable = true;
-      cc.enable = true;
-      rust.enable = true;
+      cc.enable = false;
+      rust.enable = false; # should be project local
     };
+
     hardware = {
       remarkable.enable = true;
       extraHosts = {
@@ -112,7 +115,6 @@ with lib.my;
       ssh.enable = true;
       backup.enable = true;
       dnsmasq.enable = true;
-      docker.enable = true;
     };
   };
 }
