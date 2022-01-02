@@ -23,8 +23,13 @@
     # Extras
     emacs-overlay.url = "github:nix-community/emacs-overlay";
     nixos-hardware.url = "github:nixos/nixos-hardware";
-    simple-nixos-mailserver.url =
+
+    simple-nixos-mailserver = {
+      url =
       "gitlab:simple-nixos-mailserver/nixos-mailserver";
+      follows = "nixpkgs";
+    };
+
     spicetify-nix = {
       url = "github:jakeisnt/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
