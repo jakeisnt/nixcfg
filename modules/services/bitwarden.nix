@@ -25,7 +25,7 @@ in {
             signupsAllowed = cfg.registration;
             invitationsAllowed = cfg.registration;
             webVaultFolder =
-              "${pkgs.vaultwardens-vault}/share/bitwarden_rs/vault";
+              "${pkgs.vaultwarden-vault}/share/bitwarden_rs/vault";
             webVaultEnabled = true;
             logFile = "/var/log/bitwarden";
             websocketEnabled = true;
