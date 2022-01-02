@@ -8,7 +8,6 @@ let
 in {
   options.modules.services.mailserver = { enable = mkBoolOpt false; };
 
-
   config = mkIf cfg.enable {
     modules.services.acme.enable = true;
     networking.firewall.allowedTCPPorts = [

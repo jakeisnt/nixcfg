@@ -51,4 +51,16 @@ with lib.my; {
     interfaces.ens3.useDHCP = true;
   };
 
+
+  isntweb-home.enable = true;
+
+  services.nginx.virtualHosts = {
+    "isnt.online" = {
+      forceSSL = true;
+      enableACME = true;
+      locations."/" = { proxyPass = "http://127.0.0.1:6200"; };
+    };
+  };
+
+
 }

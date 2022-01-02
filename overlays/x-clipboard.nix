@@ -1,9 +1,9 @@
-self: super: {
-  wl-clipboard-x11 = super.stdenv.mkDerivation rec {
+final: prev: {
+  wl-clipboard-x11 = prev.stdenv.mkDerivation rec {
     pname = "wl-clipboard-x11";
     version = "5";
 
-    src = super.fetchFromGitHub {
+    src = prev.fetchFromGitHub {
       owner = "brunelli";
       repo = "wl-clipboard-x11";
       rev = "v${version}";
@@ -12,10 +12,10 @@ self: super: {
 
     dontBuild = true;
     dontConfigure = true;
-    propagatedBuildInputs = [ super.wl-clipboard ];
+    propagatedBuildInputs = [ prev.wl-clipboard ];
     makeFlags = [ "PREFIX=$(out)" ];
   };
 
-  xsel = self.wl-clipboard-x11;
-  xclip = self.wl-clipboard-x11;
+  xsel = final.wl-clipboard-x11;
+  xclip = final.wl-clipboard-x11;
 }

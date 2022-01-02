@@ -16,6 +16,7 @@
     nixpkgs.url = "nixpkgs/master";
     nixpkgs-unstable.url = "nixpkgs/master";
 
+
     home-manager.url = "github:rycee/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nur.url = "github:nix-community/NUR/master";
@@ -44,11 +45,13 @@
       flake = false;
     };
 
+    isntweb-home.url = "github:isntweb/home";
+
     # neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     # broken too frequently for me to be able to live on the bleeding edge...
   };
 
-  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, spicetify-nix, doom-emacs, ... }:
+  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, spicetify-nix, doom-emacs, isntweb-home, ... }:
     let
       inherit (lib) attrValues;
       inherit (lib.my) mapModules mapModulesRec mapHosts;
@@ -82,7 +85,6 @@
       );
     in
       {
-        lib = lib.my;
         overlay = final: prev: {
           unstable = uPkgs;
           my = self.packages."${system}";
