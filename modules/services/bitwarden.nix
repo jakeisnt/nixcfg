@@ -10,7 +10,6 @@ in {
     enable = mkBoolOpt false;
     registration = mkBoolOpt false;
     mail = mkBoolOpt false;
-    yubikey = mkBoolOpt false;
   };
 
   config = mkIf cfg.enable {
@@ -24,7 +23,7 @@ in {
           {
             domain = "https://bitwarden.${domain}";
             signupsAllowed = cfg.registration;
-            # invitationsAllowed = true;
+            invitationsAllowed = cfg.registration;
             webVaultFolder =
               "${pkgs.bitwarden_rs-vault}/share/bitwarden_rs/vault";
             webVaultEnabled = true;
@@ -36,13 +35,6 @@ in {
             adminToken = secrets.bitwarden.adminToken;
             rocketPort = 8812;
           }
-          # (mkIf cfg.yubikey {
-          #   yubicoClientId =
-          #     (import /etc/nixos/secret/bitwarden.nix).YUBICO_CLIENT_ID;
-          #   yubicoSecretKey =
-          #     (import /etc/nixos/secret/bitwarden.nix).YUBICO_SECRET_KEY;
-          #   yubicoServer = "https://api.yubico.com/wsapi/2.0/verify";
-          # })
           (mkIf cfg.mail {
             smtpHost = "localhost";
             smtpFrom = "admin@${domain}";
