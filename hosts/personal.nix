@@ -14,16 +14,8 @@ with lib.my;
   # Only allow user creation through Nix
   users.mutableUsers = false;
 
-  sops.secrets.password = {};
-
-  # TODO probably fix this, this seems bad..............
-  # currently an issue in sops that prevents setting root password on the fly,
-  # given nixos boot process and best way to manage secrets
   users.users.root.password = "jake";
-  sops.secrets."password" = {};
-
   users.users.${username}.password = "jake";
-  # users.users.${username}.passwordFile = config.sops.secrets."password".path;
 
   user.extraGroups = [
     "networkmanager"

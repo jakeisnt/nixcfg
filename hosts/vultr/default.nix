@@ -1,4 +1,4 @@
-{ config, pkgs, lib, sops, ... }:
+{ config, pkgs, lib, ... }:
 with lib.my; {
   imports = [ ./hardware-configuration.nix ../personal.nix ];
 
@@ -39,8 +39,6 @@ with lib.my; {
   boot.loader.grub.enable = true;
   boot.loader.grub.version = 2;
   boot.loader.grub.device = "/dev/vda";
-
-  sops.secrets.domain = {};
 
   networking = {
     domain = "isnt.online";

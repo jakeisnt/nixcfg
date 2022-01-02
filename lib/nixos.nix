@@ -10,7 +10,6 @@ in {
       inherit system;
       specialArgs = { inherit lib inputs; };
       modules = [
-        inputs.sops-nix.nixosModules.sops
         {
           nixpkgs.pkgs = pkgs;
           networking.hostName = mkDefault hostname;

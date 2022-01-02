@@ -23,9 +23,6 @@ in {
       m = "neomutt";
     };
 
-    sops.secrets.email_host = {};
-    sops.secrets.email_password = {};
-
     home.configFile = {
       "offlineimap/.offlineimap.py".text = ''
         #!/usr/bin/env python

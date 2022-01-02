@@ -1,4 +1,4 @@
-{ lib, config, pkgs, inputs, ... }:
+{ lib, config, pkgs, ... }:
 
 with lib;
 with lib.my;
@@ -7,6 +7,7 @@ let
   domain = config.networking.domain;
 in {
   options.modules.services.mailserver = { enable = mkBoolOpt false; };
+
 
   config = mkIf cfg.enable {
     modules.services.acme.enable = true;

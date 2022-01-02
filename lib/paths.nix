@@ -6,7 +6,6 @@ with lib; rec {
   dotFilesDir = toString ../.;
   modulesDir = "${dotFilesDir}/modules";
   configDir = "${dotFilesDir}/config";
-  # secretsDir = "${dotFilesDir}/secrets";
   binDir = "${dotFilesDir}/bin";
   themesDir = "${modulesDir}/themes";
   username = "jake";
@@ -18,4 +17,6 @@ with lib; rec {
     else
       name
   }";
+
+  secrets = import ./secrets.nix { inherit lib; };
 }
