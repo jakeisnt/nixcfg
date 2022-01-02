@@ -29,19 +29,19 @@ in {
 
       loginAccounts = {
         "jake@${domain}" = {
-          hashedPassword = secrets.hashedPassword;
+          hashedPassword = secrets.email.hashedPassword;
           aliases = [ ];
           catchAll = [ domain ];
         };
 
         "tommy@${domain}" = {
-          hashedPassword = secrets.hashedPasswordT;
+          hashedPassword = secrets.email.hashedPasswordT;
           aliases = [ ];
           catchAll = [ domain ];
         };
 
         "admin@${domain}" = {
-          hashedPassword = secrets.hashedPassword;
+          hashedPassword = secrets.email.hashedPassword;
           aliases = [ ];
         };
       };
