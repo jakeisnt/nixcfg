@@ -5,11 +5,12 @@ with lib.my; {
   networking.hostName = "vultr";
 
   modules = {
-    editors = {
-      default = "nvim";
-      vim.enable = true;
-    };
-    dev = { node.enable = true; };
+    # just use nano
+    # editors = {
+    #   default = "nvim";
+    #   vim.enable = true;
+    # };
+    # dev = { node.enable = true; };
     shell = {
       git.enable = true;
       lf.enable = true;
@@ -23,7 +24,7 @@ with lib.my; {
       matrix = {
         enable = false;
         registration = false;
-        element = true;
+        # element = true;
       };
       bitwarden = {
         enable = true;
@@ -33,7 +34,6 @@ with lib.my; {
       cal.enable = true;
       nginx.enable = true;
     };
-    theme.active = "nordic";
   };
 
   boot.loader.grub.enable = true;
@@ -51,13 +51,17 @@ with lib.my; {
     interfaces.ens3.useDHCP = true;
   };
 
-
-  isntweb-home.enable = true;
+  # isntweb-home.enable = true;
   services.nginx.virtualHosts = {
     "isnt.online" = {
       forceSSL = true;
       enableACME = true;
-      locations."/" = { proxyPass = "http://127.0.0.1:6200"; };
+      locations = {
+   	"/" = { 
+		proxyPass = "http://127.0.0.1:6200/";
+		proxyWebsockets = true;
+         };
+      };
     };
   };
 }
