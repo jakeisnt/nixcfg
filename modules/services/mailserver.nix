@@ -1,11 +1,10 @@
-{ lib, config, pkgs, sops, ... }:
+{ lib, config, pkgs, ... }:
 
 with lib;
 with lib.my;
 let 
   cfg = config.modules.services.mailserver;
   domain = config.networking.domain;
-  sops = config.sops;
 in {
   options.modules.services.mailserver = { enable = mkBoolOpt false; };
 
@@ -23,10 +22,6 @@ in {
       110  # POP3 with StartTLS
     ];
 
-    sops.secrets = {};
-    sops.secrets.email_hashed_password = {};
-    sops.secrets.email_hashed_password_t = {};
-
     mailserver = {
       enable = true;
       fqdn = "mx.${domain}";
@@ -34,19 +29,19 @@ in {
 
       loginAccounts = {
         "jake@${domain}" = {
-          hashedPasswordFile = readFile sops.secrets.email_hashed_password.path;
+          hashedPassword = secrets.hashedPassword;
           aliases = [ ];
           catchAll = [ domain ];
         };
 
         "tommy@${domain}" = {
-          hashedPasswordFile = readFile sops.secrets.email_hashed_password_t.path;
+          hashedPassword = secrets.hashedPasswordT;
           aliases = [ ];
           catchAll = [ domain ];
         };
 
         "admin@${domain}" = {
-          hashedPasswordFile = sops.secrets.email_hashed_password.path;
+          hashedPassword = secrets.hashedPassword;
           aliases = [ ];
         };
       };

@@ -8,7 +8,6 @@ with inputs; {
     [
       home-manager.nixosModules.home-manager
       simple-nixos-mailserver.nixosModules.mailserver
-      sops-nix.nixosModules.sops
     ]
     # All my personal modules
     ++ (mapModulesRec' (toString ./modules) import);
@@ -56,12 +55,6 @@ with inputs; {
   # This is here to appease 'nix flake check' for generic hosts with no
   # hardware-configuration.nix or fileSystem config.
   fileSystems."/".device = mkDefault "/dev/disk/by-label/nixos";
-
-  sops = {
-    defaultSopsFile = ./secrets.yaml;
-    gnupg.sshKeyPaths = [ "/home/jake/.ssh/id_rsa" ];
-    # gnupg.home = "/var/lib/sops";
-  };
 
   # Use the latest kernel
   # boot.kernelPackages = pkgs.linuxPackages_latest;

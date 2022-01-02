@@ -39,8 +39,6 @@ in {
       '')
     ];
 
-    sops.secrets."ncmpcpp" = {};
-
     environment.shellAliases = {
       music = "mpd & ncmpcpp";
       mus = "mpd & ncmpcpp";

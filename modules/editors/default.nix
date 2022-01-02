@@ -3,6 +3,7 @@
 with lib;
 with lib.my;
 let cfg = config.modules.editors;
+    secrets = lib.my.secrets;
 in {
   options.modules.editors = { default = mkOpt types.str "nvim"; };
 
@@ -15,12 +16,11 @@ in {
       python
     ];
 
-    sops.secrets."wakatime_apikey" = {};
-
     environment.shellAliases = {
       # TODO restore wakatime
-      # wakatime =
-      #   "${pkgs.wakatime}/bin/wakatime --key \$(cat ${sops.secrets."wakatime_apikey".path})";
+      # secrets.wakatime.apiKey
+      wakatime =
+        "${pkgs.wakatime}/bin/wakatime --key ${secrets.wakatime.apiKey}";
     };
   };
 }

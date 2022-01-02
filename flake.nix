@@ -29,10 +29,6 @@
       url = "github:jakeisnt/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    sops-nix = {
-      url = "github:Mic92/sops-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     nix-remarkable = {
       url = "github:siraben/nix-remarkable";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -47,7 +43,7 @@
     # broken too frequently for me to be able to live on the bleeding edge...
   };
 
-  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, sops-nix, spicetify-nix, doom-emacs, ... }:
+  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, spicetify-nix, doom-emacs, ... }:
     let
       inherit (lib) attrValues;
       inherit (lib.my) mapModules mapModulesRec mapHosts;
@@ -72,7 +68,8 @@
 
       lib = nixpkgs.lib.extend (
         self: super: {
-          my = import ./lib {
+          my =
+            import ./lib {
             inherit pkgs inputs;
             lib = self;
           };
@@ -97,7 +94,7 @@
 
         nixosConfigurations = mapHosts ./hosts { inherit system; };
 
-        devShell."${system}" = import ./shell.nix { inherit pkgs sops-nix; };
+        devShell."${system}" = pkgs.mkShell {};
 
         templates = {
           full = {
