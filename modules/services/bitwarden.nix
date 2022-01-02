@@ -25,7 +25,7 @@ in {
             signupsAllowed = cfg.registration;
             invitationsAllowed = cfg.registration;
             webVaultFolder =
-              "${pkgs.bitwarden_rs-vault}/share/bitwarden_rs/vault";
+              "${pkgs.vaultwardens-vault}/share/bitwarden_rs/vault";
             webVaultEnabled = true;
             logFile = "/var/log/bitwarden";
             websocketEnabled = true;
@@ -49,8 +49,7 @@ in {
       };
 
       nginx = {
-        virtualHosts = {
-          "bitwarden.${domain}" = {
+        virtualHosts."bitwarden.${domain}" = {
             forceSSL = true;
             enableACME = true;
             root = "/srv/www/bitwarden.${domain}";
@@ -69,12 +68,11 @@ in {
                 proxyWebsockets = true;
               };
             };
-          };
         };
       };
     };
 
     user.extraGroups = [ "vaultwarden" ];
-    user.packages = with pkgs; [ bitwarden_rs-vault ];
+    user.packages = with pkgs; [ vaultwarden-vault ];
   };
 }
