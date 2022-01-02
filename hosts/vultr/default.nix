@@ -53,7 +53,6 @@ with lib.my; {
 
 
   isntweb-home.enable = true;
-
   services.nginx.virtualHosts = {
     "isnt.online" = {
       forceSSL = true;
@@ -61,6 +60,4 @@ with lib.my; {
       locations."/" = { proxyPass = "http://127.0.0.1:6200"; };
     };
   };
-
-
 }

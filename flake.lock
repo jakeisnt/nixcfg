@@ -109,11 +109,11 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1641111499,
-        "narHash": "sha256-sZzK8tl1I44DUC+sZ9u2KCsYwwinyIxj1rIRdtpUyCM=",
+        "lastModified": 1641113112,
+        "narHash": "sha256-yGcVIUrNIMW9jiBiB9omJ0rWvTdVOG72Tq5HY+5nyGU=",
         "owner": "isntweb",
         "repo": "home",
-        "rev": "bdcc6d557750e6e08e605e0da1d039bbb715e9e1",
+        "rev": "31497de98e47ab079f0e2dd94de4bc670685e0d5",
         "type": "github"
       },
       "original": {
