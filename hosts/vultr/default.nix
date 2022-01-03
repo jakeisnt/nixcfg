@@ -36,9 +36,11 @@ with lib.my; {
     };
   };
 
-  boot.loader.grub.enable = true;
-  boot.loader.grub.version = 2;
-  boot.loader.grub.device = "/dev/vda";
+  boot.loader.grub = {
+    enable = true;
+    version = 2;
+     device = "/dev/vda";
+  };
 
   networking = {
     domain = "isnt.online";
