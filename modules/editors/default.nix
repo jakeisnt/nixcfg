@@ -20,7 +20,7 @@ in {
       # TODO restore wakatime
       # secrets.wakatime.apiKey
       wakatime =
-        "${pkgs.wakatime}/bin/wakatime --key ${secrets.wakatime.apiKey}";
+        "${pkgs.wakatime}/bin/wakatime-cli --key ${secrets.wakatime.apiKey}";
     };
   };
 }
