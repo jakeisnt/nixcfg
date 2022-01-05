@@ -24,13 +24,13 @@ in {
             signupsAllowed = cfg.registration;
             invitationsAllowed = cfg.registration;
             domain = "https://bitwarden.${domain}";
-            # logFile = "/var/log/bitwarden";
+            logFile = "/var/log/bitwarden";
             websocketEnabled = true;
             websocketAddress = "0.0.0.0";
-            # websocketPort = 3012;
+            websocketPort = 3012;
             signupsVerify = true;
             adminToken = secrets.bitwarden.adminToken;
-            # rocketPort = 8812;
+            rocketPort = 8812;
           }
           (mkIf cfg.mail {
             smtpHost = "localhost";
