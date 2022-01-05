@@ -17,8 +17,8 @@ in {
     ];
 
     environment.shellAliases = {
-      # TODO restore wakatime
-      # secrets.wakatime.apiKey
+      wakatime-cli =
+        "${pkgs.wakatime}/bin/wakatime-cli --key ${secrets.wakatime.apiKey}";
       wakatime =
         "${pkgs.wakatime}/bin/wakatime-cli --key ${secrets.wakatime.apiKey}";
     };
