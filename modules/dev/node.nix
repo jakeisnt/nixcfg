@@ -17,7 +17,7 @@ in {
       yarn
 
       # :lang javascript
-      nodePackages.javascript-typescript-langserver
+      nodePackages_latest.typescript-language-server
     ];
 
     env.NPM_CONFIG_USERCONFIG = "$XDG_CONFIG_HOME/npm/config";
