@@ -40,10 +40,10 @@
     };
     editors = {
       default = "vim";
-      # emacs = {
-      #   enable = true;
-      #   daemon = true;
-      # };
+      emacs = {
+        enable = true;
+        daemon = true;
+      };
       vim.enable = true;
     };
     hardware = {
