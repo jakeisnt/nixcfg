@@ -11,7 +11,6 @@ in {
 
   config = mkIf cfg.enable {
     user.packages = with pkgs; [ direnv nix-direnv ];
-    # These could consume a lot of disk space, so disable them by default.
     nix.extraOptions = mkIf cfg.preventGC ''
       keep-outputs = true
       keep-derivations = true
@@ -24,16 +23,7 @@ in {
     };
 
     modules.shell.zsh.rcInit = ''eval "$(direnv hook zsh)"'';
-
-    services.lorri.enable = true;
-    systemd.user.services.lorri = {
-      wantedBy = [ "ac.target" ];
-      partOf = [ "ac.target" ];
-      unitConfig = {
-        ConditionGroup = "users";
-        StopWhenUnneeded = true;
-      };
-    };
+    modules.shell.fish.rcInit = ''direnv hook fish | source'';
 
     home.configFile = {
       "direnv" = {
