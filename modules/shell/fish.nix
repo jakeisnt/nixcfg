@@ -28,6 +28,7 @@ in {
     programs.fish = {
       enable = true;
       promptInit = ''
+       set fish_greeting
        fish_add_path /etc/nixos/bin
        ${pkgs.starship}/bin/starship init fish | source
        ${cfg.rcInit}
@@ -54,8 +55,8 @@ in {
       ripgrep
       tokei
       tealdeer # tldr
+      fzf
       # fasd
-      # fzf
     ];
   };
 }

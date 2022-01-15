@@ -101,7 +101,9 @@
 
         nixosConfigurations = mapHosts ./hosts { inherit system; };
 
-        devShell."${system}" = pkgs.mkShell {};
+        devShell."${system}" = pkgs.mkShell {
+          name = "nixos-config";
+        };
 
         templates = {
           full = {
