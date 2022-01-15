@@ -52,7 +52,7 @@
     shell = {
       git.enable = true;
       lf.enable = true;
-      zsh.enable = true;
+      fish.enable = true;
       gnupg = {
         enable = true;
         gui = true;
