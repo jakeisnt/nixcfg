@@ -27,10 +27,11 @@ in {
 
     programs.fish = {
       enable = true;
-      promptInit = ''
+      promptInit = with pkgs; ''
        set fish_greeting
        fish_add_path /etc/nixos/bin
-       ${pkgs.starship}/bin/starship init fish | source
+       ${starship}/bin/starship init fish | source
+       ${zoxide}/bin/zoxide init fish | source
        ${cfg.rcInit}
      '';
 
@@ -43,6 +44,7 @@ in {
         "find" = "${fd}/bin/fd";
         "ps" = "${procs}/bin/procs";
         "grep" = "${ripgrep}/bin/rg";
+	"cd" = "${zoxide}/bin/zoxide";
       };
     };
 
@@ -56,7 +58,7 @@ in {
       tokei
       tealdeer # tldr
       fzf
-      # fasd
+      zoxide
     ];
   };
 }

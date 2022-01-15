@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 # I don't believe the interface for Nix's utility scripts are very good. Guix's,
 # on the other hand, is excellent. Management of your OS is done by a single

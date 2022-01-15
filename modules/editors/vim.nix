@@ -15,10 +15,10 @@ in
       defaultEditor = false; # this is configured by me elsewhere
     };
 
-    # environment.shellAliases = {
-    #   vim = "nvim";
-    #   vi = "nvim";
-    #   v = "nvim";
-    # };
+    environment.shellAliases = {
+      vim = "nvim";
+      vi = "nvim";
+      v = "nvim";
+    };
   };
 }

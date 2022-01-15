@@ -39,11 +39,12 @@
       alacritty.enable = true;
     };
     editors = {
-      default = "emacsclient -c";
-      emacs = {
-        enable = true;
-        daemon = true;
-      };
+      default = "vim";
+      # emacs = {
+      #   enable = true;
+      #   daemon = true;
+      # };
+      vim.enable = true;
     };
     hardware = {
       audio.enable = true;
