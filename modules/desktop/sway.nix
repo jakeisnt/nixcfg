@@ -91,6 +91,13 @@ in {
         startsway
       fi
     '';
+    
+     
+    modules.shell.fish.loginInit = ''
+      if [ $DISPLAY ]
+        startsway 
+      end 
+    '';
 
     home.configFile = {
       "sway/config".text = with colors;
