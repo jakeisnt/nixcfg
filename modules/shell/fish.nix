@@ -35,8 +35,8 @@ in {
 
       loginShellInit = cfg.loginInit;
 
-      # use the souped-up rust stuff!
       shellAliases = with pkgs; {
+        # use the souped-up rust stuff!
         "ls" = "${exa}/bin/exa";
         "cat" = "${bat}/bin/bat";
         "find" = "${fd}/bin/fd";
