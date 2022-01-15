@@ -27,14 +27,29 @@ in {
 
     programs.fish = {
       enable = true;
-      # promptInit = "";
+      promptInit = ''
+       ${pkgs.starship}/bin/starship init fish | source
+       ${cfg.rcInit}
+     '';
+
+      shellAliases = with pkgs; {
+        "ls" = "${exa}/bin/exa";
+        "cat" = "${bat}/bin/bat";
+        "find" = "${fd}/bin/fd";
+        "ps" = "${procs}/bin/procs";
+        "grep" = "${ripgrep}/bin/rg";
+      };
     };
 
     user.packages = with pkgs; [
-      # bat
-      # exa
+      starship
+      bat
+      exa
+      fd
+      procs
+      ripgrep
+      tokei
       # fasd
-      # fd
       # fzf
       # tldr
     ];
