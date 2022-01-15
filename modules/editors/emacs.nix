@@ -154,14 +154,6 @@ in {
 
     env.PATH = [ "$XDG_CONFIG_HOME/emacs/bin" ];
     modules.shell.zsh.rcFiles = [ "${configDir}/emacs/aliases.zsh" ];
-
-    # no vim allowed
-    environment.shellAliases = {
-      vim = "emacs";
-      vi = "emacs";
-      v = "emacs";
-    };
-
     fonts.fonts = [ pkgs.emacs-all-the-icons-fonts ];
   };
 }
