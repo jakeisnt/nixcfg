@@ -28,6 +28,7 @@ in {
     programs.fish = {
       enable = true;
       promptInit = ''
+       fish_add_path /etc/nixos/bin
        ${pkgs.starship}/bin/starship init fish | source
        ${cfg.rcInit}
      '';
