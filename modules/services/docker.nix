@@ -6,12 +6,13 @@ let cfg = config.modules.services.docker;
 in {
   options.modules.services.docker = {
     enable = mkBoolOpt false;
+    podman = mkBoolOpt false;
   };
 
   config = mkIf cfg.enable {
     user.packages = with pkgs; [
       # docker
-      arion
+      # arion
       docker-client
       docker-compose
     ];
@@ -20,18 +21,17 @@ in {
     env.MACHINE_STORAGE_PATH = "$XDG_DATA_HOME/docker/machine";
 
     user.extraGroups = [ "docker" ];
-
     modules.shell.zsh.rcFiles = [ "${configDir}/docker/aliases.zsh" ];
 
     virtualisation = {
       podman = {
-        enable = true;
+        enable = cfg.podman;
         dockerCompat = true;
         dockerSocket.enable = true;
         defaultNetwork.dnsname.enable = true;
       };
       docker = {
-        enable = false;
+        enable = !cfg.podman;
         # autoPrune.enable = true;
         enableOnBoot = true;
         # listenOptions = [];
