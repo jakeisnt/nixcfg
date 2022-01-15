@@ -108,9 +108,10 @@ with lib.my;
         preventGC = true;
       };
       lf.enable = true;
-      zsh.enable = true;
+      fish.enable = true;
     };
     services = {
+      docker.enable = true;
       syncthing.enable = true;
       ssh.enable = true;
       backup.enable = true;
