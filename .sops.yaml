@@ -1,7 +1,0 @@
-keys:
-  - &admin 253050e9e749f74b8a3dbb12dc500c2fa8c6c00b
-creation_rules:
-  - path_regex: secrets.yaml$
-    key_groups:
-      - pgp:
-          - *admin
