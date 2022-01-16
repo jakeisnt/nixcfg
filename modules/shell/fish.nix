@@ -59,5 +59,9 @@ in {
       fzf
       zoxide
     ];
+
+    home.configFile = {
+    	"starship.toml".text = (concatMapStringsSep "\n" readFile [ "${configDir}/starship/starship.toml" ]);
+    };
   };
 }
