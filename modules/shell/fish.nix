@@ -44,7 +44,6 @@ in {
         "find" = "${fd}/bin/fd";
         "ps" = "${procs}/bin/procs";
         "grep" = "${ripgrep}/bin/rg";
-	"cd" = "${zoxide}/bin/zoxide";
       };
     };
 
