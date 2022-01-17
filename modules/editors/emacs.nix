@@ -12,13 +12,6 @@ let
   myemacs = emacsWPkgs (epkgs: (with epkgs; [ vterm pdf-tools ]));
 
   cfg = config.modules.editors.emacs;
-  # from https://github.com/Mic92/dotfiles
-  treeSitterGrammars = pkgs.runCommandLocal "grammars" {} ''
-    mkdir -p $out/bin
-    ${lib.concatStringsSep "\n"
-      (lib.mapAttrsToList (name: src: "ln -s ${src}/parser $out/bin/${name}.so") pkgs.tree-sitter.builtGrammars)};
-  '';
-
   # install doom emacs if not already configured!!
   # ensure we have the write things in system path too!
   # yes this file name is legal, yes it is bad, but yes it lets us use the emacs service
@@ -42,37 +35,6 @@ let
     exec ${myemacs}/bin/emacs --daemon
   '';
 
-  langs = [
-    "agda"
-    "bash"
-    "c"
-    "c-sharp"
-    # "cpp"
-    "css"
-    /*"elm" */
-    "fluent"
-    "go"
-    /*"hcl"*/
-    "html"
-    /*"janet-simple"*/
-    "java"
-    "javascript"
-    "jsdoc"
-    "json"
-    "ocaml"
-    "python"
-    # "php"
-    /*"pgn"*/
-    "ruby"
-    "rust"
-    "scala"
-    # "swift"
-    "typescript"
-    # "commonlisp"
-  ];
-
-  grammars = lib.getAttrs (map (lang: "tree-sitter-${lang}") langs) pkgs.tree-sitter.builtGrammars;
-
 in {
   options.modules.editors.emacs = {
     enable = mkBoolOpt false;
@@ -88,6 +50,9 @@ in {
       inputs.emacs-overlay.overlay
       inputs.nur.overlay
     ];
+
+    # enable tree sitter grammars
+    modules.editors.tree-sitter.enable = true;
 
     services.emacs = mkIf cfg.daemon {
       enable = true;
@@ -130,8 +95,6 @@ in {
       gnuplot
       # org +pandoc
       pandoc
-      # better syntax highlighting
-      tree-sitter
 
       # for vterm
       libvterm
@@ -145,12 +108,6 @@ in {
       # presumably to build emacs
       gcc
     ];
-
-    home.file.".tree-sitter".source = (pkgs.runCommand "grammars" {} ''
-      mkdir -p $out/bin
-      ${lib.concatStringsSep "\n"
-        (lib.mapAttrsToList (name: src: "name=${name}; ln -s ${src}/parser $out/bin/\${name#tree-sitter-}.so") grammars)};
-    '');
 
     env.PATH = [ "$XDG_CONFIG_HOME/emacs/bin" ];
     modules.shell.zsh.rcFiles = [ "${configDir}/emacs/aliases.zsh" ];
