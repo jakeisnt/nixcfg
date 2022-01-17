@@ -20,6 +20,18 @@ in
       };
     };
 
+    user.packages = with pkgs; [
+        # coq nvim completion
+        sqlite
+        universal-ctags # for coq nvim completion
+        # for coq setup
+        python310
+        python310Packages.virtualenv
+
+        # lua lsp for vim config
+        sumneko-lua-language-server
+    ];
+
     modules.editors.tree-sitter.enable = true;
 
     # source '/home/jake/.config/nvim/theme.vim'
