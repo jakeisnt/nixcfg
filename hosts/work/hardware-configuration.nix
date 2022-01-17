@@ -20,8 +20,6 @@
 # });
 boot.kernelPackages = pkgs.linuxPackages_latest;
 
-
-
 hardware.bluetooth.enable = true;
 networking.networkmanager.enable = true;
 security.rtkit.enable = true;

@@ -1,5 +1,4 @@
 # Framework laptop!
-
 { config, pkgs, ... }:
 
 {
@@ -40,10 +39,6 @@
     };
     editors = {
       default = "vim";
-      # emacs = {
-        # enable = true;
-        # daemon = true;
-      # };
       vim.enable = true;
     };
     hardware = {
