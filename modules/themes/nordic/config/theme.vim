@@ -1,1 +1,1 @@
-colorscheme nord
+colorscheme stilla
