@@ -5,9 +5,6 @@ set $down j
 set $up k
 set $right l
 
-# TODO it's terrible that this is hardcoded
-set $term alacritty
-
 set $menu launch
 
 output * bg $bgalt solid_color
