@@ -47,6 +47,22 @@ in {
         "find" = "${fd}/bin/fd";
         "ps" = "${procs}/bin/procs";
         "grep" = "${ripgrep}/bin/rg";
+
+        # other sane shell reconfigurations
+        "q" = "exit";
+        "cp" = "cp -i";
+        "mv" = "mv -i";
+        "rm" = "rm -i";
+        "mkdir" = "mkdir -p";
+        "sc" = "systemctl";
+        "ssc" = "sudo systemctl";
+
+# cool idea: remind me later!
+# r() {
+#   local time=$1; shift
+#   sched "$time" "notify-send --urgency=critical 'Reminder' '$@'; ding";
+# }; compdef r=sched
+
       };
     };
 

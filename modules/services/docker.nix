@@ -21,7 +21,16 @@ in {
     env.MACHINE_STORAGE_PATH = "$XDG_DATA_HOME/docker/machine";
 
     user.extraGroups = [ "docker" ];
-    modules.shell.zsh.rcFiles = [ "${configDir}/docker/aliases.zsh" ];
+
+    environment.shellAliases = {
+        # use the souped-up rust stuff!
+        "dk" = "docker";
+        "dkc" = "docker-compose";
+        "dkl" = "dk logs";
+        "dkcl" = "dkc logs";
+        "dkclr" = "dk stop $(docker ps -a -q) && dk rm $(docker ps -a -q)";
+        "dke" = "dk exec -it \"$1\" \"\${@:1}\"";
+    };
 
     virtualisation = {
       podman = {
