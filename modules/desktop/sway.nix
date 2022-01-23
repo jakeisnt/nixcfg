@@ -13,7 +13,7 @@ let
       #! ${pkgs.bash}/bin/bash
 
       # first import environment variables from the login manager
-      systemctl --user import-environment
+      systemctl --user import-environment WAYLAND_DISPLAY
       # then start the service
       exec systemctl --user start sway.service
     '';
@@ -93,9 +93,11 @@ in {
     '';
 
     modules.shell.fish.loginInit = ''
-      if [ $DISPLAY ]
-        startsway
-      end
+        if status is-login
+            if test -z "$DISPLAY" -a "$XDG_VTNR" = 1
+                sway
+            end
+        end
     '';
 
     home.configFile = {
@@ -144,8 +146,8 @@ in {
           (if cfg.fancy then
 
           ''
-            gaps outer 8
-            gaps inner 5
+            gaps outer 5
+            gaps inner 10
 
             bindsym $mod+d exec 'pkill -SIGUSR1 waybar'
 

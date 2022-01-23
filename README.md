@@ -20,7 +20,7 @@ Feel free to poke around and contact me if you have any questions : )
 
 First, snag a copy of the newest version of NixOS by building it off of a previous machine from source.
 
-This configuration offers `usb`, a CLI-based live USB configuration with some nice utilities for getting started. 
+This configuration offers `usb`, a CLI-based live USB configuration with some nice utilities for getting started.
 
 If you'd like to use that system, load the ISO onto a USB with the following commands from an existing Nix system with Nix Flakes enabled:
 
@@ -66,5 +66,5 @@ Do not mess this up; make sure you give yourself things like a window manager an
 nixos-install --root /mnt --impure --flake .#$HOSTNAME
 ```
 
-You should be set! Reboot into the machine you've just configured. 
+You should be set! Reboot into the machine you've just configured.
 Make sure to commit to this repository with that machine's configuration.

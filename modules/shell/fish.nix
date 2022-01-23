@@ -34,6 +34,7 @@ in {
        fish_add_path /etc/nixos/bin
        ${starship}/bin/starship init fish | source
        ${zoxide}/bin/zoxide init fish | source
+       ${cfg.loginInit}
        ${cfg.rcInit}
      '';
 

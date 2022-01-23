@@ -126,27 +126,28 @@ in {
       # if in TTY, configure TTY color scheme
       if [ $TERM = "linux" ]
         set -U fish_color_normal normal
-        set -U fish_color_command 005fd7
-        set -U fish_color_quote ${color14}
-        set -U fish_color_redirection 00afff
-        set -U fish_color_end 009900
-        set -U fish_color_error ${color11}
-        set -U fish_color_param 00afff
-        set -U fish_color_comment 990000
-        set -U fish_color_match --background=${color3}
-        set -U fish_color_selection c0c0c0
-        set -U fish_color_search_match ffff00
-        set -U fish_color_operator 00a6b2
-        set -U fish_color_history_current normal
-        set -U fish_color_escape 00a6b2
-        set -U fish_color_cwd 008000
-        set -U fish_color_cwd_root 800000
-        set -U fish_color_valid_path normal
-        set -U fish_color_autosuggestion ${color14}
+        set -U fish_color_command blue
+        set -U fish_color_quote bryellow
+        set -U fish_color_redirection brblue
+        set -U fish_color_end green
+        set -U fish_color_error red
+        set -U fish_color_comment brred
+        set -U fish_color_match --background=brblue
+        set -U fish_color_param blue
+        set -U fish_color_selection white --bold --background=brblack
+        set -U fish_color_search_match bryellow --background=brblack
+        set -U fish_color_history_current --bold
+        set -U fish_color_operator brblue
+        set -U fish_color_escape black
+        set -U fish_color_cwd green
+        set -U fish_color_cwd_root red
+        set -U fish_color_valid_path --underline
+        set -U fish_color_autosuggestion brblack
+        set -U fish_color_user brgreen
         set -U fish_color_host normal
-        set -U fish_color_cancel normal
+        set -U fish_color_cancel -r
         set -U fish_pager_color_completion normal
-        set -U fish_pager_color_description B3A06D yellow
+        set -U fish_pager_color_description yellow
         set -U fish_pager_color_prefix normal --bold --underline
         set -U fish_pager_color_progress brwhite --background=cyan
         clear
