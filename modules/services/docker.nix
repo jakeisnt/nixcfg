@@ -23,13 +23,11 @@ in {
     user.extraGroups = [ "docker" ];
 
     environment.shellAliases = {
-        # use the souped-up rust stuff!
         "dk" = "docker";
         "dkc" = "docker-compose";
         "dkl" = "dk logs";
         "dkcl" = "dkc logs";
-        "dkclr" = "dk stop $(docker ps -a -q) && dk rm $(docker ps -a -q)";
-        "dke" = "dk exec -it \"$1\" \"\${@:1}\"";
+        "dkclr" = "dk stop (docker ps -a -q) && dk rm (docker ps -a -q)";
     };
 
     virtualisation = {
