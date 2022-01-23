@@ -20,8 +20,8 @@ in {
     home.configFile = {
       "wofi/config".text = ''
         width=30%
-        lines=6
-        allow_images=true
+        lines=5
+        allow_images=false
         insensitive=true
         mode=drun
       '';
@@ -29,15 +29,14 @@ in {
         window {
             margin: 0px;
             border-width: 0px;
-            border-radius: 6px;
+            border-radius: 0px;
         }
 
         #input {
-            color: #${color6};
+            color: #${color4};
             padding: 8px;
-            background-color: #${color0};
+            background-color: #${background};
             border-width: 1px;
-            border-radius:  6px 6px 0px 0px;
             border-color: #${color10};
         }
 
@@ -45,11 +44,12 @@ in {
           border-radius: 0px 0px 6px 6px;
           border-color: #${color10};
           border-width: 0px 1px 1px 1px;
-          background-color: rgba(46,52,64,0.9);
+          background-color: #${background};
         }
 
         #outer-box {
-          border: none;
+          border-width: 0px 1px 1px 1px;
+          background-color: #${background};
         }
 
         #scroll {
@@ -58,7 +58,7 @@ in {
         }
 
         #text {
-          color: #${color0};
+          color: #${color4};
           padding: 5px;
           border: none;
         }
@@ -67,7 +67,6 @@ in {
             padding: 6px;
             color: #${foreground};
             border-width: 2px 0px 2px 2px;
-            border-radius: 4px 0px 0px 4px;
             border-color: #${foreground};
         }
 
