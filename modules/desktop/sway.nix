@@ -24,7 +24,7 @@ in {
     enable = mkBoolOpt false;        # practical and basic
     fancy = mkBoolOpt false;         # fancy and pretty config
     disable-touch = mkBoolOpt false; # disable touchpad, touchscreen
-    scale = mkOpt lib.types.float 1;
+    scale = mkOpt lib.types.float 1.0;
   };
 
   config = mkIf cfg.enable {

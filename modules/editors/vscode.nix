@@ -22,7 +22,7 @@ let
           sha256 = "0wahh7kmrdzcrcp2lj71qxsxbmgdq97k60aw2jxxqlmdfy407nnh";
         }
         {
-          name = "stilla-visual-studio-code";
+          name = "stilla";
           publisher = "jakeisnt";
           version = "0.0.1";
           sha256 = "1hwmv2545qmdx7s6mf3ba0qf6217xssws1w2018s6s75sbcxmga4";
