@@ -28,7 +28,7 @@ in {
             @define-color background #${background};
             @define-color buttonhover #${urgent};
             @define-color fgalt #${fgAlt};
-            @define-color bgalt #44475A;
+            @define-color bgalt #${bgAlt2};
             @define-color cyan #${normal.cyan};
             @define-color green #${normal.green};
             @define-color yellow #${normal.yellow};

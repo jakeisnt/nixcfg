@@ -29,6 +29,8 @@ in {
       enable = true;
       promptInit = with pkgs; ''
        set fish_greeting
+       function fish_mode_prompt; end
+       function fish_prompt; end
        fish_add_path /etc/nixos/bin
        ${starship}/bin/starship init fish | source
        ${zoxide}/bin/zoxide init fish | source

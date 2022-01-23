@@ -39,6 +39,12 @@ window#waybar.PCSX2 #window {
 	background: @bgalt;
 }
 
+#workspaces, #mode, #mpd, #network, #pulseaudio, #temperature, #cpu, #memory, #battery, #clock {
+    color: @fgalt;
+    background: @background;
+    border-color: @bgalt;
+}
+
 #workspaces {
 	/* as the leftmost element, this needs extra padding */
 	margin-left: 12px;
@@ -50,7 +56,7 @@ window#waybar.PCSX2 #window {
 
 #workspaces button {
 	transition: none;
-	color: @fgalt;
+	color: @foreground;
 	background: transparent;
 	font-size: 16px;
 }
@@ -71,53 +77,11 @@ window#waybar.PCSX2 #window {
 	border-color: @bgalt;
 }
 
-#mpd {
-	color: @foreground;
-	background: @green;
-	border-color: @greenalt;
-}
-
 #mpd.disconnected,
 #mpd.stopped {
 	color: @fgalt;
 	background: @background;
-	border-color: @bgAlt;
-}
-
-#network {
-	color: @foreground;
-	background: @purple;
-	border-color: @purplealt;
-}
-
-#pulseaudio {
-	color: @foreground;
-	background: @blue;
-	border-color: @bluealt;
-}
-
-#temperature {
-	color: @foreground;
-	background: @green;
-	border-color: @greenalt;
-}
-
-#cpu {
-	color: @foreground;
-	background: @purple;
-	border-color: @purplealt;
-}
-
-#memory {
-	color: @foreground;
-	background: @cyan;
-	border-color: @cyanalt;
-}
-
-#battery {
-	color: @foreground;
-	background: @green;
-	border-color: @greenalt;
+	border-color: @bgalt;
 }
 
 #clock {
