@@ -1,58 +1,61 @@
 {
-	"layer": "top",
-    "output": ["eDP-1"],
-	"modules-left": ["sway/workspaces", "sway/mode"],
-	"modules-center": [],
-	"modules-right": ["network", "pulseaudio", "temperature", "cpu", "memory", "battery", "clock"],
-	"mpd": {
-		"tooltip": false,
-		"format": "{stateIcon} {artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S})",
-		"format-disconnected": "ﳌ",
-		"format-stopped": "",
-        "state-icons": {
-            "playing": "",
-            "paused": ""
-        }
-	},
-	"pulseaudio": {
-		"tooltip": false,
-		"scroll-step": 5,
-		"format": "{icon} {format_source} {volume}%",
-        "format-bluetooth": "{icon} {format_source} {volume}% ",
-        "format-bluetooth-muted": " {icon} {format_source}",
-        "format-muted": " {format_source}",
-        "format-source": " {volume}%",
-        "format-source-muted": "",
-		"format-icons": {
-            "headphones": "",
-            "handsfree": "",
-            "headset": "",
-            "phone": "",
-            "portable": "",
-            "car": "",
-			"default": ["奄", "奔", "墳"]
-		}
-	},
-	"network": {
-		"tooltip": false,
-		"format-wifi": " {essid} {ipaddr}",
-		"format-ethernet": " {ipaddr}"
-	},
-	"cpu": {
-		"tooltip": false,
-		"format": " {}%"
-	},
-	"memory": {
-		"tooltip": false,
-		"format": " {}%"
-	},
-    "battery": {
-        "states": {
-            "warning": 30,
-            "critical": 15
+    "layer": "top",
+        "output": ["eDP-1"],
+        "modules-left": ["battery", "sway/mode"],
+        "modules-center": ["sway/workspaces"],
+        "modules-right": ["pulseaudio", "network", "clock"],
+        "sway/workspaces": {
+            "disable-scroll": true
         },
-        "format": "{icon} {capacity}%",
-        "format-icons": ["", "", "", "", ""],
-        "max-length": 25
-    }
+        "mpd": {
+            "tooltip": false,
+            "format": "{stateIcon} {artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S})",
+            "format-disconnected": "ﳌ",
+            "format-stopped": "",
+            "state-icons": {
+                "playing": "",
+                "paused": ""
+            }
+        },
+        "pulseaudio": {
+            "tooltip": false,
+            "scroll-step": 5,
+            "format": "{icon} {format_source} {volume}%",
+            "format-bluetooth": "{icon} {format_source} {volume}% ",
+            "format-bluetooth-muted": "{icon}  {format_source}",
+            "format-muted": "{format_source}",
+            "format-source": " {volume}%",
+            "format-source-muted": "",
+            "format-icons": {
+                "headphones": "",
+                "handsfree": "",
+                "headset": "",
+                "phone": "",
+                "portable": "",
+                "car": "",
+                "default": ["奄", "奔", "墳"]
+            }
+        },
+        "network": {
+            "tooltip": false,
+            "format-wifi": " {essid} {ipaddr}",
+            "format-ethernet": " {ipaddr}"
+        },
+        "cpu": {
+            "tooltip": false,
+            "format": " {}%"
+        },
+        "memory": {
+            "tooltip": false,
+            "format": " {}%"
+        },
+        "battery": {
+            "states": {
+                "warning": 30,
+                "critical": 15
+            },
+            "format": "{icon} {capacity}%",
+            "format-icons": ["", "", "", "", ""],
+            "max-length": 25
+        }
 }
