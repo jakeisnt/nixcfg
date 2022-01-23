@@ -24,6 +24,7 @@ in {
     enable = mkBoolOpt false;        # practical and basic
     fancy = mkBoolOpt false;         # fancy and pretty config
     disable-touch = mkBoolOpt false; # disable touchpad, touchscreen
+    scale = mkOpt lib.types.float 1;
   };
 
   config = mkIf cfg.enable {
@@ -113,6 +114,8 @@ in {
 
             output eDP1 resolution 3840x2160 position 0,0
             output DP-2 resolution 1920x1080 scale 0.8
+
+            exec 'swaymsg output eDP-1 scale ${lib.strings.floatToString cfg.scale}'
           '')
           (concatMapStringsSep "\n" readFile [ "${configDir}/sway/config" ])
           (if config.modules.hardware.audio.enable then ''
