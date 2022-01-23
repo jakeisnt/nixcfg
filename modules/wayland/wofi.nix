@@ -19,7 +19,7 @@ in {
 
     home.configFile = {
       "wofi/config".text = ''
-        width=30%
+        width=15%
         lines=5
         allow_images=false
         insensitive=true
@@ -36,12 +36,11 @@ in {
             color: #${color4};
             padding: 8px;
             background-color: #${background};
-            border-width: 1px;
+            border-width: 1px 1px 1px 1px;
             border-color: #${color10};
         }
 
         #inner-box {
-          border-radius: 0px 0px 6px 6px;
           border-color: #${color10};
           border-width: 0px 1px 1px 1px;
           background-color: #${background};
@@ -71,8 +70,7 @@ in {
         }
 
         button selected normal {
-            border-width: 2px 0px 2px 2px;
-            border-color: #${foreground};
+            border-width: 0;
         }
       '';
     };
