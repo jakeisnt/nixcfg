@@ -32,14 +32,6 @@ window#waybar.hidden {
     background: transparent;
 }
 
-window#waybar.termite #window,
-window#waybar.Firefox #window,
-window#waybar.Navigator #window,
-window#waybar.PCSX2 #window {
-    color: @foreground;
-    background: @bgalt;
-}
-
 #workspaces, #mode, #mpd, #network, #pulseaudio, #temperature, #cpu, #memory, #battery, #clock {
     color: @fgalt;
     background: @background;
