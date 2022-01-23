@@ -16,7 +16,7 @@ let
   # ensure we have the write things in system path too!
   # yes this file name is legal, yes it is bad, but yes it lets us use the emacs service
   daemonScript = pkgs.writeScriptBin "emacs" ''
-    #!${pkgs.zsh}/bin/zsh -l
+    #!${pkgs.bash}/bin/bash -l
     export PATH=$PATH:${lib.makeBinPath [ pkgs.git pkgs.sqlite pkgs.unzip ]}
     if [ ! -d $HOME/.emacs.d/.git ]; then
       mkdir -p $HOME/.emacs.d

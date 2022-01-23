@@ -63,10 +63,12 @@ in {
       };
     };
 
-    modules.shell.zsh.rcInit = ''
-      if [ -z $DISPLAY ] && [ "$(tty)" == "/dev/tty1" ]; then
-        startwf
-      fi
+    modules.shell.fish.loginInit = ''
+        if status is-login
+            if test -z "$DISPLAY" -a "$XDG_VTNR" = 1
+                sway
+            end
+        end
     '';
 
     home.configFile = {

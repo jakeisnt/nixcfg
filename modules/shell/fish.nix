@@ -10,12 +10,10 @@ in {
     aliases = mkOpt (attrsOf (either str path)) { };
 
     rcInit = mkOpt' lines "" ''
-      Zsh lines to be written to $XDG_CONFIG_HOME/zsh/extra.zshrc and sourced by
-      $XDG_CONFIG_HOME/zsh/.zshrc
+        Fish commands to be run when fish starts up.
     '';
     loginInit = mkOpt' lines "" ''
-      Zsh lines to be written to $XDG_CONFIG_HOME/zsh/extra.zshenv and sourced
-      by $XDG_CONFIG_HOME/zsh/.zshenv
+      Other fish commands to be run before fish starts up. It's worth noting that these run before 'rcInit' commands.
     '';
 
     rcFiles = mkOpt (listOf (either str path)) [ ];

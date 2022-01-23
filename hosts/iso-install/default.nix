@@ -1,5 +1,5 @@
 # Minimal config built to run off of a live USB.
-# Provides a TUI with configured emacs, git and zsh.
+# Provides a TUI with configured emacs, git and fish.
 # Used for bootstrapping other configurations!
 
 { config, lib, pkgs, ... }:
@@ -41,7 +41,7 @@ in
     shell = {
       git.enable = true;
       lf.enable = true;
-      zsh.enable = true;
+      fish.enable = true;
     };
   };
 }

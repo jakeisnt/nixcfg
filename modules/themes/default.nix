@@ -98,29 +98,6 @@ in {
 
   config = mkIf (cfg.active != null) (mkMerge [{
     environment.variables.GTK_THEME = cfg.gtk.theme;
-    # TTY Theme
-    modules.shell.zsh.rcInit = with cfg.color; ''
-      # if in TTY, configure TTY color scheme
-      if [ "$TERM" = "linux" ]; then
-        echo -en "\e]P0${color0}"
-        echo -en "\e]P1${color1}"
-        echo -en "\e]P2${color2}"
-        echo -en "\e]P3${color3}"
-        echo -en "\e]P4${color4}"
-        echo -en "\e]P5${color5}"
-        echo -en "\e]P6${color6}"
-        echo -en "\e]P7${color7}"
-        echo -en "\e]P8${color8}"
-        echo -en "\e]P9${color9}"
-        echo -en "\e]PA${color10}"
-        echo -en "\e]PB${color11}"
-        echo -en "\e]PC${color12}"
-        echo -en "\e]PD${color13}"
-        echo -en "\e]PE${color14}"
-        echo -en "\e]PF${color15}"
-        clear
-      fi
-    '';
 
     modules.shell.fish.rcInit = with cfg.color; ''
       # if in TTY, configure TTY color scheme

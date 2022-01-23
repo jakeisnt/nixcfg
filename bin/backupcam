@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 # TODO: can do better with GPhoto2 and/or FFMPEG!
 
 mkdir /home/jake/xxx
