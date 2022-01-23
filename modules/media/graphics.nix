@@ -46,12 +46,17 @@ in {
       # Sprite sheets & animation
       (if cfg.sprites.enable then [ aseprite-unfree ] else [ ]);
 
-    home.configFile = mkIf cfg.raster.enable {
-      "GIMP/2.10" = {
-        source = "${configDir}/gimp";
-        recursive = true;
-      };
-    };
+    home.configFile = mkMerge [
+      (mkIf cfg.raster.enable {
+        "GIMP/2.10" = {
+          source = "${configDir}/gimp";
+          recursive = true;
+        };
+      })
+      (mkIf cfg.vector.enable {
+        "inkscape/templates/default.svg".source = "${configDir}/inkscape/default-template.svg";
+      })
+    ];
 
     environment.variables.PICTURES_FOLDER = "/home/${username}/pics";
   };

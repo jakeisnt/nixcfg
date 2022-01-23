@@ -112,23 +112,17 @@ in {
           jetbrains-mono
           siji
           font-awesome-ttf
+          roboto-mono
         ];
         fontconfig.defaultFonts = {
           sansSerif = [ "Fira Sans" ];
-          monospace = [ "Fira Code" ];
+          monospace = [ "Roboto Mono" ]; # was fira code
         };
       };
 
-      home.configFile = with config.modules;
-        mkMerge [
-          (mkIf media.graphics.vector.enable {
-            "inkscape/templates/default.svg".source =
-              ./config/inkscape/default-template.svg;
-          })
-          (mkIf editors.vim.enable {
-            "nvim/theme.vim" = { source = ./config/theme.vim; };
-          })
-        ];
+      home.configFile = mkIf config.modules.editors.vim.enable {
+        "nvim/theme.vim" = { text = "colorscheme stilla"; };
+      };
     }
   ]);
 }

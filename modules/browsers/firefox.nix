@@ -55,7 +55,7 @@ in {
       Extra lines to add to <filename>user.js</filename>
     '';
 
-    userChrome = mkOpt' lines "" "CSS Styles for Firefox's interface";
+    userChrome = mkOpt' lines "" "Extra CSS Styles for Firefox's interface";
     userContent = mkOpt' lines "" "Global CSS Styles for websites";
   };
 
@@ -204,8 +204,7 @@ in {
           '';
         };
 
-      "${cfgPath}/${cfg.profileName}.default/chrome/userChrome.css" =
-        mkIf (cfg.userChrome != "") { text = cfg.userChrome; };
+      "${cfgPath}/${cfg.profileName}.default/chrome/userChrome.css".source = "${configDir}/firefox/userChrome.css";
 
       "${cfgPath}/${cfg.profileName}.default/chrome/userContent.css" =
         mkIf (cfg.userContent != "") { text = cfg.userContent; };
