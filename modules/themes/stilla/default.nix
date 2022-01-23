@@ -29,7 +29,7 @@ in {
       modules = {
         theme = {
           gtk = {
-            theme = "Nordic";
+            theme = "Yaru";
             iconTheme = "Zafiro-icons";
             cursorTheme = "openzone-cursors";
           };
@@ -100,7 +100,7 @@ in {
     # Desktop theming
     {
       user.packages = with pkgs;
-        [ nordic zafiro-icons openzone-cursors ];
+        [ yaru-theme zafiro-icons openzone-cursors ];
         # ++ (if config.modules.media.spotify.enable then
         #   [ extras.spicetify-nix.packages.x86_64-linux.nord ]
         # else
