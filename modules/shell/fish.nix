@@ -29,6 +29,11 @@ in {
        set fish_greeting
        function fish_mode_prompt; end
        function fish_prompt; end
+
+       function postexec_test --on-event fish_postexec
+          echo
+       end
+
        fish_add_path /etc/nixos/bin
        ${starship}/bin/starship init fish | source
        ${zoxide}/bin/zoxide init fish | source

@@ -4,13 +4,13 @@ window:
     lines: 0
   padding:
    x: 10
-   y: 7
+   y: 10
   # Spread additional padding evenly around the terminal content.
   dynamic_padding: false
   decorations: full
   tabspaces: 2
   # Window title
-  title: Alacritty 
+  title: Alacritty
   # Window class (Linux/BSD only):
   #class:
     # Application instance name
@@ -21,7 +21,7 @@ scrolling:
   history: 100000
   multiplier: 3
   #auto_scroll: true
-  
+
 glyph_offset:
    x: 0
    y: 0
