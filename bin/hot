@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 # "Hot reload": Invoke a command whenenver specified file(s) change
 # inspired by https://stackoverflow.com/questions/42049983/bash-based-hot-reload-implementation

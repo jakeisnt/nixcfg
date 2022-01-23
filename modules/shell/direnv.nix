@@ -22,7 +22,6 @@ in {
         "source /run/current-system/sw/share/nix-direnv/direnvrc";
     };
 
-    modules.shell.zsh.rcInit = ''eval "$(direnv hook zsh)"'';
     modules.shell.fish.rcInit = ''direnv hook fish | source'';
 
     home.configFile = {

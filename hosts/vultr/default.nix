@@ -10,11 +10,10 @@ with lib.my; {
     #   default = "nvim";
     #   vim.enable = true;
     # };
-    # dev = { node.enable = true; };
     shell = {
       git.enable = true;
       lf.enable = true;
-      zsh.enable = true;
+      fish.enable = true; # TODO need a simple shell to use without rust things, but not zsh - too heavy
       gnupg.enable = true;
       direnv.enable = true;
     };

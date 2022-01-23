@@ -1,5 +1,10 @@
 { config, options, pkgs, lib, stdenv, ... }:
 
+
+# if you're using tmux again,
+# revisit all of the former zsh aliases to find some useful commands
+# that might be worth revisiting!
+
 with lib;
 with lib.my;
 let
@@ -22,11 +27,6 @@ in {
 
     modules.theme.onReload.tmux =
       "${tmux}/bin/tmux source-file $XDG_CONFIG_HOME/tmux/extraInit";
-
-    modules.shell.zsh = {
-      rcInit = "_cache tmuxifier init -";
-      rcFiles = [ "${configDir}/tmux/aliases.zsh" ];
-    };
 
     home.configFile = {
       "tmux" = {
