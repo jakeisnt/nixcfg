@@ -5,25 +5,25 @@ with lib.my;
 let
   cfg = config.modules.theme;
   colorscheme = {
-    nord0 = "2E3440";
-    nord1 = "3B4252";
-    nord2 = "434C5E";
+    nord0 = "0D0D0D";
+    nord1 = "121414";
+    nord2 = "1A1C1C";
     nord3 = "4C566A";
-    nord4 = "D8DEE9";
-    nord5 = "E5E9F0";
-    nord6 = "ECEFF4";
+    nord4 = "F2F2F2";
+    nord5 = "FAFAFA";
+    nord6 = "FAF5EF";
     nord7 = "8FBCBB";
-    nord8 = "88C0D0";
-    nord9 = "81A1C1";
+    nord8 = "88B6D0";
+    nord9 = "ADB2BA";
     nord10 = "5E81AC";
-    nord11 = "BF616A";
-    nord12 = "D08770";
-    nord13 = "EBCB8B";
-    nord14 = "A3BE8C";
-    nord15 = "B48EAD";
+    nord11 = "BA8082";
+    nord12 = "d99962";
+    nord13 = "E9B872";
+    nord14 = "A19C9A";
+    nord15 = "CD96B3";
   };
 in {
-  config = mkIf (cfg.active == "nordic") (mkMerge [
+  config = mkIf (cfg.active == "stilla") (mkMerge [
     # Desktop-agnostic configuration
     {
       modules = {
@@ -37,8 +37,9 @@ in {
             foreground = nord4;
             background = nord0;
             fadeColor = nord3;
-            fgAlt = "f8f8f2";
-            bgAlt = "282a36";
+            fgAlt = nord6;
+            bgAlt = nord1;
+            bgAlt2 = nord2;
             color0 = nord1;
             color1 = nord11;
             color2 = nord14;
@@ -88,8 +89,6 @@ in {
             urgent = "FF5555";
           };
         };
-
-        shell.zsh.rcFiles = [ ./config/zsh/prompt.zsh ];
         shell.tmux.rcFiles = [ ./config/tmux.conf ];
         browsers = {
           firefox.userChrome = concatMapStringsSep "\n" readFile

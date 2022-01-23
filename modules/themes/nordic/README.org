@@ -1,9 +1,0 @@
-#+TITLE:  Nordic
-#+AUTHOR: Jacob Chvatal
-#+DATE:   December 28, 2020
-
-The classic nordic theme.
-
-You can do a few more things to improve the theme experience:
-- Get the DuckDuckGo theme (password: "NordDarkTheme")
-- Configure the Emacs theme (Using my or your own emacs config - highly recommend Doom!)

@@ -91,12 +91,11 @@ in {
         startsway
       fi
     '';
-    
-     
+
     modules.shell.fish.loginInit = ''
       if [ $DISPLAY ]
-        startsway 
-      end 
+        startsway
+      end
     '';
 
     home.configFile = {
@@ -107,10 +106,11 @@ in {
             set $background #${background}
             set $lighterbg  #${fadeColor}
             set $urgent #${urgent}
+            set $bgalt #${bgAlt}
             set $urgenttext #${fgAlt}
-            set $inactiveback #44475A
-            set $pholdback #282A36
-            set $focusedback #6f757d
+            set $inactiveback #${bgAlt2}
+            set $pholdback #${color9}
+            set $focusedback #${color8}
 
             set $mon2 DP-2
 

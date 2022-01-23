@@ -11,7 +11,7 @@ in {
   options.modules.theme = with types; {
     active = mkOption {
       type = nullOr str;
-      default = "nordic";
+      default = "stilla";
       apply = v:
         let theme = builtins.getEnv "THEME";
         in if theme != "" then theme else v;
@@ -28,6 +28,7 @@ in {
       background = mkOpt str "";
       fgAlt = mkOpt str "";
       bgAlt = mkOpt str "";
+      bgAlt2 = mkOpt str "";
       fadeColor = mkOpt str "";
       color0 = mkOpt str "";
       color1 = mkOpt str "";

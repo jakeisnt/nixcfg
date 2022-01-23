@@ -30,6 +30,7 @@ with lib.my;
   };
 
   modules = {
+    theme.active = "stilla";
     desktop.sway = {
       enable = true;
       fancy = true;

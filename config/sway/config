@@ -10,7 +10,7 @@ set $term alacritty
 
 set $menu launch
 
-output * bg #434C5E solid_color
+output * bg $bgalt solid_color
 
 ### Input configuration
 input type:touchpad {
