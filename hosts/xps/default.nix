@@ -35,6 +35,7 @@ with lib.my;
       enable = true;
       fancy = true;
       disable-touch = true;
+      scale = 2.0;
     };
     browsers = {
       default = "firefox";
