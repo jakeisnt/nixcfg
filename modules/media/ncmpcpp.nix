@@ -11,6 +11,7 @@ let
       mopidy-youtube
       mopidy-mpd
       mopidy-scrobbler
+      mopidy-mpris
     ]);
     pathsToLink = [ "/${pkgs.mopidyPackages.python.sitePackages}" ];
     buildInputs = [ pkgs.makeWrapper ];
@@ -32,6 +33,7 @@ in {
   config = mkIf cfg.enable {
     user.packages = with pkgs; [
       ncmpcpp
+      mopidyEnv
       mpc_cli
       (writeScriptBin "mpd" ''
         #!${stdenv.shell}
@@ -120,6 +122,7 @@ in {
         [http]
         enabled = true
         hostname = 127.0.0.1
+        allowed_origins = localhost:3000
         port = 6680
 
         [m3u]

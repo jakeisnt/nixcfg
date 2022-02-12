@@ -29,6 +29,8 @@ in {
       # due to overlay these are now wayland clipboard interoperable
       xclip
       xsel
+      # versatile audio control
+      playerctl
     ];
   };
 }

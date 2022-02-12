@@ -46,6 +46,9 @@
       audio.enable = true;
       bluetooth.enable = true;
     };
+    media = {
+      ncmpcpp.enable = true;
+    };
     shell = {
       git.enable = true;
       lf.enable = true;
