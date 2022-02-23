@@ -48,8 +48,8 @@
     };
     media = {
       ncmpcpp.enable = true;
+      recording.enable = true;
     };
-    recording.video.enable = true;
     shell = {
       git.enable = true;
       lf.enable = true;
