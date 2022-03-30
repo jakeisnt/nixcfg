@@ -15,6 +15,10 @@ in {
       gitAndTools.diff-so-fancy
       gitAndTools.git-absorb
       (mkIf config.modules.shell.gnupg.enable gitAndTools.git-crypt)
+      # semantic diff!
+      difftastic
+      # good diff page viewer
+      delta
     ];
 
     environment.shellAliases = with pkgs; {
