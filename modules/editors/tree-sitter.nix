@@ -38,6 +38,7 @@ langs = [
     "scala"
 # "swift"
     "typescript"
+    "org-nvim"
 # "commonlisp"
     ];
 
