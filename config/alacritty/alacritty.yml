@@ -1,4 +1,5 @@
 window:
+  opacity: 1
   dimensions:
     columns: 0
     lines: 0
@@ -28,7 +29,6 @@ glyph_offset:
 # If `true`, bold text is drawn using the bright color variants.
 draw_bold_text_with_bright_colors: false
 
-background_opacity: 1
 selection:
   semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
   save_to_clipboard: false
