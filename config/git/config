@@ -1,57 +1,73 @@
 [user]
-	name = Jacob Chvatal
-	email = jake@isnt.online
-	signingkey = AFF8C0623B1CE493
+    name = Jacob Chvatal
+    email = jake@isnt.online
+    signingkey = AFF8C0623B1CE493
 [gpg]
     program = gpg2
 [commit]
-	gpgsign = true
+    gpgsign = true
 [init]
     defaultBranch = main
 [core]
-	whitespace = trailing-space
+    whitespace = trailing-space
+    pager = delta
+[pager]
+    difftool = true
+[interactive]
+    diffFilter = delta --color-only
+[delta]
+    features = side-by-side line-numbers
+    hunk-header-style = omit
+    whitespace-error-style = blue purple
 [github]
-	user = jakeisnt
+    user = jakeisnt
 [gitlab]
-	user = jakeisnt
+    user = jakeisnt
 [rebase]
-	autosquash = true
+    autosquash = true
 [pull]
-	rebase = true
+    rebase = true
 [push]
-	default = current
+    default = current
 [alias]
-	amend = commit --amend
-	exec = "!exec "
-	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
-	ls = ls-files
-	orphan = checkout --orphan
-	unadd = reset HEAD
-	undo-commit = reset --soft "HEAD^"
-	rm-submodule = rm-submodule # this should really be git only
-	# data analysis
-	ranked-authors = !git authors | sort | uniq -c | sort -n
-	emails = !git log --format="%aE" | sort -u
-	email-domains = !git log --format="%aE" | awk -F'@' '{print $2}' | sort -u
+    amend = commit --amend
+    exec = "!exec "
+    lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
+    ls = ls-files
+    orphan = checkout --orphan
+    unadd = reset HEAD
+    undo-commit = reset --soft "HEAD^"
+    rm-submodule = rm-submodule # this should really be git only
+    # data analysis
+    ranked-authors = !git authors | sort | uniq -c | sort -n
+    emails = !git log --format="%aE" | sort -u
+    email-domains = !git log --format="%aE" | awk -F'@' '{print $2}' | sort -u
     count-lines = !git ls-files | xargs wc -l
 [diff]
-	algorithm = patience
+    tool = difftastic
+    colorMoved = default
+
+[difftool]
+    prompt = false
+[difftool "difftastic"]
+    cmd = difft "$LOCAL" "$REMOTE"
+
 [filter "lfs"]
-	required = true
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	clean = git-lfs clean -- %f
+    required = true
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    clean = git-lfs clean -- %f
 [sendemail]
-	smtpserver = mx.isnt.online
-	smtpencryption = tls
-	smtpserverport= 587
-	smtpuser = jake@isnt.online
+    smtpserver = mx.isnt.online
+    smtpencryption = tls
+    smtpserverport= 587
+    smtpuser = jake@isnt.online
 [transfer]
-	fsckObjects = true
+    fsckObjects = true
 [fetch]
-	fsckObjects = true
+    fsckObjects = true
 [receive]
-	fsckObjects = true
+    fsckObjects = true
 [url "https://github.com/"]
     insteadOf = gh:
 [url "git@github.com:jakeisnt/"]
@@ -63,4 +79,4 @@
 [url "https://bitbucket.org/"]
     insteadOf = bb:
 [url "https://git.v0.com"]
-	insteadOf = v0:
+    insteadOf = v0:
