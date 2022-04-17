@@ -1,10 +1,10 @@
 {
-  description = "A grossly incandescent nixos config.";
+  description = "A gross nixos config.";
 
-  inputs = { nix-cfg.url = "github:jakeisnt/nix-cfg"; };
+  inputs = { nixcfg.url = "github:jakeisnt/nixcfg"; };
 
-  outputs = inputs@{ nix-cfg, ... }: {
-    nixosConfigurations = nix-cfg.lib.mapHosts ./hosts {
+  outputs = inputs@{ nixcfg, ... }: {
+    nixosConfigurations = nixcfg.lib.mapHosts ./hosts {
       imports = [
         # If this is a linode machine
         # "${dotfiles}/hosts/linode.nix"

@@ -47,7 +47,7 @@ nix-shell -p git nixFlakes
 
 ``` sh
 chown -R nixos /mnt/boot/nixos
-git clone https://github.com/jakeisnt/nix-cfg /mnt/boot/nixos
+git clone https://github.com/jakeisnt/nixcfg /mnt/boot/nixos
 ```
 3. Generate a configuration for this machine (ensure that you've mounted swap space)
 
