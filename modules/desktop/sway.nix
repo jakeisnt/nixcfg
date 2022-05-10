@@ -118,10 +118,10 @@ in {
             exec 'swaymsg output eDP-1 scale ${lib.strings.floatToString cfg.scale}'
           '')
           (concatMapStringsSep "\n" readFile [ "${configDir}/sway/config" ])
-          (if config.modules.hardware.audio.enable then ''
-            bindsym XF86AudioRaiseVolume exec 'pactl set-sink-volume @DEFAULT_SINK@ +5%'
-            bindsym XF86AudioLowerVolume exec 'pactl set-sink-volume @DEFAULT_SINK@ -5%'
-            bindsym XF86AudioMute exec 'pactl set-sink-mute @DEFAULT_SINK@ toggle'
+          (if config.modules.hardware.audio.enable then with pkgs; ''
+            bindsym XF86AudioRaiseVolume exec '${pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ +5%'
+            bindsym XF86AudioLowerVolume exec '${pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ -5%'
+            bindsym XF86AudioMute exec '${pulseaudio}/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle'
           '' else "")
           (if cfg.disable-touch then
             ''
