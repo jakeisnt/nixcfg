@@ -28,7 +28,7 @@
     desktop.sway = {
       enable = true;
       fancy = true;
-      scale = 1.5;
+      scale = 1.25;
     };
     browsers = {
       default = "firefox";
