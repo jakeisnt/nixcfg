@@ -4,8 +4,8 @@
 (ns hey
   (:require [clojure.tools.cli :refer [parse-opts]]
             [babashka.process :as p]
-            [clojure.core.match :refer [match]])
-  (:gen-class))
+            [clojure.core.match :refer [match]]
+            [clojure.java.io :as io]))
 
 (def flake "/etc/nixos")
 
@@ -15,26 +15,35 @@
    ["u" "upgrade" "Upgrade and rebuild the NixOS image with new, upgraded inputs"]
    ["-h" "--help"]])
 
+;; rum a command with a custom printer and sane defaults provided to the process
+(defn cmd [args & [settings]]
+  (let
+    [proc (p/process args (merge {:out :inherit :err :inherit :shutdown p/destroy-tree} (or settings nil)))]
+    (with-open [rdr (io/reader (:out proc))]
+      (binding [*in* rdr]
+        @proc
+        nil))))
+
 ;; find a nixpkgs package available
 (defn find [packname]
-  (do (p/process ["nix" "search" "nixpkgs" packname] {:out :inherit}) nil))
+  (cmd ["nix" "search" "nixpkgs" packname]))
 
 ;; update the provided flake
 (defn update [flake]
-  (do @(p/process ["nix" "flake" "update" flake "--impure"]) nil))
+  (cmd ["nix" "flake" "update" flake "--impure"]))
 
 ;; rebuild and switch to the system
 (defn rebuild [flake]
-  (do @(p/process
+  (cmd
          ["sudo" "nixos-rebuild" "switch"
           "--flake" flake
           "--option" "pure-eval" "no"]
          {:in :inherit :out :inherit}))
-  nil)
 
 (defn upgrade [flake]
-  (update flake)
-  (rebuild flake))
+  (do
+    (update flake)
+    (rebuild flake)))
 
 (defn main [args]
   (let
