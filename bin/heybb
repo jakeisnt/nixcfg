@@ -24,7 +24,7 @@
 (defn update [flake]
   (do @(p/process ["nix" "flake" "update" flake "--impure"]) nil))
 
-;; rebuild the system
+;; rebuild and switch to the system
 (defn rebuild [flake]
   (do @(p/process
          ["sudo" "nixos-rebuild" "switch"
