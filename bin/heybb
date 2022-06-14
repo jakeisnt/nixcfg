@@ -1,0 +1,43 @@
+#!/usr/bin/env nix-shell
+#! nix-shell -p babashka -i "bb -i"
+
+(ns hey
+  (:require [clojure.tools.cli :refer [parse-opts]]
+            [clojure.java.shell :refer [sh]]
+            [babashka.process :as p]
+            [clojure.core.match :refer [match]])
+  (:gen-class))
+
+(def flake "/etc/nixos")
+
+(def cli-options
+  [["f" "find PACKNAME" "Package name to search for"]
+   ["-h" "--help"]])
+
+(defn find [packname]
+  (do
+    (p/process ["nix" "search" "nixpkgs" packname] {:out :inherit})
+    nil))
+
+(defn rebuild [flake]
+  (p/process
+    ["sudo" "nixos-rebuild" "switch"
+     "--flake" flake
+     "--option" "pure-eval" "no"]
+    { :in :inherit :out :inherit }))
+
+(defn -main [args]
+  (let
+    [res (parse-opts args cli-options)
+     opts (:options res)
+     args (:arguments res)]
+
+    (match args
+           ["find" packname] (find packname)
+           ["rebuild"] (rebuild flake)
+           :else (println "failed to find anything lol"))))
+
+;; This shouldn't be required here - not sure why it is.
+(-main *command-line-args*)
+
+;; vi: ft=clojure
