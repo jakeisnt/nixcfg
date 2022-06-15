@@ -4,6 +4,7 @@ with lib;
 with lib.my;
 let
   cfg = config.modules.editors.vim;
+  launchNvim = "nvim -u ~/.config/nvim/init.lua";
 in
 {
   options.modules.editors.vim = { enable = mkBoolOpt false; };
@@ -37,9 +38,9 @@ in
     env.VIMINIT = "let \\$MYVIMRC='\\$XDG_CONFIG_HOME/nvim/init.vim' | source \\$MYVIMRC";
 
     environment.shellAliases = {
-      vim = "nvim";
-      vi = "nvim";
-      v = "nvim";
+      vim = launchNvim;
+      vi = launchNvim;
+      v = launchNvim;
     };
   };
 }
