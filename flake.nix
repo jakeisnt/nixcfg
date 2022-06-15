@@ -41,7 +41,7 @@
     };
 
     doom-emacs = {
-      url = "github:hlissner/doom-emacs/develop";
+      url = "github:doomemacs/doomemacs/master";
       flake = false;
     };
 

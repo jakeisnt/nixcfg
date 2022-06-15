@@ -75,8 +75,10 @@ with inputs; {
     # linux good to haves
     coreutils
     wget
+
     # file # check type of files
     # h # fun program
+    
     gnumake
     # offer some convenience as needed
     unzip
@@ -84,5 +86,8 @@ with inputs; {
     # nice nttworking utils
     # httpie
     # curlie
+
+    # scripting utility of choice (?)
+    babashka
   ];
 }

@@ -7,7 +7,7 @@
 with lib;
 with lib.my;
 let
-  myemacs0 = pkgs.emacsPgtkGcc;
+  myemacs0 = pkgs.emacsPgtkNativeComp;
   emacsWPkgs = (pkgs.emacsPackagesFor myemacs0).emacsWithPackages;
   myemacs = emacsWPkgs (epkgs: (with epkgs; [ vterm pdf-tools ]));
 
