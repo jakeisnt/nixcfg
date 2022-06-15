@@ -7,7 +7,7 @@ let
   mopidyEnv = pkgs.buildEnv {
     name = "mopidy-with-extensions";
     paths = closePropagation (with pkgs; [
-      mopidy-spotify
+      # mopidy-spotify
       mopidy-youtube
       mopidy-mpd
       mopidy-scrobbler
