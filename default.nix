@@ -70,20 +70,16 @@ with inputs; {
 
   # let's get started!
   environment.systemPackages = with pkgs; [
-    # nix tools
-    # nixpkgs-fmt
     # linux good to haves
     coreutils
     wget
-
-    # file # check type of files
-    # h # fun program
     
     gnumake
     # offer some convenience as needed
     unzip
     cmake
-    # nice nttworking utils
+
+    # nice networking utils
     # httpie
     # curlie
 

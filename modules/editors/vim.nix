@@ -33,11 +33,10 @@ in
 
     modules.editors.tree-sitter.enable = true;
 
-    # source '/home/jake/.config/nvim/theme.vim'
-
-    env.VIMINIT = "let \\$MYVIMRC='\\$XDG_CONFIG_HOME/nvim/init.vim' | source \\$MYVIMRC";
+    # env.VIMINIT = "let \\$MYVIMRC='\\$XDG_CONFIG_HOME/nvim/init.lua' | source \\$MYVIMRC";
 
     environment.shellAliases = {
+      nvim = launchNvim;
       vim = launchNvim;
       vi = launchNvim;
       v = launchNvim;

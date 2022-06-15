@@ -39,7 +39,7 @@
       alacritty.enable = true;
     };
     editors = {
-      default = "vim";
+      default = "nvim";
       vim.enable = true;
       emacs.enable = true;
     };

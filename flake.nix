@@ -46,9 +46,6 @@
     };
 
     isntweb-home.url = "github:isntweb/home";
-
-    # neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
-    # broken too frequently for me to be able to live on the bleeding edge...
   };
 
   outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, spicetify-nix, doom-emacs, isntweb-home, ... }:
