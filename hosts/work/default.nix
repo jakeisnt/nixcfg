@@ -39,8 +39,9 @@
       alacritty.enable = true;
     };
     editors = {
-      default = "nvim";
+      default = "vim";
       vim.enable = true;
+      emacs.enable = true;
     };
     hardware = {
       audio.enable = true;

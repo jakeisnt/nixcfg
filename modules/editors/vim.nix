@@ -13,11 +13,6 @@ in
       package = pkgs.neovim-unwrapped; # switch from (neovim-nightly)
       enable = true;
       defaultEditor = false; # this is configured by me elsewhere
-      configure = {
-	customRC = ''
-	  lua require('init')
-	'';
-      };
     };
 
     user.packages = with pkgs; [
