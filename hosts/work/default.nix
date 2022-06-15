@@ -43,6 +43,9 @@
       vim.enable = true;
       emacs.enable = true;
     };
+    dev = {
+      clojure.enable = true; 
+    };
     hardware = {
       audio.enable = true;
       bluetooth.enable = true;

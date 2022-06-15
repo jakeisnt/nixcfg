@@ -1,6 +1,6 @@
 # modules/dev/clojure.nix --- https://clojure.org/
 #
-# I don't use clojure. Perhaps one day...
+# I use clojure now > : )
 
 { config, options, lib, pkgs, my, ... }:
 
@@ -11,6 +11,6 @@ in {
   options.modules.dev.clojure = { enable = mkBoolOpt false; };
 
   config = mkIf cfg.enable {
-    user.packages = with pkgs; [ clojure-lsp clojure joker leiningen ];
+    user.packages = with pkgs; [ jdk17 clojure-lsp clojure joker leiningen ];
   };
 }

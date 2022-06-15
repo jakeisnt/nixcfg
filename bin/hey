@@ -35,10 +35,10 @@
 ;; rebuild and switch to the system
 (defn rebuild [flake]
   (cmd
-         ["sudo" "nixos-rebuild" "switch"
-          "--flake" flake
-          "--option" "pure-eval" "no"]
-         {:in :inherit :out :inherit}))
+    ["sudo" "nixos-rebuild" "switch"
+     "--flake" flake
+     "--option" "pure-eval" "no"]
+    {:in :inherit :out :inherit}))
 
 (defn upgrade [flake]
   (do
