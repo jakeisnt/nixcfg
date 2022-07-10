@@ -1,0 +1,120 @@
+#!/usr/bin/env nix-shell
+#! nix-shell -p babashka -i "bb -i"
+
+;; ripgrep for variable names!
+
+;; if the term matches one of these patterns:
+;; replicate it as the others and make lots of ripgrep requests for them
+;; otherwise: send to rg unmodified
+
+;; patterns: 
+;; UpperCamelCase
+;; camelCaseRegular
+;; kebab-case-i-think
+;; snake_case_apparently
+;; SCREAMING_SNAKE_CASE
+
+(ns rgt
+  (:require [clojure.tools.cli :refer [parse-opts]]
+            [babashka.process :as p]
+            [clojure.core.match :refer [match]]
+            [clojure.string :as str]
+            [clojure.java.io :as io]))
+
+;; --- utils ---
+(defn cmd 
+  "Run a command with a custom printer and sane defaults provided to the process"
+  [args & [settings]]
+  (let
+    [proc (p/process args (merge {:out :inherit :err :inherit :shutdown p/destroy-tree} (or settings nil)))]
+    (with-open [rdr (io/reader (:out proc))]
+      (binding [*in* rdr] @proc nil))))
+
+
+;; --- recognizers ---
+(def camel-regex #"[A-Z0-9][a-z0-9]+")
+(def upper-camel-regex #"[a-z0-9]+[A-Z0-9][a-z0-9]+")
+(def kebab-regex #"[a-z0-9][a-z0-9-]+[a-z0-9]")
+(def snake-regex #"[a-z0-9][a-z0-9_]+[a-z0-9]")
+(def screaming-snake-regex #"[A-Z0-9][A-Z0-9_]+[A-Z0-9]")
+
+;; --- split-on patterns ---
+(def camel-split #"(?=[A-Z])")
+(def kebab-split #"-")
+(def snake-split #"_")
+
+;; --- make cases ---
+;; a 'term' is a seq of lowercase strings
+(defn make-camel [term]
+  (str/join (cons (first term) (map str/capitalize (rest term)))))
+
+(defn make-upper-camel [term]
+  (str/join (map str/capitalize term)))
+
+(defn make-kebab [term]
+  (str/join "-" term))
+
+(defn make-snake [term]
+  (str/join "_" term))
+
+(defn make-screaming-snake [term]
+  (str/join "_" (map str/upper-case term)))
+
+;; --- case map ---
+(def cases {:camel-case {:regex camel-regex :gen make-camel} 
+            :upper-camel-case {:regex upper-camel-regex :gen make-upper-camel}
+            :kebab-case {:regex kebab-regex :gen make-kebab}
+            :snake-case {:regex snake-regex :gen make-snake}
+            :screaming-snake-case {:regex screaming-snake-regex :gen make-screaming-snake}})
+
+(defn str->term 
+  "Convert a variable name string into a seq of lowercase strings"
+  [arg term-type]
+  (map str/lower-case 
+       (str/split 
+         arg 
+         (match term-type
+          (:or :snake-case :screaming-snake-case) snake-split
+          (:or :camel-case :upper-camel-case) camel-split
+          :kebab-case kebab-split))))
+
+(defn permute-term 
+  "Permute term into forms aside from the one provided to exclude"
+  [term to-exclude]
+  (let 
+    [rem-map (dissoc cases to-exclude)
+     case-keys (keys rem-map)]
+    (map 
+      (fn [case-key] ((:gen (case-key rem-map)) term))
+      case-keys)))
+
+(defn rg 
+  "Invoke `ripgrep` with the provided argument"
+  [arg]
+  (println "`rg` " arg)
+  (cmd ["rg" arg]))
+
+(defn search-all-but 
+  "Search all terms but the term configured to be excluded."
+  [arg term-type]
+  (let 
+   [term-str (str->term arg term-type)
+    permuted-term (permute-term term-str term-type)]
+   (println "Invoking ripgrep for each of the following terms: " permuted-term)
+    (map rg permuted-term)))
+
+(defn main [args]
+  (let
+    [arg (str/join #" " args)]
+    (cond 
+      (re-matches camel-regex arg) (search-all-but arg :camel-case)
+      (re-matches upper-camel-regex arg) (search-all-but arg :upper-camel-case)
+      (re-matches kebab-regex arg) (search-all-but arg :kebab-case)
+      (re-matches snake-regex arg) (search-all-but arg :snake-case)
+      (re-matches screaming-snake-regex arg) (search-all-but arg :screaming-snake-case)
+      ;; fall back to a trivial ripgrep search with everything to search for
+      :else (rg arg))))
+
+(main *command-line-args*)
+
+;; vi: ft=clojure
