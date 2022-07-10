@@ -5,7 +5,6 @@
 
 ;; if the term matches one of these patterns:
 ;; replicate it as the others and make lots of ripgrep requests for them
-;; otherwise: send to rg unmodified
 
 ;; patterns: 
 ;; UpperCamelCase
@@ -13,6 +12,10 @@
 ;; kebab-case-i-think
 ;; snake_case_apparently
 ;; SCREAMING_SNAKE_CASE
+
+;; TODO:
+;; - fix recognition of some of these terms in some patterns
+;; - figure out why `cmd` is hanging in all cases
 
 (ns rgt
   (:require [clojure.tools.cli :refer [parse-opts]]
@@ -32,8 +35,8 @@
 
 
 ;; --- recognizers ---
-(def camel-regex #"[A-Z0-9][a-z0-9]+")
-(def upper-camel-regex #"[a-z0-9]+[A-Z0-9][a-z0-9]+")
+(def camel-regex #"[a-z0-9]+[A-Z0-9][a-z0-9]+")
+(def upper-camel-regex #"[A-Z0-9][a-z0-9]+")
 (def kebab-regex #"[a-z0-9][a-z0-9-]+[a-z0-9]")
 (def snake-regex #"[a-z0-9][a-z0-9_]+[a-z0-9]")
 (def screaming-snake-regex #"[A-Z0-9][A-Z0-9_]+[A-Z0-9]")
@@ -100,7 +103,7 @@
   (let 
    [term-str (str->term arg term-type)
     permuted-term (permute-term term-str term-type)]
-   (println "Invoking ripgrep for each of the following terms: " permuted-term)
+   (println "Invoking rg for the terms " permuted-term)
     (map rg permuted-term)))
 
 (defn main [args]
@@ -113,7 +116,9 @@
       (re-matches snake-regex arg) (search-all-but arg :snake-case)
       (re-matches screaming-snake-regex arg) (search-all-but arg :screaming-snake-case)
       ;; fall back to a trivial ripgrep search with everything to search for
-      :else (rg arg))))
+      :else (do
+              (println "Term not recognized; falling back to trivial ripgrep search")
+              (rg arg)))))
 
 (main *command-line-args*)
 
