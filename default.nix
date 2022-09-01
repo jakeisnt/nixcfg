@@ -54,6 +54,8 @@ with inputs; {
   system.configurationRevision = mkIf (self ? rev) self.rev;
   system.stateVersion = "20.09";
 
+  fonts.fontDir.enable = true;
+
   ## Some reasonable, global defaults
   # This is here to appease 'nix flake check' for generic hosts with no
   # hardware-configuration.nix or fileSystem config.
