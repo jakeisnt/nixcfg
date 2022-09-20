@@ -6,10 +6,12 @@
 
 with lib;
 with lib.my;
+# emacs pgtk + native-comp
+# this was `29.2`, but we're having some issues...
 let
-  myemacs0 = pkgs.emacsPgtkNativeComp;
+  myemacs0 = pkgs.emacsNativeComp;
   emacsWPkgs = (pkgs.emacsPackagesFor myemacs0).emacsWithPackages;
-  myemacs = emacsWPkgs (epkgs: (with epkgs; [ vterm pdf-tools ]));
+  myemacs = emacsWPkgs (epkgs: (with epkgs; [ vterm pdf-tools org-pdftools ]));
 
   cfg = config.modules.editors.emacs;
   # install doom emacs if not already configured!!
