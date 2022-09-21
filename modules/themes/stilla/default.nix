@@ -113,10 +113,11 @@ in {
           siji
           font-awesome
           roboto-mono
+          ibm-plex
         ];
         fontconfig.defaultFonts = {
           sansSerif = [ "Fira Sans" ];
-          monospace = [ "Roboto Mono" ]; # was fira code
+          monospace = [ "IBM Plex Mono" ]; # was fira code
         };
       };
 
