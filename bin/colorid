@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+
+# identify a color on ur screen by clicking on it (i think this works?)
+# Requires 'slurp' and 'grim' executables
+
+grim -g "$(slurp -p)" -t ppm - | convert - -format '%[pixel:p{0:0}]' txt:-
