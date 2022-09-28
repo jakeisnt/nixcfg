@@ -50,6 +50,7 @@
       audio.enable = true;
       bluetooth.enable = true;
     };
+    messengers.email.enable = true;
     media = {
       ncmpcpp.enable = true;
       recording.enable = true;
