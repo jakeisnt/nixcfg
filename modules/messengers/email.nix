@@ -50,9 +50,10 @@ in {
 
         [Repository isnt-remote]
         type = IMAP
-        remotehost = get_password(${sops.secrets.email_host.path})
-        remoteuser = get_password(${sops.secrets.email_user.path})
-        remotepass = get_password(${sops.secrets.email_password.path})
+        # TODO this does not work lol
+        remotehost = get_password({sops.secrets.email_host.path})
+        remoteuser = get_password({sops.secrets.email_user.path})
+        remotepass = get_password({sops.secrets.email_password.path})
         realdelete = no
         maxconnections = 3
         sslcacertfile = /etc/ssl/certs/ca-certificates.crt
@@ -159,7 +160,7 @@ in {
         auth on
         from ${secrets.email.user}
         user ${secrets.email.user}
-        passwordeval "cat ${sops.email_password}"
+        passwordeval "cat ${secrets.email.password}"
         tls on
         tls_nocertcheck
       '';
