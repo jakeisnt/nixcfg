@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# disable mouse
+swaymsg input 2362:628:PIXA3854:00_093A:0274_Mouse events disabled
+swaymsg input 2362:628:PIXA3854:00_093A:0274_Touchpad events disabled
