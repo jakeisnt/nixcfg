@@ -18,7 +18,7 @@
   networking.networkmanager = {
     enable = true;
     wifi = {
-      powersave = false; # no wifi lag (hopefully)
+      powersave = false; # no wifi lag
     };
   };
   services.xserver.libinput.enable = true;
