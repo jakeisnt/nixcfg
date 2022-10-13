@@ -15,7 +15,12 @@
   networking.useDHCP = false;
   networking.interfaces.wlp170s0.useDHCP = true;
 
-  networking.networkmanager.enable = true;
+  networking.networkmanager = {
+    enable = true;
+    wifi = {
+      powersave = false; # no wifi lag (hopefully)
+    };
+  };
   services.xserver.libinput.enable = true;
   services.openssh.startWhenNeeded = true;
 
