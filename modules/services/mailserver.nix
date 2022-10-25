@@ -28,7 +28,7 @@ in {
 
       loginAccounts = {
         "jake@${domain}" = {
-          hashedPassword = secrets.email.hashedPassword;
+          password = secrets.email.password;
           # aliases = [ ];
           catchAll = [ domain ];
         };
