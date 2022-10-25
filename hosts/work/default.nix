@@ -24,6 +24,10 @@
   services.xserver.libinput.enable = true;
   services.openssh.startWhenNeeded = true;
 
+  user.packages = with pkgs; [
+    thunderbird
+  ];
+
   programs.ssh = {
     startAgent = true;
     forwardX11 = true;
@@ -55,7 +59,7 @@
       audio.enable = true;
       bluetooth.enable = true;
     };
-    messengers.email.enable = true;
+    # messengers.email.enable = true;
     media = {
       ncmpcpp.enable = true;
       recording.enable = true;

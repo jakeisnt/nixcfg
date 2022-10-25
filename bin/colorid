@@ -1,4 +1,5 @@
-#!/usr/bin/env sh
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash -p grim slurp
 
 # identify a color on ur screen by clicking on it (i think this works?)
 # Requires 'slurp' and 'grim' executables
