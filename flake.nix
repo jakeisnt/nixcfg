@@ -45,10 +45,11 @@
       flake = false;
     };
 
-    isntweb-home.url = "github:isntweb/home";
+    # isntweb-home.url = "github:isntweb/home";
   };
 
-  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, spicetify-nix, doom-emacs, isntweb-home, ... }:
+# isntweb-home, 
+  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, spicetify-nix, doom-emacs, ... }:
     let
       inherit (lib) attrValues;
       inherit (lib.my) mapModules mapModulesRec mapHosts;

@@ -35,6 +35,8 @@ with lib.my; {
     };
   };
 
+  boot.loader.systemd-boot.enable = false;
+
   boot.loader.grub = {
     enable = true;
     version = 2;
@@ -52,7 +54,7 @@ with lib.my; {
     interfaces.ens3.useDHCP = true;
   };
 
-  isntweb-home.enable = true;
+  # isntweb-home.enable = true;
   services.nginx.virtualHosts = {
     "isnt.online" = {
       forceSSL = true;

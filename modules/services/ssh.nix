@@ -16,7 +16,7 @@ in {
     services.openssh = {
       enable = true;
       forwardX11 = true;
-      challengeResponseAuthentication = false;
+      kbdInteractiveAuthentication = false;
       passwordAuthentication = false;
     };
 
