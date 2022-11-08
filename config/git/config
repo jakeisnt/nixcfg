@@ -43,6 +43,8 @@
     emails = !git log --format="%aE" | sort -u
     email-domains = !git log --format="%aE" | awk -F'@' '{print $2}' | sort -u
     count-lines = !git ls-files | xargs wc -l
+    # fzf-based rebase
+    # frbi = "!f() { git rebase -i $(git log --pretty=oneline --color=always) | fzf --ansi | cut -d ' ' -f1; }; f"
 [diff]
     tool = difftastic
     colorMoved = default
