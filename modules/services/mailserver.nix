@@ -35,7 +35,7 @@ in {
 # the certificate
 $config['smtp_server'] = "tls://${config.mailserver.fqdn}";
 $config['smtp_user'] = "%u";
-$config['smtp_pass'] = "%p"
+$config['smtp_pass'] = "%p";
       '';
     };
 
