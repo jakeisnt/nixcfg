@@ -60,7 +60,7 @@
     process = git-lfs filter-process
     clean = git-lfs clean -- %f
 [sendemail]
-    smtpserver = mx.isnt.online
+    smtpserver = mail.isnt.online
     smtpencryption = tls
     smtpserverport= 587
     smtpuser = jake@isnt.online

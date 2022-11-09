@@ -23,7 +23,7 @@ in {
 
     mailserver = {
       enable = true;
-      fqdn = "mx.${domain}";
+      fqdn = "mail.${domain}";
       domains = [ domain ];
 
       loginAccounts = {
