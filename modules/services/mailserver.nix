@@ -19,7 +19,25 @@ in {
       995  # POP3 with TLS
       143  # IMAP with StartTLS
       110  # POP3 with StartTLS
+
+      # roundcube
+      80
+      443
     ];
+
+    services.nginx.enable = true;
+
+    services.roundcube = {
+      enable = true;
+      hostName =  "mail.${domain}";
+      extraConfig = ''
+# starttls needed for authentication, so the fqdn required to match
+# the certificate
+$config['smtp_server'] = "tls://${config.mailserver.fqdn}";
+$config['smtp_user'] = "%u";
+$config['smtp_pass'] = "%p"
+      '';
+    };
 
     mailserver = {
       enable = true;
@@ -50,9 +68,7 @@ in {
       certificateScheme = 3;
 
       # Enable IMAP and POP3
-      enableImap = true;
-      enablePop3 = true;
-      enableImapSsl = true;
+      enableImap = true; enablePop3 = true; enableImapSsl = true;
       enablePop3Ssl = true;
 
       # Enable the ManageSieve protocol
