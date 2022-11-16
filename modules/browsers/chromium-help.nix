@@ -9,7 +9,11 @@ in {
   options.modules.browsers.chromium-help = {
     enable = mkBoolOpt false;
   };
+
   config = mkIf cfg.enable {
+  # TODO: chrome with wayland?
+  # chromium.commandLineArgs = "--enable-features=UseOzonePlatform --ozone-platform=wayland";
+  # enable wayland for chromium
     programs.chromium = {
       enable = true;
       # TODO: change to something more secure than google
