@@ -1,13 +1,9 @@
-# Emacs is my main driver. I'm the author of Doom Emacs
-# https://github.com/hlissner/doom-emacs. This module sets it up to meet my
-# particular Doomy needs.
-
 { config, lib, pkgs, inputs, ... }:
 
 with lib;
 with lib.my;
-# emacs pgtk + native-comp
-# this was `29.2`, but we're having some issues...
+# emacs (~pgtk~) + native-comp
+# this was `29.2`, but the emacs interface keeps changing in backwards-incompatible ways
 let
   myemacs0 = pkgs.emacsNativeComp;
   emacsWPkgs = (pkgs.emacsPackagesFor myemacs0).emacsWithPackages;
