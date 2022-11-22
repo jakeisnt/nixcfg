@@ -340,7 +340,6 @@ with lib.my;
               in
                 {
                   "x-scheme-handler/mailto" = [ "userapp-Thunderbird-F73ZX0.desktop" ];
-
                   "application/pdf" = [ "org.pwmt.zathura-pdf-mupdf.desktop" ];
                 } // (lib.genAttrs code (_: [ "emacsclient.desktop" ]))
                 // (lib.genAttrs images (_: [ "imv.desktop" ]))
