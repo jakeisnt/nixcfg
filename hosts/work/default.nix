@@ -26,6 +26,7 @@
 
   user.packages = with pkgs; [
     thunderbird
+    zathura
   ];
 
   programs.ssh = {
