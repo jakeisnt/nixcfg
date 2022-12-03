@@ -61,6 +61,10 @@ $config['smtp_pass'] = "%p";
           hashedPassword = secrets.email.hashedPassword;
           # aliases = [ ];
         };
+        "phoebe@${domain}" = {
+          hashedPassword = secrets.email.hashedPasswordP;
+          aliases = [ "pheebs" ];
+        };
       };
 
       # Use Let's Encrypt certificates. Note that this needs to set up a stripped
