@@ -13,7 +13,8 @@ let
       DisableFirefoxStudies = true;
       DisablePocket = true;
       DisableTelemetry = true;
-      DisableFirefoxAccounts = true;
+      # I want Firefox Accounts to share things between browsers!
+      # DisableFirefoxAccounts = true;
       FirefoxHome = {
         Pocket = false;
         Snippets = false;
