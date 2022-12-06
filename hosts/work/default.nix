@@ -24,6 +24,10 @@
   services.xserver.libinput.enable = true;
   services.openssh.startWhenNeeded = true;
 
+  # needed for `Texts.app`?
+  # security.pam.services.gdm.enableGnomeKeyring = true;
+
+
   user.packages = with pkgs; [
     thunderbird
     zathura

@@ -1,30 +1,23 @@
-
 { config, lib, pkgs, inputs, ... }:
 
 with lib;
 with lib.my;
 
 let
-# from https://github.com/Mic92/dotfiles
-treeSitterGrammars = pkgs.runCommandLocal "grammars" {} ''
+    # from https://github.com/Mic92/dotfiles
+    treeSitterGrammars = pkgs.runCommandLocal "grammars" {} ''
 mkdir -p $out/bin
 ${lib.concatStringsSep "\n"
-    (lib.mapAttrsToList (name: src: "ln -s ${src}/parser $out/bin/${name}.so") pkgs.tree-sitter.builtGrammars)};
+    (lib.mapAttrsToList (name: src: "ln -s ${src}/parser $out/bin/${name}.so") pkgs.tree-sitter.builtGrammars)}
 '';
 
 langs = [
-    "agda"
     "bash"
     "c"
     "c-sharp"
-# "cpp"
     "css"
-    /*"elm" */
-    "fluent"
     "go"
-    /*"hcl"*/
     "html"
-    /*"janet-simple"*/
     "java"
     "javascript"
     "jsdoc"
@@ -39,8 +32,8 @@ langs = [
 # "swift"
     "typescript"
     "org-nvim"
-# "commonlisp"
-    ];
+    "commonlisp"
+];
 
     grammars = lib.getAttrs (map (lang: "tree-sitter-${lang}") langs) pkgs.tree-sitter.builtGrammars;
     cfg = config.modules.editors.tree-sitter;
@@ -58,9 +51,9 @@ langs = [
             ];
 
             home.file.".tree-sitter".source = (pkgs.runCommand "grammars" {} ''
-                    mkdir -p $out/bin
-                    ${lib.concatStringsSep "\n"
-                    (lib.mapAttrsToList (name: src: "name=${name}; ln -s ${src}/parser $out/bin/\${name#tree-sitter-}.so") grammars)};
-                    '');
+        mkdir -p $out/bin
+        ${lib.concatStringsSep "\n"
+            (lib.mapAttrsToList (name: src: "name=${name}; ln -s ${src}/parser $out/bin/\${name#tree-sitter-}.so") grammars)};
+'');
         };
     }

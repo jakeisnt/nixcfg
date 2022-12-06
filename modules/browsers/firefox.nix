@@ -7,7 +7,7 @@ let
   # TODO: add anti tracking policies at build time
   # https://wiki.kairaven.de/open/app/firefox in german : (
   firefoxWrapped = pkgs.wrapFirefox pkgs.firefox-unwrapped {
-    forceWayland = config.modules.wayland.enable;
+    # forceWayland = config.modules.wayland.enable;
     extraPolicies = {
       CaptivePortal = false;
       DisableFirefoxStudies = true;
