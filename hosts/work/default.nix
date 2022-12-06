@@ -24,9 +24,9 @@
   services.xserver.libinput.enable = true;
   services.openssh.startWhenNeeded = true;
 
-  # needed for `Texts.app`?
-  security.pam.services.gdm.enableGnomeKeyring = true;
-
+  # needed for `Texts.app`? Not working yet... TODO. This is in `packages/`
+  # security.pam.services.login.enableGnomeKeyring = true;
+  services.gnome.gnome-keyring.enable = true;
 
   user.packages = with pkgs; [
     thunderbird
