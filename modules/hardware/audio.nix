@@ -26,7 +26,11 @@ in {
       jack.enable = true;
     };
 
-    # communicate with pipewire via `pactl`
-    user.packages = with pkgs; [ pulseaudio ];
+    user.packages = with pkgs; [
+      # communicate with pipewire via `pactl`
+      pulseaudio
+      # dynamically linked to; supports camera connection
+      libcamera
+    ];
   };
 }
