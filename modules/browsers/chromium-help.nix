@@ -41,6 +41,8 @@ in {
 
         # "BrowserSignin" = 0;
         # "SyncDisabled" = true;
+
+        # Definitely want to turn off these though.
         "PasswordManagerEnabled" = false;
         "CloudReportingEnabled" = false;
         "SafeBrowsingEnabled" = false;
