@@ -27,10 +27,8 @@ in {
         "cjpalhdlnbpafiamejdnhcphjbkeiagm" # ublock origin
         "kkkjlfejijcjgjllecmnejhogpbcigdc" # org-capture
         "dbepggeogbaibhgnhhndojpepiihcmeb" # vimium
-        "abehfkkfjlplnjadfcjiflnejblfmmpj" # nord theme
         "ddehdnnhjimbggeeenghijehnpakijod" # remove scrollbar
         "ikdgincnppajmpmnhfheflannaiapmlm" # ampie: social interaction with webpages
-        "hhinaapppaileiechjoiifaancjggfjm" # lastfm web scrobbler
         # custom css;
         # ::-webkit-scrollbar {
         #   display: none;
@@ -42,9 +40,9 @@ in {
       # add more options when using chromium !!
       # info found here: https://cloud.google.com/docs/chrome-enterprise/policies/#miscellaneous
       extraOpts = {
-        "BrowserSignin" = 0;
+        # "BrowserSignin" = 0;
         "PasswordManagerEnabled" = false;
-        "SyncDisabled" = true;
+        # "SyncDisabled" = true;
         "CloudReportingEnabled" = false;
         "SafeBrowsingEnabled" = false;
         "ReportSafeBrowsingData" = false;
