@@ -1,21 +1,16 @@
 # flake.nix --- the heart of my dotfiles
 #
-# Author:  Henrik Lissner <henrik@lissner.net>
-# URL:     https://github.com/hlissner/dotfiles
+# Author:  Henrik Lissner <henrik@lissner.net> ++ Jake Chvatal <jakechvatal@gmail.com>
+# URL:     https://github.com/jakeisnt/nixcfg
 # License: MIT
-#
-# Welcome to ground zero. Where the whole flake gets set up and all its modules
-# are loaded.
 
 {
   description = "A grossly incandescent nixos config.";
 
   inputs = {
-    # Core dependencies.
     # Two inputs so I can track them separately at different rates.
     nixpkgs.url = "nixpkgs/master";
     nixpkgs-unstable.url = "nixpkgs/master";
-
 
     home-manager.url = "github:rycee/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -113,13 +108,18 @@
             path = ./.;
             description = "A grossly incandescent nixos config";
           };
+          # TODO: I don't use this. Consider retiring!
           minimal = {
             path = ./templates/minimal;
             description = "A grossly incandescent and minimal nixos config";
           };
+          flake = {
+            path = ./templates/flake;
+            description = "A simple Nix flake starter project.";
+          };
         };
 
-        defaultTemplate = self.templates.minimal;
+        defaultTemplate = self.templates.flake;
 
         defaultApp."${system}" = {
           type = "app";
