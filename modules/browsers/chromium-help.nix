@@ -21,7 +21,6 @@ in {
         "https://encrypted.google.com/complete/search?output=chrome&q={searchTerms}";
       homepageLocation = "https://github.com";
       extensions = [
-        "nngceckbapebfimnlniiiahkandclblb" # bitwarden
         "cjpalhdlnbpafiamejdnhcphjbkeiagm" # ublock origin
         "kkkjlfejijcjgjllecmnejhogpbcigdc" # org-capture
         "dbepggeogbaibhgnhhndojpepiihcmeb" # vimium
