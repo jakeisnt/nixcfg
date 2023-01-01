@@ -26,7 +26,7 @@ with lib.my; {
         # element = true;
       };
       bitwarden = {
-        enable = true;
+        enable = false;
         registration = false;
         mail = false;
       };
