@@ -40,12 +40,17 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # used to pin doom emacs version
     doom-emacs = {
       url = "github:doomemacs/doomemacs/master";
       flake = false;
     };
 
-    # isntweb-home.url = "github:isntweb/home";
+    # used for compatible nix build when flakes aren't yet enabled
+    flake-compat = {
+      url = github:edolstra/flake-compat;
+      flake = false;
+    };
   };
 
 # isntweb-home, 
