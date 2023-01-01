@@ -11,9 +11,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-  # TODO: chrome with wayland?
-  # chromium.commandLineArgs = "--enable-features=UseOzonePlatform --ozone-platform=wayland";
-  # enable wayland for chromium
+  # TODO: Enable wayland for chromium. Currently this is a saved browser setting, but it might not carry over.
     programs.chromium = {
       enable = true;
       # TODO: change to something more secure than google
@@ -37,12 +35,14 @@ in {
         # also sign into lastfm scrobbler
       ];
 
-      # add more options when using chromium !!
-      # info found here: https://cloud.google.com/docs/chrome-enterprise/policies/#miscellaneous
       extraOpts = {
+        # I like having my information synced across browser sessions,
+        # and I'm okay with surrendering some information to Google to do so.
+        # The other settings may not work without managed browser control, though.
+
         # "BrowserSignin" = 0;
-        "PasswordManagerEnabled" = false;
         # "SyncDisabled" = true;
+        "PasswordManagerEnabled" = false;
         "CloudReportingEnabled" = false;
         "SafeBrowsingEnabled" = false;
         "ReportSafeBrowsingData" = false;
