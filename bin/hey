@@ -13,12 +13,13 @@
   [["f" "find PACKNAME" "Package name to search for"]
    ["r" "rebuild" "Rebuild the current NixOS image without upgrading"]
    ["u" "upgrade" "Upgrade and rebuild the NixOS image with new, upgraded inputs"]
+   ["gc" "garbage-collect" "Delete unused packages and previous derivations"]
    ["-h" "--help"]])
 
 ;; rum a command with a custom printer and sane defaults provided to the process
 (defn cmd [args & [settings]]
   (let
-    [proc (p/process args (merge {:out :inherit :err :inherit :shutdown p/destroy-tree} (or settings nil)))]
+      [proc (p/process args (merge {:out :inherit :err :inherit :shutdown p/destroy-tree} (or settings nil)))]
     (with-open [rdr (io/reader (:out proc))]
       (binding [*in* rdr]
         @proc
@@ -35,10 +36,14 @@
 ;; rebuild and switch to the system
 (defn rebuild [flake]
   (cmd
-    ["sudo" "nixos-rebuild" "switch"
-     "--flake" flake
-     "--option" "pure-eval" "no"]
-    {:in :inherit :out :inherit}))
+   ["sudo" "nixos-rebuild" "switch"
+    "--flake" flake
+    "--option" "pure-eval" "no"]
+   {:in :inherit :out :inherit}))
+
+;; collect garbage
+(defn collect-garbage []
+  (cmd ["nix-collect-garbage"]))
 
 (defn upgrade [flake]
   (do
@@ -47,15 +52,16 @@
 
 (defn main [args]
   (let
-    [res (parse-opts args cli-options)
-     opts (:options res)
-     args (:arguments res)]
+      [res (parse-opts args cli-options)
+       opts (:options res)
+       args (:arguments res)]
 
     (match args
            ["find" packname] (find packname)
            ["rebuild"] (rebuild flake)
            ["update"] (update flake)
            ["upgrade"] (upgrade flake)
+           ["garbage-collect"] (collect-garbage)
            :else (println "Commands provided were invalid - sorry!"))))
 
 (main *command-line-args*)
