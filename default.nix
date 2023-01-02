@@ -70,22 +70,9 @@ with inputs; {
     systemd-boot.enable = mkDefault true;
   };
 
-  # let's get started!
   environment.systemPackages = with pkgs; [
-    # linux good to haves
     coreutils
     wget
-    
-    gnumake
-    # offer some convenience as needed
     unzip
-    cmake
-
-    # nice networking utils
-    # httpie
-    # curlie
-
-    # scripting utility of choice (?)
-    babashka
   ];
 }
