@@ -25,7 +25,8 @@ in {
         "kkkjlfejijcjgjllecmnejhogpbcigdc" # org-capture
         "dbepggeogbaibhgnhhndojpepiihcmeb" # vimium
         "ddehdnnhjimbggeeenghijehnpakijod" # remove scrollbar
-        "ikdgincnppajmpmnhfheflannaiapmlm" # ampie: social interaction with webpages
+        # "ikdgincnppajmpmnhfheflannaiapmlm" # ampie: social interaction with webpages
+        # ^ cool, but it always gets in the way!
         # custom css;
         # ::-webkit-scrollbar {
         #   display: none;
