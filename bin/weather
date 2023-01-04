@@ -1,2 +1,2 @@
 #!/usr/bin/env sh
-curl -s wttr.in/$1 | head -7
+curl -s wttr.in/$1 | head -7 | tail -7
