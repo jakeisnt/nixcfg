@@ -1,7 +1,7 @@
 [user]
     name = Jacob Chvatal
     email = jake@isnt.online
-    signingkey = AFF8C0623B1CE493
+    signingkey = 1EB278CFEE0A2F49
 [gpg]
     program = gpg2
 [commit]

@@ -16,8 +16,6 @@ in {
     programs.gnupg.agent.enable = true;
     user.packages = with pkgs; [
       tomb
-      pinentry.curses
-      pinentry-gnome
       pinentry-emacs
     ];
 
