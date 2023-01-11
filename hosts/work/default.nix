@@ -56,7 +56,10 @@
     editors = {
       default = "nvim";
       vim.enable = true;
-      emacs.enable = true;
+      emacs = {
+        enable = true;
+        daemon = true;
+      };
     };
     dev = {
       clojure.enable = true; 
@@ -73,7 +76,7 @@
     shell = {
       git.enable = true;
       lf.enable = true;
-      fish.enable = true;
+      nushell.enable = true;
       gnupg = {
         enable = true;
         gui = true;

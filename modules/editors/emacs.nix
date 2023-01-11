@@ -5,7 +5,7 @@ with lib.my;
 # emacs (~pgtk~) + native-comp
 # this was `29.2`, but the emacs interface keeps changing in backwards-incompatible ways
 let
-  myemacs0 = pkgs.emacsNativeComp;
+  myemacs0 = pkgs.emacsUnstable;
   emacsWPkgs = (pkgs.emacsPackagesFor myemacs0).emacsWithPackages;
   myemacs = emacsWPkgs (epkgs: (with epkgs; [ vterm pdf-tools org-pdftools ]));
 
@@ -60,9 +60,8 @@ in {
     };
 
     user.packages = with pkgs; [
-      ## Emacs itself
       binutils # native-comp needs 'as', provided by this
-      myemacs # 28 + pgtk + native-comp
+      myemacs
       daemonScript
 
       ## Doom dependencies
@@ -100,7 +99,6 @@ in {
 
       # for org-roam graph
       graphviz
-
       pinentry-emacs
 
       # presumably to build emacs

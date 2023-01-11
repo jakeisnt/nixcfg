@@ -12,15 +12,15 @@ in {
 
   config = mkIf cfg.enable {
     environment.variables.GNUPGHOME = "$XDG_CONFIG_HOME/gnupg";
-
     programs.gnupg.agent.enable = true;
     user.packages = with pkgs; [
       tomb
+      # all three are necessary for some reason
+      pinentry.curses
+      pinentry-gnome
       pinentry-emacs
     ];
 
-    # allow-emacs-pinentry
-    # allow-loopback-pinentry
     # HACK Without this config file you get "No pinentry program" on 20.03.
     #      programs.gnupg.agent.pinentryFlavor doesn't appear to work, and this
     #      is cleaner than overriding the systemd unit.

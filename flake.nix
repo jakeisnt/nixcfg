@@ -62,6 +62,9 @@
           config = {
             android_sdk.accept_license = true;
             allowUnfree = true;
+            permittedInsecurePackages = [ # TODO: Figure out where this is!
+              "python-2.7.18.6"
+            ];
           };
           overlays = extraOverlays ++ (attrValues self.overlays);
         };

@@ -60,12 +60,11 @@ in {
         "sc" = "systemctl";
         "ssc" = "sudo systemctl";
 
-# cool idea: remind me later!
-# r() {
-#   local time=$1; shift
-#   sched "$time" "notify-send --urgency=critical 'Reminder' '$@'; ding";
-# }; compdef r=sched
-
+        # cool idea: remind me later!
+        # r() {
+        #   local time=$1; shift
+        #   sched "$time" "notify-send --urgency=critical 'Reminder' '$@'; ding";
+        # }; compdef r=sched
       };
     };
 
@@ -83,7 +82,7 @@ in {
     ];
 
     home.configFile = {
-    	"starship.toml".text = (concatMapStringsSep "\n" readFile [ "${configDir}/starship/starship.toml" ]);
+      "starship.toml".text = (concatMapStringsSep "\n" readFile [ "${configDir}/starship/starship.toml" ]);
     };
   };
 }

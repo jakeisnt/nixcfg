@@ -36,7 +36,6 @@ in {
 
     environment.shellAliases = {
       py     = "python";
-      py2    = "python2";
       py3    = "python3";
       po     = "poetry";
       ipy    = "ipython --no-banner";

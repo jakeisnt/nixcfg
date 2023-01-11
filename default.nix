@@ -11,10 +11,11 @@ with inputs; {
     ++ (mapModulesRec' (toString ./modules) import);
 
   # Common config for all nixos machines to ensure the flake operates soundly
-  environment.variables.DOTFILES = dotFilesDir;
+  environment.variables = {
+    DOTFILES = dotFilesDir;
+    NIXPKGS_ALLOW_UNFREE = "1";
+  };
 
-  # Configure nix and nixpkgs
-  environment.variables.NIXPKGS_ALLOW_UNFREE = "1";
   nix = {
     package = pkgs.nixFlakes;
     # Use Flakes
