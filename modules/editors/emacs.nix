@@ -102,6 +102,9 @@ in {
 
       # presumably to build emacs
       gcc
+
+      # copilot
+      nodejs
     ];
 
     env.PATH = [ "$XDG_CONFIG_HOME/emacs/bin" ];

@@ -9,12 +9,7 @@ in {
 
   config = {
     env.EDITOR = cfg.default;
-    user.packages = with pkgs; [
-      # use wakatime for all editors
-      wakatime
-      # some wakatime configurations are picky about python availability
-      python
-    ];
+    user.packages = with pkgs; [wakatime];
 
     environment.shellAliases = {
       wakatime-cli =
