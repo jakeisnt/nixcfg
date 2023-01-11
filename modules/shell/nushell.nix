@@ -9,7 +9,14 @@ in {
   };
 
   config = mkIf cfg.enable {
-    users.defaultUserShell = pkgs.nushell;
+    users.defaultUserShell = pkgs.bash;
+
+    programs.bash = {
+      promptInit = with pkgs; ''
+        nu
+      '';
+    };
+
     user.packages = with pkgs; [
       nushell
       starship

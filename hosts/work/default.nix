@@ -6,26 +6,27 @@
     [./hardware-configuration.nix ../personal.nix];
 
   networking.hostName = "work";
-
   services.getty.autologinUser = "jake";
 
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-
-  networking.useDHCP = false;
-  networking.interfaces.wlp170s0.useDHCP = true;
-
-  networking.networkmanager = {
-    enable = true;
-    wifi = {
-      powersave = false; # no wifi lag
-    };
+  boot.loader = {
+    systemd-boot.enable = true;
+    efi.canTouchEfiVariables = true;
   };
+
+  networking = {
+    useDHCP = false;
+    interfaces.wlp170s0.useDHCP = true;
+    networkmanager = {
+      enable = true;
+      wifi = {
+        powersave = false; # no wifi lag
+      };
+    };
+
+  };
+
   services.xserver.libinput.enable = true;
   services.openssh.startWhenNeeded = true;
-
-  # needed for `Texts.app`? Not working yet... TODO. This is in `packages/`
-  # security.pam.services.login.enableGnomeKeyring = true;
   services.gnome.gnome-keyring.enable = true;
 
   user.packages = with pkgs; [
