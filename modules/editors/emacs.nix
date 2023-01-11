@@ -10,12 +10,11 @@ let
   myemacs = emacsWPkgs (epkgs: (with epkgs; [ vterm pdf-tools org-pdftools ]));
 
   cfg = config.modules.editors.emacs;
-  # install doom emacs if not already configured!!
-  # ensure we have the write things in system path too!
-  # yes this file name is legal, yes it is bad, but yes it lets us use the emacs service
+  # Install Doom Emacs if not already configured, placing the correct things in the system path.
   daemonScript = pkgs.writeScriptBin "emacs" ''
     #!${pkgs.bash}/bin/bash -l
     export PATH=$PATH:${lib.makeBinPath [ pkgs.git pkgs.sqlite pkgs.unzip ]}
+    export SHELL=${pkgs.bash}/bin/bash
     if [ ! -d $HOME/.emacs.d/.git ]; then
       mkdir -p $HOME/.emacs.d
       git -C $HOME/.emacs.d init
