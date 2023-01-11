@@ -5,22 +5,22 @@ with lib.my;
 let
   cfg = config.modules.theme;
   colorscheme = {
-    nord0 = "0D0D0D";
-    nord1 = "121414";
-    nord2 = "1A1C1C";
-    nord3 = "4C566A";
-    nord4 = "F2F2F2";
-    nord5 = "FAFAFA";
-    nord6 = "FAF5EF";
-    nord7 = "8FBCBB";
-    nord8 = "88B6D0";
-    nord9 = "ADB2BA";
-    nord10 = "5E81AC";
-    nord11 = "BA8082";
-    nord12 = "d99962";
-    nord13 = "E9B872";
-    nord14 = "A19C9A";
-    nord15 = "CD96B3";
+    stilla0 = "0D0D0D";
+    stilla1 = "121414";
+    stilla2 = "1A1C1C";
+    stilla3 = "4C566A";
+    stilla4 = "F2F2F2";
+    stilla5 = "FAFAFA";
+    stilla6 = "FAF5EF";
+    stilla7 = "8FBCBB";
+    stilla8 = "88B6D0";
+    stilla9 = "ADB2BA";
+    stilla10 = "5E81AC";
+    stilla11 = "BA8082";
+    stilla12 = "d99962";
+    stilla13 = "E9B872";
+    stilla14 = "A19C9A";
+    stilla15 = "CD96B3";
   };
 in {
   config = mkIf (cfg.active == "stilla") (mkMerge [
@@ -34,47 +34,47 @@ in {
             cursorTheme = "openzone-cursors";
           };
           color = with colorscheme; {
-            foreground = nord4;
-            background = nord0;
-            fadeColor = nord3;
-            fgAlt = nord6;
-            bgAlt = nord1;
-            bgAlt2 = nord2;
-            color0 = nord1;
-            color1 = nord11;
-            color2 = nord14;
-            color3 = nord13;
-            color4 = nord9;
-            color5 = nord15;
-            color6 = nord8;
-            color7 = nord5;
-            color8 = nord3;
-            color9 = nord11;
-            color10 = nord14;
-            color11 = nord13;
-            color12 = nord9;
-            color13 = nord15;
-            color14 = nord7;
-            color15 = nord6;
+            foreground = stilla4;
+            background = stilla0;
+            fadeColor = stilla3;
+            fgAlt = stilla6;
+            bgAlt = stilla1;
+            bgAlt2 = stilla2;
+            color0 = stilla1;
+            color1 = stilla11;
+            color2 = stilla14;
+            color3 = stilla13;
+            color4 = stilla9;
+            color5 = stilla15;
+            color6 = stilla8;
+            color7 = stilla5;
+            color8 = stilla3;
+            color9 = stilla11;
+            color10 = stilla14;
+            color11 = stilla13;
+            color12 = stilla9;
+            color13 = stilla15;
+            color14 = stilla7;
+            color15 = stilla6;
             normal = {
-              black = nord1;
-              red = nord11;
-              green = nord14;
-              yellow = nord13;
-              blue = nord9;
-              magenta = nord15;
-              cyan = nord8;
-              white = nord5;
+              black = stilla1;
+              red = stilla11;
+              green = stilla14;
+              yellow = stilla13;
+              blue = stilla9;
+              magenta = stilla15;
+              cyan = stilla8;
+              white = stilla5;
             };
             alt = {
-              black = nord3;
-              red = nord11;
-              green = nord14;
-              yellow = nord13;
-              blue = nord9;
-              magenta = nord15;
-              cyan = nord7;
-              white = nord6;
+              black = stilla3;
+              red = stilla11;
+              green = stilla14;
+              yellow = stilla13;
+              blue = stilla9;
+              magenta = stilla15;
+              cyan = stilla7;
+              white = stilla6;
             };
             dim = {
               black = "373e4d";
@@ -102,7 +102,7 @@ in {
       user.packages = with pkgs;
         [ yaru-theme zafiro-icons openzone-cursors ];
         # ++ (if config.modules.media.spotify.enable then
-        #   [ extras.spicetify-nix.packages.x86_64-linux.nord ]
+        #   [ extras.spicetify-nix.packages.x86_64-linux.stilla ]
         # else
           # [ ]);
       fonts = {
