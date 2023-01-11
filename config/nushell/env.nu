@@ -8,10 +8,6 @@ let-env ENV_CONVERSIONS = {
     from_string: { |s| $s | split row (char esep) }
     to_string: { |v| $v | str collect (char esep) }
   }
-  "GNUPGHOME": {
-    from_string: { |s| $s }
-    to_string: { |v| $v }
-  }
   "Path": {
     from_string: { |s| $s | split row (char esep) }
     to_string: { |v| $v | str collect (char esep) }

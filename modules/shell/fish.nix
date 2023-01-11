@@ -3,6 +3,7 @@
 with lib;
 with lib.my;
 let cfg = config.modules.shell.fish;
+    loginInit = config.modules.shell.loginInit;
 in {
   options.modules.shell.fish = with types; {
     enable = mkBoolOpt false;
@@ -41,7 +42,7 @@ in {
        ${cfg.rcInit}
      '';
 
-      loginShellInit = cfg.loginInit;
+      loginShellInit = loginInit;
 
       shellAliases = with pkgs; {
         # use the souped-up rust stuff!

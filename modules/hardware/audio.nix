@@ -10,7 +10,6 @@ in {
     sound.enable = true;
     xdg.portal = mkIf config.modules.desktop.sway.enable {
       enable = true;
-      gtkUsePortal = true;
       extraPortals = with pkgs; [
         xdg-desktop-portal-wlr
         xdg-desktop-portal-gtk

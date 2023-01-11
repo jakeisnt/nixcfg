@@ -5,21 +5,7 @@ with lib.my;
 let
   cfg = config.modules.desktop.sway;
   colors = config.modules.theme.color;
-  startsway = (pkgs.writeTextFile {
-    name = "startsway";
-    destination = "/bin/startsway";
-    executable = true;
-    text = ''
-      #! ${pkgs.bash}/bin/bash
-
-      # first import environment variables from the login manager
-      systemctl --user import-environment WAYLAND_DISPLAY
-      # then start the service
-      exec systemctl --user start sway.service
-    '';
-  });
 in {
-
   options.modules.desktop.sway = {
     enable = mkBoolOpt false;        # practical and basic
     fancy = mkBoolOpt false;         # fancy and pretty config
@@ -39,7 +25,7 @@ in {
     programs.sway = {
       enable = true;
       extraPackages = with pkgs;
-        [ startsway ] ++ (if cfg.fancy then [ autotiling ] else [ ]);
+        [ ] ++ (if cfg.fancy then [ autotiling ] else [ ]);
       wrapperFeatures.gtk = true;
       extraSessionCommands = ''
         export SDL_VIDEODRIVER=wayland
@@ -66,33 +52,10 @@ in {
         [ "graphical-session.target" "graphical-session-pre.target" ];
     };
 
-    systemd.user.services.sway = {
-      enable = true;
-      description = "Sway - Wayland window manager";
-      documentation = [ "man:sway(5)" ];
-      bindsTo = [ "graphical-session.target" ];
-      wants = [ "graphical-session-pre.target" ];
-      after = [ "graphical-session-pre.target" ];
-      # We explicitly unset PATH here, as we want it to be set by
-      # systemctl --user import-environment in startsway
-      environment.PATH = lib.mkForce null;
-      serviceConfig = {
-        Type = "simple";
-        ExecStart = ''
-          ${pkgs.dbus}/bin/dbus-run-session ${pkgs.sway}/bin/sway
-        '';
-        Restart = "on-failure";
-        RestartSec = 1;
-        TimeoutStopSec = 10;
-      };
-    };
-
-    modules.shell.fish.loginInit = ''
-        if status is-login
-            if test -z "$DISPLAY" -a "$XDG_VTNR" = 1
-                sway
-            end
-        end
+    modules.shell.loginInit = ''
+      if [ -z $DISPLAY ] && [ $XDG_VTNR -eq 1 ]; then
+        exec sway
+      fi
     '';
 
     home.configFile = {

@@ -3,7 +3,12 @@
 with lib;
 with lib.my;
 let cfg = config.modules.shell.nushell;
+    loginInit = config.modules.shell.loginInit;
 in {
+  options.modules.shell.loginInit = with types; mkOpt' lines "" ''
+    Shell commands to be run before the shell starts up. Assume POSIX-compatibility here.
+   '';
+
   options.modules.shell.nushell = with types; {
     enable = mkBoolOpt false;
   };
@@ -12,14 +17,16 @@ in {
     users.defaultUserShell = pkgs.bash;
 
     programs.bash = {
-      promptInit = with pkgs; ''
-        nu
+      interactiveShellInit = with pkgs; ''
+        ${pkgs.nushell}/bin/nu
       '';
+      loginShellInit = loginInit;
     };
 
     user.packages = with pkgs; [
       nushell
       starship
+      bat
     ];
 
     home.configFile = {
