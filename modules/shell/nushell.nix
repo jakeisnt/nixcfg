@@ -14,14 +14,13 @@ in {
   };
 
   config = mkIf cfg.enable {
-    users.defaultUserShell = pkgs.bash;
-
-    programs.bash = {
-      interactiveShellInit = with pkgs; ''
-        ${pkgs.nushell}/bin/nu
-      '';
-      loginShellInit = loginInit;
-    };
+    users.defaultUserShell = pkgs.nushell;
+    # programs.bash = {
+    #   interactiveShellInit = with pkgs; ''
+    #     {pkgs.nushell}/bin/nu
+    #   '';
+    #   loginShellInit = loginInit;
+    # };
 
     user.packages = with pkgs; [
       nushell
@@ -32,6 +31,7 @@ in {
     home.configFile = {
       "starship.toml".text = (concatMapStringsSep "\n" readFile [ "${configDir}/starship/starship.toml" ]);
       "nushell/config.nu".text = (concatMapStringsSep "\n" readFile [ "${configDir}/nushell/config.nu" ]);
+      "nushell/login.nu".text = (concatMapStringsSep "\n" readFile [ "${configDir}/nushell/login.nu" ]);
       "nushell/env.nu".text = (concatMapStringsSep "\n" readFile [ "${configDir}/nushell/env.nu" ]);
     };
   };

@@ -3,6 +3,10 @@
 # - converted from a value back to a string when running external commands (to_string)
 # Note: The conversions happen *after* config.nu is loaded
 
+# Port all of the environment variables over to nushell
+env | each { |it| echo $"let-env ($it.name) = '($it.raw)'" } | str join (char nl)
+clear
+
 let-env ENV_CONVERSIONS = {
   "PATH": {
     from_string: { |s| $s | split row (char esep) }
@@ -32,3 +36,4 @@ let-env PATH = ($env.PATH | split row (char esep) | prepend $'($env.HOME)/.emacs
 
 mkdir ~/.cache/starship
 starship init nu | save -f ~/.cache/starship/init.nu
+

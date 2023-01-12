@@ -2,24 +2,16 @@
 #! nix-shell -p babashka -i "bb -i"
 
 (ns hey
-  (:require [clojure.tools.cli :refer [parse-opts]]
-            [babashka.process :as p]
+  (:require [babashka.process :as p]
             [clojure.core.match :refer [match]]
             [clojure.java.io :as io]))
 
 (def flake "/etc/nixos")
 
-(def cli-options
-  [["f" "find PACKNAME" "Package name to search for"]
-   ["r" "rebuild" "Rebuild the current NixOS image without upgrading"]
-   ["u" "upgrade" "Upgrade and rebuild the NixOS image with new, upgraded inputs"]
-   ["gc" "gc" "Delete unused packages and previous derivations"]
-   ["-h" "--help"]])
-
 ;; rum a command with a custom printer and sane defaults provided to the process
 (defn cmd [args & [settings]]
   (let
-      [proc (p/process args (merge {:out :inherit :err :inherit :shutdown p/destroy-tree} (or settings nil)))]
+   [proc (p/process args (merge {:out :inherit :err :inherit :shutdown p/destroy-tree} (or settings nil)))]
     (with-open [rdr (io/reader (:out proc))]
       (binding [*in* rdr]
         @proc
@@ -33,6 +25,10 @@
 ;; update the provided flake
 (defn update [flake]
   (cmd ["nix" "flake" "update" flake "--impure"]))
+
+;; Run a shell with the provided shell args
+(defn shell [args]
+  (cmd (vec (concat ["nix-shell"] args ["--command" "$SHELL"]))))
 
 ;; rebuild and switch to the system
 (defn rebuild [flake]
@@ -52,18 +48,16 @@
     (rebuild flake)))
 
 (defn main [args]
-  (let
-      [res (parse-opts args cli-options)
-       opts (:options res)
-       args (:arguments res)]
-
+  (let [args (vec args)]
+    (println args)
     (match args
-           ["find" packname] (find packname)
-           ["rebuild"] (rebuild flake)
-           ["update"] (update flake)
-           ["upgrade"] (upgrade flake)
-           ["gc"] (collect-garbage)
-           :else (println "Commands provided were invalid - sorry!"))))
+      ["shell" & args] (shell args)
+      ["find" packname] (find packname)
+      ["rebuild"] (rebuild flake)
+      ["update"] (update flake)
+      ["upgrade"] (upgrade flake)
+      ["gc"] (collect-garbage)
+      :else (println "Commands provided were invalid - sorry!"))))
 
 (main *command-line-args*)
 
