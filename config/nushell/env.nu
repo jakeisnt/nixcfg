@@ -7,6 +7,9 @@
 env | each { |it| echo $"let-env ($it.name) = '($it.raw)'" } | str join (char nl)
 clear
 
+# gnupghome is only defined in bash? redefine it
+let-env GNUPGHOME = $'($env.XDG_CONFIG_HOME)/gnupg'
+
 let-env ENV_CONVERSIONS = {
   "PATH": {
     from_string: { |s| $s | split row (char esep) }
