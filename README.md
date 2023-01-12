@@ -15,7 +15,6 @@ Started as a fork of [hlissner's dotfiles](https://github.com/hlissner/dotfiles)
 
 Feel free to poke around and contact me if you have any questions : )
 
-
 ## Installation
 
 First, snag a copy of the newest version of NixOS by building it off of a previous machine from source.
