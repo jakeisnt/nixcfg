@@ -51,7 +51,7 @@
   (let [args (vec args)]
     (println args)
     (match args
-      ["shell" & args] (shell args)
+      ["shell" & rst] (shell rst)
       ["find" packname] (find packname)
       ["rebuild"] (rebuild flake)
       ["update"] (update flake)
