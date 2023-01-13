@@ -18,13 +18,13 @@ video_default   = [
 ]
 
 text_default    = [
-    { command = "micro" },
-    { command = "gedit", fork = true, silent = true },
+    { command = "emacsclient -c" },
+    { command = "nvim" },
     { command = "bat", args = [ "--paging=always" ] },
 ]
 
 reader_default  = [
-    { command = "evince", fork = true, silent = true },
+    { command = "zathura", fork = true, silent = true },
 ]
 
 libreoffice_default     = [

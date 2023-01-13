@@ -13,6 +13,11 @@ in {
       poppler_utils # pdf preview
       ffmpegthumbnailer # video thumbnails
       xdg_utils # xdg-open is used a lot
+      feh # image viewer
+      zathura # pdf viewer
+      bat
+      mediainfo # image and video metadata viewer
+      mpv # video and audio player
     ];
 
     home.configFile = {
