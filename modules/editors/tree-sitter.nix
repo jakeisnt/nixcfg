@@ -34,6 +34,7 @@ ${lib.concatStringsSep "\n"
         "typescript"
         "org-nvim"
         "commonlisp"
+        # "nu" # nushell: TODO
     ];
 
     grammars = lib.getAttrs (map (lang: "tree-sitter-${lang}") langs) pkgs.tree-sitter.builtGrammars;

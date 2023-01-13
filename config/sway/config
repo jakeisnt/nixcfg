@@ -139,5 +139,9 @@ client.unfocused        $inactiveback $inactiveback $urgenttext $inactiveback   
 client.urgent           $urgent       $urgent       $foreground $urgent         $urgent
 client.placeholder      $pholdback    $pholdback    $urgenttext $pholdback      $pholdback
 
+# awesome program bindings
+bindsym $mod+u exec "emacsclient -c"
+bindsym $mod+i exec "firefox"
+
 # start the sway session so other things can listen for the sway session systemd unit
 exec "dbus-update-activation-environment WAYLAND_DISPLAY; systemctl --user import-environment WAYLAND_DISPLAY; systemctl --user start sway-session.target"

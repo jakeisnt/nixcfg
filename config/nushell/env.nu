@@ -37,6 +37,10 @@ let-env NU_PLUGIN_DIRS = [
 let-env PATH = ($env.PATH | split row (char esep) | prepend '/etc/nixos/bin')
 let-env PATH = ($env.PATH | split row (char esep) | prepend $'($env.HOME)/.emacs.d/bin')
 
+alias js = joshuto
+# TODO: is there a better wifi testing tool?
+alias ct = ping google.com
+
 mkdir ~/.cache/starship
 starship init nu | save -f ~/.cache/starship/init.nu
 
