@@ -76,7 +76,7 @@
     };
     shell = {
       git.enable = true;
-      lf.enable = true;
+      file.enable = true;
       nushell.enable = true;
       gnupg = {
         enable = true;

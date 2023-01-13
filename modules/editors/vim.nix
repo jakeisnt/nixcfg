@@ -18,15 +18,10 @@ in
 
     user.packages = with pkgs; [
     	vimPlugins.packer-nvim
-        # coq nvim completion
         sqlite
         universal-ctags # for coq nvim completion
-        # for coq setup
-        python310
+        python310       # for coq setup
         python310Packages.virtualenv
-
-        file # for lf?
-
         # lua lsp for vim config
         sumneko-lua-language-server
     ];

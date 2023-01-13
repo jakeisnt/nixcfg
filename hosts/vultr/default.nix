@@ -12,7 +12,7 @@ with lib.my; {
     # };
     shell = {
       git.enable = true;
-      lf.enable = true;
+      file.enable = true;
       fish.enable = true; # TODO need a simple shell to use without rust things, but not zsh - too heavy
       gnupg.enable = true;
       direnv.enable = true;

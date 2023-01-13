@@ -28,7 +28,10 @@
 
 ;; Run a shell with the provided shell args
 (defn shell [args]
-  (cmd (vec (concat ["nix-shell"] args ["--command" "$SHELL"]))))
+  (println "running 'shell' command...")
+  (let [cmd-args (vec (concat ["nix-shell"] ["-p" "joshuto"] ["--command" "nu"]))]
+    (println cmd-args)
+    (cmd cmd-args)))
 
 ;; rebuild and switch to the system
 (defn rebuild [flake]

@@ -40,7 +40,7 @@ in
     };
     shell = {
       git.enable = true;
-      lf.enable = true;
+      file.enable = true;
       fish.enable = true;
     };
   };

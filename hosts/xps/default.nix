@@ -109,7 +109,7 @@ with lib.my;
         enable = true;
         preventGC = true;
       };
-      lf.enable = true;
+      file.enable = true;
       fish.enable = true;
     };
     services = {
