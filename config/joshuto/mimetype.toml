@@ -18,8 +18,7 @@ video_default   = [
 ]
 
 text_default    = [
-    { command = "emacsclient -c" },
-    { command = "nvim" },
+    { command = "emacsclient", args = ["-c"], fork = true, silent = true },
     { command = "bat", args = [ "--paging=always" ] },
 ]
 
@@ -73,6 +72,11 @@ webm.inherit    = "video_default"
 wmv.inherit     = "video_default"
 
 ## text formats
+lisp.inherit = "text_default"
+nix.inherit = "text_default"
+lock.inherit = "text_default"
+LICENSE.inherit = "text_default"
+org.inherit = "text_default"
 build.inherit   = "text_default"
 c.inherit   = "text_default"
 cmake.inherit   = "text_default"
