@@ -53,7 +53,7 @@ in {
 
     services.emacs = mkIf cfg.daemon {
       enable = true;
-      install = true;
+      install = false;
       package = daemonScript;
       defaultEditor = false; # configured elsewhere
     };

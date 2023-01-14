@@ -13,6 +13,9 @@
     efi.canTouchEfiVariables = true;
   };
 
+  # automount storage devices
+  services.devmon.enable = true;
+
   networking = {
     useDHCP = false;
     interfaces.wlp170s0.useDHCP = true;
