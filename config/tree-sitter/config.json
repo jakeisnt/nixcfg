@@ -1,0 +1,54 @@
+{
+  "parser-directories": [
+    "/home/jake/.tree-sitter"
+  ],
+  "theme": {
+    "function": 26,
+    "string": 28,
+    "constant": 94,
+    "punctuation.bracket": 239,
+    "constant.builtin": {
+      "color": 94,
+      "bold": true
+    },
+    "punctuation.delimiter": 239,
+    "property": 124,
+    "number": {
+      "color": 94,
+      "bold": true
+    },
+    "string.special": 30,
+    "operator": {
+      "bold": true,
+      "color": 239
+    },
+    "type": 23,
+    "comment": {
+      "color": 245,
+      "italic": true
+    },
+    "constructor": 136,
+    "type.builtin": {
+      "color": 23,
+      "bold": true
+    },
+    "variable.parameter": {
+      "underline": true
+    },
+    "keyword": 56,
+    "embedded": null,
+    "attribute": {
+      "italic": true,
+      "color": 124
+    },
+    "function.builtin": {
+      "bold": true,
+      "color": 26
+    },
+    "variable.builtin": {
+      "bold": true
+    },
+    "module": 136,
+    "tag": 18
+  }
+}
