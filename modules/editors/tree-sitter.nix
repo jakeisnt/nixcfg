@@ -25,14 +25,12 @@ ${lib.concatStringsSep "\n"
         "json"
         "ocaml"
         "python"
-        # "php"
-        /*"pgn"*/
         "ruby"
         "rust"
         "scala"
-        # "swift"
         "typescript"
         "org-nvim"
+        "clojure"
         "commonlisp"
         # "nu" # nushell: TODO
     ];
