@@ -5,24 +5,35 @@
 # License: MIT
 
 {
-  description = "A grossly incandescent nixos config.";
+  description = "jakeisnt's nix configuration";
 
   inputs = {
     # Two inputs so I can track them separately at different rates.
     nixpkgs.url = "nixpkgs/master";
     nixpkgs-unstable.url = "nixpkgs/master";
 
-    home-manager.url = "github:rycee/home-manager/master";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    nur.url = "github:nix-community/NUR/master";
+    home-manager = {
+      url = "github:rycee/home-manager/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-    # Extras
-    emacs-overlay.url = "github:nix-community/emacs-overlay";
-    nixos-hardware.url = "github:nixos/nixos-hardware";
+    nur = {
+      url = "github:nix-community/NUR/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    emacs-overlay = {
+      url = "github:nix-community/emacs-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nixos-hardware = {
+      url = "github:nixos/nixos-hardware";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     simple-nixos-mailserver = {
-      url =
-      "gitlab:simple-nixos-mailserver/nixos-mailserver";
+      url = "gitlab:simple-nixos-mailserver/nixos-mailserver";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -30,25 +41,25 @@
       url = "github:jakeisnt/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     nix-remarkable = {
       url = "github:siraben/nix-remarkable";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # used to pin doom emacs version
+    # Pin Doom Emacs version
     doom-emacs = {
       url = "github:doomemacs/doomemacs/master";
       flake = false;
     };
 
-    # used for compatible nix build when flakes aren't yet enabled
+    # Used for compatible `nix build` comamnds if the system doesn't yet have flakes enabled`
     flake-compat = {
       url = github:edolstra/flake-compat;
       flake = false;
     };
   };
 
-# isntweb-home, 
   outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, spicetify-nix, doom-emacs, ... }:
     let
       inherit (lib) attrValues;
