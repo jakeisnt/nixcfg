@@ -35,6 +35,7 @@
   user.packages = with pkgs; [
     thunderbird
     zathura
+darktable
   ];
 
   programs.ssh = {
@@ -76,9 +77,9 @@
     media = {
       ncmpcpp.enable = true;
       recording.enable = true;
-      # TODO:  This config structure is a bit silly. Reconsider.
-      graphics.enable = true;
-      graphics.photo.enable = true;
+      # TODO:  This requires python2.
+      # graphics.enable = true;
+      # graphics.photo.enable = true;
 
     };
     shell = {

@@ -19,7 +19,6 @@
 
     nur = {
       url = "github:nix-community/NUR/master";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     emacs-overlay = {
@@ -29,7 +28,6 @@
 
     nixos-hardware = {
       url = "github:nixos/nixos-hardware";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     simple-nixos-mailserver = {
