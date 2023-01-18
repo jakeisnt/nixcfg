@@ -15,6 +15,9 @@
 
   # automount storage devices
   services.devmon.enable = true;
+  user.extraGroups = [
+    "storage"
+  ];
 
   networking = {
     useDHCP = false;
@@ -35,7 +38,7 @@
   user.packages = with pkgs; [
     thunderbird
     zathura
-darktable
+    darktable
   ];
 
   programs.ssh = {
