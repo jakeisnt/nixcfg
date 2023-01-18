@@ -76,6 +76,10 @@
     media = {
       ncmpcpp.enable = true;
       recording.enable = true;
+      # TODO:  This config structure is a bit silly. Reconsider.
+      graphics.enable = true;
+      graphics.photo.enable = true;
+
     };
     shell = {
       git.enable = true;
