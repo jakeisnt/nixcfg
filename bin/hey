@@ -19,11 +19,11 @@
 
 ;; find a nixpkgs package available to the current NixOS system
 ;; TODO: I wish this linked to the nix package build and wehre it came from!
-(defn find [packname]
+(defn find-package [packname]
   (cmd ["nix" "search" "nixos" packname]))
 
 ;; update the provided flake
-(defn update [flake]
+(defn update-flake [flake]
   (cmd ["nix" "flake" "update" flake "--impure"]))
 
 ;; Run a shell with the provided shell args
@@ -41,23 +41,36 @@
     "--option" "pure-eval" "no"]
    {:in :inherit :out :inherit}))
 
+;; rebuild for and deploy to a remote server
+(defn deploy []
+  (cmd ["nix" "run" "nixpkgs#nixos-rebuild" "--" "--fast"
+        ;; the machine to target for the final build
+        "--target-host" "jake@isnt.online"
+        ;; the machine that should build the image to be deployed
+        "--build-host" "jake@isnt.online"
+        ;; name of the flake output
+        ".#vultr"
+        ;; use sudo on remote machines to rebuild
+        "--user-remote-sudo"
+        ;; switch to the new nixos configuration
+        "switch"]))
+
 ;; collect garbage
 (defn collect-garbage []
   (cmd ["nix-collect-garbage"]))
 
 (defn upgrade [flake]
-  (do
-    (update flake)
-    (rebuild flake)))
+  (update-flake flake)
+  (rebuild flake))
 
 (defn main [args]
   (let [args (vec args)]
     (println args)
     (match args
-      ["shell" & rst] (shell rst)
-      ["find" packname] (find packname)
+      ["shell" & shell-arguments] (shell shell-arguments)
+      ["find" package-name] (find-package package-name)
       ["rebuild"] (rebuild flake)
-      ["update"] (update flake)
+      ["update"] (update-flake flake)
       ["upgrade"] (upgrade flake)
       ["gc"] (collect-garbage)
       :else (println "Commands provided were invalid - sorry!"))))
