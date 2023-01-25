@@ -42,6 +42,10 @@
    {:in :inherit :out :inherit}))
 
 ;; rebuild for and deploy to a remote server
+;; TODO: Learn more about `nix run`!
+;; nixbuild: https://nixbuild.net: provides remote linux builders as a service :D
+;; `bou.ke` has some cool nix lore to learn
+;; can set up with https://docs.nixbuild.net/getting-started
 (defn deploy []
   (cmd ["nix" "run" "nixpkgs#nixos-rebuild" "--" "--fast"
         ;; the machine to target for the final build
