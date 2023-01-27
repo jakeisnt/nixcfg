@@ -11,7 +11,8 @@ in {
 
   config = mkIf cfg.enable {
     user.packages = with pkgs; [
-      android-studio
+      # use the development version of android-studio (needed for StreetComplete)
+      androidStudioPackages.dev
       androidSdk
       platformTools
       glibc
@@ -20,18 +21,25 @@ in {
     programs.adb.enable = true;
     user.extraGroups = [ "adbusers" ];
     services.udev.packages = [ pkgs.android-udev-rules ];
-    environment.variables.ANDROID_JAVA_HOME = "${pkgs.openjdk8.home}";
-    environment.variables.ANDROID_SDK_ROOT = "${androidSdk}";
-    environment.variables.GRADLE_OPTS =
-      "-Dorg.gradle.project.android.aapt2FromMavenOverride=${androidSdk}/libexec/android-sdk/build-tools/28.0.3/aapt2";
-    # https://github.com/swaywm/sway/issues/595
-    environment.variables._JAVA_AWT_WM_NONREPARENTING = "1";
 
-    env.ANDROID_JAVA_HOME = "${pkgs.openjdk8.home}";
-    env.ANDROID_SDK_ROOT = "${androidSdk}";
+    environment.variables = {
+      ANDROID_JAVA_HOME = "${pkgs.openjdk8.home}";
+      ANDROID_SDK_ROOT = "${androidSdk}";
+      GRADLE_OPTS = "-Dorg.gradle.project.android.aapt2FromMavenOverride=${androidSdk}/libexec/android-sdk/build-tools/28.0.3/aapt2";
+      # Increase max memory sizes for gradle builds
+      JAVA_OPTIONS = "-Xms1024m -Xmx4096m";
+      # https://github.com/swaywm/sway/issues/595
+      _JAVA_AWT_WM_NONREPARENTING = "1";
+    };
 
-    # override the aapt2 that gradle uses with the nix-shipped version
-    env.GRADLE_OPTS =
-      "-Dorg.gradle.project.android.aapt2FromMavenOverride=${androidSdk}/libexec/android-sdk/build-tools/28.0.3/aapt2";
+    # TODO: Redundant?
+    env = {
+      ANDROID_JAVA_HOME = "${pkgs.openjdk8.home}";
+      ANDROID_SDK_ROOT = "${androidSdk}";
+
+      # override the aapt2 that gradle uses with the nix-shipped version
+      GRADLE_OPTS =
+        "-Dorg.gradle.project.android.aapt2FromMavenOverride=${androidSdk}/libexec/android-sdk/build-tools/28.0.3/aapt2";
+    };
   };
 }

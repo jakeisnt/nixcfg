@@ -70,7 +70,8 @@
       };
     };
     dev = {
-      clojure.enable = true; 
+      clojure.enable = true;
+      android.enable = true;
     };
     hardware = {
       audio.enable = true;

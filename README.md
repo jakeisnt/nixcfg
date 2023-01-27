@@ -13,7 +13,7 @@ Started as a fork of [hlissner's dotfiles](https://github.com/hlissner/dotfiles)
 <img src="/../screenshots/nordic/sway-1.jpg" width="100%" />
 <img src="/../screenshots/nordic/sway-2.jpg" width="100%" />
 
-Feel free to poke around and contact me if you have any questions : )
+Feel free to poke around. Contact me if you have any questions!
 
 ## Installation
 
