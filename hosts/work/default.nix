@@ -39,6 +39,7 @@
     thunderbird
     zathura
     darktable
+    signal-desktop
   ];
 
   programs.ssh = {

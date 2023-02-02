@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+# unmount sd card, assuming it's mounted at this point
+umount /run/media/jake/disk
