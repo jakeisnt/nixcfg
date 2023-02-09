@@ -25,7 +25,7 @@ class WifiCLI < Thor
   # Connect to a wifi network, prompting for a password if necessary.
   # If a wifi network has a portal, this should open the portal in a browser.
   desc "connect NETWORK", "Connect to the specified network"
-  def connect
+  def connect(network)
     puts `nmcli device wifi connect #{network} --ask`
   end
 
