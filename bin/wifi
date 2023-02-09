@@ -1,8 +1,32 @@
-#!/usr/bin/env bash
+#!/usr/bin/env nix-shell
+#! nix-shell -p ruby rubyPackages.thor -i "ruby"
 
-
-# TODO: Easy-to-use wrapper CLI script for wifi
+# TODO: Easy-to-use wrapper CLI script for wifi.
 # Ideally this uses a nushell-compatible interface : )
 # - `wifi poll`: monitor the list of wifi networks, updating the list as more become available
 # - `wifi list`: list all the wifi networks. maybe let a user select one of them and offer a password if prompted?
-nmcli device wifi list
+
+require 'thor'
+
+class WifiCLI < Thor
+  class_option :verbose, :type => :boolean, :aliases => "-v"
+
+  desc "list", "List available wifi networks"
+  def list
+    puts `nmcli device wifi list`
+  end
+
+  desc "connect NETWORK", "Connect to the specified network"
+  def connect
+    puts `nmcli device wifi connect #{network} --ask`
+  end
+
+  desc "reset", "Reset the wifi connection"
+  def reset
+    puts `systemctl restart NetworkManager`
+  end
+end
+
+WifiCLI.start(ARGV)
+
+# vi: ft=ruby
