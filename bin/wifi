@@ -1,8 +1,18 @@
 #!/usr/bin/env nix-shell
-#! nix-shell -p ruby rubyPackages.thor -i "ruby"
+#! nix-shell -p ruby rubyPackages.thor captive-browser -i "ruby"
 
 # TODO: Easy-to-use wrapper CLI script for wifi.
 # Ideally this uses a nushell-compatible interface : )
+
+# Redirect STDOUT to /dev/null to run the command.
+def quiet
+  old_stdout = $stdout.dup
+  $stdout = File.new( '/dev/null', 'w' )
+  yield
+ensure
+  $stdout = STDOUT
+end
+
 
 require 'thor'
 
@@ -27,12 +37,32 @@ class WifiCLI < Thor
   desc "connect NETWORK", "Connect to the specified network"
   def connect(network)
     puts `nmcli device wifi connect #{network} --ask`
+
+    # TODO: Check if the network has a captive portal with `captive-browser`.
+    quiet { `captive-browser` }
+    if $?.exitstatus != 0
+      puts "No captive portal detected. You should be good."
+    else
+      puts "Captive portal detected. Browser should have opened."
+    end
   end
 
   # Restart the wifi system. Not sure if this is the best way to approach it or solve slow wifi issues.
   desc "reset", "Reset the wifi connection"
   def reset
     puts `systemctl restart NetworkManager`
+  end
+
+  # List all of the currently connected wifi devices.
+  desc "devices", "List all available wifi devices"
+  def devices
+    puts `nmcli device`
+  end
+
+  # List all of the currently connected wifi devices.
+  desc "hotspot", "Create a wifi hotspot connection"
+  def devices
+    puts `nmcli device wifi hotspot`
   end
 end
 
