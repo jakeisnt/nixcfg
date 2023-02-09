@@ -3,24 +3,33 @@
 
 # TODO: Easy-to-use wrapper CLI script for wifi.
 # Ideally this uses a nushell-compatible interface : )
-# - `wifi poll`: monitor the list of wifi networks, updating the list as more become available
-# - `wifi list`: list all the wifi networks. maybe let a user select one of them and offer a password if prompted?
 
 require 'thor'
 
 class WifiCLI < Thor
   class_option :verbose, :type => :boolean, :aliases => "-v"
 
+  # TODO: Display an interactive list of networks to connect to.
+  # Update the list as more networks become available.
+  # Pressing 'enter' on a network should connect to it, effectively running `connect ...`.
   desc "list", "List available wifi networks"
   def list
     puts `nmcli device wifi list`
   end
 
+  # TODO: Disconnect from the current wifi network.
+  desc "disconnect", "Disconnect from the current wifi network"
+  def disconnect
+  end
+
+  # Connect to a wifi network, prompting for a password if necessary.
+  # If a wifi network has a portal, this should open the portal in a browser.
   desc "connect NETWORK", "Connect to the specified network"
   def connect
     puts `nmcli device wifi connect #{network} --ask`
   end
 
+  # Restart the wifi system. Not sure if this is the best way to approach it or solve slow wifi issues.
   desc "reset", "Reset the wifi connection"
   def reset
     puts `systemctl restart NetworkManager`
