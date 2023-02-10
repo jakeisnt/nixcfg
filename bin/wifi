@@ -4,6 +4,15 @@
 # TODO: Easy-to-use wrapper CLI script for wifi.
 # Ideally this uses a nushell-compatible interface : )
 
+require 'bundler/inline'
+
+gemfile do
+  source 'https://rubygems.org'
+  gem 'cli-ui'
+end
+
+require 'cli/ui'
+
 # Redirect STDOUT to /dev/null to run the command.
 def quiet
   old_stdout = $stdout.dup
@@ -11,6 +20,19 @@ def quiet
   yield
 ensure
   $stdout = STDOUT
+end
+
+# Attempt to establish a wifi connection with the provided network
+def connect_to_wifi(network)
+    puts `nmcli device wifi connect #{network} --ask`
+
+    # TODO: Check if the network has a captive portal with `captive-browser`.
+    quiet { `captive-browser` }
+    if $?.exitstatus != 0
+      puts "No captive portal detected. You should be good."
+    else
+      puts "Captive portal detected. Browser should have opened."
+    end
 end
 
 
@@ -22,29 +44,30 @@ class WifiCLI < Thor
   # TODO: Display an interactive list of networks to connect to.
   # Update the list as more networks become available.
   # Pressing 'enter' on a network should connect to it, effectively running `connect ...`.
-  desc "list", "List available wifi networks"
+  desc "pick", "Pick and connect to a wifi network"
   def list
-    puts `nmcli device wifi list`
-  end
+    networks = `nmcli device wifi list`.split("\n")[1..].map { |line| # remove current networks
+      v = line.split(" ")
+      if v[0] == "*"
+        v[1..]
+      else
+        v
+      end
+    }.filter { |v| v[1] != "--" } # ensure there are no blank networks
 
-  # TODO: Disconnect from the current wifi network.
-  desc "disconnect", "Disconnect from the current wifi network"
-  def disconnect
+    CLI::UI.ask('Pick a network to connect to') do |handler|
+      networks.each do |network|
+        puts network
+        handler.option([network[1], network[4] + " Mbit/s", network[6], network[7], network[8]].join("  ")) { connect_to_wifi(network[1]) }
+      end
+    end
   end
 
   # Connect to a wifi network, prompting for a password if necessary.
   # If a wifi network has a portal, this should open the portal in a browser.
   desc "connect NETWORK", "Connect to the specified network"
   def connect(network)
-    puts `nmcli device wifi connect #{network} --ask`
-
-    # TODO: Check if the network has a captive portal with `captive-browser`.
-    quiet { `captive-browser` }
-    if $?.exitstatus != 0
-      puts "No captive portal detected. You should be good."
-    else
-      puts "Captive portal detected. Browser should have opened."
-    end
+    connect_to_wifi(network)
   end
 
   # Restart the wifi system. Not sure if this is the best way to approach it or solve slow wifi issues.
