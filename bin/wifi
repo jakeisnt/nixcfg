@@ -47,18 +47,18 @@ class WifiCLI < Thor
   desc "pick", "Pick and connect to a wifi network"
   def list
     networks = `nmcli device wifi list`.split("\n")[1..].map { |line| # remove current networks
-      v = line.split(" ")
+      v = line.split(" ").filter { |x| x != "Mbit/s" }
       if v[0] == "*"
-        v[1..]
-      else
-        v
+        v = v[1..]
       end
-    }.filter { |v| v[1] != "--" } # ensure there are no blank networks
+
+      Hash[[:bssid, :ssid, :mode, :chan, :rate, :signal, :bars, :security].zip(v)]
+    }.filter { |v| v[:ssid] != "--" } # ensure there are no blank networks
 
     CLI::UI.ask('Pick a network to connect to') do |handler|
       networks.each do |network|
         puts network
-        handler.option([network[1], network[4] + " Mbit/s", network[6], network[7], network[8]].join("  ")) { connect_to_wifi(network[1]) }
+        handler.option([network[:ssid], network[:rate] + " Mbit/s", network[:signal], network[:bars]].join("  ")) { connect_to_wifi(network[1]) }
       end
     end
   end
