@@ -1,7 +1,8 @@
 #!/usr/bin/env nix-shell
 #! nix-shell -p ruby -i "ruby"
 #
-# pick a line of stdin
+# Given a list of lines from `stdin`, allow the user to pick one of them interactively.
+# The selected line is printed to `stdout`.
 
 require 'bundler/inline'
 
