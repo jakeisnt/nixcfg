@@ -12,16 +12,15 @@ gemfile do
 end
 
 require 'cli/ui'
-CLI::UI::StdoutRouter.enable
 
-def cli(opts)
+def cli
   CLI::UI.ask('Select one') do |handler|
-    opts.each do |opt|
+    gets(nil).split("\n").each do |opt|
       handler.option(opt) { puts "selected" }
     end
   end
 end
 
-cli(STDIN.read.split("\n"))
+cli
 
 # vi: ft=ruby
