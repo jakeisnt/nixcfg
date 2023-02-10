@@ -87,6 +87,12 @@ class WifiCLI < Thor
   def devices
     puts `nmcli device wifi hotspot`
   end
+
+  no_commands {
+    def exit_on_failure?
+      true
+    end
+  }
 end
 
 WifiCLI.start(ARGV)
