@@ -23,6 +23,7 @@ end
 
 # TODO: the interactive menu likely uses stdin in some way.
 # figure out how fzf avoids it!`
+
 cli
 
 # vi: ft=ruby
