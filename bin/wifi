@@ -99,5 +99,7 @@ WifiCLI.start(ARGV)
 
 # NOTE: `nmcli device wifi list | lines | str replace 'Mbit\/s' '' | str trim -r | str replace -a '\s+' ',' | split column "," | headers`
 # ^ is the command in nushell to get the wifi list as a table. Not sure how to make it interactive!
+#
+# IDEA: nushell wifi list -> 
 
 # vi: ft=ruby

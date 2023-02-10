@@ -1,0 +1,26 @@
+#!/usr/bin/env nix-shell
+#! nix-shell -p ruby -i "ruby"
+#
+# pick a line of stdin
+
+require 'bundler/inline'
+
+gemfile do
+  source 'https://rubygems.org'
+  gem 'cli-ui'
+end
+
+require 'cli/ui'
+CLI::UI::StdoutRouter.enable
+
+def cli(opts)
+  CLI::UI.ask('Select one') do |handler|
+    opts.each do |opt|
+      handler.option(opt) { puts "selected" }
+    end
+  end
+end
+
+cli(STDIN.read.split("\n"))
+
+# vi: ft=ruby
