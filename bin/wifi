@@ -59,7 +59,6 @@ class WifiCLI < Thor
     if networks.length > 0
       CLI::UI.ask('Pick a network to connect to') do |handler|
         networks.each do |network|
-          puts network
           handler.option([network[:ssid], network[:rate] + " Mbit/s", network[:signal], network[:bars]].join("  ")) { connect_to_wifi(network[1]) }
         end
       end
