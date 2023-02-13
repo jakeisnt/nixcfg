@@ -1,8 +1,9 @@
 #!/usr/bin/env nix-shell
 #! nix-shell -p ruby rubyPackages.thor captive-browser -i "ruby"
 
-# TODO: Easy-to-use wrapper CLI script for wifi.
+# Easy-to-use wrapper CLI script for wifi.
 # Ideally this uses a nushell-compatible interface : )
+# TODO: `captive-browser` doesn't work, and either needs to be configured or re-coded.
 
 require 'bundler/inline'
 
