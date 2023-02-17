@@ -4,44 +4,37 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 {
-  imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
-    ];
+  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
-#boot.kernelPackages = pkgs.linuxPackagesFor (pkgs.linux_latest.override {
-#	argsOverride = rec {
-		#src = pkgs.fetchurl {
-		#	url = "mirror://kernel/linux/kernel/v5.x/linux-${version}.tar.xz";
-# sha256 = "1j0lnrsj5y2bsmmym8pjc5wk4wb11y336zr9gad1nmxcr0rwvz9j";
-# };
-# version = "5.15.1";
-# modDirVersion = "5.15.1";
-# };
-# });
-boot.kernelPackages = pkgs.linuxPackages_latest;
+  #boot.kernelPackages = pkgs.linuxPackagesFor (pkgs.linux_latest.override {
+  #   argsOverride = rec {
+  #src = pkgs.fetchurl {
+  #   url = "mirror://kernel/linux/kernel/v5.x/linux-${version}.tar.xz";
+  # sha256 = "1j0lnrsj5y2bsmmym8pjc5wk4wb11y336zr9gad1nmxcr0rwvz9j";
+  # };
+  # version = "5.15.1";
+  # modDirVersion = "5.15.1";
+  # };
+  # });
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
-hardware.bluetooth.enable = true;
-networking.networkmanager.enable = true;
-security.rtkit.enable = true;
+  hardware.bluetooth.enable = true;
+  networking.networkmanager.enable = true;
+  security.rtkit.enable = true;
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/" =
-    { device = "/dev/disk/by-label/nixos";
-      fsType = "ext4";
-    };
+  fileSystems."/" = {
+    device = "/dev/disk/by-label/nixos";
+    fsType = "ext4";
+  };
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-label/boot";
-      fsType = "vfat";
-    };
+  fileSystems."/boot" = { device = "/dev/disk/by-label/boot"; fsType = "vfat"; };
 
-  swapDevices =
-    [ { device = "/dev/disk/by-label/swap"; }
-    ];
+  swapDevices = [ { device = "/dev/disk/by-label/swap"; } ];
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
