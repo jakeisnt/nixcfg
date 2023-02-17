@@ -10,20 +10,15 @@ in {
     sound.enable = true;
     xdg.portal = mkIf config.modules.desktop.sway.enable {
       enable = true;
-      extraPortals = with pkgs; [
-        xdg-desktop-portal-wlr
-        xdg-desktop-portal-gtk
-        xdg-desktop-portal-gnome
-        xdg-desktop-portal-kde
-      ];
+      wlr.enable = true;
+      extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
     };
 
     hardware.pulseaudio.enable = mkForce false;
 
+    # https://github.com/NixOS/nixpkgs/issues/102547
     services.pipewire = {
       enable = true;
-      wireplumber.enable = true;
-      audio.enable = true;
       alsa.enable = true;
       pulse.enable = true;
       jack.enable = true;
