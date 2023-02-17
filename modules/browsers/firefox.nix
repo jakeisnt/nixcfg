@@ -7,7 +7,6 @@ let
   # TODO: add anti tracking policies at build time
   # https://wiki.kairaven.de/open/app/firefox in german : (
   firefoxWrapped = pkgs.wrapFirefox pkgs.firefox-unwrapped {
-    # forceWayland = config.modules.wayland.enable;
     extraPolicies = {
       CaptivePortal = false;
       DisableFirefoxStudies = true;
@@ -29,21 +28,6 @@ let
       lockPref("security.identityblock.show_extended_validation", true);
     '';
   };
-
-  # TODO: figure out a better way to do this.
-  # searchJson = readFile "${configDir}/firefox/firefox.search.json";
-  # searchJsonMozlz4 = pkgs.stdenv.mkDerivation {
-  #   pname = "search-json-mozlz4";
-  #   version = "latest";
-  #   src = dotFilesDir;
-  #   phases = "installPhase";
-  #   installPhase = ''
-  #     cat > ./firefox.search.json << EOL
-  #     ${searchJson}
-  #     EOL
-  #     ${pkgs.mozlz4a}/bin/mozlz4a ./firefox.search.json $out
-  #   '';
-  # };
 in {
   options.modules.browsers.firefox = with types; {
     enable = mkBoolOpt false;
@@ -60,8 +44,10 @@ in {
     userContent = mkOpt' lines "" "Global CSS Styles for websites";
   };
 
+
   config = mkIf cfg.enable (mkMerge [{
-    nixpkgs.overlays = [ inputs.nur.overlay ];
+    env.MOZ_ENABLE_WAYLAND = mkIf config.modules.wayland.enable "1";
+
     user.packages = with pkgs; [
       firefoxWrapped
       (makeDesktopItem {
@@ -73,28 +59,6 @@ in {
         categories = ["Network"];
       })
     ];
-
-    env.MOZ_ENABLE_WAYLAND = mkIf config.modules.wayland.enable "1";
-
-    # find extensions here:
-    # https://gitlab.com/rycee/nur-expressions/-/blob/master/pkgs/firefox-addons/generated-firefox-addons.nix
-    home-manager.users.jake.programs.firefox.extensions =
-      with pkgs.nur.repos.rycee.firefox-addons;
-      [
-        bitwarden
-        tridactyl
-        # has some good ideas like built in vim, but does not have the same tab switching
-        # as vimium and tridactyl + it has hardcoded google which im not a fan of. clearly a fork of vimium
-        surfingkeys
-        buster-captcha-solver
-        clearurls
-        dark-night-mode
-        decentraleyes
-        org-capture
-        ublock-origin
-        lastfm-scrobbler
-        redux-devtools
-      ] ++ (if config.modules.dev.node.enable then [ react-devtools ] else [ ]);
 
     modules.browsers.firefox.settings = {
       "devtools.theme" = "dark";
@@ -146,10 +110,12 @@ in {
       # Disable gamepad API to prevent USB device enumeration
       # https://www.w3.org/TR/gamepad/
       # https://trac.torproject.org/projects/tor/ticket/13023
-      "dom.gamepad.enabled" = false;
+      # "dom.gamepad.enabled" = false;
+
       # Don't try to guess domain names when entering an invalid domain name in URL bar
       # http://www-archive.mozilla.org/docs/end-user/domain-guessing.html
       "browser.fixup.alternate.enabled" = false;
+
       # Disable telemetry
       # https://wiki.mozilla.org/Platform/Features/Telemetry
       # https://wiki.mozilla.org/Privacy/Reviews/Telemetry
@@ -167,6 +133,7 @@ in {
       "experiments.supported" = false;
       "experiments.enabled" = false;
       "experiments.manifest.uri" = "";
+
       # Disable health reports (basically more telemetry)
       # https://support.mozilla.org/en-US/kb/firefox-health-report-understand-your-browser-perf
       # https://gecko.readthedocs.org/en/latest/toolkit/components/telemetry/telemetry/preferences.html
@@ -205,7 +172,8 @@ in {
           '';
         };
 
-      "${cfgPath}/${cfg.profileName}.default/chrome/userChrome.css".source = "${configDir}/firefox/userChrome.css";
+      "${cfgPath}/${cfg.profileName}.default/chrome/userChrome.css".source =
+        "${configDir}/firefox/userChrome.css";
 
       "${cfgPath}/${cfg.profileName}.default/chrome/userContent.css" =
         mkIf (cfg.userContent != "") { text = cfg.userContent; };

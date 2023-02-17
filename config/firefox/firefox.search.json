@@ -1,7 +1,0 @@
-{"version":6,"engines":[
-    {"_name":"Google","_isAppProvided":true,"_metaData":{"order":1,"hidden":true,"alias":null}},
-    {"_name":"Amazon.com","_isAppProvided":true,"_metaData":{"order":2,"hidden":true,"alias":null}},
-    {"_name":"Wikipedia (en)","_isAppProvided":true,"_metaData":{"order":6}},
-    {"_name":"Bing","_isAppProvided":true,"_metaData":{"order":3,"hidden":true,"alias":null}},
-    {"_name":"DuckDuckGo","_isAppProvided":true,"_metaData":{"order":5}},
-    {"_name":"Neh","_loadPath":"[https]neh.eltan.net/neh.xml","description":"A tool that smartly redirects you around the Interwebs","__searchForm":"https://neh.eltan.net","_iconURL":"","_metaData":{"loadPathHash":"M/3eTLM/X53UR8XynqUE//elcuIls5ZIMXHR1xyMbLo=","order":4},"_urls":[{"params":[],"rels":[],"template":"https://neh.eltan.net/{searchTerms}"}],"_isAppProvided":false,"_orderHint":null,"_telemetryId":null,"_updateInterval":null,"_updateURL":null,"_iconUpdateURL":null,"_filePath":null,"_extensionID":null,"_locale":null,"_definedAliases":[],"queryCharset":"UTF-8"}],"metaData":{"useSavedOrder":true,"current":"Neh","hash":"XKRORzbKzAL8mGsvfIurCrfmgq+qrWca8PtzxX2J8Wg="}}
