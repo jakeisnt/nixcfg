@@ -13,6 +13,8 @@ in {
       extraPortals = with pkgs; [
         xdg-desktop-portal-wlr
         xdg-desktop-portal-gtk
+        xdg-desktop-portal-gnome
+        xdg-desktop-portal-kde
       ];
     };
 
@@ -20,6 +22,8 @@ in {
 
     services.pipewire = {
       enable = true;
+      wireplumber.enable = true;
+      audio.enable = true;
       alsa.enable = true;
       pulse.enable = true;
       jack.enable = true;
