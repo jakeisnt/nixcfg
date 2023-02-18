@@ -2,8 +2,7 @@
 { config, pkgs, ... }:
 
 {
-  imports =
-    [./hardware-configuration.nix ../personal.nix];
+  imports = [./hardware-configuration.nix ../personal.nix];
 
   networking.hostName = "work";
   services.getty.autologinUser = "jake";
@@ -63,7 +62,6 @@
       alacritty.enable = true;
     };
     editors = {
-      default = "nvim";
       vim.enable = true;
       emacs = {
         enable = true;
