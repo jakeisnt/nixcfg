@@ -148,8 +148,7 @@ in {
     };
 
     # Use a stable profile name so we can target it in themes
-    home.file = let cfgPath = ".mozilla/firefox";
-    in {
+    home.file = let cfgPath = ".mozilla/firefox"; in {
       "${cfgPath}/profiles.ini".text = ''
         [Profile0]
         Name=default
@@ -161,22 +160,6 @@ in {
         StartWithLastProfile=1
         Version=2
       '';
-      # "${cfgPath}/default/search.json/mozlz4".source = searchJsonMozlz4;
-      "${cfgPath}/${cfg.profileName}.default/user.js" =
-        mkIf (cfg.settings != { } || cfg.extraConfig != "") {
-          text = ''
-            ${concatStrings (mapAttrsToList (name: value: ''
-              user_pref("${name}", ${builtins.toJSON value});
-            '') cfg.settings)}
-            ${cfg.extraConfig}
-          '';
-        };
-
-      "${cfgPath}/${cfg.profileName}.default/chrome/userChrome.css".source =
-        "${configDir}/firefox/userChrome.css";
-
-      "${cfgPath}/${cfg.profileName}.default/chrome/userContent.css" =
-        mkIf (cfg.userContent != "") { text = cfg.userContent; };
     };
   }]);
 }
