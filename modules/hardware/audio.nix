@@ -16,6 +16,11 @@ in {
       ];
     };
 
+    # control audio utilities
+    user.extraGroups = [
+      "audio"
+    ];
+
     hardware.pulseaudio.enable = mkForce false;
 
     services.pipewire = {
