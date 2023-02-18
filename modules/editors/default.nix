@@ -5,7 +5,7 @@ with lib.my;
 let cfg = config.modules.editors;
     secrets = lib.my.secrets;
 in {
-  options.modules.editors = { default = mkOpt types.str "nvim"; };
+  options.modules.editors = { default = mkOpt types.str "emacsclient -c"; };
 
   config = {
     env.EDITOR = cfg.default;
