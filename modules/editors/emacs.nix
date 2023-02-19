@@ -105,6 +105,9 @@ in {
 
       # copilot
       nodejs
+
+      # other project searching
+      fzf
     ];
 
     env.PATH = [ "$XDG_CONFIG_HOME/emacs/bin" ];
