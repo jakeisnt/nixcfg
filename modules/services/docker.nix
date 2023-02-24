@@ -7,15 +7,14 @@ in {
   options.modules.services.docker = {
     enable = mkBoolOpt false;
     podman = mkBoolOpt false;
+    kubernetes = mkBoolOpt false;
   };
 
   config = mkIf cfg.enable {
-    user.packages = with pkgs; [
-      # docker
-      # arion
+    user.packages = with pkgs; ([
       docker-client
       docker-compose
-    ];
+    ] ++ (if cfg.kubernetes then [ kubectl k3s ] else []));
 
     env.DOCKER_CONFIG = "$XDG_CONFIG_HOME/docker";
     env.MACHINE_STORAGE_PATH = "$XDG_DATA_HOME/docker/machine";
@@ -30,12 +29,24 @@ in {
         "dkclr" = "dk stop (docker ps -a -q) && dk rm (docker ps -a -q)";
     };
 
+    # a nixos kubernetes service running in userspace (I hope
+    # TODO: This doesn't work.
+    # services.kubernetes = mkIf cfg.kubernetes {
+    #   roles = ["master" "node"];
+    #   masterAddress = "localhost";
+    #   apiserver.enable = true;
+    #   controllerManager.enable = true;
+    #   scheduler.enable = true;
+    #   addonManager.enable = true;
+    #   proxy.enable = true;
+    #   flannel.enable = true;
+    # };
+
     virtualisation = {
       podman = {
         enable = cfg.podman;
         dockerCompat = true;
         dockerSocket.enable = true;
-        defaultNetwork.dnsname.enable = true;
       };
       docker = {
         enable = !cfg.podman;

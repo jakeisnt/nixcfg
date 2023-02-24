@@ -85,6 +85,7 @@
       # graphics.photo.enable = true;
 
     };
+    services.docker.enable = true;
     shell = {
       git.enable = true;
       file.enable = true;
