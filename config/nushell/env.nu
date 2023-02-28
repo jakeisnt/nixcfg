@@ -39,7 +39,7 @@ let-env PATH = ($env.PATH | split row (char esep) | prepend $'($env.HOME)/.emacs
 
 $env.GDK_BACKEND = wayland;
 
-alias js = joshuto
+alias js = joshuto err> /dev/null
 # TODO: is there a better wifi testing tool?
 alias ct = ping google.com
 
