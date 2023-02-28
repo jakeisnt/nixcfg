@@ -16,6 +16,10 @@
   services.devmon.enable = true;
   user.extraGroups = [
     "storage"
+    # for scanner
+    "scanner"
+    # for bluetooth connections (or local?)
+    "lp"
   ];
 
   networking = {
