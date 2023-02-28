@@ -15,12 +15,6 @@ in {
 
   config = mkIf cfg.enable {
     users.defaultUserShell = pkgs.nushell;
-    # programs.bash = {
-    #   interactiveShellInit = with pkgs; ''
-    #     {pkgs.nushell}/bin/nu
-    #   '';
-    #   loginShellInit = loginInit;
-    # };
 
     user.packages = with pkgs; [
       nushell

@@ -55,7 +55,7 @@ in {
       enable = true;
       install = false;
       package = daemonScript;
-      defaultEditor = false; # configured elsewhere
+      defaultEditor = true;
     };
 
     user.packages = with pkgs; [

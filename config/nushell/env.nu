@@ -43,6 +43,38 @@ alias js = joshuto
 # TODO: is there a better wifi testing tool?
 alias ct = ping google.com
 
+alias v = nvim -u ~/.config/nvim/init.lua
+alias vi = nvim -u ~/.config/nvim/init.lua
+alias vim = nvim -u ~/.config/nvim/init.lua
+alias nvim = nvim -u ~/.config/nvim/init.lua
+
+# TODO: Remove once shell aliases are ported to nushell
+alias ga = git add
+alias gap = git add --patch
+alias gb = git branch -av
+alias gop = git open
+alias gbl = git blame
+alias gc = git commit
+alias gcm = git commit -m
+alias gca = git commit --amend
+alias gcf = git commit --fixup
+alias gcl = git clone
+alias gco = git checkout
+alias gcoo = git checkout --
+alias gf = git fetch
+alias gi = git init
+alias gl = git log --graph --pretty="format:%C(yellow)%h%Creset %C(red)%G?%Creset%C(green)%d%Creset %s %Cblue(%cr) %C(bold blue)<%aN>%Creset"
+alias gll = git log --pretty="format:%C(yellow)%h%Creset %C(red)%G?%Creset%C(green)%d%Creset %s %Cblue(%cr) %C(bold blue)<%aN>%Creset"
+alias gL = gl --stat
+alias gp = git push
+alias gpl = git pull --rebase --autostash
+alias gs = git status --short .
+alias gss = git status
+alias gst = git stash
+alias gr = git reset HEAD
+alias grv = git rev-parse
+
+
 mkdir ~/.cache/starship
 starship init nu | save -f ~/.cache/starship/init.nu
 
