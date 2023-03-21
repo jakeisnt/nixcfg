@@ -1,16 +1,12 @@
 * {
-    border: none;
-    border-radius: 0;
     font-family: monospace;
     font-size: 12px;
-    min-height: 20px;
+    min-height: 16px;
 }
 
 window#waybar {
-    background: transparent;
-    padding: 0;
-    padding-top: 4px;
-    margin: 0;
+    border-bottom: 2px solid @bgalt;
+    background-color: @background;
 }
 
 window#waybar.hidden {
@@ -19,8 +15,10 @@ window#waybar.hidden {
 
 #workspaces, #mode, #window, #mpd, #network, #pulseaudio, #temperature, #cpu, #memory, #battery, #clock {
     margin: 4px 3px;
+    margin-top: 0;
+    margin-bottom: 2px;
     padding: 0 8px;
-    margin-bottom: 0;
+    padding-top: 0;
     transition: none;
     color: @fgalt;
 }
@@ -32,8 +30,7 @@ window#waybar.hidden {
 
 #workspaces {
     /* as the leftmost element, this needs extra padding */
-    padding-left: 0;
-    padding-right: 0;
+    padding: 0;
 }
 
 #workspaces button {

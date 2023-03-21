@@ -62,6 +62,7 @@ in {
       binutils # native-comp needs 'as', provided by this
       myemacs
       daemonScript
+      direnv # required for nix dev envintegration
 
       ## Doom dependencies
       git
