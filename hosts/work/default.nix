@@ -12,6 +12,8 @@
     efi.canTouchEfiVariables = true;
   };
 
+  time.timeZone = "Europe/Stockholm";
+
   # automount storage devices
   services.devmon.enable = true;
   user.extraGroups = [
