@@ -20,8 +20,6 @@
     "storage"
     # for scanner
     "scanner"
-    # for bluetooth connections (or local?)
-    "lp"
   ];
 
   networking = {
@@ -68,6 +66,7 @@
       alacritty.enable = true;
     };
     editors = {
+      default = "emacsclient -c";
       vim.enable = true;
       emacs = {
         enable = true;
