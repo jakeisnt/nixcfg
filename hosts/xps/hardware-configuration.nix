@@ -110,9 +110,6 @@
     "plugdev"
   ];
 
-  # high-resolution display
-  hardware.video.hidpi.enable = lib.mkDefault true;
-
   fileSystems."/" = {
     device = "/dev/disk/by-label/nixos";
     fsType = "ext4";

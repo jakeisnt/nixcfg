@@ -18,11 +18,10 @@ in {
         enable = true;
         package = pkgs.bluezFull;
       };
+      services.blueman.enable = true;
       user.extraGroups = [ "bluetooth" "lp"];
     }
     (mkIf cfg.audio.enable {
-      environment.systemPackages = with pkgs; [ bluez ];
-
       systemd.user.services.mpris-proxy = {
         Unit.Description = "Mpris proxy";
         Unit.After = [ "network.target" "sound.target" ];
@@ -33,7 +32,7 @@ in {
       hardware.bluetooth.settings = {
         General = {
           Enable = "Source,Sink,Media,Socket";
-          ControllerMode = "bredr"; # disable Bluetooth LE
+          # ControllerMode = "bredr"; # disable Bluetooth LE
         };
       };
     })
