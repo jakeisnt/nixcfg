@@ -1,5 +1,5 @@
 # Framework laptop!
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   imports = [./hardware-configuration.nix ../personal.nix];
@@ -23,6 +23,7 @@
   ];
 
   networking = {
+    extraHosts = lib.my.secrets.aliasDomains;
     useDHCP = false;
     interfaces.wlp170s0.useDHCP = true;
     networkmanager = {
