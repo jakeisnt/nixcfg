@@ -8,26 +8,39 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-#boot.kernelPackages = pkgs.linuxPackagesFor (pkgs.linux_latest.override {
-#	argsOverride = rec {
-		#src = pkgs.fetchurl {
-		#	url = "mirror://kernel/linux/kernel/v5.x/linux-${version}.tar.xz";
-# sha256 = "1j0lnrsj5y2bsmmym8pjc5wk4wb11y336zr9gad1nmxcr0rwvz9j";
-# };
-# version = "5.15.1";
-# modDirVersion = "5.15.1";
-# };
-# });
-boot.kernelPackages = pkgs.linuxPackages_latest;
+  # used to fix bluetooth
+  # TODO: remove this when we figure out bluetooth
+  # boot.kernelPackages = pkgs.linuxPackagesFor (pkgs.linux_latest.override {
+  #   argsOverride = rec {
+  #     src = pkgs.fetchurl {
+  #       url = "mirror://kernel/linux/kernel/v5.x/linux-${version}.tar.xz";
+  #       sha256 = "1j0lnrsj5y2bsmmym8pjc5wk4wb11y336zr9gad1nmxcr0rwvz9j";
+  #     };
+  #     version = "5.15.1";
+  #     modDirVersion = "5.15.1";
+  #   };
+  # });
 
-hardware.bluetooth.enable = true;
-networking.networkmanager.enable = true;
-security.rtkit.enable = true;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod" ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-intel" ];
-  boot.extraModulePackages = [ ];
+  hardware.bluetooth.enable = true;
+  networking.networkmanager.enable = true;
+  security.rtkit.enable = true;
+
+  boot = {
+    initrd = {
+      availableKernelModules = [ "xhci_pci" "btusb" "thunderbolt" "nvme" "usb_storage" "sd_mod" ];
+      kernelModules = [ ];
+    };
+
+    kernelModules = [ "kvm-intel" ];
+    extraModulePackages = [ ];
+
+    kernelParams = [
+        # fix crashing on sleep behavior< save battery
+        "mem_sleep_default=deep"
+    ];
+  };
 
   fileSystems."/" =
     { device = "/dev/disk/by-label/nixos";
