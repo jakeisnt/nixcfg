@@ -37,7 +37,10 @@ let-env NU_PLUGIN_DIRS = [
 let-env PATH = ($env.PATH | split row (char esep) | prepend '/etc/nixos/bin')
 let-env PATH = ($env.PATH | split row (char esep) | prepend $'($env.HOME)/.emacs.d/bin')
 
-$env.GDK_BACKEND = wayland;
+# TODO: incorporate this throughout
+let-env EDITOR = 'emacsclient -c';
+
+let-env GDK_BACKEND = 'wayland';
 
 alias js = joshuto
 # TODO: is there a better wifi testing tool?
