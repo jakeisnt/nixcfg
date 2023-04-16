@@ -43,6 +43,7 @@ let-env EDITOR = 'emacsclient -c';
 let-env GDK_BACKEND = 'wayland';
 
 alias js = joshuto
+alias cat = bat
 # TODO: is there a better wifi testing tool?
 alias ct = ping google.com
 
