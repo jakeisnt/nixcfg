@@ -84,6 +84,11 @@
     height: 28px !important;
   }
 
+  .tab-background {
+    border-radius: 0px !important;
+    margin-block: 1px 0 !important;
+  }
+
   /*** Load local overrides ***/
   @import url(./userChrome.local.css);
 }
