@@ -31,6 +31,7 @@ let
 in {
   options.modules.browsers.firefox = with types; {
     enable = mkBoolOpt false;
+    privateShortcut = mkBoolOpt false;
     profileName = mkOpt types.str config.user.name;
 
     settings = mkOpt' (attrsOf (oneOf [ bool int str ])) { } ''
@@ -50,14 +51,14 @@ in {
 
     user.packages = with pkgs; [
       firefoxWrapped
-      (makeDesktopItem {
-        name = "firefox-private";
-        desktopName = "Firefox (Private)";
-        genericName = "Open a private Firefox window";
-        icon = "firefox";
-        exec = "${firefox-bin}/bin/firefox --private-window";
-        categories = ["Network"];
-      })
+      # (makeDesktopItem {
+      #   name = "firefox-private";
+      #   desktopName = "Firefox (Private)";
+      #   genericName = "Open a private Firefox window";
+      #   icon = "firefox";
+      #   exec = "${firefox-bin}/bin/firefox --private-window";
+      #   categories = ["Network"];
+      # })
     ];
 
     modules.browsers.firefox.settings = {

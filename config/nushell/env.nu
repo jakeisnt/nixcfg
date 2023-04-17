@@ -44,6 +44,7 @@ let-env GDK_BACKEND = 'wayland';
 
 alias js = joshuto
 alias cat = bat
+alias e = emacsclient -c
 # TODO: is there a better wifi testing tool?
 alias ct = ping google.com
 
