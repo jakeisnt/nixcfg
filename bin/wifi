@@ -1,6 +1,12 @@
 #!/usr/bin/env nix-shell
 #! nix-shell -p ruby rubyPackages.thor captive-browser -i "ruby"
 
+# TODO: better integrate nushell tables with fzf: https://github.com/nushell/nushell/issues/5785
+# really i want a command where i can say
+# x list | x parse | fzf | x action
+# for any x program that can both list options and select one of them.
+# the `wl` script does this pretty well in the meantime!
+
 # Easy-to-use wrapper CLI script for wifi.
 # Ideally this uses a nushell-compatible interface : )
 # TODO: `captive-browser` doesn't work, and either needs to be configured or re-coded.
