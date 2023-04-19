@@ -55,7 +55,7 @@ alias nvim = nvim -u ~/.config/nvim/init.lua
 
 # TODO: Remove once shell aliases are ported to nushell
 
-alias gbc = git checkout (git branch --all | fzf | str replace '(\*\ )' '');
+alias gbc = git checkout (git branch --all | fzf | str replace '(\*)' '' | str trim);
 alias gop = git open
 alias ga = git add
 alias gc = git commit
