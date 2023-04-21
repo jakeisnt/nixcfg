@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# TODO: support working directory flag
+# TODO: run command to make sure it's valid? then run in another terminal?
+alacritty --hold -e bash -c "$@" & disown
