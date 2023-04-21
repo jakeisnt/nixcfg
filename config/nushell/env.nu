@@ -63,6 +63,8 @@ alias gcm = git commit -m
 alias gcl = git clone
 
 alias gap = git add --patch
+# need to pass this the commit after `resolve` ...
+alias gre = git revert --strategy resolve
 alias gb = git branch -av
 alias gbl = git blame
 alias gca = git commit --amend
