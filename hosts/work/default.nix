@@ -1,5 +1,5 @@
 # Framework laptop!
-{ config, pkgs, lib, ... }:
+{ config, pkgs, inputs, lib, ... }:
 
 {
   imports = [./hardware-configuration.nix ../personal.nix];
@@ -44,6 +44,7 @@
     zathura
     darktable
     signal-desktop
+    inputs.launch.defaultPackage
   ];
 
   programs.ssh = {
