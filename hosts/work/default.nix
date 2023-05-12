@@ -44,7 +44,6 @@
     zathura
     darktable
     signal-desktop
-    inputs.launch.defaultPackage
   ];
 
   programs.ssh = {

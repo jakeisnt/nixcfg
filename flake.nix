@@ -51,11 +51,6 @@
       flake = false;
     };
 
-    launch = {
-      url = "github:jakeisnt/launch/main";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # Used for compatible `nix build` comamnds if the system doesn't yet have flakes enabled`
     flake-compat = {
       url = github:edolstra/flake-compat;
