@@ -1,84 +1,40 @@
-#!/usr/bin/env nix-shell
-#! nix-shell -p babashka -i "bb -i"
+#!/usr/bin/env nu
 
-(ns hey
-  (:require [babashka.process :as p]
-            [clojure.core.match :refer [match]]
-            [clojure.java.io :as io]))
+# Collect garbage from the nix store
+def "main gc" [] {
+  nix-collect-garbage -d
+}
 
-(def flake "/etc/nixos")
+# Rebuild the NixOS system
+def "main rebuild" [] {
+  sudo nixos-rebuild switch --flake /etc/nixos --option pure-eval no
+}
 
-;; rum a command with a custom printer and sane defaults provided to the process
-(defn cmd [args & [settings]]
-  (let
-   [proc (p/process args (merge {:out :inherit :err :inherit :shutdown p/destroy-tree} (or settings nil)))]
-    (with-open [rdr (io/reader (:out proc))]
-      (binding [*in* rdr]
-        @proc
-        nil))))
+# find a package with the given name
+# TODO why is this so slow??
+def "main find" [
+  package_name: string # the name of the package to locate
+] {
+  nix search nixos $package_name
+}
 
-;; find a nixpkgs package available to the current NixOS system
-;; TODO: I wish this linked to the nix package build and wehre it came from!
-(defn find-package [packname]
-  (cmd ["nix" "search" "nixos" packname]))
+# Upgrade the system's NixOS flake
+def "main upgrade" [] {
+  nix flake update /etc/nixos --impure
+  main rebuild
+}
 
-;; update the provided flake
-(defn update-flake [flake]
-  (cmd ["nix" "flake" "update" flake "--impure"]))
+# Rebuild for and deploy to a remote server
+# TODO: Find out more about this!
+# nixbuild: https://nixbuild.net: provides remote linux builders as a service :D
+# `bou.ke` has some cool nix lore to learn
+# can set up with https://docs.nixbuild.net/getting-started
+def "main deploy" [] {
+  nix run nixpkgs#nixos-reubild -- --fast --target-host jake@isnt.online --build-host jake@isnt.online .#vultr --use-remote-sudo switch
+}
 
-;; Run a shell with the provided shell args
-(defn shell [args]
-  (println "running 'shell' command...")
-  (let [cmd-args (vec (concat ["nix-shell"] ["-p" "joshuto"] ["--command" "nu"]))]
-    (println cmd-args)
-    (cmd cmd-args)))
 
-;; rebuild and switch to the system
-(defn rebuild [flake]
-  (cmd
-   ["sudo" "nixos-rebuild" "switch"
-    "--flake" flake
-    "--option" "pure-eval" "no"]
-   {:in :inherit :out :inherit}))
-
-;; rebuild for and deploy to a remote server
-;; TODO: Learn more about `nix run`!
-;; nixbuild: https://nixbuild.net: provides remote linux builders as a service :D
-;; `bou.ke` has some cool nix lore to learn
-;; can set up with https://docs.nixbuild.net/getting-started
-(defn deploy []
-  (cmd ["nix" "run" "nixpkgs#nixos-rebuild" "--" "--fast"
-        ;; the machine to target for the final build
-        "--target-host" "jake@isnt.online"
-        ;; the machine that should build the image to be deployed
-        "--build-host" "jake@isnt.online"
-        ;; name of the flake output
-        ".#vultr"
-        ;; use sudo on remote machines to rebuild
-        "--user-remote-sudo"
-        ;; switch to the new nixos configuration
-        "switch"]))
-
-;; collect garbage
-(defn collect-garbage []
-  (cmd ["nix-collect-garbage" "-d"]))
-
-(defn upgrade [flake]
-  (update-flake flake)
-  (rebuild flake))
-
-(defn main [args]
-  (let [args (vec args)]
-    (println args)
-    (match args
-      ["shell" & shell-arguments] (shell shell-arguments)
-      ["find" package-name] (find-package package-name)
-      ["rebuild"] (rebuild flake)
-      ["update"] (update-flake flake)
-      ["upgrade"] (upgrade flake)
-      ["gc"] (collect-garbage)
-      :else (println "Commands provided were invalid - sorry!"))))
-
-(main *command-line-args*)
-
-;; vi: ft=clojure
+# Welcome to Nix!
+def main [] {
+  echo "Hey!"
+}
