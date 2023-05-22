@@ -6,9 +6,9 @@ with lib.my;
 let
   colors = config.modules.theme.color;
   cfg = config.modules.wayland.swaylock;
-  lock = (pkgs.writeScriptBin "lock" ''
-    #!${pkgs.stdenv.shell}
-    exec ${pkgs.swaylock-effects}/bin/swaylock
+  lock = with pkgs; (writeScriptBin "lock" ''
+    #!${stdenv.shell}
+    ${playerctl}/bin/playerctl pause && ${swaylock-effects}/bin/swaylock
   '');
 in {
   options.modules.wayland.swaylock = {
