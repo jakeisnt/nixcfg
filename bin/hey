@@ -61,7 +61,7 @@
 
 ;; collect garbage
 (defn collect-garbage []
-  (cmd ["nix-collect-garbage"]))
+  (cmd ["nix-collect-garbage" "-d"]))
 
 (defn upgrade [flake]
   (update-flake flake)
