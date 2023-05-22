@@ -43,7 +43,6 @@
     thunderbird
     zathura
     darktable
-    signal-desktop
   ];
 
   programs.ssh = {
@@ -80,7 +79,7 @@
     };
     hardware = {
       audio.enable = true;
-      bluetooth.enable = true;
+      # bluetooth.enable = true;
     };
     # messengers.email.enable = true;
     media = {
