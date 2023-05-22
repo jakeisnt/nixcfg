@@ -3,6 +3,9 @@
 {
   ## System security tweaks
   boot.tmp.useTmpfs = true;
+  boot.tmp.tmpfsSize = "16G";
+  boot.tmp.cleanOnBoot = true;
+
   security.protectKernelImage = true;
 
   # Fix a security hole in place for backwards compatibility. See desc in
