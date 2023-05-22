@@ -3,21 +3,17 @@
 # - converted from a value back to a string when running external commands (to_string)
 # Note: The conversions happen *after* config.nu is loaded
 
-# Port all of the environment variables over to nushell
-env | each { |it| echo $"let-env ($it.name) = '($it.raw)'" } | str join (char nl)
-clear
-
 # gnupghome is only defined in bash? redefine it
 let-env GNUPGHOME = $'($env.XDG_CONFIG_HOME)/gnupg'
 
 let-env ENV_CONVERSIONS = {
   "PATH": {
     from_string: { |s| $s | split row (char esep) }
-    to_string: { |v| $v | str collect (char esep) }
+    to_string: { |v| $v | str join (char esep) }
   }
   "Path": {
     from_string: { |s| $s | split row (char esep) }
-    to_string: { |v| $v | str collect (char esep) }
+    to_string: { |v| $v | str join (char esep) }
   }
 }
 

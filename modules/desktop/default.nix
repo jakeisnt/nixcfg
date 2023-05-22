@@ -5,22 +5,12 @@ with lib.my;
 let cfg = config.modules.desktop;
 in {
   config = mkIf config.modules.desktop.sway.enable {
-    user.packages = with pkgs;
-      [
-        feh # image viewer
-      ];
+    user.packages = with pkgs; [ feh ];
 
     fonts = {
       fontDir.enable = true;
       enableGhostscriptFonts = true;
-      fonts = with pkgs; [
-        ubuntu_font_family
-        dejavu_fonts
-        symbola
-        noto-fonts
-        noto-fonts-cjk
-        nerdfonts
-      ];
+      fonts = with pkgs; [ nerdfonts noto-fonts ];
     };
 
     ## Apps/Services

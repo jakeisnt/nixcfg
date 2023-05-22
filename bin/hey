@@ -17,6 +17,8 @@ def "main find" [
   nix search nixos $package_name
 }
 
+# TODO: support updating a flake input: https://github.com/NixOS/nix/issues/5110
+
 # Upgrade the system's NixOS flake
 def "main upgrade" [] {
   nix flake update /etc/nixos --impure
