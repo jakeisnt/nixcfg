@@ -32,7 +32,7 @@ def "main deploy" [] {
   nix run nixpkgs#nixos-reubild -- --fast --target-host jake@isnt.online --build-host jake@isnt.online .#vultr --use-remote-sudo switch
 }
 
-# Welcome to Nix!
+# A cli program for interacting with the nix store
 def main [] {
-  echo "Hey!"
+  help main
 }
