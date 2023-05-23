@@ -8,7 +8,16 @@ let
   cfg = config.modules.wayland.swaylock;
   lock = with pkgs; (writeScriptBin "lock" ''
     #!${stdenv.shell}
-    ${playerctl}/bin/playerctl pause && ${swaylock-effects}/bin/swaylock
+    ${playerctl}/bin/playerctl pause &
+    ${swaylock-effects}/bin/swaylock
+  '');
+  screenOff = with pkgs; (writeScriptBin "screenOff" ''
+    #!${stdenv.shell}
+    swaymsg "output * dpms off"
+  '');
+  screenOn = with pkgs; (writeScriptBin "screenOn" ''
+    #!${stdenv.shell}
+    swaymsg "output * dpms off"
   '');
 in {
   options.modules.wayland.swaylock = {
@@ -26,15 +35,14 @@ in {
         ExecStart = ''
             ${pkgs.swayidle}/bin/swayidle \
               timeout 300 '${lock}/bin/lock' \
-              timeout 600 'swaymsg "output * dpms off"' \
-              resume 'swaymsg "output * dpms on"' \
+              timeout 600 '${screenOff}/bin/screenOff' \
+              resume '${screenOn}/bin/screenOn' \
               before-sleep '${lock}/bin/lock'
          '';
       };
     };
 
-
-    user.packages = with pkgs; [ lock swayidle ];
+    user.packages = with pkgs; [ lock swayidle screenOff screenOn ];
     home.configFile = {
       "swaylock/config".text = (with colors; ''
         line-color=${colors.background}
