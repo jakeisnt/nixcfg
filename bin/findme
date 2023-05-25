@@ -1,0 +1,6 @@
+#!/usr/bin/env nu
+
+def main [] {
+  let curIp = (curl --silent https://ipinfo.io/ip)
+  curl --silent $'https://ipinfo.io/($curIp)' | from json
+}
