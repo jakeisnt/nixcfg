@@ -1,6 +1,13 @@
 #!/usr/bin/env nu
 
-def main [] {
+def main [
+--json (-j): bool # display the data in json format (default: nushell table)
+] {
   let curIp = (curl --silent https://ipinfo.io/ip)
-  curl --silent $'https://ipinfo.io/($curIp)' | from json
+  let locationJson = (curl --silent $'https://ipinfo.io/($curIp)')
+  if $json {
+    $locationJson
+  } else {
+    $locationJson | from json
+  }
 }
