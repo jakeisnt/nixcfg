@@ -1,5 +1,6 @@
 #!/usr/bin/env nu
 
+# Geolocate yourself
 def main [
 --json (-j): bool # display the data in json format (default: nushell table)
 ] {
