@@ -1,7 +1,7 @@
 #!/usr/bin/env nu
 
 def "main commit" [] {
-    echo $"*\n\n(weather)" | git commit -F -
+    echo $"*\n\n(weather)\n\ntemperature:(weather --simple)" | git commit -F -
 }
 
 def main [
@@ -10,13 +10,13 @@ def main [
 ] {
     if ($location != '') {
            if ($simple) {
-                  (curl -s $"wttr.in/($location)?format=%t")
+                  (curl -s $"wttr.in/($location)?format=1")
               } else {
                   (curl -s $"wttr.in/($location)") | head -7 | tail -7
               }
        } else {
            if ($simple) {
-                  (curl -s "wttr.in/?format=%t")
+                  (curl -s "wttr.in/?format=1")
               } else {
 
                   (curl -s "wttr.in") | head -7 | tail -7
