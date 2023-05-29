@@ -1,2 +1,25 @@
-#!/usr/bin/env sh
-curl -s wttr.in/$1 | head -7 | tail -7
+#!/usr/bin/env nu
+
+def "main commit" [] {
+    echo $"*\n\n(weather)" | git commit -F -
+}
+
+def main [
+    -l --location: string # the location to search for
+    -s --simple: bool # just the temperature
+] {
+    if ($location != '') {
+           if ($simple) {
+                  (curl -s $"wttr.in/($location)?format=%t")
+              } else {
+                  (curl -s $"wttr.in/($location)") | head -7 | tail -7
+              }
+       } else {
+           if ($simple) {
+                  (curl -s "wttr.in/?format=%t")
+              } else {
+
+                  (curl -s "wttr.in") | head -7 | tail -7
+              }
+       }
+}
