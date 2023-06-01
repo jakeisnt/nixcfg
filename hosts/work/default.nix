@@ -43,6 +43,9 @@
     thunderbird
     zathura
     darktable
+
+    # for some programs, zsh has to be global to inherit $PATH
+    zsh
   ];
 
   programs.ssh = {
