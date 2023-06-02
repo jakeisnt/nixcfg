@@ -117,7 +117,7 @@ in {
         ];
         fontconfig.defaultFonts = {
           sansSerif = [ "Fira Sans" ];
-          monospace = [ "BerkeleyMono_Regular" ]; # was fira code
+          monospace = [ "Berkeley Mono" ]; # was fira code
         };
       };
 
