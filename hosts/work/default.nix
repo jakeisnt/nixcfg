@@ -67,6 +67,7 @@
     term = {
       default = "alacritty";
       alacritty.enable = true;
+      foot.enable = true;
     };
     editors = {
       default = "emacsclient -c";
