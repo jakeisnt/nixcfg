@@ -18,7 +18,7 @@ with lib.my; {
       direnv.enable = true;
     };
     services = {
-      mailserver.enable = true;
+      mailserver.enable = false;
       ssh.enable = true;
       matrix = {
         enable = false;
@@ -30,7 +30,7 @@ with lib.my; {
         registration = false;
         mail = false;
       };
-      cal.enable = true;
+      cal.enable = false;
       nginx.enable = true;
     };
   };
@@ -40,7 +40,7 @@ with lib.my; {
   boot.loader.grub = {
     enable = true;
     version = 2;
-     device = "/dev/vda";
+    device = "/dev/vda";
   };
 
   networking = {
