@@ -39,6 +39,8 @@
   services.openssh.startWhenNeeded = true;
   services.gnome.gnome-keyring.enable = true;
 
+  security.acme.acceptTerms = true;
+
   user.packages = with pkgs; [
     thunderbird
     zathura
