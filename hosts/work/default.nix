@@ -39,7 +39,11 @@
   services.openssh.startWhenNeeded = true;
   services.gnome.gnome-keyring.enable = true;
 
-  security.acme.acceptTerms = true;
+  # acme gives bad error message. need to provide an email to associate with acme
+  security.acme = {
+    acceptTerms = true;
+    email = "jakechvatal@gmail.com";
+  };
 
   user.packages = with pkgs; [
     thunderbird
