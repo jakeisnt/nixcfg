@@ -92,6 +92,8 @@ in {
       gnuplot
       # org +pandoc
       pandoc
+      # graphviz
+      graphviz
 
       # for vterm
       libvterm
