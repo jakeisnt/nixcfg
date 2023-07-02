@@ -1,4 +1,4 @@
-# Framework laptop!
+  # Framework laptop!
 { config, pkgs, inputs, lib, ... }:
 
 {
