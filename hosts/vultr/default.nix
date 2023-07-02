@@ -24,7 +24,7 @@ with lib.my; {
       matrix = {
         enable = false;
         registration = false;
-        element = true;
+        element = false;
       };
       bitwarden = {
         enable = false;
