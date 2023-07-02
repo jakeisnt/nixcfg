@@ -18,12 +18,13 @@ with lib.my; {
       direnv.enable = true;
     };
     services = {
+      acme.enable = true;
       mailserver.enable = false;
       ssh.enable = true;
       matrix = {
         enable = false;
         registration = false;
-        # element = true;
+        element = true;
       };
       bitwarden = {
         enable = false;

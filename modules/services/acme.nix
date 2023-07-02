@@ -11,6 +11,7 @@ in {
   config = mkIf cfg.enable {
     security.acme = {
       defaults.email = "${secrets.gmail.user}";
+      email = "${secrets.gmail.user}";
       acceptTerms = true;
     };
   };
