@@ -1,4 +1,10 @@
 { config, pkgs, lib, ... }:
+
+# Deprecated:
+# This was a custom managed Vultr server.
+# It's no longer operating - I've moved to trusting cloud providers and other hosted services.
+# I might revisit this in the future when I have a permanent home and physical server infrastructure.
+
 with lib.my; {
   imports = [ ./hardware-configuration.nix ../personal.nix ];
 
