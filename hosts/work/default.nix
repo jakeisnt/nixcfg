@@ -17,6 +17,7 @@
   # automount storage devices
   services.devmon.enable = true;
   user.extraGroups = [
+    # unprivileged access to storage devices
     "storage"
     # for scanner
     "scanner"
@@ -32,21 +33,11 @@
         powersave = false; # no wifi lag
       };
     };
-
   };
 
   services.xserver.libinput.enable = true;
   services.openssh.startWhenNeeded = true;
   services.gnome.gnome-keyring.enable = true;
-
-  user.packages = with pkgs; [
-    thunderbird
-    zathura
-    darktable
-
-    # for some programs, zsh has to be global to inherit $PATH
-    zsh
-  ];
 
   programs.ssh = {
     startAgent = true;
@@ -77,10 +68,6 @@
         daemon = true;
       };
     };
-    dev = {
-      # clojure.enable = true;
-      # android.enable = true;
-    };
     hardware = {
       audio.enable = true;
       # bluetooth.enable = true;
@@ -89,12 +76,10 @@
     media = {
       ncmpcpp.enable = true;
       recording.enable = true;
-      # TODO:  This requires python2.
+      # TODO:  These options require python2.
       # graphics.enable = true;
       # graphics.photo.enable = true;
-
     };
-    services.docker.enable = true;
     shell = {
       git.enable = true;
       file.enable = true;
