@@ -73,8 +73,8 @@ in {
       fd # faster projectile indexing
       imagemagick # for image-dired
       (mkIf (config.programs.gnupg.agent.enable)
-        pinentry_emacs) # in-emacs gnupg prompts
-      zstd # for undo-fu-session/undo-tree compression
+          pinentry-emacs) # in-emacs gnupg prompts
+        zstd # for undo-fu-session/undo-tree compression
 
       ## Module dependencies
       # :checkers spell
@@ -101,7 +101,6 @@ in {
 
       # for org-roam graph
       graphviz
-      pinentry-emacs
 
       # presumably to build emacs
       gcc
@@ -114,6 +113,6 @@ in {
     ];
 
     env.PATH = [ "$XDG_CONFIG_HOME/emacs/bin" ];
-    fonts.fonts = [ pkgs.emacs-all-the-icons-fonts ];
+    fonts.packages = [ pkgs.emacs-all-the-icons-fonts ];
   };
 }
