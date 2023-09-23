@@ -1,17 +1,27 @@
 $env.config = {
   show_banner: false
   table: {
-    mode: none
+      mode: none
   }
   hooks: {
     pre_prompt: [{
-      code: "
-        let direnv = (direnv export json | from json)
-        let direnv = if ($direnv | length) == 1 { $direnv } else { {} }
-        $direnv | load-env
-      "
+        let direnv = (direnv export json | from json | default {})
+        if ($direnv | is-empty) {
+          return 
+        }
+        $direnv
+        | items {|key, value|
+          {
+            key: $key
+            value: (if $key in $env.ENV_CONVERSIONS {
+              do ($env.ENV_CONVERSIONS | get $key | get from_string) $value
+            } else {
+              $value
+            }) 
+            } 
+        } | transpose -ird | load-env
     }]
   }
-}
+  }
 
 source ~/.cache/starship/init.nu
