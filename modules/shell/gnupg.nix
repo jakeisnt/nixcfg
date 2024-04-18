@@ -17,7 +17,7 @@ in {
       tomb
       # all three are necessary for some reason
       pinentry.curses
-      pinentry-gnome
+      # pinentry-gnome
       pinentry-emacs
     ];
 
@@ -26,7 +26,7 @@ in {
     #      is cleaner than overriding the systemd unit.
     # pinentry-program ${pkgs.pinentry.curses}/bin/pinentry
     # TODO: this may not line up with emacs
-    programs.gnupg.agent.pinentryFlavor = "emacs";
+    programs.gnupg.agent.pinentryPackage = pkgs.emacs;
     home.configFile."gnupg/gpg.conf" = {
       text = ''
       pinentry-mode loopback

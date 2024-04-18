@@ -10,7 +10,7 @@ in {
     fonts = {
       fontDir.enable = true;
       enableGhostscriptFonts = true;
-      fonts = with pkgs; [ nerdfonts noto-fonts ];
+      packages = with pkgs; [ nerdfonts noto-fonts ];
     };
 
     ## Apps/Services

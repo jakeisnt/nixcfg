@@ -3,7 +3,7 @@
 with lib;
 with lib.my;
 let cfg = config.modules.browsers.chrome;
-    chrome = pkgs.google-chrome-dev;
+    chrome = pkgs.google-chrome;
     chrome-improvin = pkgs.writeShellScriptBin "chrome-improvin" ''
       exec ${chrome}/bin/google-chrome-unstable --profile-directory="Profile 2" &
     '';
