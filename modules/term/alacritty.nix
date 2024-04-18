@@ -10,7 +10,7 @@ in {
   config = mkIf cfg.enable {
     user.packages = with pkgs; [ alacritty ];
     home.configFile = {
-      "alacritty/alacritty.yml".text = with colors;
+      "alacritty/alacritty.toml".text = with colors;
         concatStrings [
           (concatMapStringsSep "\n" readFile
             [ "${configDir}/alacritty/alacritty.toml" ])
