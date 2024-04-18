@@ -1,0 +1,84 @@
+[colors]
+draw_bold_text_with_bright_colors = false
+
+[colors.bright]
+black = "#4C566A"
+blue = "#ADB2BA"
+cyan = "#8FBCBB"
+green = "#A19C9A"
+magenta = "#CD96B3"
+red = "#BA8082"
+white = "#FAF5EF"
+yellow = "#E9B872"
+
+[colors.cursor]
+cursor = "#F2F2F2"
+text = "#0D0D0D"
+
+[colors.dim]
+black = "#373e4d"
+blue = "#68809a"
+cyan = "#6d96a5"
+green = "#809575"
+magenta = "#8c738c"
+red = "#94545d"
+white = "#aeb3bb"
+yellow = "#b29e75"
+
+[colors.normal]
+black = "#121414"
+blue = "#ADB2BA"
+cyan = "#88B6D0"
+green = "#A19C9A"
+magenta = "#CD96B3"
+red = "#BA8082"
+white = "#FAFAFA"
+yellow = "#E9B872"
+
+[colors.primary]
+background = "#0D0D0D"
+dim_foreground = "#4C566A"
+foreground = "#F2F2F2"
+
+[colors.search.matches]
+background = "#88B6D0"
+foreground = "CellBackground"
+
+[colors.selection]
+background = "#4C566A"
+text = "CellForeground"
+
+[colors.vi_mode_cursor]
+cursor = "#F2F2F2"
+text = "#0D0D0D"
+
+[cursor]
+style = "Block"
+unfocused_hollow = true
+
+[glyph_offset]
+x = 0
+y = 0
+
+[scrolling]
+history = 100000
+multiplier = 3
+
+[selection]
+save_to_clipboard = false
+semantic_escape_chars = ",│`|:\"' ()[]{}<>\t"
+
+[window]
+decorations = "full"
+dynamic_padding = false
+opacity = 1
+tabspaces = 2
+title = "Alacritty"
+
+[window.dimensions]
+columns = 0
+lines = 0
+
+[window.padding]
+x = 11
+y = 10
