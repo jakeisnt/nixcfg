@@ -72,7 +72,6 @@ semantic_escape_chars = ",│`|:\"' ()[]{}<>\t"
 decorations = "full"
 dynamic_padding = false
 opacity = 1
-tabspaces = 2
 title = "Alacritty"
 
 [window.dimensions]
