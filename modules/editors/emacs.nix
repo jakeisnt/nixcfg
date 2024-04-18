@@ -5,7 +5,7 @@ with lib.my;
 # emacs (~pgtk~) + native-comp
 # this was `29.2`, but the emacs interface keeps changing in backwards-incompatible ways
 let
-  myemacs0 = pkgs.emacs-pgtk;
+  myemacs0 = pkgs.emacs29-pgtk;
   emacsWPkgs = (pkgs.emacsPackagesFor myemacs0).emacsWithPackages;
   myemacs = emacsWPkgs (epkgs: (with epkgs; [ vterm pdf-tools org-pdftools ]));
 
