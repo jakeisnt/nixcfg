@@ -129,16 +129,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1716729631,
-        "narHash": "sha256-IerjU5GUeKc0eW9FPOdlPveSGJ2ZrO+lIfuHPUmUF2I=",
-        "owner": "rycee",
+        "lastModified": 1726989464,
+        "narHash": "sha256-Vl+WVTJwutXkimwGprnEtXc/s/s8sMuXzqXaspIGlwM=",
+        "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "fc4492181833eaaa7a26a8081c0615d95792d825",
+        "rev": "2f23fa308a7c067e52dfcc30a0758f47043ec176",
         "type": "github"
       },
       "original": {
-        "owner": "rycee",
-        "ref": "release-23.05",
+        "owner": "nix-community",
+        "ref": "release-24.05",
         "repo": "home-manager",
         "type": "github"
       }
@@ -246,11 +246,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1728157503,
-        "narHash": "sha256-d0SUei1hqV/GbgH8MPlQ8q0eBnt/Y2GS+6KiE7YHE0M=",
+        "lastModified": 1728161129,
+        "narHash": "sha256-M1KzDilN7/d8knfZuNllqdojdzlFLhlbcXbLGXgn6JQ=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "b8a5117271b7e52bf5ed0cfd496f8a5410e07e68",
+        "rev": "a225c7d3073fb5bdef090a1b7986d18a8d557b1a",
         "type": "github"
       },
       "original": {
