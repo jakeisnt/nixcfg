@@ -24,6 +24,8 @@ in
         python310Packages.virtualenv
         # lua lsp for vim config
         sumneko-lua-language-server
+        # for nvim
+        gcc
     ];
 
     modules.editors.tree-sitter.enable = true;
