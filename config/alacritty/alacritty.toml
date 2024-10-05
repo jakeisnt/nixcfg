@@ -56,10 +56,6 @@ text = "#0D0D0D"
 style = "Block"
 unfocused_hollow = true
 
-[glyph_offset]
-x = 0
-y = 0
-
 [scrolling]
 history = 100000
 multiplier = 3
