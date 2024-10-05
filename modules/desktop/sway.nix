@@ -42,7 +42,7 @@ in {
 
     systemd.user.targets.sway-session = {
       enable = true;
-      description = "Sway compositor session";
+      description = "sway compositor session";
       documentation = [ "man:systemd.special(7)" ];
 
       bindsTo = [ "graphical-session.target" ];
