@@ -14,6 +14,11 @@
 
   time.timeZone = "Europe/Stockholm";
 
+  user.packages = with pkgs; [
+    ripgrep
+    fzf
+  ];
+
   # automount storage devices
   services.devmon.enable = true;
   user.extraGroups = [
