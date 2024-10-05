@@ -64,8 +64,7 @@
       default = "emacsclient -c";
       vim.enable = true;
       emacs = {
-        enable = true;
-        daemon = true;
+        enable = false;
       };
     };
     hardware = {
