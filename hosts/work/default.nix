@@ -53,7 +53,7 @@
     browsers = {
       default = "firefox";
       firefox.enable = true;
-      chrome.enable = true;
+      # chrome.enable = true;
     };
     term = {
       default = "alacritty";

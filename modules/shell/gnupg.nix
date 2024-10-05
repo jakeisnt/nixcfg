@@ -37,7 +37,7 @@ in {
         allow-emacs-pinentry
         allow-loopback-pinentry
         enable-ssh-support
-        pinentry-program ${if config.modules.editors.emacs.enable then pkgs.pinentry-emacs else (if cfg.gui then pkgs.pinentry-gnome else pkgs.pinentry-curses)}/bin/pinentry
+        pinentry-program ${if true then pkgs.pinentry-emacs else (if cfg.gui then pkgs.pinentry-gnome else pkgs.pinentry-curses)}/bin/pinentry
         default-cache-ttl ${toString cfg.cacheTTL}
         max-cache-ttl ${toString cfg.cacheTTL}
       '';
