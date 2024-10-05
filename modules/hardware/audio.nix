@@ -7,7 +7,8 @@ in {
   options.modules.hardware.audio = { enable = mkBoolOpt false; };
 
   config = mkIf cfg.enable {
-    sound.enable = true;
+    # DEPRECATED: Can be removed!
+    # sound.enable = true;
     xdg.portal = mkIf config.modules.desktop.sway.enable {
       enable = true;
       extraPortals = with pkgs; [
