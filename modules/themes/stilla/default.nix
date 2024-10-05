@@ -106,7 +106,7 @@ in {
         # else
           # [ ]);
       fonts = {
-        fonts = with pkgs; [
+        packages = with pkgs; [
           fira-code
           fira-code-symbols
           jetbrains-mono

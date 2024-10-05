@@ -35,7 +35,7 @@
     };
   };
 
-  services.xserver.libinput.enable = true;
+  services.libinput.enable = true;
   services.openssh.startWhenNeeded = true;
   services.gnome.gnome-keyring.enable = true;
 
