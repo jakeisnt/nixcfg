@@ -13,7 +13,7 @@
     nixpkgs-unstable.url = "nixpkgs/master";
 
     home-manager = {
-      url = "github:rycee/home-manager/master";
+      url = "github:rycee/home-manager/release-23.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -21,7 +21,7 @@
 
     emacs-overlay = {
       url = "github:nix-community/emacs-overlay";
-      # inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nixos-hardware.url = "github:nixos/nixos-hardware";
