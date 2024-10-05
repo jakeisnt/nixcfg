@@ -1,5 +1,4 @@
-# flake.nix --- the heart of my dotfiles
-#
+# flake.nix --- the heart of my dotfiles #
 # Author:  Henrik Lissner <henrik@lissner.net> ++ Jake Chvatal <jakechvatal@gmail.com>
 # URL:     https://github.com/jakeisnt/nixcfg
 # License: MIT
@@ -17,14 +16,20 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nur.url = "github:nix-community/NUR/master";
+    nur = { 
+      url = "github:nix-community/NUR/master";
+      # inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     emacs-overlay = {
       url = "github:nix-community/emacs-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixos-hardware.url = "github:nixos/nixos-hardware";
+    nixos-hardware = {
+      url = "github:nixos/nixos-hardware";
+      # inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     simple-nixos-mailserver = {
       url = "gitlab:simple-nixos-mailserver/nixos-mailserver";
@@ -45,12 +50,14 @@
     doom-emacs = {
       url = "github:doomemacs/doomemacs/master";
       flake = false;
+      # inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Used for compatible `nix build` comamnds if the system doesn't yet have flakes enabled`
+    # Used for compatible `nix build` commands if the system doesn't yet have flakes enabled`
     flake-compat = {
       url = github:edolstra/flake-compat;
       flake = false;
+      # inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 

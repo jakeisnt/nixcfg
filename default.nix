@@ -36,9 +36,11 @@ with inputs; {
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
     ];
 
+    # TODO: I had conflicting values here,
+    # so had to update. Makes sense -- but what do each of these do?
     registry = {
       nixos.flake = nixpkgs;
-      nixpkgs.flake = nixpkgs-unstable;
+      nixpkgs.flake = nixpkgs; # nixpkgs-unstable;
     };
 
     settings.sandbox = true;
