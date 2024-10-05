@@ -1,4 +1,4 @@
-{ config, options, lib, pkgs, inputs, ... }:
+{ config, options, lib, pkgs, uPkgs, inputs, ... }:
 
 with lib;
 with lib.my;
@@ -11,13 +11,12 @@ in
 
   config = mkIf cfg.enable {
     programs.neovim = {
-      package = pkgs.neovim-unwrapped; # switch from (neovim-nightly)
+      package = pkgs.unstable.neovim-unwrapped; # switch from (neovim-nightly)
       enable = true;
       defaultEditor = false; # this is configured by me elsewhere
     };
 
     user.packages = with pkgs; [
-      vimPlugins.packer-nvim
         sqlite
         universal-ctags # for coq nvim completion
         python310       # for coq setup

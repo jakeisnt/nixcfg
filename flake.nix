@@ -16,7 +16,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nur = { 
+    nur = {
       url = "github:nix-community/NUR/master";
       # inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -78,11 +78,19 @@
           overlays = extraOverlays ++ (attrValues self.overlays);
         };
 
-      pkgs = mkPkgs nixpkgs [
+      uPkgs = mkPkgs nixpkgs-unstable [
         self.overlay
         (self: super: { doomEmacsRevision = doom-emacs.rev; })
       ];
-      uPkgs = mkPkgs nixpkgs-unstable [];
+
+      pkgs = mkPkgs nixpkgs [
+        self.overlay
+        (self: super: {
+          doomEmacsRevision = doom-emacs.rev;
+          unstable = uPkgs;
+        })
+      ];
+
 
       lib = nixpkgs.lib.extend (
         self: super: {
