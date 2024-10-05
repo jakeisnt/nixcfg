@@ -19,12 +19,13 @@ in {
     #   '';
     # }];
     services = {
-      gnome3.gnome-keyring.enable = true;
+      # gnome keyring is not available anymore?
+      # gnome3.gnome-keyring.enable = true;
       xserver = {
         enable = true;
         xkbOptions = "caps:swapescape";
         displayManager.gdm.enable = true;
-        desktopManager.gnome3.enable = true;
+        # desktopManager.gnome3.enable = true;
 
         # todo: device-specific
         # monitorSection = ''
