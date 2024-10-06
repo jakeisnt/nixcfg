@@ -17,7 +17,7 @@ in
     };
 
     user.packages = with pkgs; [
-        sqlite
+        sqlite          # for coq nvim completion
         universal-ctags # for coq nvim completion
         python310       # for coq setup
         python310Packages.virtualenv
