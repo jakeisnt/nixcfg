@@ -128,11 +128,6 @@
             path = ./.;
             description = "A grossly incandescent nixos config";
           };
-          # TODO: I don't use this. Consider retiring!
-          minimal = {
-            path = ./templates/minimal;
-            description = "A grossly incandescent and minimal nixos config";
-          };
           flake = {
             path = ./templates/flake;
             description = "A simple Nix flake starter project.";
