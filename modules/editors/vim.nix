@@ -25,6 +25,8 @@ in
         sumneko-lua-language-server
         # for nvim
         gcc
+        # for copilot (and others?)
+        nodejs
     ];
 
     modules.editors.tree-sitter.enable = true;
