@@ -17,6 +17,7 @@
   user.packages = with pkgs; [
     ripgrep
     fzf
+    nil
   ];
 
   # automount storage devices

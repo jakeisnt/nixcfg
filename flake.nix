@@ -96,49 +96,49 @@
         self: super: {
           my =
             import ./lib {
-            inherit pkgs inputs;
-            lib = self;
-          };
+              inherit pkgs inputs;
+              lib = self;
+            };
         }
       );
     in
       {
-        overlay = final: prev: {
-          unstable = uPkgs;
-          my = self.packages."${system}";
-          extras = { inherit spicetify-nix; };
+      overlay = final: prev: {
+        unstable = uPkgs;
+        my = self.packages."${system}";
+        extras = { inherit spicetify-nix; };
+      };
+
+      overlays = mapModules ./overlays import;
+
+      packages."${system}" = mapModules ./packages (p: pkgs.callPackage p {});
+
+      nixosModules = {
+        dotfiles = import ./.;
+      } // mapModulesRec ./modules import;
+
+      nixosConfigurations = mapHosts ./hosts { inherit system; };
+
+      devShell."${system}" = pkgs.mkShell {
+        name = "nixos-config";
+      };
+
+      templates = {
+        full = {
+          path = ./.;
+          description = "A grossly incandescent nixos config";
         };
-
-        overlays = mapModules ./overlays import;
-
-        packages."${system}" = mapModules ./packages (p: pkgs.callPackage p {});
-
-        nixosModules = {
-          dotfiles = import ./.;
-        } // mapModulesRec ./modules import;
-
-        nixosConfigurations = mapHosts ./hosts { inherit system; };
-
-        devShell."${system}" = pkgs.mkShell {
-          name = "nixos-config";
-        };
-
-        templates = {
-          full = {
-            path = ./.;
-            description = "A grossly incandescent nixos config";
-          };
-          flake = {
-            path = ./templates/flake;
-            description = "A simple Nix flake starter project.";
-          };
-        };
-
-        defaultTemplate = self.templates.flake;
-
-        defaultApp."${system}" = {
-          type = "app";
-          program = ./bin/hey;
+        flake = {
+          path = ./templates/flake;
+          description = "A simple Nix flake starter project.";
         };
       };
+
+      defaultTemplate = self.templates.flake;
+
+      defaultApp."${system}" = {
+        type = "app";
+        program = ./bin/hey;
+      };
+    };
 }
