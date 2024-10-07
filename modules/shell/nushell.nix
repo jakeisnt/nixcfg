@@ -22,6 +22,8 @@ in {
       bat
     ];
 
+    environment.variables.ANTHROPIC_API_KEY = secrets.llm.ANTHROPIC_API_KEY;
+
     home.configFile = {
       "starship.toml".text = (concatMapStringsSep "\n" readFile [ "${configDir}/starship/starship.toml" ]);
       "nushell/config.nu".text = (concatMapStringsSep "\n" readFile [ "${configDir}/nushell/config.nu" ]);
