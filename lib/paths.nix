@@ -9,14 +9,7 @@ with lib; rec {
   binDir = "${dotFilesDir}/bin";
   themesDir = "${modulesDir}/themes";
   username = "jake";
-  homeDir = "/home/${
-  let
-    name = getEnv "USERNAME";
-  in
-    if elem name [ username "root" ] then username
-    else
-      name
-  }";
+  homeDir = "/home/${username}";
 
   darwinHomeDir = "/Users/${username}";
 
