@@ -52,8 +52,8 @@ with lib.my;
       spotify.enable = true;
     };
     term = {
-      default = "alacritty";
-      alacritty.enable = true;
+      default = "ghostty";
+      ghostty.enable = true;
     };
     media = {
       mpv.enable = true;

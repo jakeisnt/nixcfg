@@ -73,7 +73,7 @@ in {
             set $focusedback #${color8}
 
             set $mon2 DP-2
-            set $term ${pkgs.alacritty}/bin/alacritty
+            set $term ${pkgs.foot}/bin/foot
 
             output eDP1 resolution 3840x2160 position 0,0
             output DP-2 resolution 1920x1080 scale 0.8

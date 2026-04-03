@@ -146,7 +146,7 @@ portal = /usr/libexec/xdg-desktop-portal
 [command]
 # Start a terminal
 binding_terminal = <super> KEY_ENTER
-command_terminal = alacritty
+command_terminal = foot
 
 # Start your launcher
 binding_launcher = <super> <space>

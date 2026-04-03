@@ -62,8 +62,7 @@
       # chrome.enable = true;
     };
     term = {
-      default = "alacritty";
-      alacritty.enable = true;
+      default = "foot";
       foot.enable = true;
     };
     editors = {
