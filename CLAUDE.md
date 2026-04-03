@@ -4,27 +4,41 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Common Commands
 
-```bash
-# Build and switch to a host configuration
-nixos-rebuild switch --flake .#<hostname> --impure
+The default shell is nushell. Use the `hey` script (in `bin/`) for common NixOS operations:
 
-# Build without switching (test build)
-nixos-rebuild build --flake .#<hostname> --impure
+```nu
+# Build and switch to current host configuration
+hey rebuild
+# (expands to: sudo nixos-rebuild switch --flake /etc/nixos --option pure-eval no)
+
+# Update flake inputs and rebuild
+hey upgrade
+
+# Garbage collect old generations
+hey gc
+# (expands to: nix-collect-garbage -d)
+
+# Find a package by name
+hey find <package_name>
+```
+
+For one-off nix commands (run from `/etc/nixos`):
+
+```nu
+# Build without switching
+sudo nixos-rebuild build --flake /etc/nixos --option pure-eval no
 
 # Build the live USB ISO
-nix build .#nixosConfigurations.iso-install.config.system.build.isoImage --impure
+nix build .#nixosConfigurations.iso-install.config.system.build.isoImage --option pure-eval no
 
 # Check flake validity
 nix flake check
 
-# Enter dev shell
+# Enter dev shell (drops into bash; use direnv for nushell-native dev envs)
 nix develop
 
 # Update flake inputs
-nix flake update
-
-# Garbage collect old generations
-nix-collect-garbage -d
+nix flake update /etc/nixos --impure
 ```
 
 ## Architecture
