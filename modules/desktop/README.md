@@ -1,3 +1,3 @@
-#+TITLE: Desktop
+# Desktop
 
 Utilities only relevant to the desktop (only usable as a GUI).
