@@ -9,7 +9,7 @@ in {
   config = mkIf cfg.enable {
     user.packages = with pkgs; [ ghostty ];
     home.configFile = {
-      "ghostty/config".source = config.lib.file.mkOutOfStoreSymlink "${configDir}/ghostty/config";
+      "ghostty/config".source = mkOutOfStoreSymlink "${configDir}/ghostty/config";
     };
   };
 }

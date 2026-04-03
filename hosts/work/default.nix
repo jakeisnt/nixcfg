@@ -64,6 +64,7 @@
     term = {
       default = "foot";
       foot.enable = true;
+      ghostty.enable = true;
     };
     editors = {
       default = "emacsclient -c";

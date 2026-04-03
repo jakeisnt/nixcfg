@@ -1,4 +1,4 @@
-{ self, lib, modules, ... }:
+{ self, lib, pkgs, modules, ... }:
 
 with builtins;
 with lib; rec {
@@ -14,4 +14,9 @@ with lib; rec {
   darwinHomeDir = "/Users/${username}";
 
   secrets = import ./secrets.nix { inherit lib; };
+
+  # Equivalent to home-manager's lib.file.mkOutOfStoreSymlink, usable from NixOS modules
+  mkOutOfStoreSymlink = path:
+    let pathStr = toString path;
+    in pkgs.runCommandLocal (baseNameOf pathStr) {} "ln -s ${escapeShellArg pathStr} $out";
 }

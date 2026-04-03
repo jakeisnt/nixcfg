@@ -72,7 +72,7 @@ in {
     '';
 
     home.configFile = {
-      "wayfire/config".source = config.lib.file.mkOutOfStoreSymlink "${configDir}/wayfire/config";
+      "wayfire/config".source = mkOutOfStoreSymlink "${configDir}/wayfire/config";
     };
   };
 }

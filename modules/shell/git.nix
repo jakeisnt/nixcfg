@@ -49,9 +49,9 @@ in {
     };
 
     home.configFile = {
-      "git/config".source = config.lib.file.mkOutOfStoreSymlink "${configDir}/git/config";
-      "git/ignore".source = config.lib.file.mkOutOfStoreSymlink "${configDir}/git/ignore";
-      "gh/config.yml".source = config.lib.file.mkOutOfStoreSymlink "${configDir}/gh/config.yml";
+      "git/config".source = mkOutOfStoreSymlink "${configDir}/git/config";
+      "git/ignore".source = mkOutOfStoreSymlink "${configDir}/git/ignore";
+      "gh/config.yml".source = mkOutOfStoreSymlink "${configDir}/gh/config.yml";
     };
   };
 }

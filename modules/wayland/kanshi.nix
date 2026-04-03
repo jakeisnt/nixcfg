@@ -26,7 +26,7 @@ in {
       };
     };
     home.configFile = {
-      "kanshi/config".source = config.lib.file.mkOutOfStoreSymlink "${configDir}/kanshi/config";
+      "kanshi/config".source = mkOutOfStoreSymlink "${configDir}/kanshi/config";
     };
   };
 }

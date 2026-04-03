@@ -25,10 +25,10 @@ in {
     environment.variables.ANTHROPIC_API_KEY = secrets.llm.ANTHROPIC_API_KEY;
 
     home.configFile = {
-      "starship.toml".source = config.lib.file.mkOutOfStoreSymlink "${configDir}/starship/starship.toml";
-      "nushell/config.nu".source = config.lib.file.mkOutOfStoreSymlink "${configDir}/nushell/config.nu";
-      "nushell/login.nu".source = config.lib.file.mkOutOfStoreSymlink "${configDir}/nushell/login.nu";
-      "nushell/env.nu".source = config.lib.file.mkOutOfStoreSymlink "${configDir}/nushell/env.nu";
+      "starship.toml".source = mkOutOfStoreSymlink "${configDir}/starship/starship.toml";
+      "nushell/config.nu".source = mkOutOfStoreSymlink "${configDir}/nushell/config.nu";
+      "nushell/login.nu".source = mkOutOfStoreSymlink "${configDir}/nushell/login.nu";
+      "nushell/env.nu".source = mkOutOfStoreSymlink "${configDir}/nushell/env.nu";
     };
   };
 }
