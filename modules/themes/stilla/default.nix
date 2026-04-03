@@ -89,10 +89,10 @@ in {
             urgent = "FF5555";
           };
         };
-        shell.tmux.rcFiles = [ ./config/tmux.conf ];
+        shell.tmux.rcFiles = [ "${configDir}/tmux/tmux.conf" ];
         browsers = {
           firefox.userChrome = concatMapStringsSep "\n" readFile
-            [ ./config/firefox/userChrome.css ];
+            [ "${configDir}/firefox/userChrome.css" ];
         };
       };
     }

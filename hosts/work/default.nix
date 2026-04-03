@@ -57,9 +57,8 @@
       scale = 1.0;
     };
     browsers = {
-      default = "firefox";
-      firefox.enable = true;
-      # chrome.enable = true;
+      default = "chrome";
+      chrome.enable = true;
     };
     term = {
       default = "foot";
