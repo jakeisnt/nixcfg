@@ -85,6 +85,7 @@
       # graphics.enable = true;
       # graphics.photo.enable = true;
     };
+    dev.ai.enable = true;
     shell = {
       git.enable = true;
       file.enable = true;
