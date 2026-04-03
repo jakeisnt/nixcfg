@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(nix flake:*)",
+      "Bash(nix build:*)",
+      "Bash(nix eval:*)",
+      "Bash(nix search:*)",
+      "Bash(grep -E \"error:|warning:|^$\")"
+    ]
+  }
+}

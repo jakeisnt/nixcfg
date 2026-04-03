@@ -10,15 +10,14 @@ in {
     # use dnsmasq to cache dns
     services.dnsmasq = {
       enable = true;
-      servers = [ "8.8.8.8" "8.8.4.4" ];
-
-      extraConfig = ''
-        interface=lo
-        bind-interfaces
-        listen-address=127.0.0.1
-        cache-size=1000
-        no-negcache
-      '';
+      settings = {
+        server = [ "8.8.8.8" "8.8.4.4" ];
+        interface = "lo";
+        bind-interfaces = true;
+        listen-address = "127.0.0.1";
+        cache-size = 1000;
+        no-negcache = true;
+      };
     };
   };
 }

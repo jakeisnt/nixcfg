@@ -27,7 +27,7 @@ in {
   mkDarwinHost = path: attrs @ { system ? "aarch64-darwin", ... }:
     let
       hostname = (removeSuffix ".nix" (baseNameOf path));
-      darwinPkgs = import inputs.nixpkgs {
+      darwinPkgs = import inputs.nixpkgs-unstable {
         inherit system;
         config.allowUnfree = true;
         overlays = [

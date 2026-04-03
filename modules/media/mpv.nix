@@ -10,7 +10,7 @@ in {
     user.packages = with pkgs; [
       # image viewer
       imv
-      mpv-with-scripts
+      mpv
       mpvc # CLI controller for mpv
       (mkIf config.programs.sway.enable celluloid) # nice GTK GUI for mpv
     ];

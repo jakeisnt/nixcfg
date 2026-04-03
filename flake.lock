@@ -3,11 +3,11 @@
     "doom-emacs": {
       "flake": false,
       "locked": {
-        "lastModified": 1775246330,
-        "narHash": "sha256-PnKED6/XzkevR3axvU+Ci8WNNFUWwBVmMOBmMnmJQfM=",
+        "lastModified": 1775250082,
+        "narHash": "sha256-XU0LaoWiaRTWb0ksVaZhuHw1wl7BketGlFfQd92A1kE=",
         "owner": "doomemacs",
         "repo": "doomemacs",
-        "rev": "eeabbbb9dc3b58567723f908621de2f055f99c0d",
+        "rev": "289d89377ba8606ef779d576ef7d7b41f197dc9b",
         "type": "github"
       },
       "original": {
@@ -83,7 +83,7 @@
     "nix-darwin": {
       "inputs": {
         "nixpkgs": [
-          "nixpkgs"
+          "nixpkgs-unstable"
         ]
       },
       "locked": {

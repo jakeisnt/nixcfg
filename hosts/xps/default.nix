@@ -10,7 +10,7 @@ with lib.my;
 
   users.users.jake.packages = with pkgs; [ thunderbird openssl ];
   services.fwupd.enable = true;
-  services.xserver.libinput.enable = true;
+  services.libinput.enable = true;
 
   programs.ssh = {
     startAgent = true;
@@ -61,18 +61,15 @@ with lib.my;
     };
     messengers = {
       rss.enable = true;
-      matrix.enable = true;
+      matrix.enable = false;
       signal.enable = true;
       # email.enable = true;
       weechat.enable = true;
     };
     editors = {
-      default = "emacsclient -c";
-      emacs = {
-        enable = true;
-        daemon = true;
-      };
-      vim.enable = false;
+      default = "vim";
+      emacs.enable = false;
+      vim.enable = true;
       vscode.enable = true;
     };
 

@@ -7,14 +7,12 @@ with lib.my;
 let
   cfg = config.modules.services.cal;
   domain = config.networking.domain;
-  mailAccounts = config.mailserver.loginAccounts;
-  htpasswd = pkgs.writeText "radicale.users" (concatStrings
-    (flip mapAttrsToList mailAccounts
-      (mail: user: mail + ":" + secrets.email.hashedPassword + "\n")));
 in {
   options.modules.services.cal = { enable = mkBoolOpt false; };
 
-  config = mkIf cfg.enable {
+  config = mkIf cfg.enable (let
+    htpasswd = pkgs.writeText "radicale.users" "";
+  in {
     services.radicale = {
       enable = true;
       settings = {
@@ -44,5 +42,5 @@ in {
         };
       };
     };
-  };
+  });
 }

@@ -35,8 +35,8 @@ in
 
   modules = {
     editors = {
-      default = "emacs";
-      emacs.enable = true;
+      default = "vim";
+      vim.enable = true;
     };
     shell = {
       git.enable = true;

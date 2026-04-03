@@ -87,7 +87,7 @@
   hardware = {
     sane.enable = true;
     keyboard.zsa.enable = true;
-    opengl = {
+    graphics = {
       enable = true;
       extraPackages = with pkgs; [ vaapiIntel vaapiVdpau libvdpau-va-gl ];
     };
@@ -96,7 +96,7 @@
   };
 
   # CPU
-  nix.maxJobs = lib.mkDefault 8;
+  nix.settings.max-jobs = lib.mkDefault 8;
   # "powersave" for the obvious
   powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
   hardware.cpu.intel.updateMicrocode = true;

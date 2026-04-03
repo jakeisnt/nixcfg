@@ -14,7 +14,7 @@ in {
       joshuto # tui file browser
       poppler_utils # pdf preview
       ffmpegthumbnailer # video thumbnails
-      xdg_utils # xdg-open is used a lot
+      xdg-utils # xdg-open is used a lot
       feh # image viewer
       zathura # pdf viewer
       bat # text file viewer

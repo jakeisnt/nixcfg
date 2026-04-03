@@ -15,9 +15,11 @@ in {
   config = mkIf cfg.enable {
     services.openssh = {
       enable = true;
-      forwardX11 = true;
-      kbdInteractiveAuthentication = false;
-      passwordAuthentication = false;
+      settings = {
+        X11Forwarding = true;
+        KbdInteractiveAuthentication = false;
+        PasswordAuthentication = false;
+      };
     };
 
     # Allow SSHing through firewall

@@ -56,7 +56,7 @@ in {
 
         shellAliases = with pkgs; {
           # use the souped-up rust stuff!
-          "ls" = "${exa}/bin/exa";
+          "ls" = "${eza}/bin/eza";
           "cat" = "${bat}/bin/bat";
           "find" = "${fd}/bin/fd";
           "ps" = "${procs}/bin/procs";
@@ -76,7 +76,7 @@ in {
       user.packages = with pkgs; [
         starship
         bat
-        exa
+        eza
         fd
         procs
         ripgrep
