@@ -37,7 +37,7 @@ async function main() {
 
   if (await darwinRebuildExists()) {
     console.log("darwin-rebuild found — running switch...\n");
-    await $`darwin-rebuild switch --flake ${FLAKE}#${TARGET}`.cwd(FLAKE);
+    await $`sudo darwin-rebuild switch --flake ${FLAKE}#${TARGET}`.cwd(FLAKE);
     return;
   }
 
@@ -51,13 +51,28 @@ async function main() {
     "/etc/zshrc",
   ];
 
+  // Unlock git-crypt encrypted files (e.g. lib/secrets.nix) before nix evaluation
+  const secretsPath = join(FLAKE, "lib/secrets.nix");
+  if (existsSync(secretsPath)) {
+    const contents = await Bun.file(secretsPath).text();
+    if (contents.startsWith("\x00GITCRYPT")) {
+      console.log("Unlocking git-crypt encrypted files...\n");
+      try {
+        await $`git-crypt unlock`.cwd(FLAKE);
+      } catch {
+        console.error("git-crypt unlock failed. Provide a key or unlock manually before bootstrapping.");
+        process.exit(1);
+      }
+    }
+  }
+
   console.log("Backing up files that nix-darwin will manage:");
   for (const f of managed) {
     await backupIfExists(f);
   }
 
   console.log("\nRunning: nix run nix-darwin -- switch --flake .#" + TARGET + "\n");
-  await $`nix run nix-darwin -- switch --flake ${FLAKE}#${TARGET}`.cwd(FLAKE);
+  await $`sudo nix --extra-experimental-features "nix-command flakes" run nix-darwin -- switch --flake ${FLAKE}#${TARGET}`.cwd(FLAKE);
 
   console.log("\nBootstrap complete. You can now use: darwin-rebuild switch --flake .#" + TARGET);
 }
