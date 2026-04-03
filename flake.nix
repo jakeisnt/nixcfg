@@ -99,6 +99,10 @@
         name = "nixos-config";
       };
 
+      devShell."aarch64-darwin" = (import nixpkgs { system = "aarch64-darwin"; }).mkShell {
+        name = "nixos-config";
+      };
+
       templates = {
         full = {
           path = ./.;
