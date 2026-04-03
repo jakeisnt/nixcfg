@@ -1,1 +1,4 @@
-(builtins.getFlake (toString ./.)).devShell.${builtins.currentSystem}
+{ pkgs ? import <nixpkgs> {} }:
+pkgs.mkShell {
+  name = "nixos-config";
+}
