@@ -11,6 +11,10 @@
     nixpkgs.url = "nixpkgs/nixos-24.11";
     nixpkgs-unstable.url = "nixpkgs/master";
 
+    nix-claude-code = {
+      url = "github:ryoppippi/nix-claude-code";
+    };
+
     nix-darwin = {
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -42,7 +46,7 @@
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, spicetify-nix, doom-emacs, ... }:
+  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, nix-claude-code, spicetify-nix, doom-emacs, ... }:
     let
       inherit (lib) attrValues;
       inherit (lib.my) mapModules mapModulesRec mapHosts mapDarwinHosts;
@@ -57,7 +61,9 @@
             android_sdk.accept_license = true;
             allowUnfree = true;
           };
-          overlays = extraOverlays ++ (attrValues self.overlays);
+          overlays = extraOverlays ++ (attrValues self.overlays) ++ [
+            nix-claude-code.overlays.default
+          ];
         };
 
       uPkgs = mkPkgs nixpkgs-unstable [

@@ -75,6 +75,7 @@ with lib.my;
 
     # TODO consider deleting
     dev = {
+      ai.enable = true;
       node.enable = true;
       cc.enable = false;
       rust.enable = false; # should be project local

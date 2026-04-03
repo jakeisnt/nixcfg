@@ -5,7 +5,11 @@
       "Bash(nix build:*)",
       "Bash(nix eval:*)",
       "Bash(nix search:*)",
-      "Bash(grep -E \"error:|warning:|^$\")"
+      "Bash(grep -E \"error:|warning:|^$\")",
+      "WebSearch",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:mynixos.com)",
+      "WebFetch(domain:raw.githubusercontent.com)"
     ]
   }
 }
