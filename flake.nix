@@ -8,31 +8,20 @@
 
   inputs = {
     # Two inputs so I can track them separately at different rates.
-    nixpkgs.url = "nixpkgs/nixos-24.05";
+    nixpkgs.url = "nixpkgs/nixos-24.11";
     nixpkgs-unstable.url = "nixpkgs/master";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-24.05";
+      url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nur = {
       url = "github:nix-community/NUR/master";
-      # inputs.nixpkgs.follows = "nixpkgs";
     };
 
     emacs-overlay = {
       url = "github:nix-community/emacs-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nixos-hardware = {
-      url = "github:nixos/nixos-hardware";
-      # inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    simple-nixos-mailserver = {
-      url = "gitlab:simple-nixos-mailserver/nixos-mailserver";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -41,23 +30,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-remarkable = {
-      url = "github:siraben/nix-remarkable";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # Pin Doom Emacs version
     doom-emacs = {
       url = "github:doomemacs/doomemacs/master";
       flake = false;
-      # inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # Used for compatible `nix build` commands if the system doesn't yet have flakes enabled`
-    flake-compat = {
-      url = github:edolstra/flake-compat;
-      flake = false;
-      # inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
