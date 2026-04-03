@@ -11,6 +11,11 @@
     nixpkgs.url = "nixpkgs/nixos-24.11";
     nixpkgs-unstable.url = "nixpkgs/master";
 
+    nix-darwin = {
+      url = "github:LnL7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     home-manager = {
       url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -40,9 +45,10 @@
   outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, spicetify-nix, doom-emacs, ... }:
     let
       inherit (lib) attrValues;
-      inherit (lib.my) mapModules mapModulesRec mapHosts;
+      inherit (lib.my) mapModules mapModulesRec mapHosts mapDarwinHosts;
 
       system = "x86_64-linux";
+      darwinSystem = "aarch64-darwin";
 
       mkPkgs = pkgs: extraOverlays:
         import pkgs {
@@ -94,6 +100,8 @@
       } // mapModulesRec ./modules import;
 
       nixosConfigurations = mapHosts ./hosts { inherit system; };
+
+      darwinConfigurations = mapDarwinHosts ./hosts/darwin { system = darwinSystem; };
 
       devShell."${system}" = pkgs.mkShell {
         name = "nixos-config";

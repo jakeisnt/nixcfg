@@ -18,5 +18,7 @@ with lib; rec {
       name
   }";
 
+  darwinHomeDir = "/Users/${username}";
+
   secrets = import ./secrets.nix { inherit lib; };
 }
