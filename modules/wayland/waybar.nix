@@ -18,7 +18,7 @@ in {
           waybar)
       ];
     home.configFile = {
-      "waybar/config" = { source = "${configDir}/waybar/config"; };
+      "waybar/config".source = config.lib.file.mkOutOfStoreSymlink "${configDir}/waybar/config";
 
       # waybar inspiration credit goes to github.com/jakehamilton!
       "waybar/style.css".text = (with colors;

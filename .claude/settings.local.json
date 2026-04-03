@@ -9,7 +9,15 @@
       "WebSearch",
       "WebFetch(domain:github.com)",
       "WebFetch(domain:mynixos.com)",
-      "WebFetch(domain:raw.githubusercontent.com)"
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(rm -rf /etc/nixos/hosts/vultr)",
+      "Bash(rm /etc/nixos/modules/services/matrix.nix /etc/nixos/modules/services/mailserver.nix /etc/nixos/modules/services/acme.nix /etc/nixos/modules/services/nginx.nix /etc/nixos/modules/services/gitea.nix /etc/nixos/modules/services/jitsi.nix /etc/nixos/modules/services/bitwarden.nix /etc/nixos/modules/services/cal.nix)",
+      "Bash(rm -rf hosts/vultr)",
+      "Bash(rm modules/services/matrix.nix modules/services/mailserver.nix modules/services/acme.nix modules/services/nginx.nix modules/services/gitea.nix modules/services/jitsi.nix modules/services/bitwarden.nix modules/services/cal.nix)",
+      "Bash(ls:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m ':*)",
+      "Bash(git commit:*)"
     ]
   }
 }
