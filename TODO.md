@@ -146,12 +146,6 @@
   FREETYPE_PROPERTIES="cff:no-stem-darkening=0 autofitter:no-stem-darkening=0"
   ```
 
-- [ ] **[#35 Fix image previews in terminal](https://github.com/jakeisnt/nixcfg/issues/35)**
-  In Alacritty… there are some X11 terminals that work, but the DPI scaling is terrible with XWayland!
-  - Find a terminal with proper wayland and images support
-  - Find an image viewer that successfully previews those images
-  - Configure them to work!
-
 - [ ] **[#207 Screenshot tool needs a file path?](https://github.com/jakeisnt/nixcfg/issues/207)**
   `printscr` doesn't work as intended right now
 
@@ -161,9 +155,6 @@
   https://omakub.org/
   - https://flameshot.org/
   - https://www.pinta-project.com/
-
-- [ ] **[#96 Configure thunderbird](https://github.com/jakeisnt/nixcfg/issues/96)**
-  I have a somewhat complex thunderbird configuration but it has to be redone manually. Codify it.
 
 - [ ] **[#169 Improve firefox configuration](https://github.com/jakeisnt/nixcfg/issues/169)**
   https://github.com/pyllyukko/user.js#installation
