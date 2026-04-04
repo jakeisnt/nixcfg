@@ -61,9 +61,7 @@ with lib.my;
     };
     messengers = {
       rss.enable = true;
-      matrix.enable = false;
       signal.enable = true;
-      # email.enable = true;
       weechat.enable = true;
     };
     editors = {
@@ -73,7 +71,6 @@ with lib.my;
       vscode.enable = true;
     };
 
-    # TODO consider deleting
     dev = {
       ai.enable = true;
       node.enable = true;
