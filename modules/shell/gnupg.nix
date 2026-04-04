@@ -16,7 +16,7 @@ in {
     user.packages = with pkgs; [
       tomb
       # all three are necessary for some reason
-      pinentry.curses
+      pinentry-curses
       # pinentry-gnome
       pinentry-emacs
     ];

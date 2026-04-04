@@ -9,7 +9,7 @@ in {
 
   config = {
     env.EDITOR = cfg.default;
-    user.packages = with pkgs; [wakatime];
+    user.packages = with pkgs; [wakatime-cli];
 
     environment.shellAliases = {
 

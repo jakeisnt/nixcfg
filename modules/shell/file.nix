@@ -12,7 +12,7 @@ in {
   config = mkIf cfg.enable {
     user.packages = with pkgs; [
       joshuto # tui file browser
-      poppler_utils # pdf preview
+      poppler-utils # pdf preview
       ffmpegthumbnailer # video thumbnails
       xdg-utils # xdg-open is used a lot
       feh # image viewer

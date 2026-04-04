@@ -28,7 +28,7 @@ in {
     user.packages = with pkgs; [
       ncmpcpp
       mopidyEnv
-      mpc_cli
+      mpc
       (writeScriptBin "mpd" ''
         #!${stdenv.shell}
         exec ${mopidyEnv}/bin/mopidy &> /dev/null & disown
