@@ -40,10 +40,20 @@ in {
           })
         ];
       };
+      darwinLib = inputs.nixpkgs-unstable.lib.extend (
+        self: super: {
+          my =
+            import ./. {
+              inputs = inputs;
+              lib = self;
+              pkgs = darwinPkgs;
+            };
+        }
+      );
     in
     inputs.nix-darwin.lib.darwinSystem {
       inherit system;
-      specialArgs = { inherit lib inputs; };
+      specialArgs = { lib = darwinLib; inherit inputs; };
       modules = [
         { nixpkgs.pkgs = darwinPkgs;
           networking.hostName = mkDefault hostname; }

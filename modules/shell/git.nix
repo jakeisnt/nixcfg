@@ -7,19 +7,20 @@ in {
   options.modules.shell.git = { enable = mkBoolOpt false; };
 
   config = mkIf cfg.enable {
-    user.packages = with pkgs; [
-      git
-      gitflow
-      gitAndTools.gh
-      gitAndTools.git-open
-      gitAndTools.diff-so-fancy
-      gitAndTools.git-absorb
-      (mkIf config.modules.shell.gnupg.enable gitAndTools.git-crypt)
-      # semantic diff!
-      difftastic
-      # good diff page viewer
-      delta
-    ];
+    user.packages = with pkgs;
+      [
+        git
+        gitflow
+        gh
+        git-open
+        diff-so-fancy
+        git-absorb
+        # semantic diff!
+        difftastic
+        # good diff page viewer
+        delta
+      ]
+      ++ optional config.modules.shell.gnupg.enable git-crypt;
 
     environment.shellAliases = with pkgs; {
       "ga" = "${git}/bin/git add";

@@ -16,6 +16,7 @@ rec {
         if v == "directory" && pathExists "${path}/default.nix"
         then nameValuePair n (fn path)
         else if v == "regular" &&
+                n != "secrets.nix" &&
                 n != "default.nix" &&
                 hasSuffix ".nix" n
         then nameValuePair (removeSuffix ".nix" n) (fn path)

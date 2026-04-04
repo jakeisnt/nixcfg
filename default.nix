@@ -17,9 +17,7 @@ with inputs; {
 
   nix = {
     package = pkgs.nixVersions.stable;
-    extraOptions = ''
-      experimental-features = nix-command flakes
-    '';
+    settings.experimental-features = [ "nix-command" "flakes" ];
 
     nixPath = (mapAttrsToList (n: v: "${n}=${v}") inputs) ++ [
       "nixpkgs-overlays=${dotFilesDir}/overlays"

@@ -19,7 +19,9 @@
       "Bash(git commit -m ':*)",
       "Bash(git commit:*)",
       "Bash(sudo nixos-rebuild:*)",
-      "Bash(wc -l lib/*.nix)"
+      "Bash(wc -l lib/*.nix)",
+      "Bash(nix --extra-experimental-features \"nix-command flakes\" build .#darwinConfigurations.mac.system --option pure-eval no)",
+      "Bash(git crypt:*)"
     ]
   }
 }

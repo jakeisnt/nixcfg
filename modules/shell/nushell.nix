@@ -14,7 +14,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    users.defaultUserShell = pkgs.nushell;
+    users.users.${username}.shell = pkgs.nushell;
 
     user.packages = with pkgs; [
       nushell

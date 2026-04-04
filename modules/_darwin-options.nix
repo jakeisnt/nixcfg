@@ -43,10 +43,16 @@ with lib.my;
       useUserPackages = true;
       users.${username} = {
         home = {
+          enableNixpkgsReleaseCheck = false;
           file          = mkAliasDefinitions options.home.file;
           stateVersion  = "24.11";
-          homeDirectory = darwinHomeDir;
+          homeDirectory = builtins.toPath darwinHomeDir;
           packages      = mkAliasDefinitions options.user.packages;
+        };
+        manual = {
+          html.enable = false;
+          json.enable = false;
+          manpages.enable = false;
         };
         xdg = {
           enable     = true;
@@ -56,9 +62,13 @@ with lib.my;
       };
     };
 
-    users.users.${username} = mkIf (config.user.shell != null) {
-      shell = config.user.shell;
-    };
+    users.users.${username} =
+      {
+        home = builtins.toPath darwinHomeDir;
+      }
+      // optionalAttrs (config.user.shell != null) {
+        shell = config.user.shell;
+      };
 
     nix.settings = {
       trusted-users = [ "root" username ];

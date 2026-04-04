@@ -7,7 +7,7 @@ with lib;
 with lib.my;
 with inputs; {
   imports =
-    [ home-manager.darwinModules.home-manager ]
+    [ inputs."home-manager-unstable".darwinModules.home-manager ]
     ++ [
       # Darwin-specific option wiring (user.packages, home.*, env aliases)
       ./modules/_darwin-options.nix
@@ -29,10 +29,8 @@ with inputs; {
   };
 
   nix = {
-    extraOptions = ''
-      experimental-features = nix-command flakes
-    '';
     settings = {
+      experimental-features = [ "nix-command" "flakes" ];
       substituters = [
         "https://cache.nixos.org/"
         "https://nix-community.cachix.org"
