@@ -12,10 +12,12 @@ in {
     user.packages = with pkgs; [wakatime];
 
     environment.shellAliases = {
-      wakatime-cli =
-        "${pkgs.wakatime}/bin/wakatime-cli --key ${secrets.wakatime.apiKey}";
-      wakatime =
-        "${pkgs.wakatime}/bin/wakatime-cli --key ${secrets.wakatime.apiKey}";
+
+      # TODO: Bring back the wakatime API key.
+      # wakatime-cli =
+      #   "${pkgs.wakatime}/bin/wakatime-cli --key ${secrets.wakatime.apiKey}";
+      # wakatime =
+      #   "${pkgs.wakatime}/bin/wakatime-cli --key ${secrets.wakatime.apiKey}";
     };
   };
 }
