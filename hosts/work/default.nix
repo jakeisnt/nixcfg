@@ -60,16 +60,13 @@
       chrome.enable = true;
     };
     term = {
-      default = "foot";
-      foot.enable = true;
+      default = "ghostty";
       ghostty.enable = true;
     };
     editors = {
-      default = "emacsclient -c";
+      default = "nvim";
       vim.enable = true;
-      emacs = {
-        enable = false;
-      };
+      emac.enable = false;
     };
     hardware = {
       audio.enable = true;
