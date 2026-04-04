@@ -5,6 +5,8 @@
   imports = [./hardware-configuration.nix ../personal.nix];
 
   networking.hostName = "work";
+
+  env.TERM = "ghostty";
   services.getty.autologinUser = "jake";
 
   boot.loader = {
