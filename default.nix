@@ -57,9 +57,6 @@ with inputs; {
   # hardware-configuration.nix or fileSystem config.
   fileSystems."/".device = mkDefault "/dev/disk/by-label/nixos";
 
-  # Use the latest kernel
-  boot.kernelPackages = pkgs.linuxPackages_latest;
-
   boot.loader = {
     efi.canTouchEfiVariables = true;
     systemd-boot.configurationLimit = 10;

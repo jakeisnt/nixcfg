@@ -7,6 +7,7 @@ with lib.my;
   imports = [ ./hardware-configuration.nix ../personal.nix ];
 
   networking.hostName = "xps";
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   users.users.jake.packages = with pkgs; [ thunderbird openssl ];
   services.fwupd.enable = true;
