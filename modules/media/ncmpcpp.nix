@@ -9,7 +9,6 @@ let
     paths = closePropagation (with pkgs; [
       mopidy-youtube
       mopidy-mpd
-      mopidy-scrobbler
       mopidy-mpris
     ]);
     pathsToLink = [ "/${pkgs.mopidyPackages.python.sitePackages}" ];
@@ -24,10 +23,6 @@ in {
     enable = mkBoolOpt false;
     # mopidy.enable = mkBoolOpt false;
   };
-
-  # TODO: update to work with SOPS-NIX
-  # there doesn't seem to be a way to read passwords from files,
-  # so I might have to encrypt the whole configuration file : (
 
   config = mkIf cfg.enable {
     user.packages = with pkgs; [
@@ -153,8 +148,7 @@ in {
         enabled = false
 
         [scrobbler]
-        username = ${secrets.lastFM.username}
-        password = ${secrets.lastFM.password}
+        enabled = false
       '';
     };
   };
