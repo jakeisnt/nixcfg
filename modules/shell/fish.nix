@@ -35,7 +35,7 @@ in {
           echo
         end
 
-        fish_add_path /etc/nixos/bin
+        fish_add_path ${binDir}
         ${starship}/bin/starship init fish | source
         ${zoxide}/bin/zoxide init fish | source
         ${cfg.loginInit}

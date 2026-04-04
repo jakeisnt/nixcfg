@@ -1,35 +1,78 @@
 #!/usr/bin/env nu
 
+# Detect the current OS: returns "darwin" or "linux"
+def os [] {
+  (sys host).name | str downcase | if ($in | str contains "darwin") { "darwin" } else { "linux" }
+}
+
+# Detect the flake path: on darwin it's the dotfiles dir, on NixOS it's /etc/nixos
+def flake-path [] {
+  if (os) == "darwin" {
+    $env.DOTFILES? | default ($env.HOME + "/Documents/jakeisnt/nixcfg")
+  } else {
+    "/etc/nixos"
+  }
+}
+
+# Detect the current host name for flake target selection
+def host-name [] {
+  (sys host).hostname | split row "." | first
+}
+
 # Collect garbage from the nix store
 def "main gc" [] {
   nix-collect-garbage -d
 }
 
-# Rebuild the NixOS system
+# Rebuild and switch to the current host configuration
 def "main rebuild" [] {
-  sudo nixos-rebuild switch --flake /etc/nixos --option pure-eval no
+  let flake = (flake-path)
+  if (os) == "darwin" {
+    let host = (host-name)
+    darwin-rebuild switch --flake $"($flake)#($host)" --option pure-eval no
+  } else {
+    sudo nixos-rebuild switch --flake $flake --option pure-eval no
+  }
 }
 
-# find a package with the given name. currently slow
+# Build without switching (dry run / check)
+def "main build" [] {
+  let flake = (flake-path)
+  if (os) == "darwin" {
+    let host = (host-name)
+    nix build $"($flake)#darwinConfigurations.($host).system" --option pure-eval no
+  } else {
+    sudo nixos-rebuild build --flake $flake --option pure-eval no
+  }
+}
+
+# Build the live USB ISO (NixOS only)
+def "main iso" [] {
+  nix build .#nixosConfigurations.iso-install.config.system.build.isoImage --option pure-eval no
+}
+
+# Find a package by name
 def "main find" [
   package_name: string # the name of the package to locate
 ] {
-  nix search nixos $package_name
+  nix search nixpkgs $package_name
 }
 
-# TODO: support updating a flake input: https://github.com/NixOS/nix/issues/5110
-
-# Upgrade the system's NixOS flake
+# Update flake inputs and rebuild
 def "main upgrade" [] {
-  nix flake update /etc/nixos --impure
+  let flake = (flake-path)
+  nix flake update $flake --impure
   main rebuild
 }
 
-# Look into bou.ke shell magic and `nix run`
-
-# Rebuild for and deploy to a remote server. Not sure if this works
+# Rebuild for and deploy to a remote server
 def "main deploy" [] {
-  nix run nixpkgs#nixos-reubild -- --fast --target-host jake@isnt.online --build-host jake@isnt.online .#vultr --use-remote-sudo switch
+  nix run nixpkgs#nixos-rebuild -- --fast --target-host jake@isnt.online --build-host jake@isnt.online .#vultr --use-remote-sudo switch
+}
+
+# Check the flake for errors
+def "main check" [] {
+  nix flake check
 }
 
 # A cli program for interacting with the nix store
