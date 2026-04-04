@@ -3,11 +3,11 @@
         "output": ["eDP-1"],
         "modules-left": ["sway/workspaces", "sway/mode"],
         "modules-center": ["network"],
-        "modules-right": ["pulseaudio", "battery", "clock"],
+        "modules-right": ["pipewire", "battery", "clock"],
         "sway/workspaces": {
             "disable-scroll": true
         },
-        "pulseaudio": {
+        "pipewire": {
             "tooltip": false,
             "scroll-step": 5,
             "format": "{icon} {format_source} {volume}%",

@@ -101,10 +101,6 @@ in {
     {
       user.packages = with pkgs;
         [ yaru-theme zafiro-icons openzone-cursors ];
-        # ++ (if config.modules.media.spotify.enable then
-        #   [ extras.spicetify-nix.packages.x86_64-linux.stilla ]
-        # else
-          # [ ]);
       fonts = {
         packages = with pkgs; [
           fira-code

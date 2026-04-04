@@ -39,9 +39,6 @@ in {
         border-color=#${urgent}
         default-timeout=0
 
-        [category=spotify]
-        default-timeout=2000
-        group-by=category
       '';
     };
   };

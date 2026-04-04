@@ -50,7 +50,6 @@ with lib.my;
         enable = true;
       };
       recording.enable = true;
-      spotify.enable = true;
     };
     term = {
       default = "ghostty";
