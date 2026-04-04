@@ -44,8 +44,6 @@
 
   services.libinput.enable = true;
   services.openssh.startWhenNeeded = true;
-  services.gnome.gnome-keyring.enable = true;
-
   programs.ssh = {
     startAgent = true;
     forwardX11 = true;
