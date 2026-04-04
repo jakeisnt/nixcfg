@@ -32,7 +32,8 @@
       "Bash(./result/activate)",
       "Bash(sudo:*)",
       "Bash(git push:*)",
-      "Bash(python3 -c \"import json,sys; data=json.load\\(sys.stdin\\); [print\\(f'{k}: {v[\\\\\"lastModified\\\\\"]}'\\) for k,v in data.get\\('locks',{}\\).get\\('nodes',{}\\).items\\(\\) if 'lastModified' in v]\")"
+      "Bash(python3 -c \"import json,sys; data=json.load\\(sys.stdin\\); [print\\(f'{k}: {v[\\\\\"lastModified\\\\\"]}'\\) for k,v in data.get\\('locks',{}\\).get\\('nodes',{}\\).items\\(\\) if 'lastModified' in v]\")",
+      "Bash(gh issue:*)"
     ]
   }
 }
