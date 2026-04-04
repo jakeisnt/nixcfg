@@ -33,8 +33,7 @@ $env.NU_PLUGIN_DIRS = [
 $env.PATH = ($env.PATH | split row (char esep) | prepend '/etc/nixos/bin')
 $env.PATH = ($env.PATH | split row (char esep) | prepend $'($env.HOME)/.emacs.d/bin')
 
-# TODO: incorporate this throughout
-$env.EDITOR = 'emacsclient -c';
+$env.EDITOR = 'nvim';
 
 $env.GDK_BACKEND = 'wayland';
 

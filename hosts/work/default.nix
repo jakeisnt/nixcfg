@@ -30,7 +30,6 @@
   ];
 
   networking = {
-    extraHosts = lib.my.secrets.aliasDomains;
     useDHCP = false;
     interfaces.wlp170s0.useDHCP = true;
     networkmanager = {

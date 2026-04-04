@@ -1,5 +1,1 @@
 result
-/secrets.nix
-
-.direnv/*
-!.direnv/.git-keep
