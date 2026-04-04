@@ -66,7 +66,7 @@
     editors = {
       default = "nvim";
       vim.enable = true;
-      emac.enable = false;
+      emacs.enable = false;
     };
     hardware = {
       audio.enable = true;
