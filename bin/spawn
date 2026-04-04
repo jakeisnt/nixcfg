@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 # TODO: support working directory flag
 # TODO: run command to make sure it's valid? then run in another terminal?
-foot --hold bash -c "$@" & disown
+ghostty --wait-after-command -e bash -c "$@" & disown

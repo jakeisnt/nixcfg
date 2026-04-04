@@ -5,8 +5,6 @@
   imports = [./hardware-configuration.nix ../personal.nix];
 
   networking.hostName = "work";
-
-  env.TERM = "ghostty";
   services.getty.autologinUser = "jake";
 
   boot.loader = {
@@ -58,10 +56,6 @@
     browsers = {
       default = "chrome";
       chrome.enable = true;
-    };
-    term = {
-      default = "ghostty";
-      ghostty.enable = true;
     };
     editors = {
       default = "nvim";

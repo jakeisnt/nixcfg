@@ -1,12 +1,10 @@
-{ options, config, lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 with lib;
 with lib.my;
-let
-  cfg = config.modules.term.ghostty;
-in {
-  options.modules.term.ghostty = { enable = mkBoolOpt false; };
-  config = mkIf cfg.enable {
+{
+  config = {
+    env.TERMINAL = "ghostty";
     user.packages = with pkgs; [ ghostty ];
     home.configFile = {
       "ghostty/config".source = mkOutOfStoreSymlink "${configDir}/ghostty/config";

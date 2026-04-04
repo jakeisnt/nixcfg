@@ -51,10 +51,6 @@ with lib.my;
       };
       recording.enable = true;
     };
-    term = {
-      default = "ghostty";
-      ghostty.enable = true;
-    };
     media = {
       mpv.enable = true;
     };
