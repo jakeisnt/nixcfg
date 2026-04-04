@@ -6,7 +6,55 @@
 
 with lib;
 with lib.my;
-let cfg = config.modules.theme;
+let
+  cfg = config.modules.theme;
+  gtkDarkCss = with cfg.color; ''
+    @define-color theme_bg_color #${background};
+    @define-color theme_base_color #${bgAlt};
+    @define-color theme_text_color #${foreground};
+    @define-color theme_fg_color #${foreground};
+    @define-color theme_selected_bg_color #${fadeColor};
+    @define-color theme_selected_fg_color #${foreground};
+    @define-color accent_bg_color #${fadeColor};
+    @define-color accent_fg_color #${foreground};
+
+    window,
+    dialog,
+    .background {
+      background-color: @theme_bg_color;
+      color: @theme_fg_color;
+    }
+
+    headerbar,
+    .titlebar,
+    .csd {
+      background-color: @theme_base_color;
+      color: @theme_fg_color;
+    }
+
+    button,
+    entry,
+    textview,
+    treeview,
+    list,
+    row,
+    combobox,
+    dropdown,
+    popover,
+    menu {
+      background-color: @theme_base_color;
+      color: @theme_fg_color;
+    }
+
+    button:hover,
+    entry:focus,
+    textview:focus,
+    row:selected,
+    selection {
+      background-color: @theme_selected_bg_color;
+      color: @theme_selected_fg_color;
+    }
+  '';
 in {
   options.modules.theme = with types; {
     active = mkOption {
@@ -96,7 +144,7 @@ in {
     onReload = mkOpt (attrsOf lines) { };
   };
 
-  config = mkIf (cfg.active != null) (mkMerge [{
+  config = mkIf (cfg.active != null) (mkMerge [ {
     environment.variables.GTK_THEME = cfg.gtk.theme;
 
     modules.shell.fish.rcInit = with cfg.color; ''
@@ -169,6 +217,8 @@ in {
         gtk-xft-hintstyle=hintfull
         gtk-xft-rgba=none
       '';
+      "gtk-3.0/gtk.css".text = gtkDarkCss;
+      "gtk-4.0/gtk.css".text = gtkDarkCss;
       # GTK2 global theme (widget and icon theme)
       "gtk-2.0/gtkrc".text = ''
         ${optionalString (cfg.gtk.theme != "")
@@ -220,5 +270,5 @@ in {
         ${cfg.extraXResources}
       '';
     };
-  }]);
+  } ]);
 }
