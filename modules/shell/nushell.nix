@@ -22,8 +22,6 @@ in {
       bat
     ];
 
-    environment.variables.ANTHROPIC_API_KEY = secrets.llm.ANTHROPIC_API_KEY;
-
     home.configFile = {
       "starship.toml".source = mkOutOfStoreSymlink "${configDir}/starship/starship.toml";
       "nushell/config.nu".source = mkOutOfStoreSymlink "${configDir}/nushell/config.nu";
