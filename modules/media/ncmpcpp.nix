@@ -7,7 +7,6 @@ let
   mopidyEnv = pkgs.buildEnv {
     name = "mopidy-with-extensions";
     paths = closePropagation (with pkgs; [
-      # mopidy-spotify
       mopidy-youtube
       mopidy-mpd
       mopidy-scrobbler
@@ -151,18 +150,7 @@ in {
         enabled = true
 
         [spotify]
-        allow_network = true
-        search_album_count = 20
-        search_artist_count = 10
-        search_track_count = 50
-        enabled = true
-        allow_playlists = true
-        allow_cache = true
-
-        username = ${secrets.spotify.username}
-        password = ${secrets.spotify.password}
-        client_id = ${secrets.spotify.clientID}
-        client_secret = ${secrets.spotify.clientSecret}
+        enabled = false
 
         [scrobbler]
         username = ${secrets.lastFM.username}
