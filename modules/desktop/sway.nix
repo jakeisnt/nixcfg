@@ -82,9 +82,9 @@ in {
           '')
           (concatMapStringsSep "\n" readFile [ "${configDir}/sway/config" ])
           (if config.modules.hardware.audio.enable then with pkgs; ''
-            bindsym XF86AudioRaiseVolume exec '${pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ +5%'
-            bindsym XF86AudioLowerVolume exec '${pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ -5%'
-            bindsym XF86AudioMute exec '${pulseaudio}/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle'
+            bindsym XF86AudioRaiseVolume exec '${wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+'
+            bindsym XF86AudioLowerVolume exec '${wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-'
+            bindsym XF86AudioMute exec '${wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle'
           '' else "")
           (if cfg.disable-touch then
             ''

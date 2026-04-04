@@ -22,8 +22,6 @@ in {
       "audio"
     ];
 
-    hardware.pulseaudio.enable = mkForce false;
-
     services.pipewire = {
       enable = true;
       alsa.enable = true;
@@ -32,8 +30,6 @@ in {
     };
 
     user.packages = with pkgs; [
-      # communicate with pipewire via `pactl`
-      pulseaudio
       # dynamically linked to; supports camera connection
       libcamera
     ];
