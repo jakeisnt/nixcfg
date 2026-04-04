@@ -21,7 +21,17 @@
       "Bash(sudo nixos-rebuild:*)",
       "Bash(wc -l lib/*.nix)",
       "Bash(nix --extra-experimental-features \"nix-command flakes\" build .#darwinConfigurations.mac.system --option pure-eval no)",
-      "Bash(git crypt:*)"
+      "Bash(git crypt:*)",
+      "Bash(xxd lib/secrets.nix)",
+      "Bash(nix --extra-experimental-features \"nix-command flakes\" eval .#darwinConfigurations.mac.system --option pure-eval no)",
+      "Bash(/run/current-system/sw/bin/nix --version)",
+      "Read(//nix/store/qw63qgd3hgk8jz4dbmh2jqiyrhlcs43r-nix-2.31.3/bin/**)",
+      "Bash(/nix/var/nix/profiles/default/bin/nix --extra-experimental-features \"nix-command flakes\" build .#darwinConfigurations.mac.system --option pure-eval no --show-trace)",
+      "Bash(/nix/var/nix/profiles/default/bin/nix --extra-experimental-features \"nix-command flakes\" build .#darwinConfigurations.mac.system --option pure-eval no)",
+      "Bash(/nix/var/nix/profiles/default/bin/nix --extra-experimental-features \"nix-command flakes\" eval .#darwinConfigurations.mac.config.home-manager.users.jake.home.packages --option pure-eval no)",
+      "Bash(./result/activate)",
+      "Bash(sudo:*)",
+      "Bash(git push:*)"
     ]
   }
 }
