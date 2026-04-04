@@ -19,8 +19,6 @@ in
     user.packages = with pkgs; [
         sqlite          # for coq nvim completion
         universal-ctags # for coq nvim completion
-        python310       # for coq setup
-        python310Packages.virtualenv
         # lua lsp for vim config
         lua-language-server
         # for nvim

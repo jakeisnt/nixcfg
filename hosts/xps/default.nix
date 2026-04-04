@@ -58,7 +58,6 @@ with lib.my;
     };
     media = {
       mpv.enable = true;
-      # ncmpcpp.enable = true; needs fixing, not used
     };
     messengers = {
       rss.enable = true;

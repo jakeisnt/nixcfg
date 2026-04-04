@@ -74,7 +74,7 @@
     };
     # messengers.email.enable = true;
     media = {
-      ncmpcpp.enable = true;
+      # ncmpcpp.enable = true; # disabled: mopidy/mpd unreliable, python310 dep
       recording.enable = true;
       # TODO:  These options require python2.
       # graphics.enable = true;

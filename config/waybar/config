@@ -7,47 +7,37 @@
         "sway/workspaces": {
             "disable-scroll": true
         },
-        "mpd": {
-            "tooltip": false,
-            "format": "{stateIcon} {artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S})",
-            "format-disconnected": "ﳌ",
-            "format-stopped": "",
-            "state-icons": {
-                "playing": "",
-                "paused": ""
-            }
-        },
         "pulseaudio": {
             "tooltip": false,
             "scroll-step": 5,
             "format": "{icon} {format_source} {volume}%",
-            "format-bluetooth": "{icon} {format_source} {volume}% ",
-            "format-bluetooth-muted": "{icon}  {format_source}",
+            "format-bluetooth": "{icon} {format_source} {volume}% ",
+            "format-bluetooth-muted": "{icon}  {format_source}",
             "format-muted": "🔇{format_source}",
-            "format-source": " {volume}%",
-            "format-source-muted": "",
+            "format-source": " {volume}%",
+            "format-source-muted": "",
             "format-icons": {
-                "headphones": "",
-                "handsfree": "",
-                "headset": "",
-                "phone": "",
-                "portable": "",
-                "car": "",
-                "default": ["奄", "奔", "墳"]
+                "headphones": "",
+                "handsfree": "",
+                "headset": "",
+                "phone": "",
+                "portable": "",
+                "car": "",
+                "default": ["奄", "奔", "墳"]
             }
         },
         "network": {
             "tooltip": false,
-            "format-wifi": " {essid} {ipaddr}",
-            "format-ethernet": " {ipaddr}"
+            "format-wifi": " {essid} {ipaddr}",
+            "format-ethernet": " {ipaddr}"
         },
         "cpu": {
             "tooltip": false,
-            "format": " {}%"
+            "format": " {}%"
         },
         "memory": {
             "tooltip": false,
-            "format": " {}%"
+            "format": " {}%"
         },
         "battery": {
             "states": {
@@ -55,7 +45,7 @@
                 "critical": 15
             },
             "format": "{icon} {capacity}%",
-            "format-icons": ["", "", "", "", ""],
+            "format-icons": ["", "", "", "", ""],
             "max-length": 25
         }
 }

@@ -39,10 +39,6 @@ in {
         border-color=#${urgent}
         default-timeout=0
 
-        [category=mpd]
-        default-timeout=2000
-        group-by=category
-
         [category=spotify]
         default-timeout=2000
         group-by=category
