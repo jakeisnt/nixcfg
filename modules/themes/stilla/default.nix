@@ -29,7 +29,7 @@ in {
       modules = {
         theme = {
           gtk = {
-            theme = "Yaru";
+            theme = "Yaru-dark";
             iconTheme = "Zafiro-icons";
             cursorTheme = "openzone-cursors";
           };
