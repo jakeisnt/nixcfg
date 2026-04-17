@@ -64,6 +64,7 @@ with inputs; {
   };
 
   environment.systemPackages = with pkgs; [
+    bun
     coreutils
     wget
     unzip
