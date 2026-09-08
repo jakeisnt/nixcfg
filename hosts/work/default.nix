@@ -44,6 +44,8 @@
   services.tailscale = {
     enable = true;
     openFirewall = true;
+    # Authenticate tailnet SSH connections using Tailscale identities.
+    extraSetFlags = [ "--ssh" ];
   };
   modules.services.ssh.enable = true;
   services.openssh = {
