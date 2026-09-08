@@ -3,3 +3,26 @@ font-size = 11
 
 window-padding-x = 10
 window-padding-y = 10
+
+background = #0D0D0D
+foreground = #F2F2F2
+cursor-color = #F2F2F2
+selection-background = #4C566A
+selection-foreground = #F2F2F2
+
+palette = 0=#121414
+palette = 1=#BA8082
+palette = 2=#A19C9A
+palette = 3=#E9B872
+palette = 4=#ADB2BA
+palette = 5=#CD96B3
+palette = 6=#88B6D0
+palette = 7=#FAFAFA
+palette = 8=#4C566A
+palette = 9=#BA8082
+palette = 10=#A19C9A
+palette = 11=#E9B872
+palette = 12=#ADB2BA
+palette = 13=#CD96B3
+palette = 14=#8FBCBB
+palette = 15=#FAF5EF
