@@ -1,1 +1,1 @@
-(builtins.getFlake (toString ./.)).devShell.${builtins.currentSystem}
+(builtins.getFlake (toString ./.)).devShells.${builtins.currentSystem}.default
