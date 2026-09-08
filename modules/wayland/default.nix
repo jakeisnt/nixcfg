@@ -18,9 +18,8 @@ in {
       "video"
     ];
 
-    programs.light.enable = true;
-
     user.packages = with pkgs; [
+      brightnessctl
       xwayland
       qt5.qtwayland
       wl-clipboard

@@ -17,7 +17,7 @@ let
   '');
   screenOn = with pkgs; (writeScriptBin "screenOn" ''
     #!${stdenv.shell}
-    swaymsg "output * dpms off"
+    swaymsg "output * dpms on"
   '');
 in {
   options.modules.wayland.swaylock = {
