@@ -41,7 +41,16 @@
   };
 
   services.libinput.enable = true;
-  services.openssh.startWhenNeeded = true;
+  services.tailscale = {
+    enable = true;
+    openFirewall = true;
+  };
+  modules.services.ssh.enable = true;
+  services.openssh = {
+    startWhenNeeded = false;
+    openFirewall = false;
+  };
+  networking.firewall.interfaces.${config.services.tailscale.interfaceName}.allowedTCPPorts = [ 22 ];
   programs.ssh = {
     startAgent = true;
     forwardX11 = true;

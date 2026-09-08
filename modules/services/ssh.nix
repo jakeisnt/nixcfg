@@ -22,8 +22,7 @@ in {
       };
     };
 
-    # Allow SSHing through firewall
-    networking.firewall.allowedTCPPorts = [ 22 ];
+    # services.openssh.openFirewall controls whether SSH is exposed globally.
     user.openssh.authorizedKeys.keys = [ xpsKey ];
 
     # user.packages = with pkgs;
