@@ -22,10 +22,14 @@ let
 in {
   options.modules.wayland.swaylock = {
     enable = mkBoolOpt false;
+    # Run the idle manager that locks the session and powers off displays.
+    # Keep this separate from the lock configuration so hosts that must stay
+    # reachable can disable idle actions without losing manual locking.
+    idle.enable = mkBoolOpt true;
   };
 
   config = mkIf cfg.enable {
-    systemd.user.services.swayidle = {
+    systemd.user.services.swayidle = mkIf cfg.idle.enable {
       enable = true;
       description = "Idle Manager for Wayland";
       documentation = [ "man:swayidle(1)" ];

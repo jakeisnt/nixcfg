@@ -131,6 +131,8 @@
       fancy = true;
       scale = 1.0;
     };
+    # Keep the Framework reachable over SSH/Tailscale while idle.
+    wayland.swaylock.idle.enable = false;
     browsers = {
       default = "chrome";
       chrome.enable = true;
