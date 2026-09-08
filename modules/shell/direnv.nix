@@ -16,9 +16,9 @@ in {
       keep-derivations = true
     '';
 
-    environment.pathsToLink = [ "/share/nix-direnv" ];
+    environment.pathsToLink = mkIf pkgs.stdenv.isLinux [ "/share/nix-direnv" ];
     home.configFile = {
-      "direnv/config".text =
+      "direnv/config".text = mkIf pkgs.stdenv.isLinux
         "source /run/current-system/sw/share/nix-direnv/direnvrc";
     };
 

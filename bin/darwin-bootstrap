@@ -1,0 +1,73 @@
+#!/bin/sh
+# Bootstrap or rebuild nix-darwin without requiring Bun or Homebrew.
+set -eu
+
+repo=${DOTFILES_REPO:-https://github.com/jakeisnt/nixcfg.git}
+if [ -n "${DOTFILES:-}" ]; then
+  flake=$DOTFILES
+elif [ -f "$(dirname -- "$0")/../flake.nix" ]; then
+  flake=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
+else
+  flake=${DOTFILES_DIR:-"$HOME/.config/nixcfg"}
+fi
+target=${DARWIN_TARGET:-mac}
+export DARWIN_USER=${DARWIN_USER:-$(id -un)}
+
+if [ "$(uname -s)" != Darwin ]; then
+  echo "error: darwin-bootstrap must run on macOS" >&2
+  exit 1
+fi
+if [ "$(uname -m)" != arm64 ]; then
+  echo "error: this configuration currently supports Apple Silicon (arm64) only" >&2
+  exit 1
+fi
+if [ "$(id -u)" -eq 0 ]; then
+  echo "error: run this as your normal user; the script invokes sudo when needed" >&2
+  exit 1
+fi
+if [ "$DARWIN_USER" = root ] || [ -z "$DARWIN_USER" ]; then
+  echo "error: could not determine a normal macOS username" >&2
+  exit 1
+fi
+if [ ! -f "$flake/flake.nix" ]; then
+  if [ -e "$flake" ]; then
+    echo "error: $flake exists but is not a Nix flake checkout" >&2
+    exit 1
+  fi
+  echo "Downloading $repo into $flake"
+  mkdir -p "$(dirname -- "$flake")"
+  archive=$(mktemp "${TMPDIR:-/tmp}/nixcfg.XXXXXX.tar.gz")
+  unpacked=$(mktemp -d "${TMPDIR:-/tmp}/nixcfg.XXXXXX")
+  trap 'rm -f "$archive"; rm -rf "$unpacked"' EXIT HUP INT TERM
+  curl --proto '=https' --tlsv1.2 -fsSL "${repo%.git}/archive/refs/heads/main.tar.gz" \
+    -o "$archive"
+  tar -xzf "$archive" -C "$unpacked"
+  source_dir=$(find "$unpacked" -mindepth 1 -maxdepth 1 -type d -print -quit)
+  if [ -z "$source_dir" ] || [ ! -f "$source_dir/flake.nix" ]; then
+    echo "error: downloaded archive does not contain a flake" >&2
+    exit 1
+  fi
+  mv "$source_dir" "$flake"
+fi
+if ! command -v nix >/dev/null 2>&1; then
+  echo "Nix is not installed; installing it with the Determinate Nix Installer."
+  curl --proto '=https' --tlsv1.2 -fsSL https://install.determinate.systems/nix | \
+    sh -s -- install --no-confirm
+  if [ -f /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]; then
+    # shellcheck disable=SC1091
+    . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+  fi
+  if ! command -v nix >/dev/null 2>&1; then
+    echo "error: Nix installed, but is not available in this shell; open a new terminal and retry" >&2
+    exit 1
+  fi
+fi
+
+cd "$flake"
+if command -v darwin-rebuild >/dev/null 2>&1; then
+  exec sudo darwin-rebuild switch --flake "$flake#$target" --option pure-eval no
+fi
+
+echo "darwin-rebuild is not installed; evaluating and activating nix-darwin once."
+exec sudo nix --extra-experimental-features 'nix-command flakes' run nix-darwin -- \
+  switch --flake "$flake#$target" --option pure-eval no

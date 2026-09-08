@@ -1,6 +1,6 @@
 # macOS nix-darwin plan
 
-Status: proposed only; implementation is paused.
+Status: initial implementation complete; activation on a real Apple Silicon Mac remains.
 
 ## Goal
 
@@ -48,5 +48,5 @@ and selecting the configured target independently of the current hostname.
 - Review the final diff and commit/push the coherent, verified implementation
   according to repository policy after implementation is authorized.
 
-No implementation, activation, Homebrew removal, or implementation commit is
-authorized by this plan-only step.
+Homebrew removal remains deliberately out of scope until the configuration has
+been activated and the user's real projects and services have been verified.

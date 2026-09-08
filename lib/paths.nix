@@ -8,7 +8,13 @@ with lib; rec {
   configDir = "${dotFilesDir}/config";
   binDir = "${dotFilesDir}/bin";
   themesDir = "${modulesDir}/themes";
-  username = "jake";
+  # Darwin is installed by arbitrary local accounts; the bootstrap exports
+  # DARWIN_USER before evaluating the flake. Keep the Linux account stable.
+  username =
+    if pkgs.stdenv.isDarwin
+    then let name = builtins.getEnv "DARWIN_USER";
+         in if name == "" then "jake" else name
+    else "jake";
   homeDir = "/home/${username}";
 
   darwinHomeDir = "/Users/${username}";

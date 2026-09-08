@@ -7,13 +7,17 @@ with lib;
 with lib.my;
 with inputs; {
   imports =
-    [ inputs."home-manager-unstable".darwinModules.home-manager ]
+    [
+      inputs."home-manager-unstable".darwinModules.home-manager
+      inputs.sops-nix.darwinModules.sops
+    ]
     ++ [
       # Darwin-specific option wiring (user.packages, home.*, env aliases)
       ./modules/_darwin-options.nix
 
       # Shell modules verified safe on darwin
       ./modules/shell/nushell.nix   # defines modules.shell.loginInit (needed by fish)
+      ./modules/shell/direnv.nix
       ./modules/shell/gnupg.nix     # defines modules.shell.gnupg.enable (needed by git)
       ./modules/shell/git.nix
       ./modules/shell/fish.nix

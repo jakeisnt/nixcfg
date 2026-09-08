@@ -42,6 +42,28 @@ hey check
 
 This evaluates every host and builds the targets supported by the current OS.
 
+### macOS
+
+The Darwin target currently supports Apple Silicon and uses `mac` regardless of
+the Mac's computer name. On a fresh checkout, install Nix, then run:
+
+``` sh
+curl -fsSL https://raw.githubusercontent.com/jakeisnt/nixcfg/main/bin/darwin-bootstrap | sh
+```
+
+That command installs Nix if necessary, downloads the configuration into
+`~/.config/nixcfg`, and activates it. Run the same command again to reinstall
+or re-activate from that checkout.
+
+The Darwin user is detected from the account running the command, so the
+configuration does not require the account to be named `jake`.
+
+Set `DOTFILES` when the checkout is not the script's parent directory, or set
+`DARWIN_TARGET` when adding another Darwin host. After activation, use
+`hey build`, `hey rebuild`, and `hey check`. Existing Homebrew packages and
+services are intentionally left untouched until their Nix replacements have
+been verified.
+
 ## Installation
 
 First, snag a copy of the newest version of NixOS by building it off of a previous machine from source.

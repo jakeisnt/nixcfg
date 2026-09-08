@@ -19,6 +19,10 @@ def host-name [] {
   (sys host).hostname | split row "." | first
 }
 
+def darwin-target [] {
+  $env.DARWIN_TARGET? | default "mac"
+}
+
 # Collect garbage from the nix store
 def "main gc" [] {
   nix-collect-garbage -d
@@ -28,7 +32,7 @@ def "main gc" [] {
 def "main rebuild" [] {
   let flake = (flake-path)
   if (os) == "darwin" {
-    let host = (host-name)
+    let host = (darwin-target)
     darwin-rebuild switch --flake $"($flake)#($host)" --option pure-eval no
   } else {
     sudo nixos-rebuild switch --flake $flake --option pure-eval no
@@ -39,7 +43,7 @@ def "main rebuild" [] {
 def "main build" [] {
   let flake = (flake-path)
   if (os) == "darwin" {
-    let host = (host-name)
+    let host = (darwin-target)
     nix build $"($flake)#darwinConfigurations.($host).system" --option pure-eval no
   } else {
     sudo nixos-rebuild build --flake $flake --option pure-eval no
@@ -70,7 +74,7 @@ def "main check" [] {
   let flake = (flake-path)
   nix flake check $flake --all-systems --no-build
   if (os) == "darwin" {
-    nix build $"($flake)#checks.aarch64-darwin.mac" --option pure-eval no
+    nix build $"($flake)#checks.aarch64-darwin.($darwin-target)" --option pure-eval no
   } else {
     for target in ["work" "xps" "installer"] {
       nix build $"($flake)#checks.x86_64-linux.($target)" --option pure-eval no

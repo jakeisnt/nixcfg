@@ -10,6 +10,8 @@ with lib.my;
     shell = {
       git.enable = true;
       fish.enable = true;
+      nushell.enable = true;
+      direnv.enable = true;
     };
     dev = {
       node.enable = true;
@@ -18,6 +20,18 @@ with lib.my;
   };
 
   environment.systemPackages = with pkgs; [
+    # Google Cloud CLI: provides gcloud, gsutil, and bq.
+    google-cloud-sdk
+
+    # Keep the everyday shell tools available even when shell modules are
+    # changed independently of this host.
+    bat
+    eza
+    fd
+    procs
+    tealdeer
+    tokei
+    zoxide
     ripgrep
     fzf
     jq
