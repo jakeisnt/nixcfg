@@ -63,9 +63,6 @@
   # Bluetooth is not needed on the server installation.  The generated
   # hardware file enables it, so override that setting for this host.
   hardware.bluetooth.enable = lib.mkForce false;
-  boot.initrd.availableKernelModules = lib.mkForce [
-    "xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod"
-  ];
 
   services.libinput.enable = true;
   services.tailscale = {
