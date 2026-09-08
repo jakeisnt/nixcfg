@@ -14,7 +14,10 @@ in {
   };
 
   config = mkIf cfg.enable {
-    users.users.${username}.shell = pkgs.nushell;
+    # Fish remains the default interactive shell on hosts that enable both
+    # modules. Nushell is still installed and configured, but nix-darwin (and
+    # NixOS) require a single value for the user's login shell.
+    users.users.${username}.shell = mkIf pkgs.stdenv.isLinux pkgs.nushell;
 
     user.packages = with pkgs; [
       nushell

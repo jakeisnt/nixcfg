@@ -1,19 +1,19 @@
 # Darwin Integration TODOs
 
 ## Bootstrap (do once)
-- [ ] Run `nix flake update` to pull in the `nix-darwin` lock entry
+- [x] Run `nix flake update` to pull in the `nix-darwin` lock entry
 - [ ] Install nix-darwin: `nix run nix-darwin -- switch --flake .#mac`
 - [ ] Verify `darwin-rebuild switch --flake .#mac` succeeds
 
 ## Option layer
-- [ ] `user` on Linux is `attrs`-typed and aliases to `users.users.jake`; on darwin it is structured (`packages`, `shell`). Any module that sets `user.extraGroups`, `user.uid`, `user.isNormalUser`, etc. will fail if imported on darwin — audit and guard those callsites when porting modules
-- [ ] `direnv.nix` uses `environment.pathsToLink` (NixOS-only) — wrap in `mkIf pkgs.stdenv.isLinux`
-- [ ] `nushell.nix` sets `users.defaultUserShell` when enabled — same fix as fish.nix (`mkMerge` with platform guards)
-- [ ] `gnupg.nix` uses `programs.gnupg.agent.pinentryPackage = pkgs.emacs` — verify nix-darwin supports this or guard it; `tomb` is Linux-only
+- [x] `user` on Linux is `attrs`-typed and aliases to `users.users.jake`; on darwin it is structured (`packages`, `shell`). Any module that sets `user.extraGroups`, `user.uid`, `user.isNormalUser`, etc. will fail if imported on darwin — audit and guard those callsites when porting modules
+- [x] `direnv.nix` uses `environment.pathsToLink` (NixOS-only) — wrap in `mkIf pkgs.stdenv.isLinux`
+- [x] `nushell.nix` sets the login shell when enabled — keep Fish as the default when both are enabled, while retaining Nushell on the package path
+- [x] `gnupg.nix` uses `programs.gnupg.agent.pinentryPackage = pkgs.emacs` — verify nix-darwin supports this or guard it; `tomb` is Linux-only
 
 ## Modules to port (add to darwin.nix imports once verified)
-- [ ] `modules/shell/direnv.nix` — guard `environment.pathsToLink`
-- [ ] `modules/shell/gnupg.nix` — guard pinentry, tomb
+- [x] `modules/shell/direnv.nix` — guard `environment.pathsToLink`
+- [x] `modules/shell/gnupg.nix` — guard pinentry, tomb
 - [ ] `modules/shell/tmux.nix` — depends on `modules.theme.onReload` (theme module not imported on darwin); either stub the option or skip
 - [ ] `modules/shell/bitwarden.nix` — check for Linux-only options
 - [ ] `modules/dev/python.nix` — uses `pkgs.python37` (old, may not build on darwin); upgrade to current python
