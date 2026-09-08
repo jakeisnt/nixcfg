@@ -5,7 +5,10 @@
   imports = [./hardware-configuration.nix ../personal.nix];
 
   networking.hostName = "work";
-  services.getty.autologinUser = "jake";
+  # Keep the machine at a normal login prompt.  Sway remains available from
+  # the tty when this laptop is needed interactively.
+  modules.shell.loginInit = lib.mkForce "";
+  home.configFile."nushell/login.nu" = lib.mkForce { text = ""; };
 
   # Keep the Framework available as a server, including with the lid closed.
   services.logind.settings.Login = {
@@ -47,7 +50,8 @@
 
   networking = {
     useDHCP = false;
-    interfaces.wlp170s0.useDHCP = true;
+    # NetworkManager owns DHCP and Wi-Fi on this host.
+    dhcpcd.enable = false;
     networkmanager = {
       enable = true;
       wifi = {
@@ -55,6 +59,13 @@
       };
     };
   };
+
+  # Bluetooth is not needed on the server installation.  The generated
+  # hardware file enables it, so override that setting for this host.
+  hardware.bluetooth.enable = lib.mkForce false;
+  boot.initrd.availableKernelModules = lib.mkForce [
+    "xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod"
+  ];
 
   services.libinput.enable = true;
   services.tailscale = {
