@@ -1,4 +1,4 @@
-{ inputs, config, lib, pkgs, ... }:
+{ inputs, config, lib, pkgs, nixpkgs-unstable, ... }:
 
 with lib;
 with lib.my;
