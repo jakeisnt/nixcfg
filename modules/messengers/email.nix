@@ -10,12 +10,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    user.packages = with pkgs; [ w3m mutt neomutt offlineimap msmtp notmuch thunderbird ];
-    services.offlineimap = {
-      enable = true;
-      path = with pkgs; [ bash pass neomutt ];
-      onCalendar = "*:0/30"; # fetch mail every 30 minutes
-    };
+    user.packages = with pkgs; [ w3m mutt neomutt msmtp notmuch thunderbird ];
 
     environment.shellAliases = {
       mutt = "neomutt";
@@ -24,40 +19,6 @@ in {
     };
 
     home.configFile = {
-      "offlineimap/.offlineimap.py".text = ''
-        #!/usr/bin/env python
-
-        import os
-
-        def get_password(path):
-          file = open(path, "r")
-          return file.read()
-
-      '';
-      "offlineimap/config".text = ''
-        [general]
-        ui = ttyui
-        accounts = isnt
-
-        [Account isnt]
-        localrepository = isnt-local
-        remoterepository = isnt-remote
-
-        [Repository isnt-local]
-        type = Maildir
-        ssl=yes
-        localfolders = ~/.mail/isnt
-
-        [Repository isnt-remote]
-        type = IMAP
-        # TODO this does not work lol
-        remotehost = get_password({sops.secrets.email_host.path})
-        remoteuser = get_password({sops.secrets.email_user.path})
-        remotepass = get_password({sops.secrets.email_password.path})
-        realdelete = no
-        maxconnections = 3
-        sslcacertfile = /etc/ssl/certs/ca-certificates.crt
-      '';
       "mutt/muttrc".text = ''
         set mbox_type   = Maildir
         set sendmail    = "/usr/bin/env msmtp"
