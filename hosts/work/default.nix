@@ -64,6 +64,15 @@
     # Authenticate tailnet SSH connections using Tailscale identities.
     extraSetFlags = [ "--ssh" ];
   };
+  # The clock can reset on boot, making Tailscale's TLS login fail.
+  # Wait for NTP before reconnecting with the saved Tailscale identity.
+  services.timesyncd.enable = true;
+  systemd.additionalUpstreamSystemUnits = [ "systemd-time-wait-sync.service" ];
+  systemd.services.systemd-time-wait-sync.wantedBy = [ "time-sync.target" ];
+  systemd.services.tailscaled = {
+    wants = [ "network-online.target" "time-sync.target" ];
+    after = [ "network-online.target" "time-sync.target" ];
+  };
   modules.services.ssh.enable = true;
   services.openssh = {
     startWhenNeeded = false;
