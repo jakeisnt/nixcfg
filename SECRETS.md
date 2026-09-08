@@ -2,6 +2,53 @@
 
 Status: proposed; secret storage has not been migrated.
 
+## Remaining operator work
+
+This is the practical checklist for completing the migration. Keep this file
+as the runbook; the encrypted data and SOPS configuration belong in separate
+files.
+
+1. **Inventory active credentials.** Record each credential's purpose, the
+   hosts and services that need it, its consuming account, and its rotation
+   procedure. Do not record secret values in this file.
+
+2. **Create identities outside the repository.** Install `sops` and `age`,
+   then generate dedicated age identities for each host, plus separate
+   administrator and offline recovery identities. Store private identity files
+   outside the checkout with root-only permissions. Commit only public
+   recipients.
+
+3. **Configure SOPS.** Add a root-level `.sops.yaml` containing the public age
+   recipients. Create encrypted files such as `secrets/work.yaml` and
+   `secrets/xps.yaml`, granting each file only the hosts and recovery or
+   administrator identities that require access.
+
+4. **Migrate consumers.** Replace legacy `lib/secrets.nix` and
+   `secrets.email.*` references with `sops.secrets` runtime paths or SOPS
+   templates. Set owners, groups, and restrictive permissions explicitly.
+   Never use `builtins.readFile` on decrypted paths, generate plaintext files
+   in the Nix store, or export credentials through global shell settings.
+
+5. **Configure public metadata explicitly.** Set
+   `modules.services.acme.email` in the relevant host configuration. The ACME
+   contact address is not a credential and should not come from the secret
+   store.
+
+6. **Separate provisioning from bootstrap.** Provision each host's private
+   age identity before activating services that depend on secrets. The Darwin
+   bootstrap must evaluate and build without private keys or git-crypt
+   unlocking. Keep production identities out of the installer.
+
+7. **Test before retiring legacy storage.** Validate all targets without
+   decryption keys, inspect closures for plaintext, test intended-account
+   access and unrelated-account denial, and exercise activation, reboot,
+   rotation, recovery, and rollback behavior.
+
+8. **Retire and rotate.** After every consumer is migrated, remove the legacy
+   secret file and git-crypt integration. Rotate credentials that may have
+   entered Nix stores, caches, backups, or old generations. Removing an age
+   recipient does not revoke access to historical ciphertext.
+
 ## Recommendation and security boundary
 
 Use SOPS with dedicated age identities and sops-nix. Keep encrypted files in

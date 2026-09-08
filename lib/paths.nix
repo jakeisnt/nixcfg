@@ -19,12 +19,6 @@ with lib; rec {
 
   darwinHomeDir = "/Users/${username}";
 
-  secretsPath = "${dotFilesDir}/secrets.nix";
-  secrets =
-    if pathExists secretsPath
-    then import secretsPath { inherit lib; }
-    else {};
-
   # Equivalent to home-manager's lib.file.mkOutOfStoreSymlink, usable from NixOS modules
   mkOutOfStoreSymlink = path:
     let pathStr = toString path;

@@ -3,7 +3,6 @@
 with lib;
 with lib.my;
 let cfg = config.modules.editors;
-    secrets = lib.my.secrets;
 in {
   options.modules.editors = { default = mkOpt types.str "emacsclient -c"; };
 
@@ -15,9 +14,9 @@ in {
 
       # TODO: Bring back the wakatime API key.
       # wakatime-cli =
-      #   "${pkgs.wakatime}/bin/wakatime-cli --key ${secrets.wakatime.apiKey}";
+      #   "${pkgs.wakatime}/bin/wakatime-cli --key <runtime-secret>";
       # wakatime =
-      #   "${pkgs.wakatime}/bin/wakatime-cli --key ${secrets.wakatime.apiKey}";
+      #   "${pkgs.wakatime}/bin/wakatime-cli --key <runtime-secret>";
     };
   };
 }

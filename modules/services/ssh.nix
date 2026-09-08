@@ -31,7 +31,7 @@ in {
       #   (writeScriptBin "ssh-key" ''
       #     #!${stdenv.shell}
       #     # Create SSH key
-      #     ${keygen} -t rsa -b 4096 -C "${username}@${secrets.domain}"
+      #     ${keygen} -t rsa -b 4096 -C "${username}@<domain>"
       #     eval $(${ssh-agent} -s)
       #     ${add} $HOME/.ssh/id_rsa
       #   '')
