@@ -63,10 +63,12 @@ with inputs; {
     systemd-boot.enable = mkDefault true;
   };
 
+  # bare essentials
   environment.systemPackages = with pkgs; [
     bun
     coreutils
     wget
     unzip
+    codex
   ];
 }
