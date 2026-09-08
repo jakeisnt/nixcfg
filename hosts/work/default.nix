@@ -53,6 +53,14 @@
     openFirewall = false;
   };
   networking.firewall.interfaces.${config.services.tailscale.interfaceName}.allowedTCPPorts = [ 22 ];
+  # Mosh starts through SSH, then uses UDP for the terminal session.
+  programs.mosh = {
+    enable = true;
+    openFirewall = false;
+  };
+  networking.firewall.interfaces.${config.services.tailscale.interfaceName}.allowedUDPPortRanges = [
+    { from = 60000; to = 61000; }
+  ];
   programs.ssh = {
     startAgent = true;
     forwardX11 = true;

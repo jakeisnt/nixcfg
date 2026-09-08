@@ -61,18 +61,21 @@ def "main find" [
 # Update flake inputs and rebuild
 def "main upgrade" [] {
   let flake = (flake-path)
-  nix flake update $flake --impure
+  nix flake update --flake $flake --impure
   main rebuild
-}
-
-# Rebuild for and deploy to a remote server
-def "main deploy" [] {
-  nix run nixpkgs#nixos-rebuild -- --fast --target-host jake@isnt.online --build-host jake@isnt.online .#vultr --use-remote-sudo switch
 }
 
 # Check the flake for errors
 def "main check" [] {
-  nix flake check
+  let flake = (flake-path)
+  nix flake check $flake --all-systems --no-build
+  if (os) == "darwin" {
+    nix build $"($flake)#checks.aarch64-darwin.mac" --option pure-eval no
+  } else {
+    for target in ["work" "xps" "installer"] {
+      nix build $"($flake)#checks.x86_64-linux.($target)" --option pure-eval no
+    }
+  }
 }
 
 # A cli program for interacting with the nix store

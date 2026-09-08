@@ -1,5 +1,5 @@
 [![Made with Doom Emacs](https://img.shields.io/badge/Made_with-Doom_Emacs-blueviolet.svg?style=flat-square&logo=GNU%20Emacs&logoColor=white)](https://github.com/hlissner/doom-emacs)
-[![NixOS 20.09](https://img.shields.io/badge/NixOS-v20.09-blue.svg?style=flat-square&logo=NixOS&logoColor=white)](https://nixos.org)
+[![NixOS 26.05](https://img.shields.io/badge/NixOS-v26.05-blue.svg?style=flat-square&logo=NixOS&logoColor=white)](https://nixos.org)
 
 Started as a fork of [hlissner's dotfiles](https://github.com/hlissner/dotfiles), but different design decisions have been made to differentiate the two since.
 
@@ -15,6 +15,27 @@ Started as a fork of [hlissner's dotfiles](https://github.com/hlissner/dotfiles)
 
 Feel free to poke around. Contact me if you have any questions!
 
+## Supported systems
+
+This flake actively supports these machines and build targets:
+
+- `work` — Framework laptop running NixOS
+- `xps` — Dell XPS 9370 running NixOS
+- `iso-install` — NixOS installer ISO
+- `mac` — Apple Silicon Mac running nix-darwin
+
+The shared modules in `modules/` are maintained for these hosts. Hosts opt into
+the desktop, shell, development, media, hardware, and service modules they need;
+the active combinations are documented in [`hosts/README.md`](hosts/README.md).
+
+The supported configurations can be audited with:
+
+``` sh
+hey check
+```
+
+This evaluates every host and builds the targets supported by the current OS.
+
 ## Installation
 
 First, snag a copy of the newest version of NixOS by building it off of a previous machine from source.
@@ -28,6 +49,8 @@ nix build .#nixosConfigurations.iso-install.config.system.build.isoImage
 sudo cp /path/to/iso/in/nix/store /dev/sda-usb-device-name
 sudo sync
 ```
+
+For a configuration-only audit, use `nix flake check --all-systems --no-build`.
 
 It's often the case that older version of Linux don't have support for utilities you want,
 and it's nice to have access to a graphical installer for most of the process - which none of the nightly NixOS ISOs support.

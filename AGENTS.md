@@ -1,6 +1,6 @@
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to coding agents when working with code in this repository.
 
 ## Common Commands
 
@@ -32,13 +32,16 @@ sudo nixos-rebuild build --flake /etc/nixos --option pure-eval no
 nix build .#nixosConfigurations.iso-install.config.system.build.isoImage
 
 # Check flake validity
-nix flake check
+nix flake check --all-systems --no-build
+
+# Evaluate every supported target and build the native targets
+hey check
 
 # Enter dev shell (drops into bash; use direnv for nushell-native dev envs)
 nix develop
 
 # Update flake inputs
-nix flake update /etc/nixos --impure
+nix flake update --flake /etc/nixos --impure
 ```
 
 ## Architecture
@@ -78,7 +81,8 @@ This is a NixOS flake-based dotfiles repo. The entry point is `flake.nix`, which
   - `security.nix`, `xdg.nix` — global NixOS settings
 - `hosts/` — per-machine configurations; each becomes a `nixosConfiguration`
   - `personal.nix` — shared config imported by personal machines (timezone, locale, user groups)
-  - `xps/`, `work/`, `vultr/`, `iso-install/` — individual host configs
+  - `xps/`, `work/`, `iso-install/` — individual NixOS host configs
+  - `darwin/mac/` — the supported nix-darwin host config
 - `overlays/` — nixpkgs overlays, auto-discovered
 - `packages/` — custom packages callable via `pkgs.my.<name>`
 - `config/` — dotfiles/config files deployed via `home.file` or `home.configFile`
@@ -88,7 +92,7 @@ This is a NixOS flake-based dotfiles repo. The entry point is `flake.nix`, which
 
 ### Dual nixpkgs Inputs
 
-Two nixpkgs channels are tracked: `nixpkgs` (nixos-24.05, stable) and `nixpkgs-unstable` (master). Unstable packages are accessible as `pkgs.unstable.<name>` within any module.
+Two nixpkgs channels are tracked: `nixpkgs` (nixos-26.05, stable) and `nixpkgs-unstable` (master). Unstable packages are accessible as `pkgs.unstable.<name>` within any module.
 
 ### Git Workflow
 

@@ -21,8 +21,12 @@ in {
     };
 
   mapHosts = dir: attrs @ { system ? system, ... }:
-    mapModules dir
-      (hostPath: mkHost hostPath attrs);
+    mapAttrs
+      (name: _: mkHost "${toString dir}/${name}" attrs)
+      (filterAttrs
+        (name: type:
+          type == "directory" && pathExists "${toString dir}/${name}/default.nix")
+        (builtins.readDir dir));
 
   mkDarwinHost = path: attrs @ { system ? "aarch64-darwin", ... }:
     let

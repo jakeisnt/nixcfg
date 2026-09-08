@@ -114,12 +114,24 @@
 
       darwinConfigurations = mapDarwinHosts ./hosts/darwin { system = darwinSystem; };
 
-      devShell."${system}" = pkgs.mkShell {
-        name = "nixos-config";
+      checks = {
+        "${system}" = {
+          work = self.nixosConfigurations.work.config.system.build.toplevel;
+          xps = self.nixosConfigurations.xps.config.system.build.toplevel;
+          installer = self.nixosConfigurations.iso-install.config.system.build.isoImage;
+        };
+        "${darwinSystem}" = {
+          mac = self.darwinConfigurations.mac.system;
+        };
       };
 
-      devShell."aarch64-darwin" = (import nixpkgs { system = "aarch64-darwin"; }).mkShell {
-        name = "nixos-config";
+      devShells = {
+        "${system}".default = pkgs.mkShell {
+          name = "nixos-config";
+        };
+        "aarch64-darwin".default = (import nixpkgs { system = "aarch64-darwin"; }).mkShell {
+          name = "nixos-config";
+        };
       };
 
       templates = {
@@ -133,11 +145,9 @@
         };
       };
 
-      defaultTemplate = self.templates.flake;
-
-      defaultApp."${system}" = {
+      apps."${system}".default = {
         type = "app";
-        program = ./bin/hey;
+        program = "${./bin/hey}";
       };
     };
 }
