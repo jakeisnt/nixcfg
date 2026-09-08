@@ -106,7 +106,6 @@ with lib.my;
       docker.enable = true;
       syncthing.enable = true;
       ssh.enable = true;
-      backup.enable = true;
       dnsmasq.enable = true;
     };
   };
