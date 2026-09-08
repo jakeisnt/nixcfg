@@ -68,6 +68,12 @@
     forwardX11 = true;
   };
 
+  # Share the running desktop through an SSH tunnel, once per Sway session.
+  home.configFile."sway/config".text = lib.mkAfter ''
+
+    exec ${pkgs.wayvnc}/bin/wayvnc 127.0.0.1 5900
+  '';
+
   modules = {
     desktop.sway = {
       enable = true;
