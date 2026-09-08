@@ -73,6 +73,24 @@
     wants = [ "network-online.target" "time-sync.target" ];
     after = [ "network-online.target" "time-sync.target" ];
   };
+  # Bring the saved login online even if Tailscale was previously stopped.
+  # Run as root at boot and whenever the daemon restarts, without a desktop login.
+  systemd.services.tailscaled-autoconnect = {
+    description = "Connect Tailscale using the saved login";
+    wantedBy = [ "multi-user.target" "tailscaled.service" ];
+    wants = [ "tailscaled.service" ];
+    after = [ "tailscaled.service" ];
+    partOf = [ "tailscaled.service" ];
+    startLimitIntervalSec = 0;
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      # No preference flags: preserve the existing login and network settings.
+      ExecStart = "${lib.getExe config.services.tailscale.package} up --timeout=30s";
+      Restart = "on-failure";
+      RestartSec = "10s";
+    };
+  };
   modules.services.ssh.enable = true;
   services.openssh = {
     startWhenNeeded = false;
