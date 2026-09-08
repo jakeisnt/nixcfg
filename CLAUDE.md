@@ -90,6 +90,12 @@ This is a NixOS flake-based dotfiles repo. The entry point is `flake.nix`, which
 
 Two nixpkgs channels are tracked: `nixpkgs` (nixos-24.05, stable) and `nixpkgs-unstable` (master). Unstable packages are accessible as `pkgs.unstable.<name>` within any module.
 
+### Git Workflow
+
+Agents must keep commits atomic: each commit contains one coherent logical change and its directly related tests or documentation only. Do not mix unrelated fixes, formatting, dependency updates, or generated files into the same commit.
+
+Agents must push commits atomically after they are complete and verified. Use `git push --atomic` so a multi-ref push either updates all requested refs or none; never push partial or uncommitted work. Before pushing, inspect the staged diff, run the relevant checks, and confirm the working tree contains no unintended changes.
+
 ### Host Configuration Pattern
 
 Each host in `hosts/<name>/default.nix` imports `../personal.nix` plus hardware config, then enables desired modules via `modules.<category>.<name>.enable = true`.
