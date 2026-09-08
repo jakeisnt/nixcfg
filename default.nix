@@ -65,10 +65,8 @@ with inputs; {
 
   # bare essentials
   environment.systemPackages = with pkgs; [
-    bun
     coreutils
     wget
     unzip
-    pkgs.unstable.codex
   ];
 }

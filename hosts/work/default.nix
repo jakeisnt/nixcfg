@@ -59,6 +59,7 @@
   services.libinput.enable = true;
   services.tailscale = {
     enable = true;
+    package = pkgs.unstable.tailscale;
     openFirewall = true;
     # Authenticate tailnet SSH connections using Tailscale identities.
     extraSetFlags = [ "--ssh" ];
@@ -89,7 +90,7 @@
 
     exec ${pkgs.writeShellScript "wayvnc-tailscale" ''
       # Sway may start before Tailscale has an address.
-      until address=$(${pkgs.tailscale}/bin/tailscale ip -4 2>/dev/null) && [ -n "$address" ]; do
+      until address=$(${config.services.tailscale.package}/bin/tailscale ip -4 2>/dev/null) && [ -n "$address" ]; do
         ${pkgs.coreutils}/bin/sleep 2
       done
       exec ${pkgs.wayvnc}/bin/wayvnc "$address" 5900
