@@ -29,7 +29,7 @@ For one-off nix commands (run from `/etc/nixos`):
 sudo nixos-rebuild build --flake /etc/nixos --option pure-eval no
 
 # Build the live USB ISO
-nix build .#nixosConfigurations.iso-install.config.system.build.isoImage --option pure-eval no
+nix build .#nixosConfigurations.iso-install.config.system.build.isoImage
 
 # Check flake validity
 nix flake check

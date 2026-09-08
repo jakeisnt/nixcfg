@@ -89,7 +89,7 @@
     keyboard.zsa.enable = true;
     graphics = {
       enable = true;
-      extraPackages = with pkgs; [ vaapiIntel vaapiVdpau libvdpau-va-gl ];
+      extraPackages = with pkgs; [ intel-vaapi-driver libva-vdpau-driver libvdpau-va-gl ];
     };
     # enable machine check exception error logs
     # mcelog.enable = true;

@@ -24,7 +24,7 @@ This configuration offers `usb`, a CLI-based live USB configuration with some ni
 If you'd like to use that system, load the ISO onto a USB with the following commands from an existing Nix system with Nix Flakes enabled:
 
 ``` sh
-nix build .#nixosConfigurations.iso-install.config.system.build.isoImage --impure
+nix build .#nixosConfigurations.iso-install.config.system.build.isoImage
 sudo cp /path/to/iso/in/nix/store /dev/sda-usb-device-name
 sudo sync
 ```

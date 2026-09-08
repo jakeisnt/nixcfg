@@ -2,14 +2,14 @@
 # Provides a TUI with configured emacs, git and fish.
 # Used for bootstrapping other configurations!
 
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, modulesPath, ... }:
 let hostname = "usb";
 in
 
 {
   imports = [
     ../personal.nix
-    <nixpkgs/nixos/modules/installer/cd-dvd/installation-cd-base.nix>
+    (modulesPath + "/installer/cd-dvd/installation-cd-base.nix")
   ];
 
   isoImage = {
