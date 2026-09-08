@@ -15,6 +15,12 @@ Started as a fork of [hlissner's dotfiles](https://github.com/hlissner/dotfiles)
 
 Feel free to poke around. Contact me if you have any questions!
 
+## Archive status
+
+This configuration is archived for now. The targets and module combinations
+listed below describe the last maintained snapshot; changes should be treated
+as maintenance of the archive rather than an indication of active deployment.
+
 ## Supported systems
 
 This flake actively supports these machines and build targets:

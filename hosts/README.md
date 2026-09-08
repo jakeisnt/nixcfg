@@ -1,6 +1,6 @@
 # Host configurations
 
-These are the configurations actively maintained by this repository:
+These are the configurations preserved in this archived snapshot:
 
 | Target | Platform | Purpose | Main modules |
 | --- | --- | --- | --- |
