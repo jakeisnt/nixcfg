@@ -86,7 +86,8 @@
       Type = "oneshot";
       RemainAfterExit = true;
       # No preference flags: preserve the existing login and network settings.
-      ExecStart = "${lib.getExe config.services.tailscale.package} up --timeout=30s";
+      ExecStart = "${lib.getExe config.services.tailscale.package} up";
+      TimeoutStartSec = "30s";
       Restart = "on-failure";
       RestartSec = "10s";
     };
