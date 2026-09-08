@@ -74,7 +74,7 @@
     openFirewall = false;
   };
   networking.firewall.interfaces.${config.services.tailscale.interfaceName} = {
-    allowedTCPPorts = [ 22 ];
+    allowedTCPPorts = [ 22 5900 ];
     allowedUDPPortRanges = [
       { from = 60000; to = 61000; }
     ];
@@ -84,10 +84,16 @@
     forwardX11 = true;
   };
 
-  # Share the running desktop through an SSH tunnel, once per Sway session.
+  # Share the running desktop on Tailscale, once per Sway session.
   home.configFile."sway/config".text = lib.mkAfter ''
 
-    exec ${pkgs.wayvnc}/bin/wayvnc 127.0.0.1 5900
+    exec ${pkgs.writeShellScript "wayvnc-tailscale" ''
+      # Sway may start before Tailscale has an address.
+      until address=$(${pkgs.tailscale}/bin/tailscale ip -4 2>/dev/null) && [ -n "$address" ]; do
+        ${pkgs.coreutils}/bin/sleep 2
+      done
+      exec ${pkgs.wayvnc}/bin/wayvnc "$address" 5900
+    ''}
   '';
 
   modules = {
