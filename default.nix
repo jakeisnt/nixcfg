@@ -69,6 +69,6 @@ with inputs; {
     coreutils
     wget
     unzip
-    codex
+    nixpkgs-unstable.codex
   ];
 }
