@@ -66,6 +66,12 @@ with inputs; {
 
   # bare essentials
   environment.systemPackages = with pkgs; [
+    # Expose every executable maintained in this repository's bin/ directory
+    # through /run/current-system/sw/bin, independently of the login shell.
+    (runCommandLocal "dotfiles-bin" { } ''
+      mkdir -p "$out"
+      ln -s ${./bin} "$out/bin"
+    '')
     coreutils
     wget
     unzip
