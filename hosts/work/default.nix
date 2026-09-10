@@ -164,6 +164,8 @@
     };
     dev = {
       ai.enable = true;
+      # Local development database for Improvin.
+      postgresql.enable = true;
       docker = {
         enable = true;
         podman = true;
