@@ -15,11 +15,11 @@ in {
       enable = true;
       # The legacy `pkgs.postgresql` alias in this configuration resolves to
       # PostgreSQL 11, which has been removed from the current nixpkgs.
-      package = pkgs.postgresql_17;
+      package = pkgs.postgresql_18;
     };
 
     # `services.postgresql` provides the daemon, while this makes `psql` and
     # the other client/admin tools available in development shells.
-    user.packages = [ pkgs.postgresql_17 ];
+    user.packages = [ pkgs.postgresql_18 ];
   };
 }
