@@ -162,7 +162,13 @@
       # graphics.enable = true;
       # graphics.photo.enable = true;
     };
-    dev.ai.enable = true;
+    dev = {
+      ai.enable = true;
+      docker = {
+        enable = true;
+        podman = true;
+      };
+    };
     shell = {
       git.enable = true;
       file.enable = true;

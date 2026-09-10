@@ -69,6 +69,7 @@ with lib.my;
     dev = {
       ai.enable = true;
       node.enable = true;
+      docker.enable = true;
       cc.enable = false;
       rust.enable = false; # should be project local
     };
@@ -103,7 +104,6 @@ with lib.my;
       fish.enable = true;
     };
     services = {
-      docker.enable = true;
       syncthing.enable = true;
       ssh.enable = true;
       dnsmasq.enable = true;

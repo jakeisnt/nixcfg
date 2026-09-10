@@ -2,9 +2,9 @@
 
 with lib;
 with lib.my;
-let cfg = config.modules.services.docker;
+let cfg = config.modules.dev.docker;
 in {
-  options.modules.services.docker = {
+  options.modules.dev.docker = {
     enable = mkBoolOpt false;
     podman = mkBoolOpt false;
     kubernetes = mkBoolOpt false;
@@ -19,7 +19,7 @@ in {
     env.DOCKER_CONFIG = "$XDG_CONFIG_HOME/docker";
     env.MACHINE_STORAGE_PATH = "$XDG_DATA_HOME/docker/machine";
 
-    user.extraGroups = [ "docker" ];
+    user.extraGroups = optionals (!cfg.podman) [ "docker" ];
 
     environment.shellAliases = {
         "dk" = "docker";
@@ -55,6 +55,5 @@ in {
         # listenOptions = [];
       };
     };
-    users.users.jake.extraGroups = [ "podman" ];
   };
 }
