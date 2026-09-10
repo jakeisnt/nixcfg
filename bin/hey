@@ -74,7 +74,8 @@ def "main check" [] {
   let flake = (flake-path)
   nix flake check $flake --all-systems --no-build
   if (os) == "darwin" {
-    nix build $"($flake)#checks.aarch64-darwin.($darwin-target)" --option pure-eval no
+    let host = (darwin-target)
+    nix build $"($flake)#checks.aarch64-darwin.($host)" --option pure-eval no
   } else {
     for target in ["work" "xps" "installer"] {
       nix build $"($flake)#checks.x86_64-linux.($target)" --option pure-eval no
