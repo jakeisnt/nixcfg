@@ -19,7 +19,9 @@ in {
     env.DOCKER_CONFIG = "$XDG_CONFIG_HOME/docker";
     env.MACHINE_STORAGE_PATH = "$XDG_DATA_HOME/docker/machine";
 
-    user.extraGroups = optionals (!cfg.podman) [ "docker" ];
+    user.extraGroups =
+      optionals (!cfg.podman) [ "docker" ]
+      ++ optionals cfg.podman [ "podman" ];
 
     environment.shellAliases = {
         "dk" = "docker";
