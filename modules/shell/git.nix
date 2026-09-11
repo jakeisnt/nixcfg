@@ -19,8 +19,7 @@ in {
         difftastic
         # good diff page viewer
         delta
-      ]
-      ++ optional config.modules.shell.gnupg.enable git-crypt;
+      ];
 
     environment.shellAliases = with pkgs; {
       "ga" = "${git}/bin/git add";

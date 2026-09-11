@@ -9,7 +9,6 @@ with inputs; {
   imports =
     [
       inputs."home-manager-unstable".darwinModules.home-manager
-      inputs.sops-nix.darwinModules.sops
     ]
     ++ [
       # Darwin-specific option wiring (user.packages, home.*, env aliases)

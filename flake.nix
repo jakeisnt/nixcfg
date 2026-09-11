@@ -30,11 +30,6 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
-    sops-nix = {
-      url = "github:Mic92/sops-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     nur = {
       url = "github:nix-community/NUR/master";
     };
