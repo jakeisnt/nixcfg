@@ -20,7 +20,6 @@
 - [ ] `modules/dev/cc.nix`, `modules/dev/clojure.nix`, `modules/dev/lua.nix` — audit
 - [ ] `modules/editors/vim.nix`, `modules/editors/vscode.nix` — likely safe, audit
 - [ ] `modules/editors/emacs.nix` — uses `pkgs.emacs29-pgtk` (Linux/X11 only); needs darwin variant (`pkgs.emacs29` or `pkgs.emacs-macport`)
-- [ ] `modules/services/syncthing.nix` — nix-darwin has a syncthing service, verify option paths match
 
 ## Modules to skip on darwin (Linux/Wayland-only)
 - `modules/desktop/` — sway, wayfire, gnome (not applicable on macOS)

@@ -104,7 +104,6 @@ with lib.my;
       fish.enable = true;
     };
     services = {
-      syncthing.enable = true;
       ssh.enable = true;
       dnsmasq.enable = true;
     };
