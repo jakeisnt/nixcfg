@@ -1,4 +1,4 @@
-{ config, options, lib, pkgs, ... }:
+{ config, options, lib, pkgs, inputs, ... }:
 
 with lib;
 with lib.my;
@@ -52,7 +52,25 @@ in {
     home.configFile = {
       "git/config".source = mkOutOfStoreSymlink "${configDir}/git/config";
       "git/ignore".source = mkOutOfStoreSymlink "${configDir}/git/ignore";
-      "gh/config.yml".source = mkOutOfStoreSymlink "${configDir}/gh/config.yml";
     };
+
+    # `gh auth login` updates config.yml (including when it migrates older
+    # versions).  It cannot do that while Home Manager points the file at this
+    # repository, so use the checked-in file only to seed a mutable copy.
+    # The symlink-to-file conversion also migrates existing installations on
+    # their next rebuild without touching an already mutable configuration.
+    home-manager.users.${config.user.name}.home.activation.ghConfig =
+      inputs.home-manager.lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        gh_config_dir="$XDG_CONFIG_HOME/gh"
+        gh_config="$gh_config_dir/config.yml"
+
+        $DRY_RUN_CMD mkdir -p "$gh_config_dir"
+        if [ -L "$gh_config" ]; then
+          $DRY_RUN_CMD rm "$gh_config"
+          $DRY_RUN_CMD cp ${escapeShellArg "${configDir}/gh/config.yml"} "$gh_config"
+        elif [ ! -e "$gh_config" ]; then
+          $DRY_RUN_CMD cp ${escapeShellArg "${configDir}/gh/config.yml"} "$gh_config"
+        fi
+      '';
   };
 }
