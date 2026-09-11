@@ -67,7 +67,7 @@ lib.makeExtensible (_: rec {
           networking.hostName = mkDefault hostname;
         }
         (filterAttrs (name: _: name != "system") attrs)
-        ../.
+        ./.
         (import path)
       ];
     };
@@ -96,7 +96,7 @@ lib.makeExtensible (_: rec {
         ];
       };
       darwinLib = inputs.nixpkgs-unstable.lib.extend (self: super: {
-        my = import ./. { inputs = inputs; lib = self; pkgs = darwinPkgs; };
+        my = import ./lib.nix { inputs = inputs; lib = self; pkgs = darwinPkgs; };
       });
     in
     inputs.nix-darwin.lib.darwinSystem {
@@ -108,7 +108,7 @@ lib.makeExtensible (_: rec {
           networking.hostName = mkDefault hostname;
         }
         (filterAttrs (name: _: name != "system") attrs)
-        ../darwin.nix
+        ./darwin.nix
         (import path)
       ];
     };
@@ -129,7 +129,7 @@ lib.makeExtensible (_: rec {
   };
 
   # Paths and Home Manager helpers
-  dotFilesDir = toString ../.;
+  dotFilesDir = toString ./.;
   modulesDir = "${dotFilesDir}/modules";
   configDir = "${dotFilesDir}/config";
   binDir = "${dotFilesDir}/bin";
