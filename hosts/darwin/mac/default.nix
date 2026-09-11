@@ -23,6 +23,10 @@ with lib.my;
     # Google Cloud CLI: provides gcloud, gsutil, and bq.
     google-cloud-sdk
 
+    # Cloudflare deployment and tunnel tooling.
+    wrangler
+    cloudflared
+
     # Keep the everyday shell tools available even when shell modules are
     # changed independently of this host.
     bat

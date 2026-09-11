@@ -75,5 +75,9 @@ with inputs; {
     coreutils
     wget
     unzip
+
+    # Cloudflare deployment and local-development tooling.
+    wrangler
+    cloudflared
   ];
 }
