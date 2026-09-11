@@ -1,6 +1,6 @@
 [user]
     name = Jacob Chvatal
-    email = jake@isnt.online
+    email = jake@uln.industries
     signingkey = 1EB278CFEE0A2F49
 [gpg]
     program = gpg2
