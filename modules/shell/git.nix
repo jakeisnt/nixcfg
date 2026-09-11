@@ -71,6 +71,12 @@ in {
         elif [ ! -e "$gh_config" ]; then
           $DRY_RUN_CMD cp ${escapeShellArg "${configDir}/gh/config.yml"} "$gh_config"
         fi
+        # The template is copied from the read-only Nix store.  `cp` preserves
+        # its mode, so explicitly restore user write access after seeding (and
+        # repair copies created by older versions of this activation hook).
+        if [ -f "$gh_config" ] && [ ! -L "$gh_config" ]; then
+          $DRY_RUN_CMD chmod u+w "$gh_config"
+        fi
       '';
   };
 }
