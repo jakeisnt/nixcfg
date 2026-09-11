@@ -17,6 +17,7 @@ with lib.my;
 {
   options = with types; {
     user = {
+      name     = mkOpt str username;
       packages = mkOpt (listOf package) [];
       shell    = mkOpt (nullOr package) null;
     };

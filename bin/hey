@@ -50,11 +50,6 @@ def "main build" [] {
   }
 }
 
-# Build the live USB ISO (NixOS only)
-def "main iso" [] {
-  nix build .#nixosConfigurations.iso-install.config.system.build.isoImage --option pure-eval no
-}
-
 # Find a package by name
 def "main find" [
   package_name: string # the name of the package to locate

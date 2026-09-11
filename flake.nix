@@ -118,7 +118,6 @@
         "${system}" = {
           work = self.nixosConfigurations.work.config.system.build.toplevel;
           xps = self.nixosConfigurations.xps.config.system.build.toplevel;
-          installer = self.nixosConfigurations.iso-install.config.system.build.isoImage;
         };
         "${darwinSystem}" = {
           mac = self.darwinConfigurations.mac.system;

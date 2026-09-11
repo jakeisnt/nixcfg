@@ -28,9 +28,6 @@ For one-off nix commands (run from `/etc/nixos`):
 # Build without switching
 sudo nixos-rebuild build --flake /etc/nixos --option pure-eval no
 
-# Build the live USB ISO
-nix build .#nixosConfigurations.iso-install.config.system.build.isoImage
-
 # Check flake validity
 nix flake check --all-systems --no-build
 
@@ -81,7 +78,7 @@ This is a NixOS flake-based dotfiles repo. The entry point is `flake.nix`, which
   - `security.nix`, `xdg.nix` — global NixOS settings
 - `hosts/` — per-machine configurations; each becomes a `nixosConfiguration`
   - `personal.nix` — shared config imported by personal machines (timezone, locale, user groups)
-  - `xps/`, `work/`, `iso-install/` — individual NixOS host configs
+  - `xps/`, `work/` — individual NixOS host configs
   - `darwin/mac/` — the supported nix-darwin host config
 - `overlays/` — nixpkgs overlays, auto-discovered
 - `packages/` — custom packages callable via `pkgs.my.<name>`

@@ -5,6 +5,7 @@ with lib;
 with lib.my;
 {
   networking.hostName = "mac";
+  user.name = "jake";
 
   modules = {
     shell = {
