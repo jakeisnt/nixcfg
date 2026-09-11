@@ -5,7 +5,7 @@
 # I retrieved the real URL from https://github.com/NixOS/nixpkgs/blob/master/pkgs/misc/vscode-extensions/mktplcExtRefToFetchArgs.nix
 # and wrote a quick bash script to fetch the hash provided the url - go check it out in the bin/ folder
 
-{ config, options, lib, pkgs, ... }:
+{ config, options, lib, pkgs, inputs, ... }:
 
 with lib;
 with lib.my;
@@ -81,11 +81,23 @@ in
 
   config = mkIf cfg.enable {
     user.packages = with pkgs; [ vscodium-with-extensions ];
-    home.configFile = {
-      "VSCodium/User" = {
-        source = "${configDir}/vscode";
-        recursive = true;
-      };
-    };
+    # VSCodium writes these files when settings are changed in its UI.  Seed
+    # the repository defaults once, then let the editor own its live settings.
+    home-manager.users.${config.user.name}.home.activation.vscodiumSettings =
+      inputs.home-manager.lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        vscodium_user_dir="$XDG_CONFIG_HOME/VSCodium/User"
+        vscodium_defaults=${escapeShellArg "${configDir}/vscode"}
+
+        $DRY_RUN_CMD mkdir -p "$vscodium_user_dir"
+        for vscodium_file in settings.json tasks.json; do
+          vscodium_target="$vscodium_user_dir/$vscodium_file"
+          if [ -L "$vscodium_target" ]; then
+            $DRY_RUN_CMD rm "$vscodium_target"
+            $DRY_RUN_CMD cp "$vscodium_defaults/$vscodium_file" "$vscodium_target"
+          elif [ ! -e "$vscodium_target" ]; then
+            $DRY_RUN_CMD cp "$vscodium_defaults/$vscodium_file" "$vscodium_target"
+          fi
+        done
+      '';
   };
 }

@@ -2,7 +2,7 @@
 #
 # No Adobe allowed.
 
-{ config, options, lib, pkgs, ... }:
+{ config, options, lib, pkgs, inputs, ... }:
 
 with builtins;
 with lib;
@@ -47,16 +47,27 @@ in {
       (if cfg.sprites.enable then [ aseprite-unfree ] else [ ]);
 
     home.configFile = mkMerge [
-      (mkIf cfg.raster.enable {
-        "GIMP/2.10" = {
-          source = "${configDir}/gimp";
-          recursive = true;
-        };
-      })
       (mkIf cfg.vector.enable {
         "inkscape/templates/default.svg".source = "${configDir}/inkscape/default-template.svg";
       })
     ];
+
+    # GIMP writes this accelerator map itself.  Seed our preferred shortcuts,
+    # but leave the live file mutable for custom shortcuts and GIMP upgrades.
+    home-manager.users.${config.user.name}.home.activation.gimpMenu = mkIf cfg.raster.enable (
+      inputs.home-manager.lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        gimp_config_dir="$XDG_CONFIG_HOME/GIMP/2.10"
+        gimp_menu="$gimp_config_dir/menurc"
+
+        $DRY_RUN_CMD mkdir -p "$gimp_config_dir"
+        if [ -L "$gimp_menu" ]; then
+          $DRY_RUN_CMD rm "$gimp_menu"
+          $DRY_RUN_CMD cp ${escapeShellArg "${configDir}/gimp/menurc"} "$gimp_menu"
+        elif [ ! -e "$gimp_menu" ]; then
+          $DRY_RUN_CMD cp ${escapeShellArg "${configDir}/gimp/menurc"} "$gimp_menu"
+        fi
+      ''
+    );
 
     environment.variables.PICTURES_FOLDER = "/home/${username}/pics";
   };
