@@ -133,17 +133,6 @@
         };
       };
 
-      templates = {
-        full = {
-          path = ./.;
-          description = "A grossly incandescent nixos config";
-        };
-        flake = {
-          path = ./templates/flake;
-          description = "A simple Nix flake starter project.";
-        };
-      };
-
       apps."${system}".default = {
         type = "app";
         program = "${./bin/hey}";

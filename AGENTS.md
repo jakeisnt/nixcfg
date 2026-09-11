@@ -85,7 +85,6 @@ This is a NixOS flake-based dotfiles repo. The entry point is `flake.nix`, which
 - `config/` — dotfiles/config files deployed via `home.file` or `home.configFile`
 - `bin/` — scripts, added to PATH via `env.PATH`
 - `keys/` — SSH/GPG public keys
-- `templates/` — flake templates
 
 ### Dual nixpkgs Inputs
 
