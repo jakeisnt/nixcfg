@@ -37,6 +37,8 @@
     ripgrep
     fzf
     nil
+    tmux
+    zellij
   ];
 
   # automount storage devices
