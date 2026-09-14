@@ -237,6 +237,27 @@
         "type": "github"
       }
     },
+    "pm": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs-unstable"
+        ],
+        "rust-overlay": "rust-overlay"
+      },
+      "locked": {
+        "lastModified": 1789402104,
+        "narHash": "sha256-34U3nvbW4jNZtUEOnY9ondK4/l2umPWzmfICiSY1dr0=",
+        "owner": "jakeisnt",
+        "repo": "pm",
+        "rev": "5be11a832e27f451e163130cd699e80668168fda",
+        "type": "github"
+      },
+      "original": {
+        "owner": "jakeisnt",
+        "repo": "pm",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "doom-emacs": "doom-emacs",
@@ -248,7 +269,29 @@
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nur": "nur",
+        "pm": "pm",
         "spicetify-nix": "spicetify-nix"
+      }
+    },
+    "rust-overlay": {
+      "inputs": {
+        "nixpkgs": [
+          "pm",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1789372034,
+        "narHash": "sha256-mu6atvdBHYpDsFhJkPtSsS6auSWAnWONVJMCvpL0900=",
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "rev": "a5f41d15ba0e9442542c5324fbccd7a87105a90d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "type": "github"
       }
     },
     "spicetify-nix": {

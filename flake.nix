@@ -15,6 +15,11 @@
       url = "github:ryoppippi/nix-claude-code";
     };
 
+    pm = {
+      url = "github:jakeisnt/pm";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
     nix-darwin = {
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
