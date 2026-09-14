@@ -74,6 +74,7 @@ with inputs; {
     coreutils
     wget
     unzip
+    pm.packages.${pkgs.system}.default
 
     # Cloudflare Workers deployment and local-development tooling.
     wrangler
