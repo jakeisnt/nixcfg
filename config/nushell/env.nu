@@ -3,8 +3,10 @@
 # - converted from a value back to a string when running external commands (to_string)
 # Note: The conversions happen *after* config.nu is loaded
 
-# gnupghome is only defined in bash? redefine it
-$env.GNUPGHOME = $'($env.XDG_CONFIG_HOME)/gnupg'
+# SSH can start Nushell directly, bypassing the POSIX profile that normally
+# exports the XDG variables.  Keep the standard default available here too.
+$env.XDG_CONFIG_HOME = ($env.XDG_CONFIG_HOME? | default ($env.HOME | path join '.config'))
+$env.GNUPGHOME = ($env.XDG_CONFIG_HOME | path join 'gnupg')
 
 $env.ENV_CONVERSIONS = {
   "PATH": {
