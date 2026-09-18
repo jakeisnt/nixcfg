@@ -103,6 +103,7 @@
     };
   };
   modules.services.ssh.enable = true;
+  modules.services.flake-update.enable = true;
   services.openssh = {
     startWhenNeeded = false;
     openFirewall = false;

@@ -1,0 +1,58 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Run by the flake-update service as the repository owner.
+repo=${1:-/etc/nixos}
+base=${2:-main}
+state=${STATE_DIRECTORY:-${XDG_STATE_HOME:-$HOME/.local/state}/flake-update}
+mkdir -p "$state"
+exec 9>"$state/lock"
+flock -n 9 || exit 0
+export GIT_TERMINAL_PROMPT=0
+export GIT_SSH_COMMAND='ssh -o BatchMode=yes -o ConnectTimeout=30'
+
+notify() {
+  echo "$*"
+  notify-send 'NixOS update' "$*" || true
+}
+trap 'notify "Update failed. See journalctl -u flake-update and $state/worktree."' ERR
+
+# Preserve failed attempts for inspection instead of overwriting their work.
+if [[ -e "$state/worktree" ]]; then
+  notify "Previous worktree exists: $state/worktree. Inspect and remove it with git worktree remove before retrying."
+  exit 1
+fi
+git -C "$repo" fetch origin "$base"
+revision=$(git -C "$repo" rev-parse FETCH_HEAD)
+branch="updates/flake-$(date -u +%Y%m%dT%H%M%SZ)"
+git -C "$repo" worktree add -b "$branch" "$state/worktree" "$revision"
+cd "$state/worktree"
+nix flake update --flake . --impure
+if git diff --quiet -- flake.lock; then
+  git -C "$repo" worktree remove "$state/worktree"
+  notify 'No flake updates available.'
+  exit 0
+fi
+
+nix flake check --all-systems --no-build
+target_names=$(nix eval --json .#checks.x86_64-linux --apply builtins.attrNames | jq -er '.[]')
+mapfile -t targets <<< "$target_names"
+if (( ${#targets[@]} == 0 )); then
+  echo 'No Linux checks discovered.' >&2
+  exit 1
+fi
+for target in "${targets[@]}"; do
+  nix build ".#checks.x86_64-linux.$target" --no-link --option pure-eval no
+done
+git add flake.lock
+git diff --cached --check
+git diff --cached --stat
+# Only the lockfile may change, including changes made by build hooks.
+if [[ $(git status --porcelain --untracked-files=all) != 'M  flake.lock' ]]; then
+  echo 'Unexpected changes in update worktree; refusing to commit.' >&2
+  exit 1
+fi
+git -c commit.gpgsign=false commit -m 'chore: update flake inputs'
+git push --atomic origin "HEAD:refs/heads/$branch"
+git -C "$repo" worktree remove "$state/worktree"
+notify "Verified update pushed to $branch. Review and merge, then run hey rebuild."
