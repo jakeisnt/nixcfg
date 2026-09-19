@@ -33,8 +33,16 @@ curl -fsSL https://raw.githubusercontent.com/jakeisnt/nixcfg/main/bin/darwin-boo
 ```
 
 That command installs Nix if necessary, downloads the configuration into
-`~/.config/nixcfg`, and activates it. Run the same command again to reinstall
-or re-activate from that checkout.
+`~/.config/nixcfg`, and activates it. Run the same command again to re-activate
+from that checkout. If an existing Nix installation has a mismatched `nixbld`
+group ID, repair it deterministically with:
+
+``` sh
+./bin/darwin-bootstrap --repair-nix
+```
+
+The repair asks for confirmation before uninstalling Nix. Automation must use
+`--repair-nix --yes` explicitly.
 
 The Darwin user is detected from the account running the command, so the
 configuration does not require the account to be named `jake`.

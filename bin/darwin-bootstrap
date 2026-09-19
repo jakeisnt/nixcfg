@@ -12,6 +12,28 @@ else
 fi
 target=${DARWIN_TARGET:-mac}
 export DARWIN_USER=${DARWIN_USER:-$(id -un)}
+repair_nix=false
+assume_yes=false
+
+usage() {
+  cat <<'EOF'
+Usage: darwin-bootstrap [--repair-nix [--yes]]
+
+  --repair-nix  uninstall and reinstall Nix when its nixbld group has the
+                wrong GID for nix-darwin
+  --yes         confirm a destructive Nix reinstall (required without a TTY)
+EOF
+}
+
+while [ "$#" -gt 0 ]; do
+  case "$1" in
+    --repair-nix) repair_nix=true ;;
+    --yes) assume_yes=true ;;
+    -h|--help) usage; exit 0 ;;
+    *) echo "error: unknown option: $1" >&2; usage >&2; exit 2 ;;
+  esac
+  shift
+done
 
 if [ "$(uname -s)" != Darwin ]; then
   echo "error: darwin-bootstrap must run on macOS" >&2
@@ -49,8 +71,9 @@ if [ ! -f "$flake/flake.nix" ]; then
   fi
   mv "$source_dir" "$flake"
 fi
-if ! command -v nix >/dev/null 2>&1; then
-  echo "Nix is not installed; installing it with the Determinate Nix Installer."
+
+install_nix() {
+  echo "Installing Nix with the Determinate Nix Installer."
   curl --proto '=https' --tlsv1.2 -fsSL https://install.determinate.systems/nix | \
     sh -s -- install --no-confirm
   if [ -f /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]; then
@@ -58,7 +81,61 @@ if ! command -v nix >/dev/null 2>&1; then
     . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
   fi
   if ! command -v nix >/dev/null 2>&1; then
-    echo "error: Nix installed, but is not available in this shell; open a new terminal and retry" >&2
+    echo "error: Nix installed, but it is not available in this shell; open a new terminal and retry" >&2
+    exit 1
+  fi
+}
+
+nixbld_gid() {
+  dscl . -read /Groups/nixbld PrimaryGroupID 2>/dev/null |
+    awk '$1 == "PrimaryGroupID:" { print $2 }'
+}
+
+repair_nix_installation() {
+  if [ ! -x /nix/nix-installer ]; then
+    echo "error: /nix/nix-installer is missing; cannot safely perform the deterministic reinstall" >&2
+    echo "Install Nix with the Determinate Nix Installer, then rerun with --repair-nix." >&2
+    exit 1
+  fi
+
+  if [ "$assume_yes" = false ]; then
+    if [ ! -t 0 ] || [ ! -t 1 ]; then
+      echo "error: refusing to uninstall Nix without a TTY" >&2
+      echo "Rerun with: $0 --repair-nix --yes" >&2
+      exit 1
+    fi
+    printf 'Nix will be uninstalled and reinstalled. Continue? [y/N] '
+    read -r answer
+    case "$answer" in
+      y|Y|yes|YES) ;;
+      *) echo "Nix reinstall cancelled."; exit 1 ;;
+    esac
+  fi
+
+  echo "Uninstalling Nix to repair the nixbld group ID."
+  sudo /nix/nix-installer uninstall --no-confirm
+  install_nix
+
+  if [ "$(nixbld_gid)" != 350 ]; then
+    echo "error: Nix was reinstalled, but nixbld still has an unexpected GID: $(nixbld_gid)" >&2
+    exit 1
+  fi
+}
+
+if ! command -v nix >/dev/null 2>&1; then
+  install_nix
+fi
+
+# nix-darwin currently expects the default nixbld group to use GID 350. An
+# existing Nix installation can retain the old 30000 GID, which fails during
+# activation. Do not silently destroy an installation: opt into the repair.
+actual_nixbld_gid=$(nixbld_gid)
+if [ -n "$actual_nixbld_gid" ] && [ "$actual_nixbld_gid" != 350 ]; then
+  if [ "$repair_nix" = true ]; then
+    repair_nix_installation
+  else
+    echo "error: nixbld has GID $actual_nixbld_gid, but nix-darwin expects GID 350" >&2
+    echo "Rerun with: $0 --repair-nix" >&2
     exit 1
   fi
 fi
