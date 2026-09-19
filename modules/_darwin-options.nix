@@ -42,6 +42,7 @@ with lib.my;
   config = {
     home-manager = {
       useUserPackages = true;
+      backupFileExtension = "before-home-manager";
       users.${username} = {
         home = {
           enableNixpkgsReleaseCheck = false;
