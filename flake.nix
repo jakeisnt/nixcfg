@@ -132,9 +132,13 @@
       devShells = {
         "${system}".default = pkgs.mkShell {
           name = "nixos-config";
+          packages = [ pkgs.bun ];
         };
-        "aarch64-darwin".default = (import nixpkgs { system = "aarch64-darwin"; }).mkShell {
+        "aarch64-darwin".default = let
+          darwinPkgs = import nixpkgs { system = "aarch64-darwin"; };
+        in darwinPkgs.mkShell {
           name = "nixos-config";
+          packages = [ darwinPkgs.bun ];
         };
       };
 
