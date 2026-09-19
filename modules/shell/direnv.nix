@@ -16,7 +16,7 @@ in {
       keep-derivations = true
     '';
 
-    environment.pathsToLink = mkIf pkgs.stdenv.isLinux [ "/share/nix-direnv" ];
+    environment.pathsToLink = mkIf pkgs.stdenv.hostPlatform.isLinux [ "/share/nix-direnv" ];
     modules.shell.fish.rcInit = ''direnv hook fish | source'';
 
     home.configFile = {
@@ -24,7 +24,7 @@ in {
         source = "${configDir}/direnv";
         recursive = true;
       };
-    } // optionalAttrs pkgs.stdenv.isLinux {
+    } // optionalAttrs pkgs.stdenv.hostPlatform.isLinux {
       "direnv/config".text =
         "source /run/current-system/sw/share/nix-direnv/direnvrc";
     };

@@ -135,7 +135,7 @@ lib.makeExtensible (_: rec {
   binDir = "${dotFilesDir}/bin";
   themesDir = "${modulesDir}/themes";
   username =
-    if pkgs.stdenv.isDarwin
+    if pkgs.stdenv.hostPlatform.isDarwin
     then let name = builtins.getEnv "DARWIN_USER"; in if name == "" then "jake" else name
     else "jake";
   homeDir = "/home/${username}";
