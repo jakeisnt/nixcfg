@@ -14,8 +14,11 @@ function expandPath(path: string): string {
 }
 
 export function flakePath(): string {
-  if (process.env.DOTFILES) return expandPath(process.env.DOTFILES);
+  // Prefer the checkout containing this script. This prevents a stale DOTFILES
+  // value injected by an older activation from making local repairs rebuild the
+  // wrong source tree.
   if (existsSync(resolve(import.meta.dir, "..", "flake.nix"))) return resolve(import.meta.dir, "..");
+  if (process.env.DOTFILES) return expandPath(process.env.DOTFILES);
   return expandPath(process.env.DOTFILES_DIR || "~/.config/nixcfg");
 }
 
