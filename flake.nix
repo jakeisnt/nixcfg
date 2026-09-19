@@ -140,7 +140,7 @@
 
       apps."${system}".default = {
         type = "app";
-        program = "${./bin/hey}";
+        program = "${./bin/hey.ts}";
       };
     };
 }
