@@ -65,7 +65,7 @@ in {
     # their next rebuild without touching an already mutable configuration.
     home-manager.users.${config.user.name}.home.activation.ghConfig =
       inputs.home-manager.lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-        gh_config_dir="$XDG_CONFIG_HOME/gh"
+        gh_config_dir=${escapeShellArg "${config.home-manager.users.${config.user.name}.home.homeDirectory}/.config/gh"}
         gh_config="$gh_config_dir/config.yml"
 
         $DRY_RUN_CMD mkdir -p "$gh_config_dir"
