@@ -4,6 +4,9 @@ This file provides guidance to coding agents when working with code in this repo
 
 ## Common Commands
 
+Write new or rewritten shell scripts in Bun TypeScript. Use Bun's `$` executor
+for shell commands and `node:util`'s `parseArgs` for command-line parsing.
+
 The default shell is nushell. Use the `hey` script (in `bin/`) for common NixOS operations:
 
 ```nu

@@ -4,9 +4,9 @@ let
   user = config.users.users.${config.user.name};
   updater = pkgs.writeShellApplication {
     name = "flake-update";
-    runtimeInputs = with pkgs; [ git nix openssh libnotify ];
+    runtimeInputs = with pkgs; [ git nix openssh libnotify util-linux ];
     text = ''
-      exec ${pkgs.python3}/bin/python3 ${../../bin/flake-update} "$@"
+      exec ${pkgs.bun}/bin/bun ${../../bin/flake-update.ts} "$@"
     '';
   };
 in {
