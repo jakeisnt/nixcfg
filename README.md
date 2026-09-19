@@ -29,7 +29,7 @@ The Darwin target currently supports Apple Silicon and uses `mac` regardless of
 the Mac's computer name. On a fresh checkout, install Nix, then run:
 
 ``` sh
-curl -fsSL https://raw.githubusercontent.com/jakeisnt/nixcfg/main/bin/darwin-bootstrap | sh
+curl -fsSL https://raw.githubusercontent.com/jakeisnt/nixcfg/main/bin/darwin-bootstrap | python3
 ```
 
 That command installs Nix if necessary, downloads the configuration into
