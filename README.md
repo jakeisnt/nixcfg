@@ -3,24 +3,6 @@
 
 Started as a fork of [hlissner's dotfiles](https://github.com/hlissner/dotfiles), but different design decisions have been made to differentiate the two since.
 
-## Screenshots
-### Full Configuration
-<img src="/../screenshots/nordic/neofetch-desktop.png" width="100%" />
-<img src="/../screenshots/nordic/emacs-workspace.png" width="100%" />
-<img src="/../screenshots/nordic/spotify-scrot.png" width="100%" />
-
-### Minimal Configuration
-<img src="/../screenshots/nordic/sway-1.jpg" width="100%" />
-<img src="/../screenshots/nordic/sway-2.jpg" width="100%" />
-
-Feel free to poke around. Contact me if you have any questions!
-
-## Archive status
-
-This configuration is archived for now. The targets and module combinations
-listed below describe the last maintained snapshot; changes should be treated
-as maintenance of the archive rather than an indication of active deployment.
-
 ## Supported systems
 
 This flake actively supports these machines and build targets:
