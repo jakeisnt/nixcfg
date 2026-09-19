@@ -108,8 +108,8 @@ async function repairNixInstallation(assumeYes: boolean): Promise<void> {
   if (gid !== "350") fail(`Nix was reinstalled, but nixbld still has an unexpected GID: ${gid}`);
 }
 
-function nextDarwinEtcBackup(path: string): string {
-  const base = `${path}.before-nix-darwin`;
+function nextBackupPath(path: string, label: string): string {
+  const base = `${path}.${label}`;
   if (!existsSync(base)) return base;
   for (let suffix = 1; ; suffix += 1) {
     const backup = `${base}-${suffix}`;
@@ -123,7 +123,7 @@ async function prepareDarwinEtc(assumeYes: boolean): Promise<void> {
   const path = "/etc/bashrc";
   if (!existsSync(path)) return;
 
-  const backup = nextDarwinEtcBackup(path);
+  const backup = nextBackupPath(path, "before-nix-darwin");
   if (!assumeYes) {
     if (!process.stdin.isTTY || !process.stdout.isTTY) {
       fail(`${path} conflicts with nix-darwin\nRerun with: ${process.argv[1]} --yes to preserve it as ${backup}`);
