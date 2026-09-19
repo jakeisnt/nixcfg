@@ -27,7 +27,12 @@ in {
 
     home.configFile = {
       "starship.toml".source = mkOutOfStoreSymlink "${configDir}/starship/starship.toml";
-      "nushell/config.nu".source = mkOutOfStoreSymlink "${configDir}/nushell/config.nu";
+      # These may be symlinks left by an older checkout. Home Manager cannot
+      # back up a conflicting symlink, so replacing the link is intentional.
+      "nushell/config.nu" = {
+        source = mkOutOfStoreSymlink "${configDir}/nushell/config.nu";
+        force = true;
+      };
       "nushell/login.nu".source = mkOutOfStoreSymlink "${configDir}/nushell/login.nu";
       "nushell/env.nu".source = mkOutOfStoreSymlink "${configDir}/nushell/env.nu";
     };

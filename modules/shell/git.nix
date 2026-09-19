@@ -50,7 +50,12 @@ in {
 
     home.configFile = {
       "git/config".source = mkOutOfStoreSymlink "${configDir}/git/config";
-      "git/ignore".source = mkOutOfStoreSymlink "${configDir}/git/ignore";
+      # This may be a symlink left by an older checkout. Home Manager cannot
+      # back up a conflicting symlink, so replacing the link is intentional.
+      "git/ignore" = {
+        source = mkOutOfStoreSymlink "${configDir}/git/ignore";
+        force = true;
+      };
     };
 
     # `gh auth login` updates config.yml (including when it migrates older
