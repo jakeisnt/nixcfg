@@ -3,24 +3,6 @@
 
 Started as a fork of [hlissner's dotfiles](https://github.com/hlissner/dotfiles), but different design decisions have been made to differentiate the two since.
 
-## Screenshots
-### Full Configuration
-<img src="/../screenshots/nordic/neofetch-desktop.png" width="100%" />
-<img src="/../screenshots/nordic/emacs-workspace.png" width="100%" />
-<img src="/../screenshots/nordic/spotify-scrot.png" width="100%" />
-
-### Minimal Configuration
-<img src="/../screenshots/nordic/sway-1.jpg" width="100%" />
-<img src="/../screenshots/nordic/sway-2.jpg" width="100%" />
-
-Feel free to poke around. Contact me if you have any questions!
-
-## Archive status
-
-This configuration is archived for now. The targets and module combinations
-listed below describe the last maintained snapshot; changes should be treated
-as maintenance of the archive rather than an indication of active deployment.
-
 ## Supported systems
 
 This flake actively supports these machines and build targets:
@@ -47,12 +29,20 @@ The Darwin target currently supports Apple Silicon and uses `mac` regardless of
 the Mac's computer name. On a fresh checkout, install Nix, then run:
 
 ``` sh
-curl -fsSL https://raw.githubusercontent.com/jakeisnt/nixcfg/main/bin/darwin-bootstrap | sh
+curl -fsSL https://raw.githubusercontent.com/jakeisnt/nixcfg/main/bin/darwin-bootstrap | python3
 ```
 
 That command installs Nix if necessary, downloads the configuration into
-`~/.config/nixcfg`, and activates it. Run the same command again to reinstall
-or re-activate from that checkout.
+`~/.config/nixcfg`, and activates it. Run the same command again to re-activate
+from that checkout. If an existing Nix installation has a mismatched `nixbld`
+group ID, repair it deterministically with:
+
+``` sh
+./bin/darwin-bootstrap --repair-nix
+```
+
+The repair asks for confirmation before uninstalling Nix. Automation must use
+`--repair-nix --yes` explicitly.
 
 The Darwin user is detected from the account running the command, so the
 configuration does not require the account to be named `jake`.

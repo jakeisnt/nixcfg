@@ -1,73 +1,233 @@
-#!/bin/sh
-# Bootstrap or rebuild nix-darwin without requiring Bun or Homebrew.
-set -eu
+#!/usr/bin/env python3
+"""Bootstrap or rebuild nix-darwin without requiring Bun or Homebrew."""
 
-repo=${DOTFILES_REPO:-https://github.com/jakeisnt/nixcfg.git}
-if [ -n "${DOTFILES:-}" ]; then
-  flake=$DOTFILES
-elif [ -f "$(dirname -- "$0")/../flake.nix" ]; then
-  flake=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
-else
-  flake=${DOTFILES_DIR:-"$HOME/.config/nixcfg"}
-fi
-target=${DARWIN_TARGET:-mac}
-export DARWIN_USER=${DARWIN_USER:-$(id -un)}
+from __future__ import annotations
 
-if [ "$(uname -s)" != Darwin ]; then
-  echo "error: darwin-bootstrap must run on macOS" >&2
-  exit 1
-fi
-if [ "$(uname -m)" != arm64 ]; then
-  echo "error: this configuration currently supports Apple Silicon (arm64) only" >&2
-  exit 1
-fi
-if [ "$(id -u)" -eq 0 ]; then
-  echo "error: run this as your normal user; the script invokes sudo when needed" >&2
-  exit 1
-fi
-if [ "$DARWIN_USER" = root ] || [ -z "$DARWIN_USER" ]; then
-  echo "error: could not determine a normal macOS username" >&2
-  exit 1
-fi
-if [ ! -f "$flake/flake.nix" ]; then
-  if [ -e "$flake" ]; then
-    echo "error: $flake exists but is not a Nix flake checkout" >&2
-    exit 1
-  fi
-  echo "Downloading $repo into $flake"
-  mkdir -p "$(dirname -- "$flake")"
-  archive=$(mktemp "${TMPDIR:-/tmp}/nixcfg.XXXXXX.tar.gz")
-  unpacked=$(mktemp -d "${TMPDIR:-/tmp}/nixcfg.XXXXXX")
-  trap 'rm -f "$archive"; rm -rf "$unpacked"' EXIT HUP INT TERM
-  curl --proto '=https' --tlsv1.2 -fsSL "${repo%.git}/archive/refs/heads/main.tar.gz" \
-    -o "$archive"
-  tar -xzf "$archive" -C "$unpacked"
-  source_dir=$(find "$unpacked" -mindepth 1 -maxdepth 1 -type d -print -quit)
-  if [ -z "$source_dir" ] || [ ! -f "$source_dir/flake.nix" ]; then
-    echo "error: downloaded archive does not contain a flake" >&2
-    exit 1
-  fi
-  mv "$source_dir" "$flake"
-fi
-if ! command -v nix >/dev/null 2>&1; then
-  echo "Nix is not installed; installing it with the Determinate Nix Installer."
-  curl --proto '=https' --tlsv1.2 -fsSL https://install.determinate.systems/nix | \
-    sh -s -- install --no-confirm
-  if [ -f /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]; then
-    # shellcheck disable=SC1091
-    . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
-  fi
-  if ! command -v nix >/dev/null 2>&1; then
-    echo "error: Nix installed, but is not available in this shell; open a new terminal and retry" >&2
-    exit 1
-  fi
-fi
+import os
+import pwd
+import shutil
+import subprocess
+import sys
+import tarfile
+import tempfile
+import urllib.request
+from pathlib import Path
 
-cd "$flake"
-if command -v darwin-rebuild >/dev/null 2>&1; then
-  exec sudo darwin-rebuild switch --flake "$flake#$target" --option pure-eval no
-fi
 
-echo "darwin-rebuild is not installed; evaluating and activating nix-darwin once."
-exec sudo nix --extra-experimental-features 'nix-command flakes' run nix-darwin -- \
-  switch --flake "$flake#$target" --option pure-eval no
+REPO = os.environ.get("DOTFILES_REPO", "https://github.com/jakeisnt/nixcfg.git")
+SCRIPT_DIR = Path(__file__).resolve().parent
+if os.environ.get("DOTFILES"):
+    FLAKE = Path(os.environ["DOTFILES"]).expanduser()
+elif (SCRIPT_DIR.parent / "flake.nix").is_file():
+    FLAKE = SCRIPT_DIR.parent
+else:
+    FLAKE = Path(os.environ.get("DOTFILES_DIR", "~/.config/nixcfg")).expanduser()
+TARGET = os.environ.get("DARWIN_TARGET", "mac")
+DARWIN_USER = os.environ.get("DARWIN_USER") or pwd.getpwuid(os.getuid()).pw_name
+
+
+def error(message: str, code: int = 1) -> None:
+    print(f"error: {message}", file=sys.stderr)
+    raise SystemExit(code)
+
+
+def usage() -> None:
+    print(
+        "Usage: darwin-bootstrap [--repair-nix [--yes]]\n\n"
+        "  --repair-nix  uninstall and reinstall Nix when its nixbld group has the\n"
+        "                wrong GID for nix-darwin\n"
+        "  --yes         confirm a destructive Nix reinstall (required without a TTY)"
+    )
+
+
+def command_exists(command: str) -> bool:
+    return shutil.which(command) is not None
+
+
+def run(command: list[str], **kwargs: object) -> subprocess.CompletedProcess[bytes]:
+    return subprocess.run(command, check=False, **kwargs)
+
+
+def install_nix() -> None:
+    print("Installing Nix with the Determinate Nix Installer.")
+    try:
+        with urllib.request.urlopen(
+            "https://install.determinate.systems/nix", timeout=60
+        ) as response:
+            installer = response.read()
+    except Exception as exc:
+        error(f"could not download the Nix installer: {exc}")
+    result = run(
+        ["sh", "-s", "--", "install", "--no-confirm"],
+        input=installer,
+    )
+    if result.returncode:
+        error("the Nix installer failed")
+    profile = Path("/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh")
+    if profile.is_file():
+        # The profile is shell code; source it in a child shell only to discover
+        # the resulting PATH, then update this process for the final command.
+        path = subprocess.run(
+            ["sh", "-c", f". {profile}; printf '%s' \"$PATH\""],
+            check=True,
+            capture_output=True,
+            text=True,
+        ).stdout
+        os.environ["PATH"] = path
+    if not command_exists("nix"):
+        error("Nix installed, but it is not available in this shell; open a new terminal and retry")
+
+
+def nixbld_gid() -> str:
+    result = run(
+        ["dscl", ".", "-read", "/Groups/nixbld", "PrimaryGroupID"],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.DEVNULL,
+        text=True,
+    )
+    for line in result.stdout.splitlines():
+        fields = line.split()
+        if len(fields) >= 2 and fields[0] == "PrimaryGroupID:":
+            return fields[1]
+    return ""
+
+
+def repair_nix_installation(assume_yes: bool) -> None:
+    installer = Path("/nix/nix-installer")
+    if not installer.is_file() or not os.access(installer, os.X_OK):
+        error(
+            "/nix/nix-installer is missing; cannot safely perform the deterministic reinstall\n"
+            "Install Nix with the Determinate Nix Installer, then rerun with --repair-nix."
+        )
+    if not assume_yes:
+        if not (sys.stdin.isatty() and sys.stdout.isatty()):
+            error(
+                "refusing to uninstall Nix without a TTY\n"
+                f"Rerun with: {Path(sys.argv[0])} --repair-nix --yes"
+            )
+        answer = input("Nix will be uninstalled and reinstalled. Continue? [y/N] ")
+        if answer.lower() not in {"y", "yes"}:
+            print("Nix reinstall cancelled.")
+            raise SystemExit(1)
+
+    print("Uninstalling Nix to repair the nixbld group ID.")
+    uninstall = ["sudo", str(installer), "uninstall", "--no-confirm"]
+    result = run(uninstall)
+    if result.returncode:
+        # nix-darwin can leave an immutable or otherwise installer-managed
+        # nix.conf behind. The installer reports this only after doing most of
+        # the uninstall, so remove that stale file and retry the idempotent step.
+        print(
+            "Nix uninstall could not remove /etc/nix/nix.conf; clearing the stale "
+            "file and retrying.",
+            file=sys.stderr,
+        )
+        cleanup = run(["sudo", "/usr/bin/chflags", "nouchg", "/etc/nix/nix.conf"])
+        if cleanup.returncode:
+            print("warning: could not clear the file flags on /etc/nix/nix.conf", file=sys.stderr)
+        cleanup = run(["sudo", "/bin/rm", "-f", "/etc/nix/nix.conf"])
+        if cleanup.returncode:
+            error("could not remove /etc/nix/nix.conf; refusing to continue")
+        if run(uninstall).returncode:
+            error("Nix uninstall failed even after removing /etc/nix/nix.conf")
+    install_nix()
+    gid = nixbld_gid()
+    if gid != "350":
+        error(f"Nix was reinstalled, but nixbld still has an unexpected GID: {gid}")
+
+
+def download_flake() -> None:
+    if FLAKE.joinpath("flake.nix").is_file():
+        return
+    if FLAKE.exists():
+        error(f"{FLAKE} exists but is not a Nix flake checkout")
+    print(f"Downloading {REPO} into {FLAKE}")
+    FLAKE.parent.mkdir(parents=True, exist_ok=True)
+    url = f"{REPO.removesuffix('.git')}/archive/refs/heads/main.tar.gz"
+    with tempfile.TemporaryDirectory(prefix="nixcfg-") as temp:
+        archive = Path(temp) / "nixcfg.tar.gz"
+        unpacked = Path(temp) / "unpacked"
+        try:
+            urllib.request.urlretrieve(url, archive)
+            unpacked.mkdir()
+            with tarfile.open(archive, "r:gz") as tar:
+                for member in tar.getmembers():
+                    destination = (unpacked / member.name).resolve()
+                    if not destination.is_relative_to(unpacked.resolve()):
+                        error("downloaded archive contains an unsafe path")
+                tar.extractall(unpacked)
+        except Exception as exc:
+            error(f"could not download the configuration: {exc}")
+        source_dirs = [path for path in unpacked.iterdir() if path.is_dir()]
+        if len(source_dirs) != 1 or not (source_dirs[0] / "flake.nix").is_file():
+            error("downloaded archive does not contain a flake")
+        shutil.move(str(source_dirs[0]), str(FLAKE))
+
+
+def main() -> None:
+    repair = False
+    assume_yes = False
+    args = sys.argv[1:]
+    while args:
+        arg, *args = args
+        if arg == "--repair-nix":
+            repair = True
+        elif arg == "--yes":
+            assume_yes = True
+        elif arg in {"-h", "--help"}:
+            usage()
+            return
+        else:
+            print(f"error: unknown option: {arg}", file=sys.stderr)
+            usage()
+            raise SystemExit(2)
+
+    if sys.platform != "darwin":
+        error("darwin-bootstrap must run on macOS")
+    if os.uname().machine != "arm64":
+        error("this configuration currently supports Apple Silicon (arm64) only")
+    if os.getuid() == 0 or DARWIN_USER in {"", "root"}:
+        error("run this as your normal user; the script invokes sudo when needed")
+    download_flake()
+
+    if not command_exists("nix"):
+        install_nix()
+    actual_gid = nixbld_gid()
+    if actual_gid and actual_gid != "350":
+        if repair:
+            repair_nix_installation(assume_yes)
+        else:
+            error(
+                f"nixbld has GID {actual_gid}, but nix-darwin expects GID 350\n"
+                f"Rerun with: {Path(sys.argv[0])} --repair-nix"
+            )
+
+    os.chdir(FLAKE)
+    if command_exists("darwin-rebuild"):
+        os.execvp("sudo", ["sudo", "darwin-rebuild", "switch", "--flake", f"{FLAKE}#{TARGET}", "--option", "pure-eval", "no"])
+    print("darwin-rebuild is not installed; evaluating and activating nix-darwin once.")
+    os.execvp(
+        "sudo",
+        [
+            "sudo",
+            "nix",
+            "--extra-experimental-features",
+            "nix-command flakes",
+            "run",
+            "nix-darwin",
+            "--",
+            "switch",
+            "--flake",
+            f"{FLAKE}#{TARGET}",
+            "--option",
+            "pure-eval",
+            "no",
+        ],
+    )
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except OSError as exc:
+        error(str(exc))

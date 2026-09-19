@@ -1,104 +1,33 @@
 # AGENTS.md
 
-This file provides guidance to coding agents when working with code in this repository.
+Guidance for contributors and coding agents working in this NixOS/nix-darwin flake.
 
-## Common Commands
+## Repository
 
-Write new or rewritten shell scripts in Bun TypeScript. Use Bun's `$` executor
-for shell commands and `node:util`'s `parseArgs` for command-line parsing.
+- `flake.nix` is the entry point. It defines the `work` and `xps` NixOS targets and the `mac` Apple Silicon nix-darwin target.
+- `modules/` contains reusable NixOS and Home Manager modules; `hosts/` contains host configurations; `config/` contains deployed dotfiles; `overlays/` and `packages/` contain flake extensions.
+- Modules and hosts are auto-discovered by the helpers in `lib/`; do not add imports manually unless the discovery rules require it.
+- The default interactive shell is Nushell. `bin/hey` is the project command wrapper.
+- Write new or rewritten shell scripts in Bun TypeScript. Use Bun's `$` executor for shell commands and `node:util`'s `parseArgs` for command-line parsing.
 
-The default shell is nushell. Use the `hey` script (in `bin/`) for common NixOS operations:
+## Validation and operations
 
-```nu
-# Build and switch to current host configuration
-hey rebuild
-# (expands to: sudo nixos-rebuild switch --flake /etc/nixos --option pure-eval no)
+Use the least destructive relevant check:
 
-# Update flake inputs and rebuild
-hey upgrade
-
-# Garbage collect old generations
-hey gc
-# (expands to: nix-collect-garbage -d)
-
-# Find a package by name
-hey find <package_name>
+```sh
+nix flake check --all-systems --no-build  # configuration-only audit
+hey check                                 # audit plus native target builds
+hey build                                 # build the current target
+hey rebuild                               # activate the current target
+hey upgrade                               # update inputs and rebuild
 ```
 
-For one-off nix commands (run from `/etc/nixos`):
+Run commands from the repository checkout. Do not run broad formatters or fixers unless explicitly requested.
 
-```nu
-# Build without switching
-sudo nixos-rebuild build --flake /etc/nixos --option pure-eval no
+## Scripts
 
-# Check flake validity
-nix flake check --all-systems --no-build
+All sufficiently complex scripts must be Bun TypeScript CLI programs, not Bash (or another scripting language). Use Bash only for genuinely tiny, straightforward glue programs. Complex CLIs should have explicit argument handling, useful errors, and noninteractive-safe behavior; destructive actions must require an explicit confirmation flag when run without a TTY. Single-file Bun CLIs should keep relevant tests in the same file and run them with `bun test`.
 
-# Evaluate every supported target and build the native targets
-hey check
+## Git workflow
 
-# Enter dev shell (drops into bash; use direnv for nushell-native dev envs)
-nix develop
-
-# Update flake inputs
-nix flake update --flake /etc/nixos --impure
-```
-
-## Architecture
-
-This is a NixOS flake-based dotfiles repo. The entry point is `flake.nix`, which wires together all subsystems.
-
-### Key Design Patterns
-
-**Module auto-discovery**: The `lib/modules.nix` helpers (`mapModules`, `mapModulesRec`, `mapModulesRec'`) automatically discover and import `.nix` files from a directory. Files/dirs prefixed with `_` are excluded. `default.nix` in a directory acts as the directory's module; other `.nix` files become named entries.
-
-**Custom lib extensions**: `lib.my` is a custom extension to nixpkgs' lib, defined in `lib/`. It provides:
-- `mapModules`/`mapHosts` — directory scanning helpers
-- `mkOpt`/`mkOpt'`/`mkBoolOpt` — option shorthand (`lib/options.nix`)
-- Path constants: `dotFilesDir`, `modulesDir`, `configDir`, `binDir`, `username`, `homeDir` (`lib/paths.nix`)
-
-**Home Manager aliases**: Rather than the verbose `home-manager.users.jake.home.file`, this config exposes three shorter aliases (defined in `modules/options.nix`):
-- `home.file` → `home-manager.users.jake.home.file`
-- `home.configFile` → `home-manager.users.jake.xdg.configFile`
-- `home.dataFile` → `home-manager.users.jake.xdg.dataFile`
-
-**`user` option**: A top-level `user` option attr set is aliased to `users.users.jake`, letting modules set user properties without hardcoding the username.
-
-**`env` option**: A top-level `env` attrset is injected via `environment.extraInit` as shell exports.
-
-### Directory Structure
-
-- `flake.nix` — defines all inputs and wires together overlays, packages, modules, and hosts
-- `default.nix` — root NixOS module: imports home-manager, configures nix settings, boot, fonts
-- `lib/` — custom library functions loaded as `lib.my`
-- `modules/` — NixOS/home-manager modules, auto-imported recursively; organized by category:
-  - `desktop/` — window managers (sway, wayfire, gnome)
-  - `dev/` — language toolchains (rust, node, python, etc.)
-  - `shell/` — shell config (fish, nushell, direnv, tmux, etc.)
-  - `editors/` — editor config
-  - `hardware/`, `services/`, `media/`, `themes/`, `wayland/`, etc.
-  - `options.nix` — defines global custom options (`user`, `home.*`, `env`)
-  - `security.nix`, `xdg.nix` — global NixOS settings
-- `hosts/` — per-machine configurations; each becomes a `nixosConfiguration`
-  - `personal.nix` — shared config imported by personal machines (timezone, locale, user groups)
-  - `xps/`, `work/` — individual NixOS host configs
-  - `darwin/mac/` — the supported nix-darwin host config
-- `overlays/` — nixpkgs overlays, auto-discovered
-- `packages/` — custom packages callable via `pkgs.my.<name>`
-- `config/` — dotfiles/config files deployed via `home.file` or `home.configFile`
-- `bin/` — scripts, added to PATH via `env.PATH`
-- `keys/` — SSH/GPG public keys
-
-### Dual nixpkgs Inputs
-
-Two nixpkgs channels are tracked: `nixpkgs` (nixos-26.05, stable) and `nixpkgs-unstable` (master). Unstable packages are accessible as `pkgs.unstable.<name>` within any module.
-
-### Git Workflow
-
-Agents must keep commits atomic: each commit contains one coherent logical change and its directly related tests or documentation only. Do not mix unrelated fixes, formatting, dependency updates, or generated files into the same commit.
-
-Agents must push commits atomically after they are complete and verified. Use `git push --atomic` so a multi-ref push either updates all requested refs or none; never push partial or uncommitted work. Before pushing, inspect the staged diff, run the relevant checks, and confirm the working tree contains no unintended changes.
-
-### Host Configuration Pattern
-
-Each host in `hosts/<name>/default.nix` imports `../personal.nix` plus hardware config, then enables desired modules via `modules.<category>.<name>.enable = true`.
+Keep commits atomic and include only intentional changes. Before committing, inspect `git status --short` and `git diff --cached --stat`, stage only the relevant files, run the relevant validation, then commit and push with `git push --atomic`. Report any validation, commit, or push blocker and its exact follow-up.
