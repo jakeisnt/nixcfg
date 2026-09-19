@@ -4,8 +4,10 @@ let
   user = config.users.users.${config.user.name};
   updater = pkgs.writeShellApplication {
     name = "flake-update";
-    runtimeInputs = with pkgs; [ git nix openssh jq util-linux coreutils libnotify ];
-    text = builtins.readFile ../../bin/flake-update;
+    runtimeInputs = with pkgs; [ git nix openssh libnotify ];
+    text = ''
+      exec ${pkgs.python3}/bin/python3 ${../../bin/flake-update} "$@"
+    '';
   };
 in {
   options.modules.services.flake-update = {
