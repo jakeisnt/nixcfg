@@ -4,6 +4,10 @@
 with lib;
 with lib.my;
 {
+  # Determinate manages the Nix daemon and store outside nix-darwin. Keeping
+  # nix-darwin from trying to manage Nix avoids conflicting launchd services.
+  nix.enable = false;
+
   networking.hostName = "mac";
   user.name = "jake";
 
