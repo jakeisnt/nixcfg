@@ -42,6 +42,11 @@ async function run(command: string[]): Promise<ShellOutput> {
   return $`${program} ${args}`.nothrow();
 }
 
+async function runInteractive(command: string[]): Promise<number> {
+  const child = Bun.spawn(command, { stdio: ["inherit", "inherit", "inherit"] });
+  return child.exited;
+}
+
 async function commandExists(command: string): Promise<boolean> {
   return (await run(["sh", "-c", `command -v "$1" >/dev/null 2>&1`, "sh", command])).exitCode === 0;
 }
@@ -205,14 +210,14 @@ export async function main(args = Bun.argv.slice(2)): Promise<void> {
 
   process.chdir(flake);
   await prepareDarwinEtc(assumeYes);
-  let result: ShellOutput;
+  let exitCode: number;
   if (await commandExists("darwin-rebuild")) {
-    result = await run(["sudo", "darwin-rebuild", "switch", "--flake", `${flake}#${TARGET}`, "--option", "pure-eval", "no"]);
+    exitCode = await runInteractive(["sudo", "darwin-rebuild", "switch", "--flake", `${flake}#${TARGET}`, "--option", "pure-eval", "no"]);
   } else {
     console.log("darwin-rebuild is not installed; evaluating and activating nix-darwin once.");
-    result = await run(["sudo", "nix", "--extra-experimental-features", "nix-command flakes", "run", "nix-darwin", "--", "switch", "--flake", `${flake}#${TARGET}`, "--option", "pure-eval", "no"]);
+    exitCode = await runInteractive(["sudo", "nix", "--extra-experimental-features", "nix-command flakes", "run", "nix-darwin", "--", "switch", "--flake", `${flake}#${TARGET}`, "--option", "pure-eval", "no"]);
   }
-  if (result.exitCode !== 0) process.exitCode = result.exitCode;
+  if (exitCode !== 0) process.exitCode = exitCode;
 }
 
 if (import.meta.main && process.env.NODE_ENV !== "test") {
