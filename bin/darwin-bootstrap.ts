@@ -20,11 +20,12 @@ export function flakePath(): string {
 }
 
 function usage(): string {
-  return `Usage: darwin-bootstrap [--repair-nix [--yes]]
+  return `Usage: darwin-bootstrap [--repair-nix] [--yes]
 
   --repair-nix  uninstall and reinstall Nix when its nixbld group has the
                 wrong GID for nix-darwin
-  --yes         confirm a destructive Nix reinstall (required without a TTY)
+  --yes         confirm destructive repairs and /etc conflict backups
+                (required without a TTY)
 `;
 }
 
@@ -107,6 +108,32 @@ async function repairNixInstallation(assumeYes: boolean): Promise<void> {
   if (gid !== "350") fail(`Nix was reinstalled, but nixbld still has an unexpected GID: ${gid}`);
 }
 
+async function prepareDarwinEtc(assumeYes: boolean): Promise<void> {
+  // nix-darwin owns this file on this host. Preserve the macOS copy rather
+  // than letting activation abort halfway through with an overwrite error.
+  const path = "/etc/bashrc";
+  if (!existsSync(path)) return;
+
+  const backup = `${path}.before-nix-darwin`;
+  if (existsSync(backup)) {
+    fail(`${path} conflicts with nix-darwin and its backup already exists: ${backup}`);
+  }
+  if (!assumeYes) {
+    if (!process.stdin.isTTY || !process.stdout.isTTY) {
+      fail(`${path} conflicts with nix-darwin\nRerun with: ${process.argv[1]} --yes to preserve it as ${backup}`);
+    }
+    const answer = prompt(`${path} will be moved to ${backup}. Continue? [y/N] `) || "";
+    if (!["y", "yes"].includes(answer.toLowerCase())) {
+      fail("activation cancelled");
+    }
+  }
+
+  console.log(`Preserving ${path} as ${backup}.`);
+  if ((await run(["sudo", "/bin/mv", path, backup])).exitCode !== 0) {
+    fail(`could not move ${path} to ${backup}; refusing to activate nix-darwin`);
+  }
+}
+
 async function downloadFlake(flake: string): Promise<void> {
   if (existsSync(join(flake, "flake.nix"))) return;
   if (existsSync(flake)) fail(`${flake} exists but is not a Nix flake checkout`);
@@ -168,6 +195,7 @@ export async function main(args = Bun.argv.slice(2)): Promise<void> {
   }
 
   process.chdir(flake);
+  await prepareDarwinEtc(assumeYes);
   let result: ShellOutput;
   if (await commandExists("darwin-rebuild")) {
     result = await run(["sudo", "darwin-rebuild", "switch", "--flake", `${flake}#${TARGET}`, "--option", "pure-eval", "no"]);
