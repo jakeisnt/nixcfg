@@ -8,6 +8,7 @@ Guidance for contributors and coding agents working in this NixOS/nix-darwin fla
 - `modules/` contains reusable NixOS and Home Manager modules; `hosts/` contains host configurations; `config/` contains deployed dotfiles; `overlays/` and `packages/` contain flake extensions.
 - Modules and hosts are auto-discovered by the helpers in `lib/`; do not add imports manually unless the discovery rules require it.
 - The default interactive shell is Nushell. `bin/hey` is the project command wrapper.
+- Write new or rewritten shell scripts in Bun TypeScript. Use Bun's `$` executor for shell commands and `node:util`'s `parseArgs` for command-line parsing.
 
 ## Validation and operations
 
