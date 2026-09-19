@@ -108,16 +108,22 @@ async function repairNixInstallation(assumeYes: boolean): Promise<void> {
   if (gid !== "350") fail(`Nix was reinstalled, but nixbld still has an unexpected GID: ${gid}`);
 }
 
+function nextDarwinEtcBackup(path: string): string {
+  const base = `${path}.before-nix-darwin`;
+  if (!existsSync(base)) return base;
+  for (let suffix = 1; ; suffix += 1) {
+    const backup = `${base}-${suffix}`;
+    if (!existsSync(backup)) return backup;
+  }
+}
+
 async function prepareDarwinEtc(assumeYes: boolean): Promise<void> {
   // nix-darwin owns this file on this host. Preserve the macOS copy rather
   // than letting activation abort halfway through with an overwrite error.
   const path = "/etc/bashrc";
   if (!existsSync(path)) return;
 
-  const backup = `${path}.before-nix-darwin`;
-  if (existsSync(backup)) {
-    fail(`${path} conflicts with nix-darwin and its backup already exists: ${backup}`);
-  }
+  const backup = nextDarwinEtcBackup(path);
   if (!assumeYes) {
     if (!process.stdin.isTTY || !process.stdout.isTTY) {
       fail(`${path} conflicts with nix-darwin\nRerun with: ${process.argv[1]} --yes to preserve it as ${backup}`);
