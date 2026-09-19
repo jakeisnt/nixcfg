@@ -25,7 +25,7 @@ Run commands from the repository checkout. Do not run broad formatters or fixers
 
 ## Scripts
 
-All sufficiently complex scripts must be Bun TypeScript CLI programs, not Bash (or another scripting language). Use Bash only for genuinely tiny, straightforward glue programs. Complex CLIs should have explicit argument handling, useful errors, and noninteractive-safe behavior; destructive actions must require an explicit confirmation flag when run without a TTY.
+All sufficiently complex scripts must be Bun TypeScript CLI programs, not Bash (or another scripting language). Use Bash only for genuinely tiny, straightforward glue programs. Complex CLIs should have explicit argument handling, useful errors, and noninteractive-safe behavior; destructive actions must require an explicit confirmation flag when run without a TTY. Single-file Bun CLIs should keep relevant tests in the same file and run them with `bun test`.
 
 ## Git workflow
 
