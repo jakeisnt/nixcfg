@@ -16,6 +16,7 @@ in
     enable = mkBoolOpt false;
     audio.enable = mkBoolOpt true;
     video.enable = mkBoolOpt true;
+    video.obs.enable = mkBoolOpt true;
   };
 
   config = mkIf cfg.enable {
@@ -26,10 +27,10 @@ in
           # audacity
         ] else []
       ) ++ # for longer term streaming/recording the screen
-      (if cfg.video.enable then [(wrapOBS {
+      (if cfg.video.enable then (optionals cfg.video.obs.enable [(wrapOBS {
       plugins = with obs-studio-plugins; [
         wlrobs
       ];
-    }) handbrake ] else []);
+    })]) ++ [ handbrake ] else []);
   };
 }

@@ -161,6 +161,7 @@
     media = {
       # ncmpcpp.enable = true; # disabled: mopidy/mpd unreliable, python310 dep
       recording.enable = true;
+      recording.video.obs.enable = false;
       # TODO:  These options require python2.
       # graphics.enable = true;
       # graphics.photo.enable = true;
