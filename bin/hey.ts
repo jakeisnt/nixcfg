@@ -34,7 +34,7 @@ Commands:
   find <package>         Search nixpkgs for a package
   gc                     Collect old Nix store generations
   rebuild                Build and switch to the current system
-  upgrade                Update flake inputs, then rebuild
+  upgrade                Update and commit flake inputs, then rebuild
 
 Options:
   --yes                  Allow destructive commands in non-interactive use
@@ -93,7 +93,7 @@ async function check(): Promise<void> {
 async function upgrade(options: Options): Promise<void> {
   requireConfirmation("upgrade", options);
   const flake = flakePath();
-  await $`nix flake update --flake ${flake} --impure`;
+  await $`nix flake update --flake ${flake} --impure --commit-lock-file`;
   await rebuild(options);
 }
 
