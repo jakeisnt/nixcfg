@@ -16,12 +16,13 @@ async function setBrightness(percent: number): Promise<void> {
   await $`brightnessctl --class=backlight --min-value=0 set ${`${Math.max(0, Math.min(100, percent))}%`}`.quiet();
 }
 function draw(percent: number): void {
-  const line = `☼ ${String(percent).padStart(3)}% ${bar(percent)}  ↑/↓ adjust · Esc quit`;
+  const line = `☼ ${String(percent).padStart(3)}% ${bar(percent)}  ↑/↓ adjust · Enter keep · Esc revert`;
   process.stdout.write(`\r\x1b[2K${line.slice(0, Math.max(0, (process.stdout.columns || 80) - 1))}`);
 }
 async function main(): Promise<void> {
   if (!process.stdin.isTTY || !process.stdout.isTTY) throw new Error("brightness needs to run in a terminal (TTY).");
-  let percent = await brightness();
+  const initialPercent = await brightness();
+  let percent = initialPercent;
   process.stdin.setRawMode(true);
   process.stdin.resume();
   process.stdout.write("\x1b[?25l");
@@ -36,7 +37,8 @@ async function main(): Promise<void> {
     for await (const chunk of process.stdin) {
       const key = chunk.toString();
       if (key.includes("\x03") || key.includes("\x04")) break;
-      if (key.includes("\x1b") && !key.startsWith("\x1b[")) break;
+      if (key === "\r" || key === "\n") break;
+      if (key === "\x1b") { await setBrightness(initialPercent); percent = initialPercent; break; }
       if (key === "\x1b[A") { percent = Math.min(100, percent + STEP); await setBrightness(percent); draw(percent); }
       else if (key === "\x1b[B") { percent = Math.max(0, percent - STEP); await setBrightness(percent); draw(percent); }
     }

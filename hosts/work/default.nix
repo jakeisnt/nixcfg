@@ -59,14 +59,14 @@
   services.udev.extraRules = ''
     ACTION=="add", SUBSYSTEM=="backlight", RUN+="${pkgs.coreutils}/bin/chgrp video /sys%p/brightness", RUN+="${pkgs.coreutils}/bin/chmod g+w /sys%p/brightness"
   '';
-  # Override systemd's restored brightness when starting the server.
+  # Override systemd's restored brightness with a usable level when starting the server.
   systemd.services.server-backlight-off = {
-    description = "Start the server with its display backlight off";
+    description = "Start the server with a usable display backlight level";
     wantedBy = [ "multi-user.target" ];
     after = [ "systemd-backlight@backlight:intel_backlight.service" ];
     serviceConfig = {
       Type = "oneshot";
-      ExecStart = "${pkgs.brightnessctl}/bin/brightnessctl --device=intel_backlight --min-value=0 set 0%";
+      ExecStart = "${pkgs.brightnessctl}/bin/brightnessctl --device=intel_backlight --min-value=0 set 10%";
     };
   };
 
