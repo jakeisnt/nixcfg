@@ -34,6 +34,10 @@
   time.timeZone = "Europe/Stockholm";
 
   user.packages = with pkgs; [
+    (writeShellScriptBin "brightness" ''
+      export PATH=${lib.makeBinPath [ brightnessctl ]}:"$PATH"
+      exec ${bun}/bin/bun ${../../bin/brightness.ts} "$@"
+    '')
     ripgrep
     fzf
     nil
@@ -48,7 +52,23 @@
     "storage"
     # for scanner
     "scanner"
+    "video"
   ];
+
+  # Permit backlight control from SSH, without an active graphical session.
+  services.udev.extraRules = ''
+    ACTION=="add", SUBSYSTEM=="backlight", RUN+="${pkgs.coreutils}/bin/chgrp video /sys%p/brightness", RUN+="${pkgs.coreutils}/bin/chmod g+w /sys%p/brightness"
+  '';
+  # Override systemd's restored brightness when starting the server.
+  systemd.services.server-backlight-off = {
+    description = "Start the server with its display backlight off";
+    wantedBy = [ "multi-user.target" ];
+    after = [ "systemd-backlight@backlight:intel_backlight.service" ];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.brightnessctl}/bin/brightnessctl --device=intel_backlight --min-value=0 set 0%";
+    };
+  };
 
   networking = {
     useDHCP = false;
