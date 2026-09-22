@@ -13,24 +13,38 @@ async function brightness(): Promise<number> {
   return Math.round((current / maximum) * 100);
 }
 async function setBrightness(percent: number): Promise<void> {
-  await $`brightnessctl --class=backlight --min-value=0 set ${`${Math.max(0, Math.min(100, percent))}%`}`;
+  await $`brightnessctl --class=backlight --min-value=0 set ${`${Math.max(0, Math.min(100, percent))}%`}`.quiet();
 }
 function draw(percent: number): void {
-  process.stdout.write(`\x1b[2J\x1b[H\x1b[?25l  ☼  Display brightness\n\n    ${bar(percent)}  ${String(percent).padStart(3)}%\n\n    ↑/↓ adjust · Esc quit\n`);
+  const line = `☼ ${String(percent).padStart(3)}% ${bar(percent)}  ↑/↓ adjust · Esc quit`;
+  process.stdout.write(`\r\x1b[2K${line.slice(0, Math.max(0, (process.stdout.columns || 80) - 1))}`);
 }
 async function main(): Promise<void> {
   if (!process.stdin.isTTY || !process.stdout.isTTY) throw new Error("brightness needs to run in a terminal (TTY).");
   let percent = await brightness();
-  draw(percent);
   process.stdin.setRawMode(true);
   process.stdin.resume();
-  process.on("exit", () => { process.stdin.setRawMode(false); process.stdin.pause(); process.stdout.write("\x1b[?25h\x1b[2J\x1b[H"); });
-  process.on("SIGINT", () => process.exit(0));
-  for await (const chunk of process.stdin) {
-    const key = chunk.toString();
-    if (key.includes("\x1b") && !key.startsWith("\x1b[")) break;
-    if (key === "\x1b[A") { percent = Math.min(100, percent + STEP); await setBrightness(percent); draw(percent); }
-    else if (key === "\x1b[B") { percent = Math.max(0, percent - STEP); await setBrightness(percent); draw(percent); }
+  process.stdout.write("\x1b[?25l");
+  const cleanup = () => { process.stdin.setRawMode(false); process.stdin.pause(); process.stdout.write("\x1b[?25h\n"); };
+  const interrupt = () => process.exit(0);
+  const resize = () => draw(percent);
+  process.on("exit", cleanup);
+  process.on("SIGINT", interrupt);
+  process.stdout.on("resize", resize);
+  try {
+    draw(percent);
+    for await (const chunk of process.stdin) {
+      const key = chunk.toString();
+      if (key.includes("\x03") || key.includes("\x04")) break;
+      if (key.includes("\x1b") && !key.startsWith("\x1b[")) break;
+      if (key === "\x1b[A") { percent = Math.min(100, percent + STEP); await setBrightness(percent); draw(percent); }
+      else if (key === "\x1b[B") { percent = Math.max(0, percent - STEP); await setBrightness(percent); draw(percent); }
+    }
+  } finally {
+    process.removeListener("exit", cleanup);
+    process.removeListener("SIGINT", interrupt);
+    process.stdout.removeListener("resize", resize);
+    cleanup();
   }
 }
 if (import.meta.main && process.env.NODE_ENV !== "test") main().catch((error: unknown) => { process.stdout.write("\x1b[?25h"); console.error(`brightness: ${error instanceof Error ? error.message : error}`); process.exitCode = 1; });
