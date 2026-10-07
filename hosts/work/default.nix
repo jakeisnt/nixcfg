@@ -124,6 +124,8 @@
   };
   modules.services.ssh.enable = true;
   modules.services.flake-update.enable = true;
+  # Play AirPlay 2 audio from Apple devices through the laptop's sound card.
+  modules.services.airplay.enable = true;
   services.openssh = {
     startWhenNeeded = false;
     openFirewall = false;
