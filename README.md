@@ -53,6 +53,19 @@ Set `DOTFILES` when the checkout is not the script's parent directory, or set
 services are intentionally left untouched until their Nix replacements have
 been verified.
 
+## AirPlay discovery
+
+Hosts with the AirPlay sender or receiver module enabled install `airplay-scan`.
+After rebuilding, run `airplay-scan` to discover AirPlay and RAOP audio services,
+or `airplay-scan --interface wlp170s0 --seconds 20 --json` for structured output.
+The interface is optional; the default scan lasts 12 seconds.
+
+The command requires a running Avahi daemon and reports names, addresses, ports,
+and advertised TXT metadata. Discovery does not guarantee playback compatibility.
+An empty scan can mean receivers are asleep or mDNS is blocked by the network.
+From the checkout, use `bun bin/airplay-scan.ts` with `avahi-browse` and GNU
+`timeout` on PATH. Run its tests with `bun test ./bin/airplay-scan.ts`.
+
 ## Installation
 
 For a configuration-only audit, use `nix flake check --all-systems --no-build`.

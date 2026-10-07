@@ -20,6 +20,15 @@ in {
   };
 
   config = mkMerge [
+    (mkIf (cfg.sender.enable || cfg.receiver.enable) {
+      user.packages = [
+        (pkgs.writeShellScriptBin "airplay-scan" ''
+          export PATH=${lib.makeBinPath [ pkgs.avahi pkgs.coreutils ]}:"$PATH"
+          exec ${pkgs.bun}/bin/bun ${../../bin/airplay-scan.ts} "$@"
+        '')
+      ];
+    })
+
     (mkIf cfg.sender.enable {
       assertions = [{
         assertion = config.modules.hardware.audio.enable;
