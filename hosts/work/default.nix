@@ -124,6 +124,13 @@
   };
   modules.services.ssh.enable = true;
   modules.services.flake-update.enable = true;
+  # Stream audio to AirPlay speakers, such as the Belkin receiver.
+  modules.services.airplay.sender.enable = true;
+  # Home automation with Matter sensors; the UI is reachable over Tailscale.
+  modules.services.home-assistant = {
+    enable = true;
+    interfaces = [ config.services.tailscale.interfaceName ];
+  };
   services.openssh = {
     startWhenNeeded = false;
     openFirewall = false;
@@ -181,6 +188,11 @@
     media = {
       # ncmpcpp.enable = true; # disabled: mopidy/mpd unreliable, python310 dep
       recording.enable = true;
+      # Generative music, played to the AirPlay speakers without a login.
+      supercollider = {
+        enable = true;
+        headless = true;
+      };
       recording.video.obs.enable = false;
       # TODO:  These options require python2.
       # graphics.enable = true;
