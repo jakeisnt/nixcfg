@@ -124,8 +124,8 @@
   };
   modules.services.ssh.enable = true;
   modules.services.flake-update.enable = true;
-  # Play AirPlay 2 audio from Apple devices through the laptop's sound card.
-  modules.services.airplay.enable = true;
+  # Stream audio to AirPlay speakers, such as the Belkin receiver.
+  modules.services.airplay.send.enable = true;
   services.openssh = {
     startWhenNeeded = false;
     openFirewall = false;
@@ -183,6 +183,11 @@
     media = {
       # ncmpcpp.enable = true; # disabled: mopidy/mpd unreliable, python310 dep
       recording.enable = true;
+      # Generative music, played to the AirPlay speakers without a login.
+      supercollider = {
+        enable = true;
+        headless = true;
+      };
       recording.video.obs.enable = false;
       # TODO:  These options require python2.
       # graphics.enable = true;
