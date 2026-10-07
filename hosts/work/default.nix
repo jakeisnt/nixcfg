@@ -125,7 +125,12 @@
   modules.services.ssh.enable = true;
   modules.services.flake-update.enable = true;
   # Stream audio to AirPlay speakers, such as the Belkin receiver.
-  modules.services.airplay.send.enable = true;
+  modules.services.airplay.sender.enable = true;
+  # Home automation with Matter sensors; the UI is reachable over Tailscale.
+  modules.services.home-assistant = {
+    enable = true;
+    interfaces = [ config.services.tailscale.interfaceName ];
+  };
   services.openssh = {
     startWhenNeeded = false;
     openFirewall = false;

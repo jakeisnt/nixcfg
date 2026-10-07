@@ -1,17 +1,17 @@
 { options, config, lib, pkgs, ... }:
 
 # AirPlay audio on the local network, in either direction:
-#  - send: stream to AirPlay speakers.  PipeWire adds a sink for each
+#  - sender: stream to AirPlay speakers.  PipeWire adds a sink for each
 #    receiver it finds, so any app can play to one.
-#  - receive: act as an AirPlay 2 speaker for Apple devices.
+#  - receiver: act as an AirPlay 2 speaker for Apple devices.
 
 with lib;
 with lib.my;
 let cfg = config.modules.services.airplay;
 in {
   options.modules.services.airplay = {
-    send.enable = mkBoolOpt false;
-    receive = {
+    sender.enable = mkBoolOpt false;
+    receiver = {
       enable = mkBoolOpt false;
       name = mkOpt types.str config.networking.hostName;
       # A system service has no PipeWire session, so play straight to ALSA.
@@ -20,10 +20,10 @@ in {
   };
 
   config = mkMerge [
-    (mkIf cfg.send.enable {
+    (mkIf cfg.sender.enable {
       assertions = [{
         assertion = config.modules.hardware.audio.enable;
-        message = "modules.services.airplay.send requires modules.hardware.audio";
+        message = "modules.services.airplay.sender requires modules.hardware.audio";
       }];
 
       # Receivers are discovered over mDNS.
@@ -32,23 +32,23 @@ in {
       services.pipewire = {
         # Receivers send timing and control data back over UDP.
         raopOpenFirewall = true;
-        extraConfig.pipewire."10-airplay-send" = {
+        extraConfig.pipewire."10-airplay-sender" = {
           "context.modules" = [{ name = "libpipewire-module-raop-discover"; }];
         };
       };
     })
 
-    (mkIf cfg.receive.enable {
+    (mkIf cfg.receiver.enable {
       services.shairport-sync = {
         enable = true;
         package = pkgs.shairport-sync-airplay2;
         openFirewall = true;
         settings = {
           general = {
-            name = cfg.receive.name;
+            name = cfg.receiver.name;
             output_backend = "alsa";
           };
-          alsa.output_device = cfg.receive.device;
+          alsa.output_device = cfg.receiver.device;
         };
       };
 
