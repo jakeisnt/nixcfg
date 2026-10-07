@@ -61,6 +61,11 @@ in {
         (f: "f ${config.services.home-assistant.configDir}/${f} 0644 hass hass")
         [ "automations.yaml" "scenes.yaml" "scripts.yaml" ];
 
+      # Accept the routes Thread border routers (e.g. a HomePod) announce
+      # for their mesh, so Matter can reach Thread devices.  NetworkManager
+      # handles these itself on the interfaces it manages.
+      boot.kernel.sysctl."net.ipv6.conf.*.accept_ra_rt_info_max_plen" = 64;
+
       networking.firewall.interfaces = genAttrs cfg.interfaces
         (_: { allowedTCPPorts = [ 8123 ]; });
     }
