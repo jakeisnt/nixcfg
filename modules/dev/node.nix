@@ -20,10 +20,11 @@ in {
       typescript-language-server
     ];
 
-    env.NPM_CONFIG_USERCONFIG = "$XDG_CONFIG_HOME/npm/config";
-    env.NPM_CONFIG_CACHE = "$XDG_CACHE_HOME/npm";
-    env.NPM_CONFIG_TMP = "$XDG_RUNTIME_DIR/npm";
-    env.NPM_CONFIG_PREFIX = "$XDG_CACHE_HOME/npm";
+    # Keep npm's paths valid even when the shell does not define XDG_* vars
+    # (for example, in a macOS terminal outside a Nix profile).
+    env.NPM_CONFIG_USERCONFIG = "$HOME/.config/npm/config";
+    env.NPM_CONFIG_CACHE = "$HOME/.cache/npm";
+    env.NPM_CONFIG_PREFIX = "$HOME/.local/npm";
     env.NODE_REPL_HISTORY = "$XDG_CACHE_HOME/node/repl_history";
     env.PATH = [ "$(yarn global bin)" ];
 
