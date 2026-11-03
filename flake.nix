@@ -14,7 +14,7 @@
     # Determinate Nix: Determinate Systems' Nix distribution plus determinate-nixd.
     # Do not make this follow nixpkgs; it must use its own pinned, cached Nix.
     determinate = {
-      url = "github:DeterminateSystems/determinate";
+      url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
     };
 
     nix-claude-code = {
