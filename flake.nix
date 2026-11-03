@@ -11,6 +11,12 @@
     nixpkgs.url = "nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "nixpkgs/master";
 
+    # Determinate Nix: Determinate Systems' Nix distribution plus determinate-nixd.
+    # Do not make this follow nixpkgs; it must use its own pinned, cached Nix.
+    determinate = {
+      url = "github:DeterminateSystems/determinate";
+    };
+
     nix-claude-code = {
       url = "github:ryoppippi/nix-claude-code";
     };
@@ -36,7 +42,7 @@
     };
 
     nur = {
-      url = "github:nix-community/NUR/master";
+      url = "github:nix-community/NUR";
     };
 
     emacs-overlay = {

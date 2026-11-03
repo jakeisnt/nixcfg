@@ -9,6 +9,7 @@ with inputs; {
   imports =
     [
       inputs."home-manager-unstable".darwinModules.home-manager
+      inputs.determinate.darwinModules.default
     ]
     ++ [
       # Darwin-specific option wiring (user.packages, home.*, env aliases)
@@ -31,17 +32,18 @@ with inputs; {
     NIXPKGS_ALLOW_UNFREE = "1";
   };
 
-  nix = {
-    settings = {
-      experimental-features = [ "nix-command" "flakes" ];
-      substituters = [
-        "https://cache.nixos.org/"
-        "https://nix-community.cachix.org"
-      ];
-      trusted-public-keys = [
-        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-      ];
-    };
+  # Determinate Nix owns the daemon and /etc/nix/nix.conf; the determinate
+  # module disables nix-darwin's Nix management and writes these settings to
+  # /etc/nix/nix.custom.conf, which Determinate's nix.conf includes.
+  determinateNix.customSettings = {
+    extra-substituters = [
+      "https://nix-community.cachix.org"
+      "https://ryoppippi.cachix.org"
+    ];
+    extra-trusted-public-keys = [
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "ryoppippi.cachix.org-1:b2LbtWNvJeL/qb1B6TYOMK+apaCps4SCbzlPRfSQIms="
+    ];
   };
 
   environment.systemPackages = with pkgs; [

@@ -72,7 +72,7 @@ with lib.my;
         shell = config.user.shell;
       };
 
-    nix.settings = {
+    determinateNix.customSettings = {
       trusted-users = [ "root" username ];
       allowed-users = [ "root" username ];
     };

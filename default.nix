@@ -6,7 +6,8 @@ with inputs; {
   imports =
     [
       home-manager.nixosModules.home-manager
-      ]
+      determinate.nixosModules.default
+    ]
     ++ (mapModulesRec' (toString ./modules) import);
 
   # Common config for all nixos machines to ensure the flake operates soundly
@@ -15,8 +16,10 @@ with inputs; {
     NIXPKGS_ALLOW_UNFREE = "1";
   };
 
+  # Determinate Nix: the determinate module supplies nix.package (Determinate
+  # Nix) and runs the daemon through determinate-nixd. Settings below are
+  # written to /etc/nix/nix.custom.conf, which Determinate's nix.conf includes.
   nix = {
-    package = pkgs.nixVersions.stable;
     settings.experimental-features = [ "nix-command" "flakes" ];
 
     nixPath = (mapAttrsToList (n: v: "${n}=${v}") inputs) ++ [
