@@ -76,10 +76,6 @@ with lib.my;
 
     hardware = {
       remarkable.enable = true;
-      extraHosts = {
-        enable = true;
-        allowSocial = true;
-      };
       audio.enable = true;
       bluetooth.enable = true;
       scanner.enable = true;
