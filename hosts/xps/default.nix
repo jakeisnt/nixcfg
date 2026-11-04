@@ -22,6 +22,12 @@ with lib.my;
   services.getty.autologinUser = "jake";
 
   networking = {
+    # Hosts-file blocklist from nixpkgs (StevenBlack); social sites stay allowed.
+    stevenblack = {
+      enable = true;
+      block = [ "fakenews" "gambling" "porn" ];
+    };
+
     networkmanager = {
       enable = true;
       wifi = {
