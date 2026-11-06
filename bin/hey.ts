@@ -4,6 +4,13 @@ import { homedir } from "node:os";
 import { parseArgs } from "node:util";
 
 const LINUX_CHECK_TARGETS = ["work", "xps"] as const;
+// The first migration runs with upstream Nix, before Determinate configures its cache.
+// https://docs.determinate.systems/guides/advanced-installation/
+const DETERMINATE_BOOTSTRAP_OPTIONS = [
+  "--option", "extra-substituters", "https://install.determinate.systems",
+  "--option", "extra-trusted-public-keys",
+  "cache.flakehub.com-3:hJuILl5sVK4iKm86JzgdXW12Y2Hwd5G07qKtHTOcDCM=",
+];
 
 type Platform = "darwin" | "linux";
 type Options = { yes: boolean };
@@ -59,7 +66,7 @@ async function rebuild(options: Options): Promise<void> {
   if (platform() === "darwin") {
     await $`darwin-rebuild switch --flake ${`${flake}#${darwinTarget()}`} --option pure-eval no`;
   } else {
-    await $`sudo nixos-rebuild switch --flake ${flake} --option pure-eval no`;
+    await $`sudo nixos-rebuild switch --flake ${flake} --option pure-eval no ${DETERMINATE_BOOTSTRAP_OPTIONS}`;
   }
 }
 
@@ -68,7 +75,7 @@ async function build(): Promise<void> {
   if (platform() === "darwin") {
     await $`nix build ${`${flake}#darwinConfigurations.${darwinTarget()}.system`} --option pure-eval no`;
   } else {
-    await $`sudo nixos-rebuild build --flake ${flake} --option pure-eval no`;
+    await $`sudo nixos-rebuild build --flake ${flake} --option pure-eval no ${DETERMINATE_BOOTSTRAP_OPTIONS}`;
   }
 }
 
@@ -86,7 +93,7 @@ async function check(): Promise<void> {
   }
 
   for (const target of LINUX_CHECK_TARGETS) {
-    await $`nix build ${`${flake}#checks.x86_64-linux.${target}`} --option pure-eval no`;
+    await $`nix build ${`${flake}#checks.x86_64-linux.${target}`} --option pure-eval no ${DETERMINATE_BOOTSTRAP_OPTIONS}`;
   }
 }
 

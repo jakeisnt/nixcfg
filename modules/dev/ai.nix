@@ -1,6 +1,6 @@
 # modules/dev/ai.nix --- AI coding assistants
 #
-# Bun, Codex, and opencode.
+# Bun and Codex.
 
 { config, options, lib, pkgs, ... }:
 
@@ -11,13 +11,11 @@ in {
   options.modules.dev.ai = {
     enable = mkBoolOpt false;
     codex.enable = mkBoolOpt true;
-    opencode.enable = mkBoolOpt true;
   };
 
   config = mkIf cfg.enable {
     user.packages = with pkgs;
       [ bun ]
-      ++ (optionals cfg.codex.enable [ unstable.codex ])
-      ++ (optionals cfg.opencode.enable [ unstable.opencode ]);
+      ++ (optionals cfg.codex.enable [ unstable.codex ]);
   };
 }
