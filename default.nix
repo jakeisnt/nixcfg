@@ -55,6 +55,22 @@ with inputs; {
   # allow users to store fonts easily
   fonts.fontDir.enable = true;
 
+  # Gawk 5.4.1 ships maintainer notes without an Info directory entry.
+  # Repair the profile copy before documentation.nix runs install-info.
+  environment.extraSetup = mkBefore ''
+    notes="$out/share/info/gawknotes.info"
+    if [ -f "$notes" ] && ! grep -q START-INFO-DIR-ENTRY "$notes"; then
+      cat ${pkgs.writeText "gawknotes-dir-entry" ''
+        INFO-DIR-SECTION Software development
+        START-INFO-DIR-ENTRY
+        * Gawk Maintainer Notes: (gawknotes). Maintaining GNU Awk.
+        END-INFO-DIR-ENTRY
+
+      ''} "$notes" > "$notes.tmp"
+      mv "$notes.tmp" "$notes"
+    fi
+  '';
+
   ## Some reasonable, global defaults
   # This is here to appease 'nix flake check' for generic hosts with no
   # hardware-configuration.nix or fileSystem config.
