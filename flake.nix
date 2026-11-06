@@ -8,8 +8,8 @@
 
   inputs = {
     # Two inputs so I can track them separately at different rates.
-    nixpkgs.url = "nixpkgs/nixos-26.05";
-    nixpkgs-unstable.url = "nixpkgs/master";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/master";
 
     # Determinate Nix: Determinate Systems' Nix distribution plus determinate-nixd.
     # Do not make this follow nixpkgs; it must use its own pinned, cached Nix.
@@ -77,18 +77,17 @@
             android_sdk.accept_license = true;
             allowUnfree = true;
           };
-          overlays = extraOverlays ++ (attrValues self.overlays) ++ [
+          overlays = [ self.overlays.default ] ++ extraOverlays
+            ++ (attrValues (builtins.removeAttrs self.overlays [ "default" ])) ++ [
             nix-claude-code.overlays.default
           ];
         };
 
       uPkgs = mkPkgs nixpkgs-unstable [
-        self.overlay
         (self: super: { doomEmacsRevision = doom-emacs.rev; })
       ];
 
       pkgs = mkPkgs nixpkgs [
-        self.overlay
         (self: super: {
           doomEmacsRevision = doom-emacs.rev;
           unstable = uPkgs;
@@ -107,13 +106,13 @@
       );
     in
       {
-      overlay = final: prev: {
-        unstable = uPkgs;
-        my = self.packages."${system}";
-        extras = { inherit spicetify-nix; };
+      overlays = (mapModules ./overlays import) // {
+        default = final: prev: {
+          unstable = uPkgs;
+          my = self.packages."${system}";
+          extras = { inherit spicetify-nix; };
+        };
       };
-
-      overlays = mapModules ./overlays import;
 
       packages."${system}" = mapModules ./packages (p: pkgs.callPackage p {});
 

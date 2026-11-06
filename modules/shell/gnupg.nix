@@ -15,9 +15,7 @@ in {
     programs.gnupg.agent.enable = true;
     user.packages = with pkgs; [
       tomb
-      # all three are necessary for some reason
-      pinentry-curses
-      # pinentry-gnome
+      # The Emacs variant also supplies the curses and tty frontends.
       pinentry-emacs
     ];
 

@@ -129,7 +129,8 @@ lib.makeExtensible (_: rec {
   };
 
   # Paths and Home Manager helpers
-  dotFilesDir = toString ./.;
+  # Preserve the flake's store dependency when paths enter derivations.
+  dotFilesDir = inputs.self.outPath;
   modulesDir = "${dotFilesDir}/modules";
   configDir = "${dotFilesDir}/config";
   binDir = "${dotFilesDir}/bin";

@@ -48,6 +48,8 @@ with lib.my;
       #   home.configFile  ->  home-manager.users.jake.home.xdg.configFile
       #   home.dataFile    ->  home-manager.users.jake.home.xdg.dataFile
       users.${config.user.name} = {
+        # Home Manager's docs do not yet link Nixpkgs' generic module declarations.
+        nixpkgs.overlays = [ (import ../overlays/options-docs.nix) ];
         home = {
           file = mkAliasDefinitions options.home.file;
           # Necessary for home-manager to work with flakes, otherwise it will
