@@ -88,7 +88,8 @@
 
   services.libinput.enable = true;
   services.tailscale = {
-    enable = true;
+    # Temporarily disabled; keep the saved configuration for re-enabling later.
+    enable = false;
     package = pkgs.unstable.tailscale;
     openFirewall = true;
     # Authenticate tailnet SSH connections using Tailscale identities.
@@ -99,13 +100,13 @@
   services.timesyncd.enable = true;
   systemd.additionalUpstreamSystemUnits = [ "systemd-time-wait-sync.service" ];
   systemd.services.systemd-time-wait-sync.wantedBy = [ "time-sync.target" ];
-  systemd.services.tailscaled = {
+  systemd.services.tailscaled = lib.mkIf config.services.tailscale.enable {
     wants = [ "network-online.target" "time-sync.target" ];
     after = [ "network-online.target" "time-sync.target" ];
   };
   # Bring the saved login online even if Tailscale was previously stopped.
   # Run as root at boot and whenever the daemon restarts, without a desktop login.
-  systemd.services.tailscaled-autoconnect = {
+  systemd.services.tailscaled-autoconnect = lib.mkIf config.services.tailscale.enable {
     description = "Connect Tailscale using the saved login";
     wantedBy = [ "multi-user.target" "tailscaled.service" ];
     wants = [ "tailscaled.service" ];
@@ -140,7 +141,7 @@
     enable = true;
     openFirewall = false;
   };
-  networking.firewall.interfaces.${config.services.tailscale.interfaceName} = {
+  networking.firewall.interfaces.${config.services.tailscale.interfaceName} = lib.mkIf config.services.tailscale.enable {
     allowedTCPPorts = [ 22 5900 ];
     allowedUDPPortRanges = [
       { from = 60000; to = 61000; }
@@ -152,7 +153,7 @@
   };
 
   # Share the running desktop on Tailscale, once per Sway session.
-  home.configFile."sway/config".text = lib.mkAfter ''
+  home.configFile."sway/config".text = lib.mkIf config.services.tailscale.enable (lib.mkAfter ''
 
     exec ${pkgs.writeShellScript "wayvnc-tailscale" ''
       # Sway may start before Tailscale has an address.
@@ -161,7 +162,7 @@
       done
       exec ${pkgs.wayvnc}/bin/wayvnc "$address" 5900
     ''}
-  '';
+  '');
 
   modules = {
     desktop.sway = {
