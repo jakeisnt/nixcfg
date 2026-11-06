@@ -77,12 +77,6 @@ with inputs; {
     coreutils
     wget
     unzip
-    (pm.packages.${pkgs.stdenv.hostPlatform.system}.default.overrideAttrs (old: {
-      # Reqwest initializes TLS even for the local HTTP tests in the sandbox.
-      env = (old.env or {}) // {
-        SSL_CERT_FILE = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
-      };
-    }))
 
     # Cloudflare Workers deployment and local-development tooling.
     wrangler
