@@ -5,10 +5,29 @@
   imports = [./hardware-configuration.nix ../personal.nix];
 
   networking.hostName = "work";
-  # Keep the machine at a normal login prompt.  Sway remains available from
-  # the tty when this laptop is needed interactively.
+  # greetd owns the graphical session; keep shell logins as ordinary shells.
   modules.shell.loginInit = lib.mkForce "";
   home.configFile."nushell/login.nu" = lib.mkForce { text = ""; };
+
+  # Keep a GUI available for the AirPlay receiver without disturbing tty1.
+  services.greetd = {
+    enable = true;
+    useTextGreeter = true;
+    settings = {
+      terminal.vt = lib.mkForce 2;
+      initial_session = {
+        command = "/run/current-system/sw/bin/sway";
+        user = "jake";
+      };
+      default_session = {
+        command = "${pkgs.greetd}/bin/agreety --cmd /run/current-system/sw/bin/sway";
+        user = "greeter";
+      };
+    };
+  };
+  systemd.services.greetd.unitConfig.Conflicts = lib.mkForce [ "getty@tty2.service" ];
+  systemd.services.greetd.serviceConfig.TTYPath = lib.mkForce "/dev/tty2";
+  systemd.services."autovt@tty2".enable = false;
 
   # Keep the Framework available as a server, including with the lid closed.
   services.logind.settings.Login = {
@@ -127,6 +146,7 @@
   modules.services.flake-update.enable = true;
   # Stream audio to AirPlay speakers, such as the Belkin receiver.
   modules.services.airplay.sender.enable = true;
+  modules.services.airplay.mirroring.enable = true;
   # Home automation with Matter sensors; the UI is reachable over Tailscale.
   modules.services.home-assistant = {
     enable = true;

@@ -17,10 +17,6 @@
       url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
     };
 
-    nix-claude-code = {
-      url = "github:ryoppippi/nix-claude-code";
-    };
-
     nix-darwin = {
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -57,7 +53,7 @@
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, nix-claude-code, spicetify-nix, doom-emacs, ... }:
+  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, spicetify-nix, doom-emacs, ... }:
     let
       inherit (lib) attrValues;
       inherit (lib.my) mapModules mapModulesRec mapHosts mapDarwinHosts;
@@ -73,9 +69,7 @@
             allowUnfree = true;
           };
           overlays = [ self.overlays.default ] ++ extraOverlays
-            ++ (attrValues (builtins.removeAttrs self.overlays [ "default" ])) ++ [
-            nix-claude-code.overlays.default
-          ];
+            ++ (attrValues (builtins.removeAttrs self.overlays [ "default" ]));
         };
 
       uPkgs = mkPkgs nixpkgs-unstable [

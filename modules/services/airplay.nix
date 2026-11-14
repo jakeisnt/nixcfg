@@ -11,6 +11,10 @@ let cfg = config.modules.services.airplay;
 in {
   options.modules.services.airplay = {
     sender.enable = mkBoolOpt false;
+    mirroring = {
+      enable = mkBoolOpt false;
+      name = mkOpt types.str "${config.networking.hostName} AirPlay";
+    };
     receiver = {
       enable = mkBoolOpt false;
       name = mkOpt types.str config.networking.hostName;
@@ -20,13 +24,37 @@ in {
   };
 
   config = mkMerge [
-    (mkIf (cfg.sender.enable || cfg.receiver.enable) {
+    (mkIf (cfg.sender.enable || cfg.receiver.enable || cfg.mirroring.enable) {
       user.packages = [
         (pkgs.writeShellScriptBin "airplay-scan" ''
           export PATH=${lib.makeBinPath [ pkgs.avahi pkgs.coreutils ]}:"$PATH"
           exec ${pkgs.bun}/bin/bun ${../../bin/airplay-scan.ts} "$@"
         '')
       ];
+    })
+
+    (mkIf cfg.mirroring.enable {
+      user.packages = [ pkgs.uxplay ];
+      services.avahi = {
+        enable = true;
+        openFirewall = true;
+      };
+      networking.firewall = {
+        allowedTCPPorts = [ 35000 35001 35002 ];
+        allowedUDPPorts = [ 35000 35001 35002 ];
+      };
+      # Start only after Sway has imported its Wayland display into systemd.
+      systemd.user.services.uxplay = {
+        description = "AirPlay screen and audio receiver";
+        wantedBy = [ "sway-session.target" ];
+        partOf = [ "graphical-session.target" ];
+        after = [ "graphical-session.target" ];
+        serviceConfig = {
+          ExecStart = "${pkgs.uxplay}/bin/uxplay -n ${lib.escapeShellArg cfg.mirroring.name} -p 35000 -vs waylandsink -as pulsesink";
+          Restart = "on-failure";
+          RestartSec = 3;
+        };
+      };
     })
 
     (mkIf cfg.sender.enable {
