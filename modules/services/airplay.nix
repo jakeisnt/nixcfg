@@ -38,6 +38,11 @@ in {
       services.avahi = {
         enable = true;
         openFirewall = true;
+        # UxPlay registers its AirPlay services through Avahi as the user.
+        publish = {
+          enable = true;
+          userServices = true;
+        };
       };
       networking.firewall = {
         allowedTCPPorts = [ 35000 35001 35002 ];
@@ -49,8 +54,9 @@ in {
         wantedBy = [ "sway-session.target" ];
         partOf = [ "graphical-session.target" ];
         after = [ "graphical-session.target" ];
+        environment.GST_GL_WINDOW = "wayland";
         serviceConfig = {
-          ExecStart = "${pkgs.uxplay}/bin/uxplay -n ${lib.escapeShellArg cfg.mirroring.name} -p 35000 -vs waylandsink -as pulsesink";
+          ExecStart = "${pkgs.uxplay}/bin/uxplay -n ${lib.escapeShellArg cfg.mirroring.name} -p 35000 -vs glimagesink -as pulsesink";
           Restart = "on-failure";
           RestartSec = 3;
         };
