@@ -7,7 +7,11 @@
 
 with lib;
 with lib.my;
-let cfg = config.modules.services.airplay;
+let
+  cfg = config.modules.services.airplay;
+  airplayReceiver = pkgs.writeShellScriptBin "airplay-receiver" ''
+    exec ${pkgs.systemd}/bin/systemctl --user start uxplay.service
+  '';
 in {
   options.modules.services.airplay = {
     sender.enable = mkBoolOpt false;
@@ -34,7 +38,24 @@ in {
     })
 
     (mkIf cfg.mirroring.enable {
-      user.packages = [ pkgs.uxplay ];
+      user.packages = [
+        pkgs.uxplay
+        airplayReceiver
+        (pkgs.makeDesktopItem {
+          name = "airplay-receiver";
+          desktopName = "AirPlay Receiver";
+          comment = "Listen for iPhone screen mirroring and audio";
+          exec = "${airplayReceiver}/bin/airplay-receiver";
+          icon = "video-display";
+          categories = [ "AudioVideo" ];
+          keywords = [ "AirPlay" "iPhone" "Mirror" "UxPlay" ];
+          terminal = false;
+        })
+      ];
+      # Applied to every new stream window, including reconnections.
+      home.configFile."sway/config".text = mkIf config.modules.desktop.sway.enable (mkAfter ''
+        for_window [app_id="^uxplay$"] fullscreen enable, focus
+      '');
       services.avahi = {
         enable = true;
         openFirewall = true;
@@ -55,9 +76,11 @@ in {
         partOf = [ "graphical-session.target" ];
         after = [ "graphical-session.target" ];
         environment.GST_GL_WINDOW = "wayland";
+        # DNS-SD startup errors can exit successfully; keep retrying at boot.
+        unitConfig.StartLimitIntervalSec = 0;
         serviceConfig = {
-          ExecStart = "${pkgs.uxplay}/bin/uxplay -n ${lib.escapeShellArg cfg.mirroring.name} -p 35000 -vs glimagesink -as pulsesink";
-          Restart = "on-failure";
+          ExecStart = "${pkgs.uxplay}/bin/uxplay -n ${lib.escapeShellArg cfg.mirroring.name} -p 35000 -vs glimagesink -as pulsesink -nc no -nofreeze";
+          Restart = "always";
           RestartSec = 3;
         };
       };

@@ -55,6 +55,13 @@ been verified.
 
 ## AirPlay discovery
 
+On hosts with AirPlay mirroring enabled, choose **AirPlay Receiver** in the
+application launcher (`drun`), or run `airplay-receiver`. Both start the same
+receiver service, so launching it repeatedly does not create extra receivers.
+It also starts automatically with Sway. Each incoming video window is focused
+and fullscreened; disconnecting closes the window and leaves the receiver
+listening for the next device. Stop listening with `systemctl --user stop uxplay`.
+
 Hosts with the AirPlay sender or receiver module enabled install `airplay-scan`.
 After rebuilding, run `airplay-scan` to discover AirPlay and RAOP audio services,
 or `airplay-scan --interface wlp170s0 --seconds 20 --json` for structured output.
