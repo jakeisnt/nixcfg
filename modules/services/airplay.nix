@@ -9,6 +9,9 @@ with lib;
 with lib.my;
 let
   cfg = config.modules.services.airplay;
+  uxplay = pkgs.uxplay.overrideAttrs (old: {
+    patches = (old.patches or []) ++ [ ./patches/uxplay-close-on-disconnect.patch ];
+  });
   airplayReceiver = pkgs.writeShellScriptBin "airplay-receiver" ''
     exec ${pkgs.systemd}/bin/systemctl --user start uxplay.service
   '';
@@ -39,7 +42,7 @@ in {
 
     (mkIf cfg.mirroring.enable {
       user.packages = [
-        pkgs.uxplay
+        uxplay
         airplayReceiver
         (pkgs.makeDesktopItem {
           name = "airplay-receiver";
@@ -84,7 +87,7 @@ in {
           # startup property fails with "Window has no size set" on 1.26.
           # Negotiate the pixel format instead of forcing packed RGB, which
           # can produce invalid Wayland strides for portrait iPhone frames.
-          ExecStart = "${pkgs.uxplay}/bin/uxplay -n ${lib.escapeShellArg cfg.mirroring.name} -p 35000 -vs waylandsink -srgb no -as pulsesink -nc no -nofreeze";
+          ExecStart = "${uxplay}/bin/uxplay -n ${lib.escapeShellArg cfg.mirroring.name} -p 35000 -vs waylandsink -srgb no -as pulsesink -nc no -nofreeze";
           Restart = "always";
           RestartSec = 3;
         };

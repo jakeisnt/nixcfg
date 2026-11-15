@@ -1,0 +1,16 @@
+diff --git a/uxplay.cpp b/uxplay.cpp
+--- a/uxplay.cpp
++++ b/uxplay.cpp
+@@ -2246,5 +2246,12 @@ extern "C" void conn_destroy (void *cls) {
+         if (mux_to_file) {
+             mux_renderer_stop();
+         }
++        // A client can disconnect without an explicit video TEARDOWN.
++        // Schedule cleanup on the main loop, respecting the -nc option.
++        if (use_video && new_window_closing_behavior) {
++            close_window = true;
++            relaunch_video = true;
++            reset_loop = true;
++        }
+     }
+ }
