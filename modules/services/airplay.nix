@@ -52,7 +52,7 @@ in {
           terminal = false;
         })
       ];
-      # Applied to every new stream window, including reconnections.
+      # Fullscreen only after the Wayland surface has been mapped.
       home.configFile."sway/config".text = mkIf config.modules.desktop.sway.enable (mkAfter ''
         for_window [app_id="^uxplay$"] fullscreen enable, focus
       '');
@@ -74,12 +74,17 @@ in {
         description = "AirPlay screen and audio receiver";
         wantedBy = [ "sway-session.target" ];
         partOf = [ "graphical-session.target" ];
-        after = [ "graphical-session.target" ];
-        environment.GST_GL_WINDOW = "wayland";
+        # sway-session starts before graphical-session; ordering after the
+        # latter creates a cycle and systemd drops the receiver's startup job.
+        after = [ "graphical-session-pre.target" ];
         # DNS-SD startup errors can exit successfully; keep retrying at boot.
         unitConfig.StartLimitIntervalSec = 0;
         serviceConfig = {
-          ExecStart = "${pkgs.uxplay}/bin/uxplay -n ${lib.escapeShellArg cfg.mirroring.name} -p 35000 -vs glimagesink -as pulsesink -nc no -nofreeze";
+          # Sway handles fullscreen after mapping: waylandsink's fullscreen
+          # startup property fails with "Window has no size set" on 1.26.
+          # Negotiate the pixel format instead of forcing packed RGB, which
+          # can produce invalid Wayland strides for portrait iPhone frames.
+          ExecStart = "${pkgs.uxplay}/bin/uxplay -n ${lib.escapeShellArg cfg.mirroring.name} -p 35000 -vs waylandsink -srgb no -as pulsesink -nc no -nofreeze";
           Restart = "always";
           RestartSec = 3;
         };
